@@ -4,6 +4,15 @@ public class Player {
     private Backpack myBackpack;
     private int myX;
     private int myY;
+    private int myPlayerSpeed;
+
+    private boolean mySpaceStone;
+    private boolean mySoulStone;
+
+    public Player() {
+        myPlayerSpeed = 3;
+        mySpaceStone = false;
+    }
 
     /**
      * Player constructor.
@@ -18,6 +27,9 @@ public class Player {
         myBackpack = new Backpack();
         myX = theX;
         myY = theY;
+        myPlayerSpeed = 3;
+        mySpaceStone = false;
+        mySoulStone = false;
     }
 
     /**
@@ -68,4 +80,50 @@ public class Player {
         return myY;
     }
 
+    /**
+     * Gets the player's current speed.
+     * @return player speed.
+     */
+    public int getPlayerSpeed() { return myPlayerSpeed;}
+
+    /**
+     * Sets the player's speed.
+     * @param speed speed to set.
+     */
+    public void setPlayerSpeed(final int speed) {
+        myPlayerSpeed = speed;
+    }
+
+
+    // Will be used to later on to allow player to bypass door without trivia.
+
+    /**
+     * Checks if player has a space stone.
+     * @return true if player has a space stone, otherwise false.
+     */
+    public boolean hasSpaceStone() { return mySpaceStone;}
+
+    /**
+     * Sets space stone to true or false.
+     * @param check boolean to be passed in.
+     */
+    public void setSpaceStone(boolean check) {
+        mySpaceStone = check;
+    }
+
+    // Will be used later to allow player to reset door. Field and method may be moved to DOOR class
+    // once created.
+    /**
+     * Checks if player has a soul stone.
+     * @return true if player has a soul stone, otherwise false.
+     */
+    public boolean hasSoulStone() { return mySoulStone;}
+
+    /**
+     * Sets space stone to true or false.
+     * @param check boolean to be passed in.
+     */
+    public void setSoulStone(boolean check) {
+        mySoulStone = check;
+    }
 }
