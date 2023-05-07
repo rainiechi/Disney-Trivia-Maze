@@ -9,42 +9,11 @@ public class Stone {
     }
 
     public void useAbility() {
-        switch (myStoneName) {
-            case "Power Stone":
-                // Permamently increases player speed by +2
-                player.setPlayerSpeed(5);
-                // will be used later on
-                myAbility = "Speed has increased by +2!";
-                break;
-            case "Time Stone":
-                // Permanently sets timer of questions to 20 seconds
-                // door.setTimer(20);
-                myAbility = "Timer has increased by 5!";
-                break;
-            case "Mind Stone":
-                // Eliminates 1 incorrect option. Can be used 5 times?
-                // Not sure how to code this yet
-
-                break;
-            case "Reality Stone":
-                // Reveals answer to door.
-                // Not sure how to code this yet
-                break;
-            case "Soul Stone":
-                // Can only be used on a locked door. After failing a trivia, screen will pop up and say "Would you like to
-                // use your Soul Stone to attempt this door again?"
-                // Player can use stone and walk up to door to reset again.
-                // Resets a locked door?
-                player.setSoulStone(true);
-                myAbility = "Walk up to the door you would like to attempt again.";
-                break;
-            case "Space Stone":
-                player.setSpaceStone(true);
-                myAbility = "You can now pass through one door without trivia!";
-                break;
-        }
     }
-
+    public String getDescription() {
+        String s = "";
+        return s;
+    }
     public String getStoneName() {
         return myStoneName;
     }
@@ -55,6 +24,9 @@ public class Stone {
 
     public String getmyAbility() {
         return myAbility;
+    }
+    public void setMyAbility(String s) {
+        myAbility = s;
     }
 
     // used for testing
