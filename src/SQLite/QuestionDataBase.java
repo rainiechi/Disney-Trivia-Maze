@@ -1,107 +1,4 @@
 package SQLite;   //package SQLite;
-//import org.sqlite.SQLiteDataSource;
-//import java.sql.Connection;
-//import java.sql.ResultSet;
-//import java.sql.SQLException;
-//import java.sql.Statement;
-//import java.util.Scanner;
-///**
-// *
-// * @author tom capaul
-// *
-// * Simple class to demonstrate SQLite connectivity
-// * 1) create connection
-// * 2) add a table
-// * 3) add entries to the table
-// * 4) query the table for its contents
-// * 5) display the results
-// *
-// * NOTE: any interactions with a database should utilize a try/catch
-// * since things can go wrong
-// *
-// * @see <a href="https://shanemcd.org/2020/01/24/how-to-set-up-sqlite-with-jdbc-in-eclipse-on-windows/">
-//https://shanemcd.org/2020/01/24/how-to-set-up-sqlite-with-jdbc-in-eclipse-on-windows/</a>
-// *
-// */
-//public class Database {
-//
-//    public static void main(String[] args) {
-//        SQLiteDataSource ds = null;
-//
-//        //establish connection (creates db file if it does not exist :-)
-//        try {
-//            ds = new SQLiteDataSource();
-//            ds.setUrl("jdbc:sqlite:questions.db");
-//        } catch ( Exception e ) {
-//            e.printStackTrace();
-//            System.exit(0);
-//        }
-
-//        System.out.println( "Opened database successfully" );
-//
-//
-//        //now create a table
-//        String query = "CREATE TABLE IF NOT EXISTS questions ( " +
-//                "QUESTION TEXT NOT NULL, " +
-//                "ANSWER TEXT NOT NULL )";
-//        try ( Connection conn = ds.getConnection();
-//              Statement stmt = conn.createStatement(); ) {
-//            int rv = stmt.executeUpdate( query );
-//            System.out.println( "executeUpdate() returned " + rv );
-//        } catch ( SQLException e ) {
-//            e.printStackTrace();
-//            System.exit( 0 );
-//        }
-//        System.out.println( "Created questions table successfully" );
-//
-//        //next insert two rows of data
-//        System.out.println( "Attempting to insert two rows into questions table" );
-//
-//        String query1 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( 'Last name of Java creator?', 'Gosling' )";
-//        String query2 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( 'This statement is false', 'paradox' )";
-//
-//        try ( Connection conn = ds.getConnection();
-//              Statement stmt = conn.createStatement(); ) {
-//            int rv = stmt.executeUpdate( query1 );
-//            System.out.println( "1st executeUpdate() returned " + rv );
-//
-//            rv = stmt.executeUpdate( query2 );
-//            System.out.println( "2nd executeUpdate() returned " + rv );
-//        } catch ( SQLException e ) {
-//            e.printStackTrace();
-//            System.exit( 0 );
-//        }
-//
-//
-//        //now query the database table for all its contents and display the results
-//        System.out.println( "Selecting all rows from questions table" );
-//        query = "SELECT * FROM questions";
-//
-//        try ( Connection conn = ds.getConnection();
-//              Statement stmt = conn.createStatement(); ) {
-//
-//            ResultSet rs = stmt.executeQuery(query);
-//
-//            //walk through each 'row' of results, grab data by column/field name
-//            // and print it
-//            while ( rs.next() ) {
-//                String question = rs.getString( "QUESTION" );
-//                String answer = rs.getString( "ANSWER" );
-//
-//                System.out.println( "Result: Question = " + question +
-//                        ", Answer = " + answer );
-//            }
-//        } catch ( SQLException e ) {
-//            e.printStackTrace();
-//            System.exit( 0 );
-//        }
-//        System.out.println("press enter to close program/window");
-//        Scanner input = new Scanner(System.in);
-//        input.nextLine();
-//    }
-//
-//}
-
 
 // what do we want
 // question?
@@ -113,7 +10,6 @@ package SQLite;   //package SQLite;
 // Add delete update search
 // Id  question right_answer choice1 choice2 choice3 choice4
 
-import org.sqlite.SQLiteDataSource;
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.table.DefaultTableModel;
@@ -144,22 +40,16 @@ public class QuestionDataBase {
         }
     };
 
-    static Connection con = null;
+    static Connection conn;
     ResultSet rs;
     int row, col;
 
     public static void main(String[] args) throws Exception {
-        try {
-            SQLiteDataSource ds = new SQLiteDataSource();
-            ds.setUrl("jdbc:sqlite:questions.db");
-            con = ds.getConnection();
-        } catch ( Exception e ) {
-            e.printStackTrace();
-            System.exit(0);
-        }
-
+        String url = "jdbc:sqlite:questions.db";
+        conn = DriverManager.getConnection(url);
         QuestionDataBase call = new QuestionDataBase();
         call.mainInterface();
+        call.checkTables();
         call.loadData();
     }
 
@@ -224,54 +114,88 @@ public class QuestionDataBase {
 //----------------------------------------------------------------------------------------------------------------------
 
         addButton = new JButton("Add");
-        addButton.setBounds(10, 140, 100, 25);
+        addButton.setBounds(10, 300, 100, 25);
         addButton.addActionListener(addQuestionListener);
         frame.add(addButton);
 
         deleteButton = new JButton("Delete");
-        deleteButton.setBounds(120, 140, 100, 25);
+        deleteButton.setBounds(120, 300, 100, 25);
         deleteButton.addActionListener(delQuestionListener);
         frame.add(deleteButton);
 
         updateButton = new JButton("Update");
-        updateButton.setBounds(230, 140, 100, 25);
+        updateButton.setBounds(230, 300, 100, 25);
         updateButton.addActionListener(updateQuestionListener);
         frame.add(updateButton);
 
         searchButton = new JButton("Search");
-        searchButton.setBounds(340, 140, 100, 25);
+        searchButton.setBounds(340, 300, 100, 25);
         searchButton.addActionListener(searchQuestionListener);
         frame.add(searchButton);
 
-        dtm = new DefaultTableModel();
-        table = new JTable(dtm);
+        table = new JTable();
+        table.setModel(dtm);
+        //table.setSize(800,100);
         dtm.setColumnIdentifiers(header);
         JScrollPane sp = new JScrollPane(table);
-        sp.setBounds(10, 170, 430, 600);
+        sp.setBounds(10, 350, 430, 600);
         frame.add(sp);
         table.addMouseListener(mouseListener);
 
         frame.setSize(480, 800);
-        frame.setLayout(null);
-        frame.setVisible(true);
+        frame.setLayout(null); // using no layout managers
+        frame.setVisible(true); // making the frame visible
+    }
+    private void checkTables() {
+        System.out.println("Check table");
+        String sql = "CREATE TABLE IF NOT EXISTS questions (" +
+                "	id integer PRIMARY KEY AUTOINCREMENT," +
+                "	question text NOT NULL," +
+                "	right_answer text NOT NULL," +
+                "	choice1 text NOT NULL" +
+                "	choice2 text NOT NULL" +
+                "	choice3 text NOT NULL" +
+                "	choice4 text NOT NULL" +
+                ");";
+        try {
+            Statement stmt = conn.createStatement();
+            stmt.executeUpdate(sql);
+        } catch (Exception err) {
+            System.out.println(err);
+        }
     }
 
+//    JTextField choice1, choice2, choice3, choice4, right_answer;
+//    JTextArea question;
+
     private void loadData() throws SQLException {
+        System.out.println("Load data");
         QuestionList = new ArrayList<>();
-        Statement stmt = con.createStatement();
+        Statement stmt = conn.createStatement();
         rs = stmt.executeQuery("select * from questions");
         QuestionList.clear();
-        // Id  question right_answer choice1 choice2 choice3 choice4
+
         while (rs.next()) {
-            QuestionList.add(new Question(rs.getInt(1), rs.getString(2), rs.getString(3),
-                    rs.getString(4), rs.getString(5), rs.getString(6),
+            QuestionList.add(new Question(
+                    rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getString(4),
+                    rs.getString(5),
+                    rs.getString(6),
                     rs.getString(7)));
         }
-        dtm.setRowCount(0);// reset data model
+        dtm.setRowCount(0); // reset data model
         for (int i = 0; i < QuestionList.size(); i++) {
-            Object[] objs = { QuestionList.get(i).ID, QuestionList.get(i).question, QuestionList.get(i).right_answer,
-                    QuestionList.get(i).choice1, QuestionList.get(i).choice2, QuestionList.get(i).choice3,
-                    QuestionList.get(i).choice4};
+            Object[] objs = {
+                    QuestionList.get(i).ID,
+                    QuestionList.get(i).question,
+                    QuestionList.get(i).right_answer,
+                    QuestionList.get(i).choice1,
+                    QuestionList.get(i).choice2,
+                    QuestionList.get(i).choice3,
+                    QuestionList.get(i).choice4
+            };
             dtm.addRow(objs);
         }
     }
@@ -288,22 +212,33 @@ public class QuestionDataBase {
             QuestionList = new ArrayList<>();
             try {
 
-                Statement stmt = con.createStatement();
+                Statement stmt = conn.createStatement();
                 rs = stmt.executeQuery("select * from questions where question LIKE '%" + search + "%'");
                 QuestionList.clear();
+
                 while (rs.next()) {
-                    QuestionList.add(new Question(rs.getInt(1), rs.getString(2), rs.getString(3),
-                            rs.getString(4), rs.getString(5), rs.getString(6),
-                            rs.getString(7)));
+                    QuestionList.add(new Question
+                            (rs.getInt(1),
+                                    rs.getString(2),
+                                    rs.getString(3),
+                                    rs.getString(4),
+                                    rs.getString(5),
+                                    rs.getString(6),
+                                    rs.getString(7)));
                 }
                 dtm.setRowCount(0);// reset data model
                 for (int i = 0; i < QuestionList.size(); i++) {
-                    Object[] objs = { QuestionList.get(i).ID, QuestionList.get(i).question, QuestionList.get(i).right_answer,
-                            QuestionList.get(i).choice1, QuestionList.get(i).choice2, QuestionList.get(i).choice3,
-                            QuestionList.get(i).choice4};
+                    Object[] objs = {
+                            QuestionList.get(i).ID,
+                            QuestionList.get(i).question,
+                            QuestionList.get(i).right_answer,
+                            QuestionList.get(i).choice1,
+                            QuestionList.get(i).choice2,
+                            QuestionList.get(i).choice3,
+                            QuestionList.get(i).choice4
+                    };
                     dtm.addRow(objs);
                 }
-
             } catch (Exception err) {
                 System.out.println(err);
             }
@@ -327,8 +262,14 @@ public class QuestionDataBase {
                 choice3.setText(table.getValueAt(row, 5).toString());
                 choice4.setText(table.getValueAt(row, 6).toString());
 
-//                QuestionObj = new Question(Integer.parseInt(table.getValueAt(row, 0).toString()), table.getValueAt(row, 1).toString(),
-//                        Double.parseDouble(table.getValueAt(row, 0).toString()), table.getValueAt(row, 0).toString());
+                QuestionObj = new Question(
+                        Integer.parseInt(table.getValueAt(row, 0).toString()),
+                        table.getValueAt(row, 1).toString(),
+                        table.getValueAt(row, 2).toString(),
+                        table.getValueAt(row, 3).toString(),
+                        table.getValueAt(row, 4).toString(),
+                        table.getValueAt(row, 5).toString(),
+                        table.getValueAt(row, 6).toString());
             }
         }
     };
@@ -336,9 +277,6 @@ public class QuestionDataBase {
     ActionListener updateQuestionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            //     JTextField choice1, choice2, choice3, choice4, right_answer;
-//  JTextArea question;
-
             String mazequestion = question.getText().toString();
             String mazeright_answer = right_answer.getText().toString();
             String mazechoice1 = choice1.getText().toString();
@@ -355,22 +293,25 @@ public class QuestionDataBase {
                         JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_OPTION) {
                     try {
-                        System.out.println("Right Answer " + QuestionObj.right_answer);
-                        Statement stmt = con.createStatement();
-                        stmt.executeUpdate("update questions set right_answer = '" + mazeright_answer + ", choice1 = " + mazechoice1 +
+                        System.out.println("Question " + QuestionObj.question);
+                        Statement stmt = conn.createStatement();
+
+                        stmt.executeUpdate("update questions set question = '" + mazequestion +
+                                ", question = " + mazequestion +
+                                ", choice1 = " + mazechoice1 +
                                 ", choice2='" + mazechoice2 +
-                                ", choice2='" + mazechoice3 +
-                                ", choice2='" + mazechoice4 +
+                                ", choice3='" + mazechoice3 +
+                                ", choice4='" + mazechoice4 +
                                 "' where id =" + QuestionObj.ID + "");
                         loadData();
                     } catch (Exception err) {
                         System.out.println(err);
                     }
                 }
-
             }
         }
     };
+
     ActionListener addQuestionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -386,14 +327,15 @@ public class QuestionDataBase {
                 JOptionPane.showMessageDialog(frame, "Please enter question info");
                 question.requestFocus();
             } else {
-                int result = JOptionPane.showConfirmDialog(frame, "Insert this question data " + mazequestion + "?", "Insert",
+                int result = JOptionPane.showConfirmDialog(frame, "Insert this question " + mazequestion + "?", "Insert",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_OPTION) {
                     try {
-                        Statement stmt = con.createStatement();
-//                        stmt.executeUpdate("insert into questions (`question`, `right_answer`, `choice1`","choice2", "choice3" ,"choice4") VALUES ('"
-//                                + mazequestion + "','" + mazeright_answer + "','" + mazechoice1 +  mazechoice2 + "','" + mazechoice3 + "','" + mazechoice4 +"')");
+                        Statement stmt = conn.createStatement();
+
+                        stmt.executeUpdate("insert into questions (`question`, `right_answer`, `choice1`,'choice2', 'choice3' ,'choice4') VALUES ('" +
+                                mazequestion + "','" + mazeright_answer + "','" + mazechoice1 +  mazechoice2 + "','" + mazechoice3 + "','" + mazechoice4 +"')");
                         loadData();
                     } catch (Exception err) {
                         System.out.println(err);
@@ -405,29 +347,25 @@ public class QuestionDataBase {
 
 
     ActionListener delQuestionListener = new ActionListener() {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             if (QuestionObj == null) {
                 System.out.println("Null");
             } else {
-
                 int result = JOptionPane.showConfirmDialog(frame, "Delete " + QuestionObj.question + "?", "Swing Tester",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_OPTION) {
                     try {
                         System.out.println("Question " +  QuestionObj.question );
-                        Statement stmt = con.createStatement();
+                        Statement stmt = conn.createStatement();
                         stmt.executeUpdate("delete from questions where id = '" +  QuestionObj.ID + "'");
                         loadData();
                     } catch (Exception err) {
                         System.out.println(err);
                     }
                 }
-
             }
-
         }
     };
 }
