@@ -24,6 +24,7 @@ public class QuestionDataBase {
     JTextArea question;
     JButton addButton, deleteButton, updateButton, searchButton;
     JTable table;
+    JScrollPane scrollPane;
     JFrame frame;
     JLabel label_question, label_choice1, label_choice2, label_choice3, label_choice4,
             label_right_answer;
@@ -31,18 +32,19 @@ public class QuestionDataBase {
 
     Question QuestionObj;
 
-    String header[] = new String[] { "ID", "Question ", "Right Answer", "First Choice ",
+    String header[] = { "ID", "Question ", "Right Answer", "First Choice ",
             "Second Choice", "Third Choice", "Fourth Choice"};
-    DefaultTableModel dtm = new DefaultTableModel(0, 0) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
+    DefaultTableModel model = new DefaultTableModel();
+//    {
+//        @Override
+//        public boolean isCellEditable(int row, int column) {
+//        return false;
+//    }
+//    };
 
     static Connection conn;
-    ResultSet rs;
-    int row, col;
+    ResultSet resultset;
+    // int row, col;
 
     public static void main(String[] args) throws Exception {
         String url = "jdbc:sqlite:questions.db";
@@ -50,7 +52,7 @@ public class QuestionDataBase {
         QuestionDataBase call = new QuestionDataBase();
         call.mainInterface();
         call.checkTables();
-        call.loadData();
+        //call.loadData();
     }
 
     private void mainInterface() {
@@ -133,13 +135,14 @@ public class QuestionDataBase {
         searchButton.addActionListener(searchQuestionListener);
         frame.add(searchButton);
 
-        table = new JTable();
-        table.setModel(dtm);
+        table = new JTable(model);
+
         //table.setSize(800,100);
-        dtm.setColumnIdentifiers(header);
-        JScrollPane sp = new JScrollPane(table);
-        sp.setBounds(10, 350, 430, 600);
-        frame.add(sp);
+        model.setColumnIdentifiers(header);
+        scrollPane = new JScrollPane(table);
+
+        //sp.setBounds(10, 350, 430, 600);
+        frame.getContentPane().add(scrollPane);
         table.addMouseListener(mouseListener);
 
         frame.setSize(480, 800);
@@ -152,9 +155,9 @@ public class QuestionDataBase {
                 "	id integer PRIMARY KEY AUTOINCREMENT," +
                 "	question text NOT NULL," +
                 "	right_answer text NOT NULL," +
-                "	choice1 text NOT NULL" +
-                "	choice2 text NOT NULL" +
-                "	choice3 text NOT NULL" +
+                "	choice1 text NOT NULL," +
+                "	choice2 text NOT NULL," +
+                "	choice3 text NOT NULL," +
                 "	choice4 text NOT NULL" +
                 ");";
         try {
@@ -165,6 +168,7 @@ public class QuestionDataBase {
         }
     }
 
+
 //    JTextField choice1, choice2, choice3, choice4, right_answer;
 //    JTextArea question;
 
@@ -172,80 +176,42 @@ public class QuestionDataBase {
         System.out.println("Load data");
         QuestionList = new ArrayList<>();
         Statement stmt = conn.createStatement();
-        rs = stmt.executeQuery("select * from questions");
+        resultset = stmt.executeQuery("select * from questions");
         QuestionList.clear();
 
-        while (rs.next()) {
+        while (resultset.next()) {
             QuestionList.add(new Question(
-                    rs.getInt(1),
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5),
-                    rs.getString(6),
-                    rs.getString(7)));
+                    resultset.getInt(1),
+                    resultset.getString(2),
+                    resultset.getString(3),
+                    resultset.getString(4),
+                    resultset.getString(5),
+                    resultset.getString(6),
+                    resultset.getString(7)));
         }
-        dtm.setRowCount(0); // reset data model
-        for (int i = 0; i < QuestionList.size(); i++) {
+
+        // Check for null model
+        if (model == null) {
+            System.err.println("Data model is not initialized");
+            return;
+        }
+
+        model.setRowCount(0); // reset data model
+        for (Question value : QuestionList) {
             Object[] objs = {
-                    QuestionList.get(i).ID,
-                    QuestionList.get(i).question,
-                    QuestionList.get(i).right_answer,
-                    QuestionList.get(i).choice1,
-                    QuestionList.get(i).choice2,
-                    QuestionList.get(i).choice3,
-                    QuestionList.get(i).choice4
+                    value.ID,
+                    value.question,
+                    value.right_answer,
+                    value.choice1,
+                    value.choice2,
+                    value.choice3,
+                    value.choice4
             };
-            dtm.addRow(objs);
+            model.addRow(objs);
         }
     }
-//----------------------------------------------------------------------------------------------------------------------
 
-    ActionListener searchQuestionListener = new ActionListener() {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-
-            String search = JOptionPane.showInputDialog("Enter Question");
-            System.out.println(search);
-
-            QuestionList = new ArrayList<>();
-            try {
-
-                Statement stmt = conn.createStatement();
-                rs = stmt.executeQuery("select * from questions where question LIKE '%" + search + "%'");
-                QuestionList.clear();
-
-                while (rs.next()) {
-                    QuestionList.add(new Question
-                            (rs.getInt(1),
-                                    rs.getString(2),
-                                    rs.getString(3),
-                                    rs.getString(4),
-                                    rs.getString(5),
-                                    rs.getString(6),
-                                    rs.getString(7)));
-                }
-                dtm.setRowCount(0);// reset data model
-                for (int i = 0; i < QuestionList.size(); i++) {
-                    Object[] objs = {
-                            QuestionList.get(i).ID,
-                            QuestionList.get(i).question,
-                            QuestionList.get(i).right_answer,
-                            QuestionList.get(i).choice1,
-                            QuestionList.get(i).choice2,
-                            QuestionList.get(i).choice3,
-                            QuestionList.get(i).choice4
-                    };
-                    dtm.addRow(objs);
-                }
-            } catch (Exception err) {
-                System.out.println(err);
-            }
-        }
-
-    };
-
+    //----------------------------------------------------------------------------------------------------------------------
     MouseInputAdapter mouseListener = new MouseInputAdapter() {
         @Override
         public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -273,57 +239,19 @@ public class QuestionDataBase {
             }
         }
     };
-
-    ActionListener updateQuestionListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String mazequestion = question.getText().toString();
-            String mazeright_answer = right_answer.getText().toString();
-            String mazechoice1 = choice1.getText().toString();
-            String mazechoice2 = choice2.getText().toString();
-            String mazechoice3 = choice3.getText().toString();
-            String mazechoice4 = choice4.getText().toString();
-
-            if (QuestionObj == null) {
-                System.out.println("Null");
-            } else {
-
-                int result = JOptionPane.showConfirmDialog(frame, "Update " + QuestionObj.question + "?", "Swing Tester",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE);
-                if (result == JOptionPane.YES_OPTION) {
-                    try {
-                        System.out.println("Question " + QuestionObj.question);
-                        Statement stmt = conn.createStatement();
-
-                        stmt.executeUpdate("update questions set question = '" + mazequestion +
-                                ", question = " + mazequestion +
-                                ", choice1 = " + mazechoice1 +
-                                ", choice2='" + mazechoice2 +
-                                ", choice3='" + mazechoice3 +
-                                ", choice4='" + mazechoice4 +
-                                "' where id =" + QuestionObj.ID + "");
-                        loadData();
-                    } catch (Exception err) {
-                        System.out.println(err);
-                    }
-                }
-            }
-        }
-    };
-
+    //----------------------------------------------------------------------------------------------------------------------
     ActionListener addQuestionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            String mazequestion = question.getText().toString();
-            String mazeright_answer = right_answer.getText().toString();
-            String mazechoice1 = choice1.getText().toString();
-            String mazechoice2 = choice2.getText().toString();
-            String mazechoice3 = choice3.getText().toString();
-            String mazechoice4 = choice4.getText().toString();
+            String mazequestion = question.getText();
+            String mazeright_answer = right_answer.getText();
+            String mazechoice1 = choice1.getText();
+            String mazechoice2 = choice2.getText();
+            String mazechoice3 = choice3.getText();
+            String mazechoice4 = choice4.getText();
 
             if (mazequestion.isEmpty() || mazeright_answer.isEmpty() || mazechoice1.isEmpty()
-                    || mazechoice2.isEmpty() || mazechoice3.isEmpty() || mazechoice4.isEmpty()   ) {
+                    || mazechoice2.isEmpty() || mazechoice3.isEmpty() || mazechoice4.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Please enter question info");
                 question.requestFocus();
             } else {
@@ -332,10 +260,17 @@ public class QuestionDataBase {
                         JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_OPTION) {
                     try {
-                        Statement stmt = conn.createStatement();
+                        // Changed to PreparedStatement to prevent SQL injection attacks
+                        PreparedStatement pstmt = conn.prepareStatement("INSERT INTO questions (question, right_answer, choice1, choice2, choice3, choice4) VALUES (?, ?, ?, ?, ?, ?)");
+                        // Set parameters to prevent SQL injection attacks
+                        pstmt.setString(1, mazequestion);
+                        pstmt.setString(2, mazeright_answer);
+                        pstmt.setString(3, mazechoice1);
+                        pstmt.setString(4, mazechoice2);
+                        pstmt.setString(5, mazechoice3);
+                        pstmt.setString(6, mazechoice4);
 
-                        stmt.executeUpdate("insert into questions (`question`, `right_answer`, `choice1`,'choice2', 'choice3' ,'choice4') VALUES ('" +
-                                mazequestion + "','" + mazeright_answer + "','" + mazechoice1 +  mazechoice2 + "','" + mazechoice3 + "','" + mazechoice4 +"')");
+                        pstmt.executeUpdate();
                         loadData();
                     } catch (Exception err) {
                         System.out.println(err);
@@ -368,4 +303,89 @@ public class QuestionDataBase {
             }
         }
     };
+
+    ActionListener updateQuestionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String mazequestion = question.getText();
+            String mazeright_answer = right_answer.getText();
+            String mazechoice1 = choice1.getText();
+            String mazechoice2 = choice2.getText();
+            String mazechoice3 = choice3.getText();
+            String mazechoice4 = choice4.getText();
+
+            if (QuestionObj == null) {
+                System.out.println("Null");
+            } else {
+
+                int result = JOptionPane.showConfirmDialog(frame, "Update " + QuestionObj.question + "?", "Swing Tester",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+                if (result == JOptionPane.YES_OPTION) {
+                    try {
+                        System.out.println("Question " + QuestionObj.question);
+                        Statement stmt = conn.createStatement();
+
+                        stmt.executeUpdate("update questions set question = '" + mazequestion +
+                                "', mazeright_answer = '" + mazeright_answer +
+                                "', choice1 = '" + mazechoice1 +
+                                "', choice2='" + mazechoice2 +
+                                "', choice3='" + mazechoice3 +
+                                "', choice4='" + mazechoice4 +
+                                "' where id =" + QuestionObj.ID + "");
+                        loadData();
+                    } catch (Exception err) {
+                        System.out.println(err);
+                    }
+                }
+            }
+        }
+    };
+
+    ActionListener searchQuestionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String searchTerm = JOptionPane.showInputDialog(frame, "Enter search term:");
+            if (searchTerm == null || searchTerm.isEmpty()) {
+                return; // user cancelled or entered empty input
+            }
+            QuestionList = new ArrayList<>();
+            try {
+                String sql = "SELECT * FROM questions WHERE question LIKE ?";
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setString(1, "%" + searchTerm + "%");
+                ResultSet resultset = stmt.executeQuery();
+                QuestionList.clear();
+                while (resultset.next()) {
+                    QuestionList.add(new Question(
+                            resultset.getInt("id"),
+                            resultset.getString("question"),
+                            resultset.getString("right_answer"),
+                            resultset.getString("choice1"),
+                            resultset.getString("choice2"),
+                            resultset.getString("choice3"),
+                            resultset.getString("choice4")
+                    ));
+                }
+                model.setRowCount(0);// reset data model
+                for (int i = 0; i < QuestionList.size(); i++) {
+                    Object[] objs = {
+                            QuestionList.get(i).ID,
+                            QuestionList.get(i).question,
+                            QuestionList.get(i).right_answer,
+                            QuestionList.get(i).choice1,
+                            QuestionList.get(i).choice2,
+                            QuestionList.get(i).choice3,
+                            QuestionList.get(i).choice4
+                    };
+                    model.addRow(objs);
+                }
+            } catch (SQLException err) {
+                JOptionPane.showMessageDialog(frame, "An error occurred while searching for questions.");
+                System.err.println(err);
+            }
+        }
+    };
+
+
 }
