@@ -1,8 +1,10 @@
 package Model;
 
 public class Stone {
-    private String myStoneName;
-    private String myAbility;
+    protected String myStoneName;
+    protected String myAbility;
+
+    protected int myUses;
 
     public Stone() {
     }
@@ -17,15 +19,13 @@ public class Stone {
         return myStoneName;
     }
 
-    public void setStoneName(String name) {
-        myStoneName = name;
-    }
 
     public String getmyAbility() {
         return myAbility;
     }
-    public void setMyAbility(String s) {
-        myAbility = s;
+
+    public int getUses() {
+        return myUses;
     }
 
     // used for testing
