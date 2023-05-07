@@ -12,6 +12,7 @@ public class Player {
     public Player() {
         myPlayerSpeed = 3;
         mySpaceStone = false;
+        mySoulStone = false;
     }
 
     /**
