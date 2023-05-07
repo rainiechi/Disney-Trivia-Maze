@@ -3,9 +3,8 @@ package Model;
 public class Stone {
     private String myStoneName;
     private String myAbility;
-    Player player;
+
     public Stone() {
-        player = new Player();
     }
 
     public void useAbility() {

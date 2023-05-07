@@ -4,8 +4,8 @@ public class SpaceStone extends Stone{
     public SpaceStone() {
         setStoneName("Space Stone");
     }
-    public void useAbility() {
-        player.setSpaceStone(true);
+    public void useAbility(Player thePlayer) {
+        thePlayer.setSpaceStone(true);
         setMyAbility("You can now pass through one door without trivia!");
     }
     public String getDescription() {

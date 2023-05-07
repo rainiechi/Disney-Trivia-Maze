@@ -4,8 +4,8 @@ public class PowerStone extends Stone {
     public PowerStone() {
         setStoneName("Power Stone");
     }
-    public void useAbility() {
-        player.setPlayerSpeed(5);
+    public void useAbility(Player thePlayer) {
+        thePlayer.setPlayerSpeed(5);
         // will be used later on
         setMyAbility("Speed has increased by +2!");
     }
