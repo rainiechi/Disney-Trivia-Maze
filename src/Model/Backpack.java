@@ -4,6 +4,10 @@ public class Backpack {
     private static final int MAX_ITEMS = 6;
     private Object[] myStorage; //replace Object with Stone
     private int currItems;
+
+    /**
+     * Backpack constructor
+     */
     public Backpack() {
         myStorage = new Object[6]; //at most stores all 6 stones
         currItems = 0;
@@ -55,8 +59,9 @@ public class Backpack {
      * @return the stone's index, returns -1 if stone not found
      */
     public int findStone(final Object theStone) {
+        String stoneType = theStone.getClass().getSimpleName();
         for (int i = 0; i < MAX_ITEMS; i++) {
-            if (theStone.getClass().equals(myStorage[i].getClass())) {
+            if (stoneType.equals(myStorage[i].getClass().getSimpleName())) {
                 return i;
             }
         }
