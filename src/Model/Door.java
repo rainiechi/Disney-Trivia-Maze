@@ -4,15 +4,19 @@ import SQLite.Question;
 
 public class Door {
 
-    private Question myQuestion;
+    private MockQuestion myQuestion;
     /** Boolean checks if door is unlocked*/
     private boolean myUnlocked;
     /** Boolean checks if door has been attempted*/
     private boolean myAttempted;
+    private String myAnswer;
     public Door () {
-        myQuestion = new Question(1, "Question", "Answer", "Choice1", "Choice2", "Choice3", "Choice4");
+        myQuestion = new MockQuestion();
+        myQuestion.setQuestion(" In Finding Nemo, what's the name of Nemo's mother?");
+        myQuestion.setAnswer("Coral");
         myUnlocked = false;
         myAttempted = false;
+        myAnswer = null;
     }
     public void displayQuestion() {
         // Testing purposes. Will be done in GUI implementation once we have SQLite database.
@@ -25,6 +29,12 @@ public class Door {
         } else if (!thePlayer.hasSoulStone() && myAttempted) {
             System.out.println("Door has been attempted.");
         }
+    }
+    public void checkPlayerAnswer(MockQuestion theQuestion) {
+        if (theQuestion.getAnswer().toLowerCase().equals(myAnswer.toLowerCase())) {
+            myUnlocked = true;
+        }
+        myAttempted = true;
     }
     public void getAnswer() {
         // Question class needs to have a getter method for right answer.
@@ -40,5 +50,11 @@ public class Door {
     }
     public void setAttempted(boolean attempt) {
         myAttempted = attempt;
+    }
+    public String getMyAnswer() {
+        return myAnswer;
+    }
+    public void setMyAnswer(String answer) {
+        myAnswer = answer;
     }
 }
