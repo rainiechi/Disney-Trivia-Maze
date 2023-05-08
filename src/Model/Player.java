@@ -9,11 +9,6 @@ public class Player {
     private boolean mySpaceStone;
     private boolean mySoulStone;
 
-    public Player() {
-        myPlayerSpeed = 3;
-        mySpaceStone = false;
-        mySoulStone = false;
-    }
 
     /**
      * Player constructor.

@@ -2,14 +2,14 @@ package Model;
 
 public class Backpack {
     private static final int MAX_ITEMS = 6;
-    private Object[] myStorage; //replace Object with Stone
+    private Stone[] myStorage;
     private int currItems;
 
     /**
      * Backpack constructor
      */
     public Backpack() {
-        myStorage = new Object[6]; //at most stores all 6 stones
+        myStorage = new Stone[6]; //at most stores all 6 stones
         currItems = 0;
     }
 
@@ -17,7 +17,7 @@ public class Backpack {
      * Adds Stone to the backpack, adds to the first open slot.
      * @param theStone the stone to be added
      */
-    public void addToBackpack(final Object theStone) {
+    public void addToBackpack(final Stone theStone) {
         if (currItems == MAX_ITEMS) {
             System.out.println("Game error, there should be no more than 6 stones in game"); //for debug purposes
         }
@@ -34,13 +34,16 @@ public class Backpack {
      * Uses the specified stone then deletes it from backpack;
      * @param theStone theStone to be used.
      */
-    public void useStone(final Object theStone) {
+    public void useStone(final Stone theStone) {
         int stoneIndex = findStone(theStone);
         if (stoneIndex < 0) {
             System.out.println("Player does not have this stone.");
         } else {
-            //myStorage[stoneIndex].useStone();
-            deleteStone(stoneIndex);
+            Stone stone = myStorage[stoneIndex];
+            stone.useAbility();
+            if (stone.getUses() == 0) {
+                deleteStone(stoneIndex);
+            }
         }
     }
 
@@ -58,10 +61,10 @@ public class Backpack {
      * @param theStone the stone to be found
      * @return the stone's index, returns -1 if stone not found
      */
-    public int findStone(final Object theStone) {
-        String stoneType = theStone.getClass().getSimpleName();
+    public int findStone(final Stone theStone) {
+        String stoneType = theStone.getStoneName();
         for (int i = 0; i < MAX_ITEMS; i++) {
-            if (stoneType.equals(myStorage[i].getClass().getSimpleName())) {
+            if (stoneType.equals(myStorage[i].getStoneName())) {
                 return i;
             }
         }
