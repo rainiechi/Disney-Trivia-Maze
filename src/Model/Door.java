@@ -9,14 +9,15 @@ public class Door {
     private boolean myUnlocked;
     /** Boolean checks if door has been attempted*/
     private boolean myAttempted;
-    private String myAnswer;
+    private String myPlayerAnswer;
+
     public Door () {
         myQuestion = new MockQuestion();
         myQuestion.setQuestion(" In Finding Nemo, what's the name of Nemo's mother?");
         myQuestion.setAnswer("Coral");
         myUnlocked = false;
         myAttempted = false;
-        myAnswer = null;
+        myPlayerAnswer = null;
     }
     public void displayQuestion() {
         // Testing purposes. Will be done in GUI implementation once we have SQLite database.
@@ -30,14 +31,14 @@ public class Door {
             System.out.println("Door has been attempted.");
         }
     }
-    public void checkPlayerAnswer(MockQuestion theQuestion) {
-        if (theQuestion.getAnswer().toLowerCase().equals(myAnswer.toLowerCase())) {
+    public void checkPlayerAnswer() {
+        if (myQuestion.getAnswer().toLowerCase().equals(myPlayerAnswer.toLowerCase())) {
             myUnlocked = true;
         }
         myAttempted = true;
     }
-    public void getAnswer() {
-        // Question class needs to have a getter method for right answer.
+    public String getAnswer() {
+        return myQuestion.getAnswer();
     }
     public boolean getMyUnlock() {
         return myUnlocked;
@@ -51,10 +52,10 @@ public class Door {
     public void setAttempted(boolean attempt) {
         myAttempted = attempt;
     }
-    public String getMyAnswer() {
-        return myAnswer;
+    public String getPlayerMyAnswer() {
+        return myPlayerAnswer;
     }
-    public void setMyAnswer(String answer) {
-        myAnswer = answer;
+    public void setPlayerMyAnswer(String answer) {
+        myPlayerAnswer = answer;
     }
 }
