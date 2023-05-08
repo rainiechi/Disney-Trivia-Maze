@@ -7,8 +7,8 @@ public class TimeStone extends Stone{
         myUses = 1;
     }
 
-    public void useAbility(Door theDoor) {
-        theDoor.setTimer(20);
+    public void useAbility(Player thePlayer) {
+        thePlayer.setTimeLimit(20);
         myUses--;
 
     }

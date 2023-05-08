@@ -6,6 +6,8 @@ public class Player {
     private int myY;
     private int myPlayerSpeed;
 
+    private int myTimeLimit;
+
     private boolean mySpaceStone;
     private boolean mySoulStone;
 
@@ -26,6 +28,7 @@ public class Player {
         myPlayerSpeed = 3;
         mySpaceStone = false;
         mySoulStone = false;
+        myTimeLimit = 15;
     }
 
     /**
@@ -121,5 +124,12 @@ public class Player {
      */
     public void setSoulStone(boolean check) {
         mySoulStone = check;
+    }
+
+    public int getTimeLimit() {
+        return myTimeLimit;
+    }
+    public void setTimeLimit(int time) {
+        myTimeLimit = time;
     }
 }

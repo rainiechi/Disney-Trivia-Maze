@@ -3,7 +3,6 @@ package Model;
 import SQLite.Question;
 
 public class Door {
-    private int myTimer;
 
     private Question myQuestion;
     /** Boolean checks if door is unlocked*/
@@ -14,7 +13,6 @@ public class Door {
         myQuestion = new Question(1, "Question", "Answer", "Choice1", "Choice2", "Choice3", "Choice4");
         myUnlocked = false;
         myAttempted = false;
-        myTimer = 15;
     }
     public void displayQuestion() {
         // Testing purposes. Will be done in GUI implementation once we have SQLite database.
@@ -42,11 +40,5 @@ public class Door {
     }
     public void setAttempted(boolean attempt) {
         myAttempted = attempt;
-    }
-    public int getTimer() {
-        return myTimer;
-    }
-    public void setTimer(int time) {
-        myTimer = time;
     }
 }
