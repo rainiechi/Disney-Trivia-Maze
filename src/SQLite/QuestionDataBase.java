@@ -22,9 +22,9 @@ public class QuestionDataBase {
 
     JTextField choice1, choice2, choice3, choice4, right_answer;
     JTextArea question;
-    JButton addButton, deleteButton, updateButton, searchButton;
+    JButton addButton, deleteButton, searchButton;
     JTable table;
-    JScrollPane scrollPane;
+
     JFrame frame;
     JLabel label_question, label_choice1, label_choice2, label_choice3, label_choice4,
             label_right_answer;
@@ -34,17 +34,16 @@ public class QuestionDataBase {
 
     String header[] = { "ID", "Question ", "Right Answer", "First Choice ",
             "Second Choice", "Third Choice", "Fourth Choice"};
-    DefaultTableModel model = new DefaultTableModel();
-//    {
-//        @Override
-//        public boolean isCellEditable(int row, int column) {
-//        return false;
-//    }
-//    };
+    DefaultTableModel model = new DefaultTableModel(0, 0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
     static Connection conn;
     ResultSet resultset;
-    // int row, col;
+    int row, col;
 
     public static void main(String[] args) throws Exception {
         String url = "jdbc:sqlite:questions.db";
@@ -52,7 +51,8 @@ public class QuestionDataBase {
         QuestionDataBase call = new QuestionDataBase();
         call.mainInterface();
         call.checkTables();
-        //call.loadData();
+        call.loadData();
+
     }
 
     private void mainInterface() {
@@ -125,32 +125,27 @@ public class QuestionDataBase {
         deleteButton.addActionListener(delQuestionListener);
         frame.add(deleteButton);
 
-        updateButton = new JButton("Update");
-        updateButton.setBounds(230, 300, 100, 25);
-        updateButton.addActionListener(updateQuestionListener);
-        frame.add(updateButton);
-
         searchButton = new JButton("Search");
-        searchButton.setBounds(340, 300, 100, 25);
+        searchButton.setBounds(230, 300, 100, 25);
         searchButton.addActionListener(searchQuestionListener);
         frame.add(searchButton);
 
-        table = new JTable(model);
-
-        //table.setSize(800,100);
+        table = new JTable();
+        table.setModel(model);
         model.setColumnIdentifiers(header);
-        scrollPane = new JScrollPane(table);
-
-        //sp.setBounds(10, 350, 430, 600);
-        frame.getContentPane().add(scrollPane);
+        JScrollPane sp = new JScrollPane(table);
+        sp.setBounds(10, 360, 430, 600);
+        frame.add(sp);
         table.addMouseListener(mouseListener);
+
+
 
         frame.setSize(480, 800);
         frame.setLayout(null); // using no layout managers
         frame.setVisible(true); // making the frame visible
     }
     private void checkTables() {
-        System.out.println("Check table");
+
         String sql = "CREATE TABLE IF NOT EXISTS questions (" +
                 "	id integer PRIMARY KEY AUTOINCREMENT," +
                 "	question text NOT NULL," +
@@ -173,7 +168,6 @@ public class QuestionDataBase {
 //    JTextArea question;
 
     private void loadData() throws SQLException {
-        System.out.println("Load data");
         QuestionList = new ArrayList<>();
         Statement stmt = conn.createStatement();
         resultset = stmt.executeQuery("select * from questions");
@@ -284,15 +278,15 @@ public class QuestionDataBase {
     ActionListener delQuestionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (QuestionObj == null) {
-                System.out.println("Null");
+            int row = table.getSelectedRow();
+            if (row == -1) {
+                JOptionPane.showMessageDialog(frame, "Please select a row first.");
             } else {
                 int result = JOptionPane.showConfirmDialog(frame, "Delete " + QuestionObj.question + "?", "Swing Tester",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE);
                 if (result == JOptionPane.YES_OPTION) {
                     try {
-                        System.out.println("Question " +  QuestionObj.question );
                         Statement stmt = conn.createStatement();
                         stmt.executeUpdate("delete from questions where id = '" +  QuestionObj.ID + "'");
                         loadData();
@@ -304,43 +298,6 @@ public class QuestionDataBase {
         }
     };
 
-    ActionListener updateQuestionListener = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            String mazequestion = question.getText();
-            String mazeright_answer = right_answer.getText();
-            String mazechoice1 = choice1.getText();
-            String mazechoice2 = choice2.getText();
-            String mazechoice3 = choice3.getText();
-            String mazechoice4 = choice4.getText();
-
-            if (QuestionObj == null) {
-                System.out.println("Null");
-            } else {
-
-                int result = JOptionPane.showConfirmDialog(frame, "Update " + QuestionObj.question + "?", "Swing Tester",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE);
-                if (result == JOptionPane.YES_OPTION) {
-                    try {
-                        System.out.println("Question " + QuestionObj.question);
-                        Statement stmt = conn.createStatement();
-
-                        stmt.executeUpdate("update questions set question = '" + mazequestion +
-                                "', mazeright_answer = '" + mazeright_answer +
-                                "', choice1 = '" + mazechoice1 +
-                                "', choice2='" + mazechoice2 +
-                                "', choice3='" + mazechoice3 +
-                                "', choice4='" + mazechoice4 +
-                                "' where id =" + QuestionObj.ID + "");
-                        loadData();
-                    } catch (Exception err) {
-                        System.out.println(err);
-                    }
-                }
-            }
-        }
-    };
 
     ActionListener searchQuestionListener = new ActionListener() {
         @Override
