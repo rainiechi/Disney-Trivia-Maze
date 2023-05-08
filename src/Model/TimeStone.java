@@ -7,9 +7,8 @@ public class TimeStone extends Stone{
         myUses = 1;
     }
 
-    public void useAbility() {
-        // Permanently sets timer of questions to 20 seconds
-        // door.setTimer(20);
+    public void useAbility(Door theDoor) {
+        theDoor.setTimer(20);
         myUses--;
 
     }

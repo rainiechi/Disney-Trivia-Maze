@@ -6,9 +6,8 @@ public class RealityStone extends Stone{
         myAbility = "Revealed answer to trivia question!";
         myUses = 1;
     }
-    public void useAbility() {
-        // Reveals answer to door.
-        // Not sure how to code this yet
+    public void useAbility(Door theDoor) {
+        theDoor.getAnswer();
         myUses--;
     }
     public String getDescription() {
