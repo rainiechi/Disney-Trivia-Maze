@@ -46,7 +46,11 @@ public class SQLTest2 {
         //now create a table
         String query = "CREATE TABLE IF NOT EXISTS questions ( " +
                 "QUESTION TEXT NOT NULL, " +
-                "ANSWER TEXT NOT NULL )";
+                "ANSWER TEXT NOT NULL, " +
+                "CHOICE1 TEXT NOT NULL," +
+                "CHOICE2 TEXT NOT NULL," +
+                "CHOICE3 TEXT NOT NULL," +
+                "CHOICE4 TEXT NOT NULL)";
         try ( Connection conn = ds.getConnection();
               Statement stmt = conn.createStatement(); ) {
             int rv = stmt.executeUpdate( query );
@@ -57,23 +61,23 @@ public class SQLTest2 {
         }
         System.out.println( "Created questions table successfully" );
 
-        //next insert two rows of data
-        System.out.println( "Attempting to insert two rows into questions table" );
-
-        String query1 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( 'Last name of Java creator?', 'Gosling' )";
-        String query2 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( 'This statement is false', 'paradox' )";
-
-        try ( Connection conn = ds.getConnection();
-              Statement stmt = conn.createStatement(); ) {
-            int rv = stmt.executeUpdate( query1 );
-            System.out.println( "1st executeUpdate() returned " + rv );
-
-            rv = stmt.executeUpdate( query2 );
-            System.out.println( "2nd executeUpdate() returned " + rv );
-        } catch ( SQLException e ) {
-            e.printStackTrace();
-            System.exit( 0 );
-        }
+//        //next insert two rows of data
+//        System.out.println( "Attempting to insert two rows into questions table" );
+//
+//        String query1 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( 'Last name of Java creator?', 'Gosling' )";
+//        String query2 = "INSERT INTO questions ( QUESTION, ANSWER ) VALUES ( 'This statement is false', 'paradox' )";
+//
+//        try ( Connection conn = ds.getConnection();
+//              Statement stmt = conn.createStatement(); ) {
+//            int rv = stmt.executeUpdate( query1 );
+//            System.out.println( "1st executeUpdate() returned " + rv );
+//
+//            rv = stmt.executeUpdate( query2 );
+//            System.out.println( "2nd executeUpdate() returned " + rv );
+//        } catch ( SQLException e ) {
+//            e.printStackTrace();
+//            System.exit( 0 );
+//        }
 
 
         //now query the database table for all its contents and display the results
