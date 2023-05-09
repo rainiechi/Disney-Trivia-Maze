@@ -2,10 +2,7 @@ package SQLite;
 
 import org.sqlite.SQLiteDataSource;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Scanner;
 
 public class DBRetriever {
@@ -16,8 +13,6 @@ public class DBRetriever {
     private String myOption3;
     private String myOption4;
 
-    private int myUsed;
-
     public DBRetriever() {
         myQuestion = null;
         myAnswer = null;
@@ -25,7 +20,6 @@ public class DBRetriever {
         myOption2 = null;
         myOption3 = null;
         myOption4 = null;
-        myUsed = 1;
         SQLiteDataSource ds = buildConnection();
         retrieveQuestion(ds);
     }
@@ -72,16 +66,27 @@ public class DBRetriever {
         try ( Connection conn = theDS.getConnection();
               Statement stmt = conn.createStatement(); ) {
             ResultSet rs = stmt.executeQuery(query);
-                myQuestion = rs.getString("QUESTION");
-                myAnswer = rs.getString("ANSWER");
-                myOption1 = rs.getString("CHOICE1");
-                myOption2 = rs.getString("CHOICE2");
-                myOption3 = rs.getString("CHOICE3");
-                myOption4 = rs.getString("CHOICE4");
-                myUsed = rs.getInt("USED");
+            int used = rs.getInt("USED");
+            while (used == 1) {
+                query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
+                rs = stmt.executeQuery(query);
+                used = rs.getInt("USED");
+            }
+
+            myQuestion = rs.getString( "QUESTION" );
+            myAnswer = rs.getString( "ANSWER" );
+            myOption1 = rs.getString( "CHOICE1" );
+            myOption2 = rs.getString( "CHOICE2" );
+            myOption3 = rs.getString( "CHOICE3" );
+            myOption4 = rs.getString( "CHOICE4" );
+            String todo = "UPDATE questions SET USED = 1 WHERE QUESTION = \"" + myQuestion + "\"";
+            stmt.executeUpdate(todo);
+
         } catch ( SQLException e ) {
             e.printStackTrace();
+            System.exit( 0 );
         }
     }
+
 }
 
