@@ -1,10 +1,9 @@
 package Model;
 
 import SQLite.DBRetriever;
-import SQLite.Question;
 
 public class Door {
-    private DBRetriever retriever;
+    private DBRetriever myRetriever;
     private String myQuestion;
     private String myQAnswer;
     private String myOption1;
@@ -24,16 +23,17 @@ public class Door {
     public static void main(String[] args) {
         Door door = new Door();
         door.displayQuestion();
+        door.myRetriever.resetAllToUnused(); //resets all questions to unused
     }
 
     public Door () {
-        retriever = new DBRetriever();
-        myQuestion = retriever.getMyQuestion();
-        myQAnswer = retriever.getMyAnswer();
-        myOption1 = retriever.getMyOption1();
-        myOption2 = retriever.getMyOption2();
-        myOption3 = retriever.getMyOption3();
-        myOption4 = retriever.getMyOption4();
+        myRetriever = new DBRetriever();
+        myQuestion = myRetriever.getMyQuestion();
+        myQAnswer = myRetriever.getMyAnswer();
+        myOption1 = myRetriever.getMyOption1();
+        myOption2 = myRetriever.getMyOption2();
+        myOption3 = myRetriever.getMyOption3();
+        myOption4 = myRetriever.getMyOption4();
         myUnlocked = false;
         myAttempted = false;
         myPlayerAnswer = null;
