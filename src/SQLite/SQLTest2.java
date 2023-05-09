@@ -93,7 +93,7 @@ public class SQLTest2 {
             // and print it
             while ( rs.next() ) {
                 String question = rs.getString( "QUESTION" );
-                String answer = rs.getString( "ANSWER" );
+                String answer = rs.updateInt();
 
                 System.out.println( "Result: Question = " + question +
                         ", Answer = " + answer );

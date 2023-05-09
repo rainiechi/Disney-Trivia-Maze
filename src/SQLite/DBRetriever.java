@@ -16,6 +16,8 @@ public class DBRetriever {
     private String myOption3;
     private String myOption4;
 
+    private int myUsed;
+
     public DBRetriever() {
         myQuestion = null;
         myAnswer = null;
@@ -23,6 +25,7 @@ public class DBRetriever {
         myOption2 = null;
         myOption3 = null;
         myOption4 = null;
+        myUsed = 1;
         SQLiteDataSource ds = buildConnection();
         retrieveQuestion(ds);
     }
@@ -65,19 +68,19 @@ public class DBRetriever {
     }
 
     public void retrieveQuestion(SQLiteDataSource theDS) {
-        String query = "SELECT * FROM questions";
+        String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
         try ( Connection conn = theDS.getConnection();
               Statement stmt = conn.createStatement(); ) {
             ResultSet rs = stmt.executeQuery(query);
-            myQuestion = rs.getString( "QUESTION" );
-            myAnswer = rs.getString( "ANSWER" );
-            myOption1 = rs.getString( "CHOICE1" );
-            myOption2 = rs.getString( "CHOICE2" );
-            myOption3 = rs.getString( "CHOICE3" );
-            myOption4 = rs.getString( "CHOICE4" );
+                myQuestion = rs.getString("QUESTION");
+                myAnswer = rs.getString("ANSWER");
+                myOption1 = rs.getString("CHOICE1");
+                myOption2 = rs.getString("CHOICE2");
+                myOption3 = rs.getString("CHOICE3");
+                myOption4 = rs.getString("CHOICE4");
+                myUsed = rs.getInt("USED");
         } catch ( SQLException e ) {
             e.printStackTrace();
-            System.exit( 0 );
         }
     }
 }
