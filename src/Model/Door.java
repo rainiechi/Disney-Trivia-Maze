@@ -1,27 +1,46 @@
 package Model;
 
+import SQLite.DBRetriever;
 import SQLite.Question;
 
 public class Door {
+    private DBRetriever retriever;
+    private String myQuestion;
+    private String myQAnswer;
+    private String myOption1;
+    private String myOption2;
+    private String myOption3;
+    private String myOption4;
 
-    private MockQuestion myQuestion;
+
     /** Boolean checks if door is unlocked*/
     private boolean myUnlocked;
     /** Boolean checks if door has been attempted*/
     private boolean myAttempted;
     private String myPlayerAnswer;
 
+
+    //For testing, delete later
+    public static void main(String[] args) {
+        Door door = new Door();
+        door.displayQuestion();
+    }
+
     public Door () {
-        myQuestion = new MockQuestion();
-        myQuestion.setQuestion(" In Finding Nemo, what's the name of Nemo's mother?");
-        myQuestion.setAnswer("Coral");
+        retriever = new DBRetriever();
+        myQuestion = retriever.getMyQuestion();
+        myQAnswer = retriever.getMyAnswer();
+        myOption1 = retriever.getMyOption1();
+        myOption2 = retriever.getMyOption2();
+        myOption3 = retriever.getMyOption3();
+        myOption4 = retriever.getMyOption4();
         myUnlocked = false;
         myAttempted = false;
         myPlayerAnswer = null;
     }
     public void displayQuestion() {
         // Testing purposes. Will be done in GUI implementation once we have SQLite database.
-        System.out.println(myQuestion.toString());
+        System.out.println(myQuestion);
     }
     public void lockedDoor(Player thePlayer) {
         if (thePlayer.hasSoulStone() && myAttempted) {
@@ -32,13 +51,13 @@ public class Door {
         }
     }
     public void checkPlayerAnswer() {
-        if (myQuestion.getAnswer().toLowerCase().equals(myPlayerAnswer.toLowerCase())) {
+        if (myQAnswer.toLowerCase().equals(myPlayerAnswer.toLowerCase())) {
             myUnlocked = true;
         }
         myAttempted = true;
     }
-    public String getAnswer() {
-        return myQuestion.getAnswer();
+    public String getQAnswer() {
+        return myQAnswer;
     }
     public boolean getMyUnlock() {
         return myUnlocked;
