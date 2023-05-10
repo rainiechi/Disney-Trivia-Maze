@@ -111,6 +111,18 @@ public class DBRetriever {
         }
     }
 
+    public void resetToUnused(final String theQuestion) {
+        try (Connection conn = myDs.getConnection();
+             Statement stmt = conn.createStatement(); ) {
+            String todo = "UPDATE questions SET USED = 0 WHERE QUESTION = \"" + theQuestion + "\"";
+            stmt.executeUpdate(todo);
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+            System.exit( 0 );
+        }
+    }
+
+
 
 }
 
