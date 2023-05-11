@@ -23,7 +23,8 @@ public class Door {
     public static void main(String[] args) {
         Door door = new Door();
         door.displayQuestion();
-        door.myRetriever.resetAllToUnused(); //resets all questions to unused
+        System.out.println(door.myQAnswer);
+        door.myRetriever.resetToUnused(door.myQuestion);
     }
 
     public Door () {
