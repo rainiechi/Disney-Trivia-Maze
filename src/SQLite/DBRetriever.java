@@ -3,9 +3,12 @@ package SQLite;
 import org.sqlite.SQLiteDataSource;
 
 import java.sql.*;
-import java.util.Scanner;
 
+/**
+ * DBRetriever accesses the SQL database and retrieves questions.
+ */
 public class DBRetriever {
+    private SQLiteDataSource myDs;
     private String myAnswer;
     private String myQuestion;
     private String myOption1;
@@ -13,6 +16,9 @@ public class DBRetriever {
     private String myOption3;
     private String myOption4;
 
+    /**
+     * DBRetriver constructor
+     */
     public DBRetriever() {
         myQuestion = null;
         myAnswer = null;
@@ -20,8 +26,8 @@ public class DBRetriever {
         myOption2 = null;
         myOption3 = null;
         myOption4 = null;
-        SQLiteDataSource ds = buildConnection();
-        retrieveQuestion(ds);
+        myDs = buildConnection();
+        retrieveQuestion(myDs);
     }
 
     public String getMyAnswer() {
@@ -44,8 +50,10 @@ public class DBRetriever {
         return myOption4;
     }
 
-
-
+    /**
+     * Builds conection with database RealQuestions
+     * @return SQLiteDataSource
+     */
     public SQLiteDataSource buildConnection() {
         SQLiteDataSource ds = null;
         //establish connection (creates db file if it does not exist :-)
@@ -56,11 +64,14 @@ public class DBRetriever {
             e.printStackTrace();
             System.exit(0);
         }
-
         System.out.println( "Opened database successfully" );
         return ds;
     }
 
+    /**
+     * Retrieves a random question that has not been used, then marks the question as used once retrieved.
+     * @param theDS the DataSource
+     */
     public void retrieveQuestion(SQLiteDataSource theDS) {
         String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
         try ( Connection conn = theDS.getConnection();
@@ -71,8 +82,7 @@ public class DBRetriever {
                 query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
                 rs = stmt.executeQuery(query);
                 used = rs.getInt("USED");
-            }
-
+            } //need to add something to stop infinite loop when we run out of questions
             myQuestion = rs.getString( "QUESTION" );
             myAnswer = rs.getString( "ANSWER" );
             myOption1 = rs.getString( "CHOICE1" );
@@ -81,12 +91,38 @@ public class DBRetriever {
             myOption4 = rs.getString( "CHOICE4" );
             String todo = "UPDATE questions SET USED = 1 WHERE QUESTION = \"" + myQuestion + "\"";
             stmt.executeUpdate(todo);
-
         } catch ( SQLException e ) {
             e.printStackTrace();
             System.exit( 0 );
         }
     }
+
+    /**
+     * Resets all questions to the unused state.
+     */
+    public void resetAllToUnused() {
+        try (Connection conn = myDs.getConnection();
+             Statement stmt = conn.createStatement(); ) {
+            String todo = "UPDATE questions SET USED = 0";
+            stmt.executeUpdate(todo);
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+            System.exit( 0 );
+        }
+    }
+
+    public void resetToUnused(final String theQuestion) {
+        try (Connection conn = myDs.getConnection();
+             Statement stmt = conn.createStatement(); ) {
+            String todo = "UPDATE questions SET USED = 0 WHERE QUESTION = \"" + theQuestion + "\"";
+            stmt.executeUpdate(todo);
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+            System.exit( 0 );
+        }
+    }
+
+
 
 }
 
