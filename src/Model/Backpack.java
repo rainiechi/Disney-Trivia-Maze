@@ -9,7 +9,7 @@ public class Backpack {
      * Backpack constructor
      */
     public Backpack() {
-        myStorage = new Stone[6]; //at most stores all 6 stones
+        myStorage = new Stone[MAX_ITEMS]; //at most stores all 6 stones
         currItems = 0;
     }
 
@@ -19,10 +19,10 @@ public class Backpack {
      */
     public void addToBackpack(final Stone theStone) {
         if (currItems == MAX_ITEMS) {
-            System.out.println("Game error, there should be no more than 6 stones in game"); //for debug purposes
+            throw new IllegalArgumentException("Game error, there should be no more than 6 stones in game"); //for debug purposes
         }
         for (int i = 0; i < MAX_ITEMS; i++) { //adds to first empty slot
-            if (myStorage[i] != null) {
+            if (myStorage[i] == null) {
                 myStorage[i] = theStone;
                 currItems++;
                 break;
@@ -37,7 +37,8 @@ public class Backpack {
     public void useStone(final Stone theStone) {
         int stoneIndex = findStone(theStone);
         if (stoneIndex < 0) {
-            System.out.println("Player does not have this stone.");
+            // Changed to exceptions for testing.
+            throw new IllegalArgumentException("Player does not have this stone.");
         } else {
             Stone stone = myStorage[stoneIndex];
             stone.useAbility();
@@ -83,5 +84,8 @@ public class Backpack {
         }
     }
 
+    public int getCurrItems() {
+        return currItems;
+    }
 
 }
