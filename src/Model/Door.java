@@ -78,4 +78,16 @@ public class Door {
     public void setPlayerMyAnswer(String answer) {
         myPlayerAnswer = answer;
     }
+    public String getOption1() {
+        return myOption1;
+    }
+    public String getMyOption2() {
+        return myOption2;
+    }
+    public String getMyOption3() {
+        return myOption3;
+    }
+    public String getMyOption4() {
+        return myOption4;
+    }
 }
