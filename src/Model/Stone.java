@@ -9,7 +9,7 @@ public class Stone {
     public Stone() {
     }
 
-    public void useAbility() {
+    public void useAbility(Player thePlayer) {
     }
     public String getDescription() {
         String s = "";

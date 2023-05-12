@@ -6,10 +6,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BackpackTest {
     /** Create instance of Player class to use in the tests */
     private Backpack myBackpack;
+    private Player myPlayer;
 
     @BeforeEach
     void setUp() {
-        myBackpack = new Backpack();
+        myPlayer = new Player(1,1);
+        myBackpack = new Backpack(myPlayer);
     }
     @Test
     void testAddToBackpack() {

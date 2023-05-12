@@ -22,7 +22,7 @@ public class Player {
             throw new IllegalArgumentException("the X, Y coordinates must not "
                     + "be negative numbers: " + theX + ", " + theY);
         }
-        myBackpack = new Backpack();
+        myBackpack = new Backpack(this);
         myX = theX;
         myY = theY;
         myPlayerSpeed = 3;

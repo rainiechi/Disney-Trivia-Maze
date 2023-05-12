@@ -4,13 +4,15 @@ public class Backpack {
     private static final int MAX_ITEMS = 6;
     private Stone[] myStorage;
     private int currItems;
+    private Player myPlayer;
 
     /**
      * Backpack constructor
      */
-    public Backpack() {
+    public Backpack(final Player thePlayer) {
         myStorage = new Stone[MAX_ITEMS]; //at most stores all 6 stones
         currItems = 0;
+        myPlayer = thePlayer;
     }
 
     /**
@@ -41,7 +43,7 @@ public class Backpack {
             throw new IllegalArgumentException("Player does not have this stone.");
         } else {
             Stone stone = myStorage[stoneIndex];
-            stone.useAbility();
+            stone.useAbility(myPlayer);
             if (stone.getUses() == 0) {
                 deleteStone(stoneIndex);
             }
