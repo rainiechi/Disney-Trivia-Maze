@@ -132,4 +132,8 @@ public class Player {
     public void setTimeLimit(int time) {
         myTimeLimit = time;
     }
+
+    public void addToBackpack(Stone theStone) {
+        myBackpack.addToBackpack(theStone);
+    }
 }
