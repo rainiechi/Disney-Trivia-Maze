@@ -1,4 +1,4 @@
-package ModelTests;
+package Model;
 
 public class BackpackTest {
 }
