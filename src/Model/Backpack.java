@@ -65,7 +65,7 @@ public class Backpack {
     public int findStone(final Stone theStone) {
         String stoneType = theStone.getStoneName();
         for (int i = 0; i < MAX_ITEMS; i++) {
-            if (stoneType.equals(myStorage[i].getStoneName())) {
+            if (myStorage[i] != null && stoneType.equals(myStorage[i].getStoneName())) {
                 return i;
             }
         }

@@ -26,6 +26,8 @@ public class BackpackTest {
         myBackpack.addToBackpack(new RealityStone());
         assertEquals(6, myBackpack.getCurrItems());
     }
+
+    @Test
     void testAddToBackpackPastMax() {
         myBackpack.addToBackpack(new MindStone());
         myBackpack.addToBackpack(new SoulStone());
