@@ -55,4 +55,20 @@ public class BackpackTest {
 
         assertTrue(thrown.getMessage().equals("Player does not have this stone."));
     }
+    @Test
+    void testUseStone() {
+        MindStone mindstone = new MindStone();
+        myBackpack.addToBackpack(mindstone);
+        myBackpack.addToBackpack(new SoulStone());
+        myBackpack.useStone(mindstone);
+        assertEquals(2, myBackpack.getCurrItems());
+    }
+    @Test
+    void testUseStone2() {
+        TimeStone timestone = new TimeStone();
+        myBackpack.addToBackpack(new RealityStone());
+        myBackpack.addToBackpack(timestone);
+        myBackpack.useStone(timestone);
+        assertEquals(1, myBackpack.getCurrItems());
+    }
 }
