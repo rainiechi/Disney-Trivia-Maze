@@ -3,14 +3,11 @@ package Model;
 public class Stone {
     protected String myStoneName;
     protected String myAbility;
-
     protected int myUses;
 
     public Stone() {
     }
-
-    public void useAbility() {
-        myUses--;
+    public void useAbility(Player thePlayer) {
     }
     public String getDescription() {
         String s = "";
@@ -19,8 +16,6 @@ public class Stone {
     public String getStoneName() {
         return myStoneName;
     }
-
-
     public String getmyAbility() {
         return myAbility;
     }
@@ -31,6 +26,6 @@ public class Stone {
 
     // used for testing
     public String toString() {
-        return "Stone:" + myStoneName;
+        return myStoneName;
     }
 }

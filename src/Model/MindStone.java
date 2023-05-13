@@ -6,7 +6,7 @@ public class MindStone extends Stone{
         myStoneName = "Mind Stone";
         myAbility = "Eliminated 1 incorrect options.";
     }
-    public void useAbility() {
+    public void useAbility(Player thePlayer) {
         // Eliminates 1 incorrect option. Can be used 5 times?
         // Not sure how to code this yet
     }

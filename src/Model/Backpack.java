@@ -3,14 +3,14 @@ package Model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Backpack {
-    private static final int MAX_ITEMS = 6;
+    private static final int MAX_ITEMS = 6; //at most can have 6 stones
     private Stone[] myStorage;
-    private int currItems;
+    private int currItems; //current # of stones
 
     /**
      * Backpack constructor
      */
-    public Backpack() {
+    public Backpack(final Player thePlayer) {
         myStorage = new Stone[MAX_ITEMS]; //at most stores all 6 stones
         currItems = 0;
     }
@@ -32,22 +32,17 @@ public class Backpack {
         }
     }
 
+
     /**
-     * Uses the specified stone then deletes it from backpack;
-     * @param theStone theStone to be used.
+     * Return the stone at the specified index slot
+     * @param theIndex the index
+     * @return the stone at the index
      */
-    public void useStone(final Stone theStone) {
-        int stoneIndex = findStone(theStone);
-        if (stoneIndex < 0) {
-            // Changed to exceptions for testing.
-            throw new IllegalArgumentException("Player does not have this stone.");
-        } else {
-            Stone stone = myStorage[stoneIndex];
-            stone.useAbility();
-            if (stone.getUses() == 0) {
-                deleteStone(stoneIndex);
-            }
+    public Stone getStone(final int theIndex) {
+        if (myStorage[theIndex] == null) {
+            throw new NullPointerException("No stone at this index");
         }
+        return myStorage[theIndex];
     }
 
     /**
@@ -81,11 +76,15 @@ public class Backpack {
         System.out.println("Current inventory:");
         for (int i = 0; i < MAX_ITEMS; i++) {
             if (myStorage[i] != null) {
-                System.out.println(myStorage[i]);
+                System.out.println(myStorage[i].getStoneName());
             }
         }
     }
 
+    /**
+     * Returns current number of stones in backpack.
+     * @return current number of stones in backpack
+     */
     public int getCurrItems() {
         return currItems;
     }

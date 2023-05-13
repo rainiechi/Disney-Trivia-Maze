@@ -86,6 +86,56 @@ public class PlayerTest {
         assertEquals(20, myPlayer.getTimeLimit());
     }
 
+    @Test
+    void testTakeSoulStone() {
+        SoulStone soulStone = new SoulStone();
+        Chest chest = new Chest(soulStone);
+        myPlayer.takeStone(chest);
+        myPlayer.displayBackpack(); //should have soul stone
+        assertEquals(true, myPlayer.hasSoulStone());
+        myPlayer.useStone(soulStone);
+        myPlayer.displayBackpack(); //should have nothing
+        assertEquals(false, myPlayer.hasSoulStone());
+    }
 
+    @Test
+    void testTakeStoneFromEmptyChest() {
+        Chest chest = new Chest();
+        NullPointerException thrown = assertThrows(
+                NullPointerException.class,
+                () -> myPlayer.takeStone(chest),
+                "Expected takeStone() to throw, but it didn't"
+        );
+        assertTrue(thrown.getMessage().equals("Chest is empty"));
+    }
+
+
+    @Test
+    void testUseStonePlayerDoesNotHave() {
+        myPlayer.addToBackpack(new MindStone());
+        IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> myPlayer.useStone(new RealityStone()),
+                "Expected useStone() to throw, but it didn't"
+        );
+        assertTrue(thrown.getMessage().equals("Player does not have this stone."));
+    }
+    @Test
+    void testUseStone() {
+        MindStone mindstone = new MindStone();
+        myPlayer.addToBackpack(mindstone);
+        myPlayer.addToBackpack(new SoulStone());
+        myPlayer.useStone(mindstone);
+        assertEquals(2, myPlayer.getCurrItem());
+    }
+
+    @Test
+    void testUseStone2() {
+        TimeStone timestone = new TimeStone();
+        myPlayer.addToBackpack(new RealityStone());
+        myPlayer.addToBackpack(timestone);
+        myPlayer.useStone(timestone);
+        assertEquals(1, myPlayer.getCurrItem());
+    }
 
 }
