@@ -19,10 +19,9 @@ public class Player {
      */
     public Player(final int theX, final int theY) {
         if (theX < 0 || theY < 0) {
-            throw new IllegalArgumentException("the X, Y coordinates must not "
-                    + "be negative numbers: " + theX + ", " + theY);
+            throw new IllegalArgumentException("the X, Y coordinates must not be negative");
         }
-        myBackpack = new Backpack();
+        myBackpack = new Backpack(this);
         myX = theX;
         myY = theY;
         myPlayerSpeed = 3;
@@ -31,13 +30,6 @@ public class Player {
         myTimeLimit = 15;
     }
 
-    /**
-     * Prints out player's current coordinates and backpack content.
-     */
-    public void displayPlayerStatus() {
-        System.out.println("Player's current coordinate: " + myX + ", " + myY);
-        myBackpack.displayCurrInventory();
-    }
 
     /**
      * Sets player's X coordinate
@@ -95,7 +87,6 @@ public class Player {
 
 
     // Will be used to later on to allow player to bypass door without trivia.
-
     /**
      * Checks if player has a space stone.
      * @return true if player has a space stone, otherwise false.
@@ -126,10 +117,76 @@ public class Player {
         mySoulStone = check;
     }
 
+    /**
+     * Gets the player's time limit.
+     * @return myTimeLimit
+     */
     public int getTimeLimit() {
         return myTimeLimit;
     }
-    public void setTimeLimit(int time) {
+
+    /**
+     * Sets the player's time limit.
+     * @param time time limit to be set
+     */
+    public void setTimeLimit(final int time) {
         myTimeLimit = time;
+    }
+
+    /**
+     * Adds to player's backpack
+     * @param theStone the stone to be added
+     */
+    public void addToBackpack(Stone theStone) {
+        if (theStone.getStoneName().equals("Soul Stone")) setSoulStone(true);
+        if (theStone.getStoneName().equals("Space Stone")) setSpaceStone(true);
+        myBackpack.addToBackpack(theStone);
+    }
+
+    /**
+     * Uses the specified stone then deletes it from backpack;
+     * @param theStone theStone to be used.
+     */
+    public void useStone(final Stone theStone) {
+        int stoneIndex = myBackpack.findStone(theStone);
+        if (stoneIndex < 0) {
+            throw new IllegalArgumentException("Player does not have this stone.");
+        } else {
+            Stone stone = myBackpack.getStone(stoneIndex);
+            stone.useAbility(this);
+            if (stone.getUses() == 0) {
+                myBackpack.deleteStone(stoneIndex);
+            }
+            if (stone.getStoneName().equals("Soul Stone")) setSoulStone(false);
+            if (stone.getStoneName().equals("Space Stone")) setSpaceStone(false);
+        }
+    }
+
+    /**
+     * Display player's backpack.
+     */
+    public void displayBackpack() {
+        myBackpack.displayCurrInventory();
+    }
+
+    /**
+     * Returns number of Stones that is in player's backpack.
+     * @return number of Stones that is in player's backpack
+     */
+    public int getCurrItem() {
+        return myBackpack.getCurrItems();
+    }
+
+    /**
+     * Takes the stone that is in the chest.
+     * @param theChest the chest to take from
+     */
+    public void takeStone(final Chest theChest) {
+        if (theChest.getMyStone() == null) {
+            throw new NullPointerException("Chest is empty");
+        } else {
+            addToBackpack(theChest.getMyStone());
+            theChest.clearChest();
+        }
     }
 }

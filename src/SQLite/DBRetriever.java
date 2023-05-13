@@ -56,7 +56,6 @@ public class DBRetriever {
      */
     public SQLiteDataSource buildConnection() {
         SQLiteDataSource ds = null;
-        //establish connection (creates db file if it does not exist :-)
         try {
             ds = new SQLiteDataSource();
             ds.setUrl("jdbc:sqlite:RealQuestions.db");
