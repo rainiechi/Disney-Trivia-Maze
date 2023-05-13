@@ -12,6 +12,7 @@ public class SoulStone extends Stone{
         // Player can use stone and walk up to door to reset again.
         // Resets a locked door?
         thePlayer.setSoulStone(true);
+        myUses--;
 
     }
     public String getDescription() {
