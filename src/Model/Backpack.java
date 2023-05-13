@@ -1,7 +1,5 @@
 package Model;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class Backpack {
     private static final int MAX_ITEMS = 6; //at most can have 6 stones
     private Stone[] myStorage;
