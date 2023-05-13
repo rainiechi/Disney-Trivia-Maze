@@ -1,8 +1,5 @@
-package Tests;
+package Model;
 
-import Model.Door;
-import Model.Player;
-import SQLite.DBRetriever;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,8 +33,9 @@ public class DoorTest {
 
     @Test
     public void testCheckPlayerAnswerCorrect() {
-        door.setPlayerMyAnswer("answer");
+        door.setPlayerMyAnswer(door.getQAnswer());
         door.checkPlayerAnswer();
+
         Assert.assertTrue(door.getMyUnlock());
         Assert.assertTrue(door.getAttempt());
     }
@@ -46,6 +44,7 @@ public class DoorTest {
     public void testCheckPlayerAnswerIncorrect() {
         door.setPlayerMyAnswer("wrong answer");
         door.checkPlayerAnswer();
+
         Assert.assertFalse(door.getMyUnlock());
         Assert.assertTrue(door.getAttempt());
     }
