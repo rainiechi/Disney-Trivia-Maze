@@ -1,15 +1,14 @@
 package Model;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
+import static org.junit.jupiter.api.Assertions.*;
 public class DoorTest {
 
     private Door door;
     private Player player;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         door = new Door();
         player = new Player(0,0);
@@ -17,10 +16,11 @@ public class DoorTest {
 
     @Test
     public void testLockedDoorWithSoulStone() {
+
         player.setSoulStone(true);
         door.setAttempted(true);
         door.lockedDoor(player);
-        Assert.assertEquals("Would you like to use the Soul Stone to attempt this door again?", System.out.toString().trim());
+        assertEquals("Would you like to use the Soul Stone to attempt this door again?", System.out.toString().trim());
     }
 
     @Test
@@ -28,7 +28,7 @@ public class DoorTest {
         player.setSoulStone(false);
         door.setAttempted(true);
         door.lockedDoor(player);
-        Assert.assertEquals("Door has been attempted.", System.out.toString().trim());
+        assertEquals("Door has been attempted.", System.out.toString().trim());
     }
 
     @Test
@@ -36,8 +36,8 @@ public class DoorTest {
         door.setPlayerMyAnswer(door.getQAnswer());
         door.checkPlayerAnswer();
 
-        Assert.assertTrue(door.getMyUnlock());
-        Assert.assertTrue(door.getAttempt());
+        assertTrue(door.getMyUnlock());
+        assertTrue(door.getAttempt());
     }
 
     @Test
@@ -45,51 +45,51 @@ public class DoorTest {
         door.setPlayerMyAnswer("wrong answer");
         door.checkPlayerAnswer();
 
-        Assert.assertFalse(door.getMyUnlock());
-        Assert.assertTrue(door.getAttempt());
+        assertFalse(door.getMyUnlock());
+        assertTrue(door.getAttempt());
     }
 
     @Test
     public void testGetOption1() {
-        Assert.assertNotNull(door.getOption1());
+        assertNotNull(door.getOption1());
     }
 
     @Test
     public void testGetMyOption2() {
-        Assert.assertNotNull(door.getMyOption2());
+        assertNotNull(door.getMyOption2());
     }
 
     @Test
     public void testGetMyOption3() {
-        Assert.assertNotNull(door.getMyOption3());
+        assertNotNull(door.getMyOption3());
     }
 
     @Test
     public void testGetMyOption4() {
-        Assert.assertNotNull(door.getMyOption4());
+        assertNotNull(door.getMyOption4());
     }
 
     @Test
     public void testSetMyUnlock() {
         door.setMyUnlock(true);
-        Assert.assertTrue(door.getMyUnlock());
+        assertTrue(door.getMyUnlock());
     }
 
     @Test
     public void testSetAttempted() {
         door.setAttempted(true);
-        Assert.assertTrue(door.getAttempt());
+        assertTrue(door.getAttempt());
     }
 
     @Test
     public void testSetPlayerMyAnswer() {
         door.setPlayerMyAnswer("player answer");
-        Assert.assertEquals("player answer", door.getPlayerMyAnswer());
+        assertEquals("player answer", door.getPlayerMyAnswer());
     }
 
     @Test
     public void testGetQAnswer() {
-        Assert.assertNotNull(door.getQAnswer());
+        assertNotNull(door.getQAnswer());
     }
 
 }
