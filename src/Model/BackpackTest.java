@@ -46,31 +46,55 @@ public class BackpackTest {
 
         assertTrue(thrown.getMessage().equals("Game error, there should be no more than 6 stones in game"));
     }
+
     @Test
-    void testUseStonePlayerDoesNotHave() {
+    void testGetStone() {
         myBackpack.addToBackpack(new MindStone());
-        IllegalArgumentException thrown = assertThrows(
-                IllegalArgumentException.class,
-                () -> myBackpack.useStone(new RealityStone()),
-                "Expected useStone() to throw, but it didn't"
+        myBackpack.addToBackpack(new SoulStone());
+        myBackpack.addToBackpack(new PowerStone());
+        assertEquals("Mind Stone", myBackpack.getStone(0).getStoneName());
+        assertEquals("Soul Stone", myBackpack.getStone(1).getStoneName());
+        assertEquals("Power Stone", myBackpack.getStone(2).getStoneName());
+    }
+
+    @Test
+    void testGetStoneNull() {
+        NullPointerException thrown = assertThrows(
+                NullPointerException.class,
+                () -> myBackpack.getStone(0),
+                "Expected getStone() to throw, but it didn't"
         );
 
-        assertTrue(thrown.getMessage().equals("Player does not have this stone."));
+        assertTrue(thrown.getMessage().equals("No stone at this index"));
     }
+
     @Test
-    void testUseStone() {
-        MindStone mindstone = new MindStone();
-        myBackpack.addToBackpack(mindstone);
+    void testDeleteStone() {
+        myBackpack.addToBackpack(new MindStone());
         myBackpack.addToBackpack(new SoulStone());
-        myBackpack.useStone(mindstone);
-        assertEquals(2, myBackpack.getCurrItems());
+        System.out.println(myBackpack.getStone(1));
+        myBackpack.deleteStone(1);
+        NullPointerException thrown = assertThrows(
+                NullPointerException.class,
+                () -> myBackpack.getStone(1),
+                "Expected getStone() to throw, but it didn't"
+        );
+        assertTrue(thrown.getMessage().equals("No stone at this index"));
     }
+
     @Test
-    void testUseStone2() {
-        TimeStone timestone = new TimeStone();
+    void testFindStone() {
+        myBackpack.addToBackpack(new MindStone());
+        myBackpack.addToBackpack(new SoulStone());
+        myBackpack.addToBackpack(new PowerStone());
+        myBackpack.addToBackpack(new TimeStone());
+        myBackpack.addToBackpack(new SpaceStone());
         myBackpack.addToBackpack(new RealityStone());
-        myBackpack.addToBackpack(timestone);
-        myBackpack.useStone(timestone);
-        assertEquals(1, myBackpack.getCurrItems());
+        assertEquals(2, myBackpack.findStone(new PowerStone()));
+    }
+
+    @Test
+    void testFindStoneNull() {
+        assertEquals(-1, myBackpack.findStone(new PowerStone()));
     }
 }

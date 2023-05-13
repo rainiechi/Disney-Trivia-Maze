@@ -10,11 +10,7 @@ public class Door {
     private String myOption2;
     private String myOption3;
     private String myOption4;
-
-
-    /** Boolean checks if door is unlocked*/
     private boolean myUnlocked;
-    /** Boolean checks if door has been attempted*/
     private boolean myAttempted;
     private String myPlayerAnswer;
 
