@@ -27,7 +27,7 @@ public class DBRetriever {
         myOption3 = null;
         myOption4 = null;
         myDs = buildConnection();
-        retrieveQuestion(myDs);
+        //retrieveQuestion(myDs);
     }
 
     public String getMyAnswer() {
@@ -69,19 +69,21 @@ public class DBRetriever {
 
     /**
      * Retrieves a random question that has not been used, then marks the question as used once retrieved.
-     * @param theDS the DataSource
      */
-    public void retrieveQuestion(SQLiteDataSource theDS) {
+    public void retrieveQuestion() {
         String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
-        try ( Connection conn = theDS.getConnection();
+        try ( Connection conn = myDs.getConnection();
               Statement stmt = conn.createStatement(); ) {
             ResultSet rs = stmt.executeQuery(query);
             int used = rs.getInt("USED");
             while (used == 1) {
+                if (countRemainingProblems() == 0) {
+                    throw new RuntimeException("Ran out of questions");
+                }
                 query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
                 rs = stmt.executeQuery(query);
                 used = rs.getInt("USED");
-            } //need to add something to stop infinite loop when we run out of questions
+            }
             myQuestion = rs.getString( "QUESTION" );
             myAnswer = rs.getString( "ANSWER" );
             myOption1 = rs.getString( "CHOICE1" );
@@ -119,5 +121,22 @@ public class DBRetriever {
             e.printStackTrace();
             System.exit( 0 );
         }
+    }
+
+    public int countRemainingProblems() {
+        int count = 0;
+        String query = "SELECT COUNT(*) FROM questions WHERE USED = 0";
+        try (Connection conn = myDs.getConnection();
+             Statement stmt = conn.createStatement(); ) {
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                count = rs.getInt(1);
+                
+            }
+        } catch ( SQLException e ) {
+            e.printStackTrace();
+            System.exit( 0 );
+        }
+        return count;
     }
 }

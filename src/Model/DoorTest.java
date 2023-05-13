@@ -1,4 +1,5 @@
 package Model;
+import SQLite.DBRetriever;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,13 +11,15 @@ public class DoorTest {
 
     @BeforeEach
     public void setUp() {
+        DBRetriever rt = new DBRetriever();
+        rt.resetAllToUnused();
         door = new Door();
         player = new Player(0,0);
+
     }
 
     @Test
     public void testLockedDoorWithSoulStone() {
-
         player.setSoulStone(true);
         door.setAttempted(true);
         door.lockedDoor(player);

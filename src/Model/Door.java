@@ -16,15 +16,17 @@ public class Door {
 
 
     //For testing, delete later
+    //For testing, delete later
     public static void main(String[] args) {
         Door door = new Door();
         door.displayQuestion();
         System.out.println(door.myQAnswer);
-        //door.myRetriever.resetAllToUnused();
+//        door.myRetriever.resetAllToUnused();
     }
 
     public Door () {
         myRetriever = new DBRetriever();
+        myRetriever.retrieveQuestion();
         myQuestion = myRetriever.getMyQuestion();
         myQAnswer = myRetriever.getMyAnswer();
         myOption1 = myRetriever.getMyOption1();
@@ -86,4 +88,5 @@ public class Door {
     public String getMyOption4() {
         return myOption4;
     }
+
 }
