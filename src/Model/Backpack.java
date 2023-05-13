@@ -1,5 +1,7 @@
 package Model;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class Backpack {
     private static final int MAX_ITEMS = 6;
     private Stone[] myStorage;
@@ -88,4 +90,13 @@ public class Backpack {
         return currItems;
     }
 
+    // For testing
+    public static void main(String[] args) {
+        Backpack myBackpack = new Backpack();
+        TimeStone timestone = new TimeStone();
+        myBackpack.addToBackpack(new RealityStone());
+        myBackpack.addToBackpack(timestone);
+        myBackpack.useStone(timestone);
+        myBackpack.displayCurrInventory();
+    }
 }

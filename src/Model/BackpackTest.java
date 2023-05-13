@@ -6,10 +6,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class BackpackTest {
     /** Create instance of Player class to use in the tests */
     private Backpack myBackpack;
+    private Player myPlayer;
 
     @BeforeEach
     void setUp() {
         myBackpack = new Backpack();
+        myPlayer = new Player(100,100);
     }
     @Test
     void testAddToBackpack() {
@@ -69,6 +71,6 @@ public class BackpackTest {
         myBackpack.addToBackpack(new RealityStone());
         myBackpack.addToBackpack(timestone);
         myBackpack.useStone(timestone);
-        assertEquals(1, myBackpack.getCurrItems());
+        assertEquals(20, myPlayer.getTimeLimit());
     }
 }

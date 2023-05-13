@@ -8,7 +8,6 @@ public class RealityStone extends Stone{
     }
     public void useAbility(Door theDoor) {
         theDoor.getQAnswer();
-        myUses--;
     }
     public String getDescription() {
         String s = "Reveals the answer in a trivia. Can only be used once.";

@@ -9,8 +9,6 @@ public class TimeStone extends Stone{
 
     public void useAbility(Player thePlayer) {
         thePlayer.setTimeLimit(20);
-        myUses--;
-
     }
     public String getDescription() {
         String s = "Permanently increase trivia timer by 5 seconds! Can only be used once.";

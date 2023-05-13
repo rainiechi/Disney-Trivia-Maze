@@ -10,6 +10,7 @@ public class Stone {
     }
 
     public void useAbility() {
+        myUses--;
     }
     public String getDescription() {
         String s = "";
