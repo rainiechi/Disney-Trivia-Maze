@@ -3,6 +3,9 @@ import SQLite.DBRetriever;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import static org.junit.jupiter.api.Assertions.*;
 public class DoorTest {
 
@@ -22,17 +25,32 @@ public class DoorTest {
     public void testLockedDoorWithSoulStone() {
         player.setSoulStone(true);
         door.setAttempted(true);
+
+        // Redirect standard output to a ByteArrayOutputStream
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
         door.lockedDoor(player);
-        assertEquals("Would you like to use the Soul Stone to attempt this door again?", System.out.toString().trim());
+        System.setOut(System.out);
+
+        assertEquals("Would you like to use the Soul Stone to attempt this door again?", outContent.toString().trim());
     }
 
     @Test
     public void testLockedDoorWithoutSoulStone() {
         player.setSoulStone(false);
         door.setAttempted(true);
+
+        // Redirect standard output to a ByteArrayOutputStream
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
         door.lockedDoor(player);
-        assertEquals("Door has been attempted.", System.out.toString().trim());
+        System.setOut(System.out);
+
+        assertEquals("Door has been attempted.", outContent.toString().trim());
     }
+
 
     @Test
     public void testCheckPlayerAnswerCorrect() {
