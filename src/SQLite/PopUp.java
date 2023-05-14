@@ -5,22 +5,39 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import static java.awt.Component.CENTER_ALIGNMENT;
-import static java.awt.Component.TOP_ALIGNMENT;
 
 public class PopUp implements ActionListener {
-
-    private JFrame myFrame;
-    private JPanel myQuestionPanel;
-    private JTextArea myQuestionArea;
-    private JPanel myOptionPanel;
-
-    private JRadioButton myoption1, myoption2, myoption3, myoption4;
-
-    private ButtonGroup myOptionGroup;
-    //private ArrayList<Question> questionList;
+    /**
+     * The JFrame for the GUI.
+     */
+    private final JFrame myFrame;
+    /**
+     * The Question Panel contains the question
+     */
+    private final JPanel myQuestionPanel;
+    /**
+     * The text area for the Question.
+     */
+    private final JTextArea myQuestionArea;
+    /**
+     * JPanel to contain the options.
+     */
+    private final JPanel myOptionPanel;
+    /**
+     * Radio buttons for the different options.
+     */
+    private final JRadioButton myOption1;
+    private final JRadioButton myOption2;
+    private final JRadioButton myOption3;
+    private final JRadioButton myOption4;
+    /**
+     * Option group that hold all the option Radio buttons
+     */
+    private final ButtonGroup myOptionGroup;
+    /**
+     * It is the correct answer to the question.
+     */
     private String myCorrectAnswer;
-    private String myPlayerAnswer;
 
     public static void main(String[] args) {
 
@@ -32,10 +49,10 @@ public class PopUp implements ActionListener {
         myQuestionPanel = new JPanel();
         myQuestionArea = new JTextArea();
         myOptionPanel = new JPanel();
-        myoption1 = new JRadioButton();
-        myoption2 = new JRadioButton();
-        myoption3 = new JRadioButton();
-        myoption4 = new JRadioButton();
+        myOption1 = new JRadioButton();
+        myOption2 = new JRadioButton();
+        myOption3 = new JRadioButton();
+        myOption4 = new JRadioButton();
         myOptionGroup = new ButtonGroup();
 
 //        loadQuestions("The question is should be here and if the question is long it should not matter hopefully "
@@ -46,6 +63,9 @@ public class PopUp implements ActionListener {
         displayQuestion(true);
     }
 
+    /**
+     * To set up the GUI for the pop-up on the door.
+     */
     private void initializeUI()
     {
 
@@ -71,25 +91,25 @@ public class PopUp implements ActionListener {
         //------------------------------------------------------------------------------------------------------------
 
 
-        myoption1.addActionListener(this);
-        myoption1.setFont( new Font("Times New Roman", Font.PLAIN, 18));
-        myoption2.addActionListener(this);
-        myoption2.setFont( new Font("Times New Roman", Font.PLAIN, 18));
-        myoption3.addActionListener(this);
-        myoption3.setFont( new Font("Times New Roman", Font.PLAIN, 18));
-        myoption4.addActionListener(this);
-        myoption4.setFont( new Font("Times New Roman", Font.PLAIN, 18));
+        myOption1.addActionListener(this);
+        myOption1.setFont( new Font("Times New Roman", Font.PLAIN, 18));
+        myOption2.addActionListener(this);
+        myOption2.setFont( new Font("Times New Roman", Font.PLAIN, 18));
+        myOption3.addActionListener(this);
+        myOption3.setFont( new Font("Times New Roman", Font.PLAIN, 18));
+        myOption4.addActionListener(this);
+        myOption4.setFont( new Font("Times New Roman", Font.PLAIN, 18));
 
-        myOptionGroup.add(myoption1);
-        myOptionGroup.add(myoption2);
-        myOptionGroup.add(myoption3);
-        myOptionGroup.add(myoption4);
+        myOptionGroup.add(myOption1);
+        myOptionGroup.add(myOption2);
+        myOptionGroup.add(myOption3);
+        myOptionGroup.add(myOption4);
 
 
-        myOptionPanel.add(myoption1);
-        myOptionPanel.add(myoption2);
-        myOptionPanel.add(myoption3);
-        myOptionPanel.add(myoption4);
+        myOptionPanel.add(myOption1);
+        myOptionPanel.add(myOption2);
+        myOptionPanel.add(myOption3);
+        myOptionPanel.add(myOption4);
 
         myOptionPanel.setBounds(50, myFrame.getHeight()/2 ,myFrame.getWidth(),myFrame.getHeight()/2-50);
         myOptionPanel.setLayout(new GridLayout(2,2));
@@ -100,21 +120,41 @@ public class PopUp implements ActionListener {
 
     }
 
+    /**
+     * Takes in different parameters such as questions options and answer and assign different texts
+     * to buttons based on parameters
+     *
+     * @param theQuestion  It is the question to display on the screen
+     * @param theOption1   It is the first option displayed to the player.
+     * @param theOption2   It is the second option displayed to the player.
+     * @param theOption3   It is the third option displayed to the player.
+     * @param theOption4   It is the fourth option displayed to the player.
+     * @param theCorrectAnswer It is the correct answer to the problem
+     */
     private void loadQuestions(String theQuestion, String theOption1, String theOption2,
                                String theOption3, String theOption4, String theCorrectAnswer  ) {
         myQuestionArea.setText(theQuestion);
-        myoption1.setText(theOption1);
-        myoption2.setText(theOption2);
-        myoption3.setText(theOption3);
-        myoption4.setText(theOption4);
+        myOption1.setText(theOption1);
+        myOption2.setText(theOption2);
+        myOption3.setText(theOption3);
+        myOption4.setText(theOption4);
         myCorrectAnswer = theCorrectAnswer;
 
     }
 
+    /**
+     * Display the GUI in the screen.
+     * @param theQuestionDisplay It is used to decide whether to display the frame or not.
+     */
     private void displayQuestion(boolean theQuestionDisplay) {
         myFrame.setVisible(theQuestionDisplay);
     }
 
+    /**
+     * This method take in two parameters and check whether the user has selected the right answer.
+     * @param theCorrectAnswer It is the correct answer to the question.
+     * @param thePlayerAnswers It is the answer that the player selected.
+     */
     private void checkAnswer(String theCorrectAnswer, String thePlayerAnswers) {
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
             JOptionPane.showMessageDialog(myFrame, "Correct!");
@@ -123,22 +163,30 @@ public class PopUp implements ActionListener {
         }
     }
 
+    /**
+     * Action perform methods for all the button. It records the user answer.
+     * @param e the event to be processed
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == myoption1 ) {
-            myPlayerAnswer = myoption1.getText();
+
+         // Holds the answer that the player selected.
+
+        String myPlayerAnswer;
+        if(e.getSource() == myOption1) {
+            myPlayerAnswer = myOption1.getText();
             checkAnswer(myCorrectAnswer, myPlayerAnswer);
         }
-        else if(e.getSource() == myoption2 ) {
-            myPlayerAnswer = myoption2.getText();
+        else if(e.getSource() == myOption2) {
+            myPlayerAnswer = myOption2.getText();
             checkAnswer(myCorrectAnswer, myPlayerAnswer);
         }
-        else if(e.getSource() == myoption3 ) {
-            myPlayerAnswer = myoption3.getText();
+        else if(e.getSource() == myOption3) {
+            myPlayerAnswer = myOption3.getText();
             checkAnswer(myCorrectAnswer, myPlayerAnswer);
         }
-        else if(e.getSource() == myoption4 ) {
-            myPlayerAnswer = myoption4.getText();
+        else if(e.getSource() == myOption4) {
+            myPlayerAnswer = myOption4.getText();
             checkAnswer(myCorrectAnswer, myPlayerAnswer);
         }
     }
