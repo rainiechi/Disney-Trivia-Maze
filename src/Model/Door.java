@@ -21,7 +21,8 @@ public class Door {
         Door door = new Door();
         door.displayQuestion();
         System.out.println(door.myQAnswer);
-//        door.myRetriever.resetAllToUnused();
+        DBRetriever tr = new DBRetriever();
+        tr.resetAllToUnused();
     }
 
     public Door () {
