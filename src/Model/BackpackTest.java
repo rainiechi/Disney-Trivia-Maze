@@ -97,4 +97,14 @@ public class BackpackTest {
     void testFindStoneNull() {
         assertEquals(-1, myBackpack.findStone(new PowerStone()));
     }
+    @Test
+    void getCurrItems() {
+        myBackpack.addToBackpack(new MindStone());
+        myBackpack.addToBackpack(new SoulStone());
+        myBackpack.addToBackpack(new PowerStone());
+        myBackpack.addToBackpack(new TimeStone());
+        myBackpack.addToBackpack(new SpaceStone());
+        myBackpack.addToBackpack(new RealityStone());
+        assertEquals(6, myBackpack.getCurrItems());
+    }
 }

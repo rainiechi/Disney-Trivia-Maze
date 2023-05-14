@@ -69,12 +69,12 @@ public class PlayerTest {
     @Test
     void testPlayerHasSpaceStone() {
         myPlayer.setSpaceStone(true);
-        assertEquals(true, myPlayer.hasSpaceStone());
+        assertTrue(myPlayer.hasSpaceStone());
     }
     @Test
     void testPlayerHasSoulStone() {
         myPlayer.setSoulStone(true);
-        assertEquals(true, myPlayer.hasSoulStone());
+        assertTrue(myPlayer.hasSoulStone());
     }
     @Test
     void testPlayerGetTimeLimit() {
