@@ -84,13 +84,14 @@ public class DBRetriever {
                 rs = stmt.executeQuery(query);
                 used = rs.getInt("USED");
             }
+            int id = rs.getInt("ID");
             myQuestion = rs.getString( "QUESTION" );
             myAnswer = rs.getString( "ANSWER" );
             myOption1 = rs.getString( "CHOICE1" );
             myOption2 = rs.getString( "CHOICE2" );
             myOption3 = rs.getString( "CHOICE3" );
             myOption4 = rs.getString( "CHOICE4" );
-            String todo = "UPDATE questions SET USED = 1 WHERE QUESTION = \"" + myQuestion + "\"";
+            String todo = "UPDATE questions SET USED = 1 WHERE ID = " + id;
             stmt.executeUpdate(todo);
         } catch ( SQLException e ) {
             e.printStackTrace();

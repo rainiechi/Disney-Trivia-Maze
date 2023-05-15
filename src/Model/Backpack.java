@@ -8,7 +8,7 @@ public class Backpack {
     /**
      * Backpack constructor
      */
-    public Backpack(final Player thePlayer) {
+    public Backpack() {
         myStorage = new Stone[MAX_ITEMS]; //at most stores all 6 stones
         currItems = 0;
     }

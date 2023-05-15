@@ -14,7 +14,7 @@ public class TileManager {
 
         myTile = new Tile[15];
         myMapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
-        getTileImage();
+       // getTileImage();
     }
     public void getTileImage() {
 
