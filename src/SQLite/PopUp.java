@@ -64,10 +64,11 @@ public class PopUp implements ActionListener {
         myOption4 = new JRadioButton();
         myOptionGroup = new ButtonGroup();
 
-//        loadQuestions("The question is should be here and if the question is long it should not matter hopefully "
-//                ,"option1",
-//                "option2", "option3", "option4", "option2" );
+        loadQuestions("The question is should be here and if the question is long it should not matter hopefully "
+                ,"option1",
+                "option2", "option3", "option4", "option2" );
         initializeUI();
+        displayQuestion(true);
     }
 
     /**
