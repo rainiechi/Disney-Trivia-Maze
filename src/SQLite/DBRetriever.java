@@ -17,28 +17,7 @@ public class DBRetriever {
      */
     public DBRetriever() {
         myDs = buildConnection();
-        //retrieveQuestion(myDs);
     }
-
-//    public String getMyAnswer() {
-//        return myAnswer;
-//    }
-//
-//    public String getMyQuestion() {
-//        return myQuestion;
-//    }
-//
-//    public String getMyOption1() {
-//        return myOption1;
-//    }
-//    public String getMyOption2() {
-//        return myOption2;
-//    }public String getMyOption3() {
-//        return myOption3;
-//    }
-//    public String getMyOption4() {
-//        return myOption4;
-//    }
 
     /**
      * Builds conection with database RealQuestions
@@ -61,7 +40,7 @@ public class DBRetriever {
      * Retrieves a random question that has not been used, then marks the question as used once retrieved.
      */
     public Question retrieveQuestion() {
-        Question question = new Question();
+        Question question = null;
         String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
         try ( Connection conn = myDs.getConnection();
               Statement stmt = conn.createStatement(); ) {
@@ -75,12 +54,12 @@ public class DBRetriever {
                 rs = stmt.executeQuery(query);
                 used = rs.getInt("USED");
             }
-            question.setMyQuestion(rs.getString( "QUESTION" ));
-            question.setMyAnswer(rs.getString( "ANSWER" ));
-            question.setMyOption1(rs.getString( "CHOICE1" ));
-            question.setMyOption2(rs.getString( "CHOICE2" ));
-            question.setMyOption3(rs.getString( "CHOICE3" ));
-            question.setMyOption4(rs.getString( "CHOICE4" ));
+            question = new Question(rs.getString( "QUESTION" ),
+                    rs.getString( "ANSWER" ),
+                    rs.getString( "CHOICE1" ),
+                    rs.getString( "CHOICE2" ),
+                    rs.getString( "CHOICE3" ),
+                    rs.getString( "CHOICE4" ));
             int id = rs.getInt("ID");
             String todo = "UPDATE questions SET USED = 1 WHERE ID = " + id;
             stmt.executeUpdate(todo);

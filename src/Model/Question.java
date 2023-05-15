@@ -8,55 +8,22 @@ public class Question {
     private String myOption3;
     private String myOption4;
 
-    public Question() {
-        myAnswer = null;
-        myQuestion = null;
-        myOption1 = null;
-        myOption2 = null;
-        myOption3 = null;
-        myOption4 = null;
-    }
 
-    public void setMyQuestion(final String theQuestion) {
-        if (theQuestion == null) {
-            throw new IllegalArgumentException("Question cannot be null");
+    public Question(final String theQuestion, final String theAnswer, final String theOption1,
+                    final String theOption2, final String theOption3, final String theOption4) {
+
+        if (theQuestion == null || theAnswer == null || theOption1 == null || theOption2 == null
+        || theOption3 == null || theOption4 == null) {
+            throw new IllegalArgumentException("All required parameters must not be null.");
         }
         myQuestion = theQuestion;
-    }
-
-    public void setMyAnswer(final String theAnswer) {
-        if (theAnswer == null) {
-            throw new IllegalArgumentException("Question cannot be null");
-        }
         myAnswer = theAnswer;
+        myOption1 = theOption1;
+        myOption2 = theOption2;
+        myOption3 = theOption3;
+        myOption4 = theOption4;
     }
 
-    public void setMyOption1(final String theOption) {
-        if (theOption == null) {
-            throw new IllegalArgumentException("Question cannot be null");
-        }
-        myOption1 = theOption;
-    }
-    public void setMyOption2(final String theOption) {
-        if (theOption == null) {
-            throw new IllegalArgumentException("Question cannot be null");
-        }
-        myOption2 = theOption;
-    }
-
-    public void setMyOption3(final String theOption) {
-        if (theOption == null) {
-            throw new IllegalArgumentException("Question cannot be null");
-        }
-        myOption3 = theOption;
-    }
-
-    public void setMyOption4(final String theOption) {
-        if (theOption == null) {
-            throw new IllegalArgumentException("Question cannot be null");
-        }
-        myOption4 = theOption;
-    }
 
     public String getMyQuestion() {
         return myQuestion;
