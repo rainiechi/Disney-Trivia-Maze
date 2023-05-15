@@ -15,7 +15,6 @@ import javax.swing.JFrame;
             window.setLocationRelativeTo(null);
             window.setVisible(true);
 
-            //gamePanel.setUpGame();
             gamePanel.startGameThread();
         }
     }
