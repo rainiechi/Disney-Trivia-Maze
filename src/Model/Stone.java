@@ -1,11 +1,14 @@
 package Model;
 
 public class Stone {
-    protected String myStoneName;
-    protected String myAbility;
-    protected int myUses;
+    private String myStoneName;
+    private String myAbility;
+    private int myUses;
 
-    public Stone() {
+    public Stone(final String theStoneName, final String theAbility, final int theUses) {
+        myStoneName = theStoneName;
+        myAbility = theAbility;
+        myUses = theUses;
     }
     public void useAbility(Player thePlayer) {
     }
@@ -18,6 +21,13 @@ public class Stone {
     }
     public String getmyAbility() {
         return myAbility;
+    }
+
+    public void decreaseUses() {
+        if (myUses == 0) {
+            throw new IllegalArgumentException("Uses was already at 0");
+        }
+        myUses--;
     }
 
     public int getUses() {
