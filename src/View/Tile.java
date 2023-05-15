@@ -7,6 +7,9 @@ public class Tile {
 
     private boolean myCollision = false;
 
+    public BufferedImage getImage() {
+        return myTileImage;
+    }
     public void setImage(BufferedImage read) {
         myTileImage = read;
     }
