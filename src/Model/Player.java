@@ -21,7 +21,7 @@ public class Player {
         if (theX < 0 || theY < 0) {
             throw new IllegalArgumentException("the X, Y coordinates must not be negative");
         }
-        myBackpack = new Backpack(this);
+        myBackpack = new Backpack();
         myX = theX;
         myY = theY;
         myPlayerSpeed = 3;
