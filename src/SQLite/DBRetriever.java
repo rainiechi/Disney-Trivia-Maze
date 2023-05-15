@@ -92,7 +92,6 @@ public class DBRetriever {
             myOption3 = rs.getString( "CHOICE3" );
             myOption4 = rs.getString( "CHOICE4" );
             String todo = "UPDATE questions SET USED = 1 WHERE ID = " + id;
-            System.out.println(todo);
             stmt.executeUpdate(todo);
         } catch ( SQLException e ) {
             e.printStackTrace();
