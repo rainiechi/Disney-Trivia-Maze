@@ -13,6 +13,7 @@ public class GamePanel extends JPanel implements Runnable{
     private final int myScreenHeight; // 768 pixels
     private final int myMaxWorldCol;
     private final int myMaxWorldRow;
+    private final int myFPS;
 
     TileManager myTileM;
 
@@ -24,10 +25,11 @@ public class GamePanel extends JPanel implements Runnable{
         myTileSize = myOriginalTileSize * myScale; // 64x64 tile
         myMaxScreenCol = 16; // ratio is 4x3
         myMaxScreenRow = 12;
-        myScreenWidth = myTileSize * myMaxScreenCol;
-        myScreenHeight = myTileSize * myMaxScreenRow;
-        myMaxWorldCol = 50;
-        myMaxWorldRow = 50;
+        myScreenWidth = 48 * myMaxScreenCol;
+        myScreenHeight = 48 * myMaxScreenRow;
+        myMaxWorldCol = 52;
+        myMaxWorldRow = 48;
+        myFPS = 60;
         myTileM = new TileManager(this);
         this.setPreferredSize(new Dimension(myScreenWidth, myScreenHeight));
         // BACKGROUND
@@ -40,7 +42,6 @@ public class GamePanel extends JPanel implements Runnable{
     }
     @Override
     public void run() {
-
     }
     public void paintComponent(Graphics g) {
 
@@ -49,7 +50,7 @@ public class GamePanel extends JPanel implements Runnable{
         Graphics2D g2 = (Graphics2D) g;
 
         // Tile
-       // myTileM.draw(g2);
+       myTileM.draw(g2);
 
         g2.dispose();
     }
