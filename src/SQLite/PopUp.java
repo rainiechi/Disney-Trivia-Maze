@@ -94,7 +94,7 @@ public class PopUp implements ActionListener {
         myQuestionArea.setFont( new Font("Times New Roman", Font.PLAIN, 24));
         myQuestionArea.setLineWrap(true);
         myQuestionArea.setWrapStyleWord(true);
-        myQuestionArea.setBounds(0,50,myFrame.getWidth(),myFrame.getHeight()/2);
+        myQuestionArea.setBounds(20,40,myFrame.getWidth()-50,myFrame.getHeight()/2);
 
         myQuestionPanel.add(myQuestionArea);
         //------------------------------------------------------------------------------------------------------------
