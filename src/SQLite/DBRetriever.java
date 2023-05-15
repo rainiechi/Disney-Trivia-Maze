@@ -113,10 +113,10 @@ public class DBRetriever {
         }
     }
 
-    public void resetToUnused(final String theQuestion) {
+    public void resetToUnused(final int theID) {
         try (Connection conn = myDs.getConnection();
              Statement stmt = conn.createStatement(); ) {
-            String todo = "UPDATE questions SET USED = 0 WHERE QUESTION = \"" + theQuestion + "\"";
+            String todo = "UPDATE questions SET USED = 0 WHERE ID = " + theID;
             stmt.executeUpdate(todo);
         } catch ( SQLException e ) {
             e.printStackTrace();
