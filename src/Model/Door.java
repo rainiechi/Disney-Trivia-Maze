@@ -66,6 +66,11 @@ public class Door {
         myPlayerAnswer = answer;
     }
 
+
+    public Question getQuestionObject() {
+        return myQuestion;
+    }
+
     public String getQuestion() {
         return myQuestion.getMyQuestion();
     }
