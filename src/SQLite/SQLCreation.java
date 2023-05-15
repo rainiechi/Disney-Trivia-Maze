@@ -84,9 +84,6 @@ public class SQLCreation {
             e.printStackTrace();
             System.exit( 0 );
         }
-        System.out.println("press enter to close program/window");
-        Scanner input = new Scanner(System.in);
-        input.nextLine();
     }
 
 }

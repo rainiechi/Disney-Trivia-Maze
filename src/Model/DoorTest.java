@@ -12,6 +12,9 @@ public class DoorTest {
     private Door door;
     private Player player;
 
+    /**
+     * This method is used to set up the initial condition for all the tests.
+     */
     @BeforeEach
     public void setUp() {
         DBRetriever rt = new DBRetriever();
@@ -21,6 +24,9 @@ public class DoorTest {
 
     }
 
+    /**
+     * used to test the LockedDoor methods when the user has a soul stone.
+     */
     @Test
     public void testLockedDoorWithSoulStone() {
         player.setSoulStone(true);
@@ -33,9 +39,13 @@ public class DoorTest {
         door.lockedDoor(player);
         System.setOut(System.out);
 
-        assertEquals("Would you like to use the Soul Stone to attempt this door again?", outContent.toString().trim());
+        assertEquals("Would you like to use the Soul Stone to attempt this door again?",
+                outContent.toString().trim());
     }
 
+    /**
+     * used to test LockedDoor when the user has no soul stone.
+     */
     @Test
     public void testLockedDoorWithoutSoulStone() {
         player.setSoulStone(false);
@@ -51,7 +61,9 @@ public class DoorTest {
         assertEquals("Door has been attempted.", outContent.toString().trim());
     }
 
-
+    /**
+     * used to check the checkPlayerAnswer methods when the user enter the right answer.
+     */
     @Test
     public void testCheckPlayerAnswerCorrect() {
         door.setPlayerMyAnswer(door.getQAnswer());
@@ -61,6 +73,9 @@ public class DoorTest {
         assertTrue(door.getAttempt());
     }
 
+    /**
+     * used to check the checkPlayerAnswer methods when the user enter the wrong answer.
+     */
     @Test
     public void testCheckPlayerAnswerIncorrect() {
         door.setPlayerMyAnswer("wrong answer");
@@ -70,6 +85,9 @@ public class DoorTest {
         assertTrue(door.getAttempt());
     }
 
+    /**
+     * testing all the getter methods.
+     */
     @Test
     public void testGetOption1() {
         assertNotNull(door.getOption1());
@@ -90,6 +108,9 @@ public class DoorTest {
         assertNotNull(door.getMyOption4());
     }
 
+    /**
+     * Testing all the setter methods.
+     */
     @Test
     public void testSetMyUnlock() {
         door.setMyUnlock(true);

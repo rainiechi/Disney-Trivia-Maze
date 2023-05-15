@@ -11,7 +11,7 @@ public class BackpackTest {
     @BeforeEach
     void setUp() {
         myPlayer = new Player(1,1);
-        myBackpack = new Backpack(myPlayer);
+        myBackpack = new Backpack();
     }
     @Test
     void testAddToBackpack() {

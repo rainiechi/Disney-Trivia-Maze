@@ -1,4 +1,4 @@
-package SQLite;
+package View;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,11 +24,20 @@ public class PopUp implements ActionListener {
      */
     private final JPanel myOptionPanel;
     /**
-     * Radio buttons for the different options.
+     * Radio buttons for option1
      */
     private final JRadioButton myOption1;
+    /**
+     * Radio buttons for option2
+     */
     private final JRadioButton myOption2;
+    /**
+     * Radio buttons for option3
+     */
     private final JRadioButton myOption3;
+    /**
+     * Radio buttons for option4
+     */
     private final JRadioButton myOption4;
     /**
      * Option group that hold all the option Radio buttons
@@ -55,10 +64,9 @@ public class PopUp implements ActionListener {
         myOption4 = new JRadioButton();
         myOptionGroup = new ButtonGroup();
 
-//        loadQuestions("The question is should be here and if the question is long it should not matter hopefully "
-//                ,"option1",
-//                "option2", "option3", "option4", "option2" );
-
+        loadQuestions("The question is should be here and if the question is long it should not matter hopefully "
+                ,"option1",
+                "option2", "option3", "option4", "option2" );
         initializeUI();
         displayQuestion(true);
     }
@@ -69,6 +77,7 @@ public class PopUp implements ActionListener {
     private void initializeUI()
     {
 
+        // JFrame for the pop up.
         myFrame.setTitle("Who want to be Disney Expert");
         myFrame.setResizable(false);
         myFrame.setSize(400,400);
@@ -76,21 +85,21 @@ public class PopUp implements ActionListener {
         myFrame.setLayout(null);
         myFrame.setLocationRelativeTo(null);
 
-
+        // Question Panel to contain the question for the door.
         myQuestionPanel.setBounds(0,0,myFrame.getWidth(),myFrame.getHeight()/2);
         myQuestionPanel.setLayout(null);
         myQuestionPanel.setBackground(Color.WHITE);
 
+        // Text Area to contain the question.
         myQuestionArea.setFont( new Font("Times New Roman", Font.PLAIN, 24));
         myQuestionArea.setLineWrap(true);
         myQuestionArea.setWrapStyleWord(true);
-        myQuestionArea.setBounds(0,50,myFrame.getWidth(),myFrame.getHeight()/2);
-
+        myQuestionArea.setBounds(20,40,myFrame.getWidth()-50,myFrame.getHeight()/2);
 
         myQuestionPanel.add(myQuestionArea);
         //------------------------------------------------------------------------------------------------------------
 
-
+        // All the Radio button to select the answer from.
         myOption1.addActionListener(this);
         myOption1.setFont( new Font("Times New Roman", Font.PLAIN, 18));
         myOption2.addActionListener(this);
@@ -100,11 +109,11 @@ public class PopUp implements ActionListener {
         myOption4.addActionListener(this);
         myOption4.setFont( new Font("Times New Roman", Font.PLAIN, 18));
 
+        // Adding all the button to the option group.
         myOptionGroup.add(myOption1);
         myOptionGroup.add(myOption2);
         myOptionGroup.add(myOption3);
         myOptionGroup.add(myOption4);
-
 
         myOptionPanel.add(myOption1);
         myOptionPanel.add(myOption2);
@@ -131,8 +140,8 @@ public class PopUp implements ActionListener {
      * @param theOption4   It is the fourth option displayed to the player.
      * @param theCorrectAnswer It is the correct answer to the problem
      */
-    private void loadQuestions(String theQuestion, String theOption1, String theOption2,
-                               String theOption3, String theOption4, String theCorrectAnswer  ) {
+    private void loadQuestions( final String theQuestion, final String theOption1, final String theOption2,
+                                final String theOption3, final String theOption4, final String theCorrectAnswer  ) {
         myQuestionArea.setText(theQuestion);
         myOption1.setText(theOption1);
         myOption2.setText(theOption2);
@@ -146,7 +155,7 @@ public class PopUp implements ActionListener {
      * Display the GUI in the screen.
      * @param theQuestionDisplay It is used to decide whether to display the frame or not.
      */
-    private void displayQuestion(boolean theQuestionDisplay) {
+    private void displayQuestion(final boolean theQuestionDisplay) {
         myFrame.setVisible(theQuestionDisplay);
     }
 
@@ -155,7 +164,7 @@ public class PopUp implements ActionListener {
      * @param theCorrectAnswer It is the correct answer to the question.
      * @param thePlayerAnswers It is the answer that the player selected.
      */
-    private void checkAnswer(String theCorrectAnswer, String thePlayerAnswers) {
+    private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers) {
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
             JOptionPane.showMessageDialog(myFrame, "Correct!");
         } else {
@@ -168,26 +177,24 @@ public class PopUp implements ActionListener {
      * @param e the event to be processed
      */
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed( final ActionEvent e) {
 
-         // Holds the answer that the player selected.
-
-        String myPlayerAnswer;
+        String playerAnswer;
         if(e.getSource() == myOption1) {
-            myPlayerAnswer = myOption1.getText();
-            checkAnswer(myCorrectAnswer, myPlayerAnswer);
+            playerAnswer = myOption1.getText();
+            checkAnswer(myCorrectAnswer, playerAnswer);
         }
         else if(e.getSource() == myOption2) {
-            myPlayerAnswer = myOption2.getText();
-            checkAnswer(myCorrectAnswer, myPlayerAnswer);
+            playerAnswer = myOption2.getText();
+            checkAnswer(myCorrectAnswer, playerAnswer);
         }
         else if(e.getSource() == myOption3) {
-            myPlayerAnswer = myOption3.getText();
-            checkAnswer(myCorrectAnswer, myPlayerAnswer);
+            playerAnswer = myOption3.getText();
+            checkAnswer(myCorrectAnswer, playerAnswer);
         }
         else if(e.getSource() == myOption4) {
-            myPlayerAnswer = myOption4.getText();
-            checkAnswer(myCorrectAnswer, myPlayerAnswer);
+            playerAnswer = myOption4.getText();
+            checkAnswer(myCorrectAnswer, playerAnswer);
         }
     }
 }
