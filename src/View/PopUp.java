@@ -1,4 +1,4 @@
-package SQLite;
+package View;
 
 import javax.swing.*;
 import java.awt.*;
