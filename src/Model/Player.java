@@ -23,7 +23,7 @@ public class Player {
         myGs = new GameSettings();
         myBackpack = new Backpack();
         myScreenX = myGs.getScreenWidth()/2 - (myGs.getTileSize()/2);
-        myScreenY = myGs.getScreenWidth()/2 - (myGs.getTileSize()/2);
+        myScreenY = myGs.getScreenHeight()/2 - (myGs.getTileSize()/2);
         myWorldX = myGs.getTileSize() * 8;
         myWorldY = myGs.getTileSize() * 17;
         myPlayerSpeed = 3;
