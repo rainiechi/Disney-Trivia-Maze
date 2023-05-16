@@ -13,7 +13,7 @@ public class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        myPlayer = new Player(100, 100);
+        myPlayer = new Player();
     }
 
     @Test
@@ -27,19 +27,19 @@ public class PlayerTest {
         assertEquals(10, myPlayer.getPlayerSpeed());
     }
     @Test
-    void testPlayerX() {
-        assertEquals(100, myPlayer.getX());
+    void testPlayerScreenX() {
+        assertEquals(0, myPlayer.getScreenX());
     }
     @Test
-    void testPlayerSetX() {
-        myPlayer.setX(150);
-        assertEquals(150, myPlayer.getX());
+    void testPlayerSetScreenX() {
+        myPlayer.setScreenX(150);
+        assertEquals(150, myPlayer.getScreenX());
     }
     @Test
     void testPlayerSetXException() {
         IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> myPlayer.setX(-150),
+                () -> myPlayer.setScreenX(-150),
                 "Expected setX() to throw, but it didn't"
         );
 
@@ -49,18 +49,18 @@ public class PlayerTest {
 
     @Test
     void testPlayerY() {
-        assertEquals(100, myPlayer.getY());
+        assertEquals(0, myPlayer.getScreenY());
     }
     @Test
     void testPlayerSetY() {
-        myPlayer.setY(150);
-        assertEquals(150, myPlayer.getY());
+        myPlayer.setScreenY(150);
+        assertEquals(150, myPlayer.getScreenY());
     }
     @Test
     void testPlayerSetYException() {
         IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> myPlayer.setY(-150),
+                () -> myPlayer.setScreenY(-150),
                 "Expected setY() to throw, but it didn't"
         );
 

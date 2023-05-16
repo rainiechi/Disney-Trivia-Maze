@@ -1,29 +1,31 @@
 package Model;
 
 public class Player {
+
     private Backpack myBackpack;
-    private int myX;
-    private int myY;
+    private int myScreenX;
+    private int myScreenY;
+
+    private int myWorldX;
+    private int myWorldY;
     private int myPlayerSpeed;
 
     private int myTimeLimit;
 
     private boolean mySpaceStone;
     private boolean mySoulStone;
-
+    GameSettings myGs;
 
     /**
      * Player constructor.
-     * @param theX the x coordinate
-     * @param theY the y coordinate
      */
-    public Player(final int theX, final int theY) {
-        if (theX < 0 || theY < 0) {
-            throw new IllegalArgumentException("the X, Y coordinates must not be negative");
-        }
+    public Player() {
+        myGs = new GameSettings();
         myBackpack = new Backpack();
-        myX = theX;
-        myY = theY;
+        myScreenX = myGs.getScreenWidth()/2 - (myGs.getTileSize()/2);
+        myScreenY = myGs.getScreenHeight()/2 - (myGs.getTileSize()/2);
+        myWorldX = myGs.getTileSize() * 8;
+        myWorldY = myGs.getTileSize() * 17;
         myPlayerSpeed = 3;
         mySpaceStone = false;
         mySoulStone = false;
@@ -35,40 +37,40 @@ public class Player {
      * Sets player's X coordinate
      * @param theX the X coordinate to be set
      */
-    public void setX(final int theX) {
+    public void setScreenX(final int theX) {
         if (theX < 0) {
             throw new IllegalArgumentException("the X"
                     + " coordinate must not be a negative number: " + theX);
         }
-        myX = theX;
+        myScreenX = theX;
     }
 
     /**
      * Sets player's Y coordinate
      * @param theY the Y coordinate to be set
      */
-    public void setY(final int theY) {
+    public void setScreenY(final int theY) {
         if (theY < 0) {
             throw new IllegalArgumentException("the Y coordinate must not be "
                     + "a negative number: " + theY);
         }
-        myY = theY;
+        myScreenY = theY;
     }
 
     /**
      * Gets the player's current X coordinate.
      * @return current X coordinate
      */
-    public int getX() {
-        return myX;
+    public int getScreenX() {
+        return myScreenX;
     }
 
     /**
      * Gets the player's current Y coordinate.
      * @return current Y coordinate
      */
-    public int getY() {
-        return myY;
+    public int getScreenY() {
+        return myScreenY;
     }
 
     /**
@@ -86,7 +88,7 @@ public class Player {
     }
 
 
-    // Will be used to later on to allow player to bypass door without trivia.
+    // Will be used to later on to allow res.player to bypass door without trivia.
     /**
      * Checks if player has a space stone.
      * @return true if player has a space stone, otherwise false.
@@ -101,7 +103,7 @@ public class Player {
         mySpaceStone = check;
     }
 
-    // Will be used later to allow player to reset door. Field and method may be moved to DOOR class
+    // Will be used later to allow res.player to reset door. Field and method may be moved to DOOR class
     // once created.
     /**
      * Checks if player has a soul stone.
@@ -170,8 +172,8 @@ public class Player {
     }
 
     /**
-     * Returns number of Stones that is in player's backpack.
-     * @return number of Stones that is in player's backpack
+     * Returns number of Stones that is in res.player's backpack.
+     * @return number of Stones that is in res.player's backpack
      */
     public int getCurrItem() {
         return myBackpack.getCurrItems();
@@ -188,5 +190,21 @@ public class Player {
             addToBackpack(theChest.getMyStone());
             theChest.clearChest();
         }
+    }
+
+    public int getMyWorldY() {
+        return myWorldY;
+    }
+
+    public void setMyWorldY(int myWorldY) {
+        this.myWorldY = myWorldY;
+    }
+
+    public int getMyWorldX() {
+        return myWorldX;
+    }
+
+    public void setMyWorldX(int myWorldX) {
+        this.myWorldX = myWorldX;
     }
 }
