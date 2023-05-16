@@ -45,7 +45,7 @@ public class Door {
     public void lockedDoor(Player thePlayer) {
         if (thePlayer.hasSoulStone() && myAttempted) {
             System.out.println("Would you like to use the Soul Stone to attempt this door again?");
-            // In GUI, if player chooses yes button, it will call the useAbility() method for Soul Stone.
+            // In GUI, if res.player chooses yes button, it will call the useAbility() method for Soul Stone.
         } else if (!thePlayer.hasSoulStone() && myAttempted) {
             System.out.println("Door has been attempted.");
         }

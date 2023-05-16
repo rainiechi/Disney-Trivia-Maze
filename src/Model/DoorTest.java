@@ -20,7 +20,7 @@ public class DoorTest {
         DBRetriever rt = new DBRetriever();
         rt.resetAllToUnused();
         door = new Door();
-        player = new Player(0,0);
+        player = new Player();
 
     }
 
@@ -125,8 +125,8 @@ public class DoorTest {
 
     @Test
     public void testSetPlayerMyAnswer() {
-        door.setPlayerMyAnswer("player answer");
-        assertEquals("player answer", door.getPlayerMyAnswer());
+        door.setPlayerMyAnswer("res.player answer");
+        assertEquals("res.player answer", door.getPlayerMyAnswer());
     }
 
     @Test

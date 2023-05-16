@@ -134,10 +134,10 @@ public class PopUp implements ActionListener {
      * to buttons based on parameters
      *
      * @param theQuestion  It is the question to display on the screen
-     * @param theOption1   It is the first option displayed to the player.
-     * @param theOption2   It is the second option displayed to the player.
-     * @param theOption3   It is the third option displayed to the player.
-     * @param theOption4   It is the fourth option displayed to the player.
+     * @param theOption1   It is the first option displayed to the res.player.
+     * @param theOption2   It is the second option displayed to the res.player.
+     * @param theOption3   It is the third option displayed to the res.player.
+     * @param theOption4   It is the fourth option displayed to the res.player.
      * @param theCorrectAnswer It is the correct answer to the problem
      */
     private void loadQuestions( final String theQuestion, final String theOption1, final String theOption2,
@@ -162,7 +162,7 @@ public class PopUp implements ActionListener {
     /**
      * This method take in two parameters and check whether the user has selected the right answer.
      * @param theCorrectAnswer It is the correct answer to the question.
-     * @param thePlayerAnswers It is the answer that the player selected.
+     * @param thePlayerAnswers It is the answer that the res.player selected.
      */
     private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers) {
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
