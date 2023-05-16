@@ -8,7 +8,7 @@ public class StoneTest {
     private Player myPlayer;
     @BeforeEach
     void setUp() {
-        myPlayer = new Player(1,1);
+        myPlayer = new Player();
     }
 
     @Test

@@ -10,7 +10,7 @@ public class BackpackTest {
 
     @BeforeEach
     void setUp() {
-        myPlayer = new Player(1,1);
+        myPlayer = new Player();
         myBackpack = new Backpack();
     }
     @Test

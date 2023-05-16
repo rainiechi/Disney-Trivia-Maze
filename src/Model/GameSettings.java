@@ -10,6 +10,8 @@ public class GameSettings {
     private final int myScreenHeight; // 768 pixels
     private final int myMaxWorldCol;
     private final int myMaxWorldRow;
+    private final int myWorldWidth;
+    private final int myWorldHeight;
     private final int myFPS;
     public GameSettings() {
         myOriginalTileSize = 32; // 32x32 tile
@@ -21,6 +23,8 @@ public class GameSettings {
         myScreenHeight = 48 * myMaxScreenRow;
         myMaxWorldCol = 52;
         myMaxWorldRow = 48;
+        myWorldWidth = myTileSize * myMaxScreenCol;
+        myWorldHeight = myTileSize * myMaxScreenRow;
         myFPS = 60;
     }
     public int getTileSize() {

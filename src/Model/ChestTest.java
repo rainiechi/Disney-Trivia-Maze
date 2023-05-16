@@ -30,7 +30,7 @@ public class ChestTest {
 
     @Test
     void testTakeStone() {
-        Player player = new Player(1,1);
+        Player player = new Player();
         Chest chest = new Chest(new PowerStone());
         player.takeStone(chest);
         player.displayBackpack();
