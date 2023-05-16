@@ -2,14 +2,12 @@ package Model;
 
 public class MindStone extends Stone{
     public MindStone() {
-        myUses = 5;
-        myStoneName = "Mind Stone";
-        myAbility = "Eliminated 1 incorrect options.";
+        super("Mind Stone", "Eliminated 1 incorrect options.", 5);
     }
     public void useAbility(Player thePlayer) {
         // Eliminates 1 incorrect option. Can be used 5 times?
         // Not sure how to code this yet
-        myUses--;
+        decreaseUses();
     }
     public String getDescription() {
         String s = "Eliminates one incorrect answer. Can be used 3 times.";

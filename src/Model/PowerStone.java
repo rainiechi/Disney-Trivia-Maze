@@ -2,13 +2,11 @@ package Model;
 
 public class PowerStone extends Stone {
     public PowerStone() {
-        myStoneName = "Power Stone";
-        myAbility = "Speed has increased by +2!";
-        myUses = 1;
+        super("Power Stone", "Speed has increased by +2!", 1);
     }
     public void useAbility(Player thePlayer) {
         thePlayer.setPlayerSpeed(5);
-        myUses--;
+        decreaseUses();
     }
     public String getDescription() {
         String s = "Increase speed by 2! Can only be used once.";
