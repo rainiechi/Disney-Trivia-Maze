@@ -2,7 +2,13 @@ package Model;
 
 import SQLite.DBRetriever;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.IOException;
+
 public class Door {
+    BufferedImage myImage;
     private DBRetriever myRetriever;
     private String myQuestion;
     private String myQAnswer;
