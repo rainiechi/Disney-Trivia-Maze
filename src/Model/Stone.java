@@ -5,7 +5,7 @@ public class Stone {
     private String myAbility;
     private int myUses;
 
-    public Stone(final String theStoneName, final String theAbility, final int theUses) {
+    protected Stone(final String theStoneName, final String theAbility, final int theUses) {
         myStoneName = theStoneName;
         myAbility = theAbility;
         myUses = theUses;
