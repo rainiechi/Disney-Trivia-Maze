@@ -8,12 +8,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
-    GameSettings myGS;
-    TileManager myTileM;
-    Player myPlayer;
-    KeyHandler keyH;
-    PlayerManager playerManager;
-    Maze myMaze;
+    private GameSettings myGS;
+    private TileManager myTileM;
+    private Player myPlayer;
+    private KeyHandler keyH;
+    private PlayerManager playerManager;
+    private AssetSetter myAsset;
+    private ObjectManager[] myObj;
+    private CollisionChecker myCollisionChecker;
+    private Maze myMaze;
     Thread myGameThread;
     private int myFPS;
 
@@ -24,9 +27,10 @@ public class GamePanel extends JPanel implements Runnable{
         keyH = new KeyHandler();
         myTileM = new TileManager(this, myGS);
         playerManager = new PlayerManager(this, keyH, myGS, myPlayer);
-
-
+        myObj = new ObjectManager[20];
+        myAsset = new AssetSetter(this, myGS);
         myFPS = 60;
+        myCollisionChecker = new CollisionChecker(this, myGS);
 
 
 
@@ -85,8 +89,26 @@ public class GamePanel extends JPanel implements Runnable{
 
         // Tile
        myTileM.draw(g2);
+
+        for (int i = 0; i < myObj.length; i++) {
+            if(myObj[i] != null) {
+                myObj[i].draw(g2, this);
+            }
+        }
        playerManager.draw(g2);
 
         g2.dispose();
+    }
+    public PlayerManager getPlayerManager() {
+        return playerManager;
+    }
+    public Maze getMaze() {
+        return myMaze;
+    }
+    public ObjectManager[] getObj() {
+        return myObj;
+    }
+    public CollisionChecker getCC() {
+        return myCollisionChecker;
     }
 }
