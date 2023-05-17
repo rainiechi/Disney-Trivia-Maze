@@ -10,20 +10,25 @@ import java.io.IOException;
 
 public class PlayerManager {
     private BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    private String direction;
+    private String myDirection;
 
     private int spriteCounter;
     private int spriteNum;
-    GameSettings myGs;
-    GamePanel myGp;
+    private GameSettings myGs;
+    private GamePanel myGp;
+
     Player myPlayer;
     private int myX;
     private int myY;
     private int myWorldX;
     private int myWorldY;
     private int mySpeed;
+    private Rectangle mySolidArea;
+    private int mySolidAreaDefaultX;
+    private int mySolidAreaDefaultY;
+    private boolean myCollision;
 
-    KeyHandler myKeyH;
+    private KeyHandler myKeyH;
 
     public PlayerManager(GamePanel gp, KeyHandler keyH, GameSettings myGs, Player myPlayer) {
         this.myPlayer = myPlayer;
@@ -36,13 +41,17 @@ public class PlayerManager {
         getPlayerImage();
     }
     public void setDefaultValues() {
+        myCollision = false;
+        mySolidArea = new Rectangle(6,16,44,44);
+        mySolidAreaDefaultX = mySolidArea.x;
+        mySolidAreaDefaultY = mySolidArea.y;
         myWorldX = myPlayer.getMyWorldX();
         myWorldY = myPlayer.getMyWorldY();
         myX = myPlayer.getScreenX();
         myY = myPlayer.getScreenY();
         mySpeed = myPlayer.getPlayerSpeed();
 
-        direction = "down";
+        myDirection = "down";
     }
     public void getPlayerImage() {
         try {
@@ -63,17 +72,28 @@ public class PlayerManager {
                 myKeyH.isRightPressed() || myKeyH.isUpPressed()) {
 
             if (myKeyH.isUpPressed()) {
-                direction = "up";
-                myWorldY -= mySpeed;
+                myDirection = "up";
             } else if (myKeyH.isDownPressed()) {
-                direction = "down";
-                myWorldY += mySpeed;
+                myDirection = "down";
             } else if (myKeyH.isLeftPressed()) {
-                direction = "left";
-                myWorldX -= mySpeed;
+                myDirection = "left";
             } else if (myKeyH.isRightPressed()) {
-                direction = "right";
-                myWorldX += mySpeed;
+                myDirection = "right";
+            }
+
+            myCollision = false;
+            myGp.getCC().checkTile(this);
+
+            int objIndex = myGp.getCC().checkObject(this, true);
+            pickUpObject(objIndex);
+
+            if (!myCollision) {
+                switch(myDirection) {
+                    case "up": myWorldY -= mySpeed; break;
+                    case "down": myWorldY += mySpeed; break;
+                    case "left": myWorldX -= mySpeed; break;
+                    case "right": myWorldX += mySpeed; break;
+                }
             }
             spriteCounter++;
             if (spriteCounter > 12) {
@@ -86,10 +106,22 @@ public class PlayerManager {
             }
         }
     }
+    public void pickUpObject(int i) {
+        // Any number is fine as long as its not the index
+        // of an object.
+        if (i != 999) {
+            String objectName = myGp.getObj()[i].getName();
+            switch(objectName) {
+                case "Door":
+                    PopUp pop = new PopUp();
+                    break;
+            }
+        }
+    }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
-        switch(direction) {
+        switch(myDirection) {
             case "up":
                 if (spriteNum == 1) {
                     image = up1;
@@ -131,21 +163,46 @@ public class PlayerManager {
         return myWorldX;
     }
 
-    public void setMyWorldX(int myWorldX) {
-        this.myWorldX = myWorldX;
-    }
 
     public int getMyWorldY() {
         return myWorldY;
     }
 
-    public void setMyWorldY(int myWorldY) {
-        this.myWorldY = myWorldY;
-    }
     public int getMyX() {
         return myX;
     }
     public int getMyY() {
         return myY;
+    }
+
+    public int getSpeed() {
+        return mySpeed;
+    }
+
+    public String getDirection() {
+        return myDirection;
+    }
+    public void setCollision(boolean collision) {
+        myCollision = collision;
+    }
+    public boolean isCollision() {
+        return myCollision;
+    }
+    public Rectangle getSolidArea() {
+        return mySolidArea;
+    }
+    public void setSolidAreaX(int theArea) {
+        mySolidArea.x = theArea;
+    }
+    public void setSolidAreaY(int theArea) {
+        mySolidArea.y = theArea;
+    }
+
+    public int getMySolidAreaDefaultY() {
+        return mySolidAreaDefaultY;
+    }
+
+    public int getMySolidAreaDefaultX() {
+        return mySolidAreaDefaultX;
     }
 }

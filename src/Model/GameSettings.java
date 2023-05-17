@@ -13,6 +13,10 @@ public class GameSettings {
     private final int myWorldWidth;
     private final int myWorldHeight;
     private final int myFPS;
+
+    /**
+     * Constructor initializes the fields.
+     */
     public GameSettings() {
         myOriginalTileSize = 32; // 32x32 tile
         myScale = 2;
