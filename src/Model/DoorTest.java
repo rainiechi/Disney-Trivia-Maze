@@ -66,7 +66,7 @@ public class DoorTest {
      */
     @Test
     public void testCheckPlayerAnswerCorrect() {
-        door.setPlayerMyAnswer(door.getQAnswer());
+        door.setPlayerMyAnswer(door.getAnswer());
         door.checkPlayerAnswer();
 
         assertTrue(door.getMyUnlock());
@@ -131,7 +131,7 @@ public class DoorTest {
 
     @Test
     public void testGetQAnswer() {
-        assertNotNull(door.getQAnswer());
+        assertNotNull(door.getAnswer());
     }
 
 }

@@ -1,5 +1,6 @@
 package SQLite;
 
+import Model.Question;
 import org.sqlite.SQLiteDataSource;
 
 import java.sql.*;
@@ -9,45 +10,13 @@ import java.sql.*;
  */
 public class DBRetriever {
     private SQLiteDataSource myDs;
-    private String myAnswer;
-    private String myQuestion;
-    private String myOption1;
-    private String myOption2;
-    private String myOption3;
-    private String myOption4;
+
 
     /**
      * DBRetriver constructor
      */
     public DBRetriever() {
-        myQuestion = null;
-        myAnswer = null;
-        myOption1 = null;
-        myOption2 = null;
-        myOption3 = null;
-        myOption4 = null;
         myDs = buildConnection();
-        //retrieveQuestion(myDs);
-    }
-
-    public String getMyAnswer() {
-        return myAnswer;
-    }
-
-    public String getMyQuestion() {
-        return myQuestion;
-    }
-
-    public String getMyOption1() {
-        return myOption1;
-    }
-    public String getMyOption2() {
-        return myOption2;
-    }public String getMyOption3() {
-        return myOption3;
-    }
-    public String getMyOption4() {
-        return myOption4;
     }
 
     /**
@@ -70,7 +39,8 @@ public class DBRetriever {
     /**
      * Retrieves a random question that has not been used, then marks the question as used once retrieved.
      */
-    public void retrieveQuestion() {
+    public Question retrieveQuestion() {
+        Question question = null;
         String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
         try ( Connection conn = myDs.getConnection();
               Statement stmt = conn.createStatement(); ) {
@@ -84,19 +54,20 @@ public class DBRetriever {
                 rs = stmt.executeQuery(query);
                 used = rs.getInt("USED");
             }
+            question = new Question(rs.getString( "QUESTION" ),
+                    rs.getString( "ANSWER" ),
+                    rs.getString( "CHOICE1" ),
+                    rs.getString( "CHOICE2" ),
+                    rs.getString( "CHOICE3" ),
+                    rs.getString( "CHOICE4" ));
             int id = rs.getInt("ID");
-            myQuestion = rs.getString( "QUESTION" );
-            myAnswer = rs.getString( "ANSWER" );
-            myOption1 = rs.getString( "CHOICE1" );
-            myOption2 = rs.getString( "CHOICE2" );
-            myOption3 = rs.getString( "CHOICE3" );
-            myOption4 = rs.getString( "CHOICE4" );
             String todo = "UPDATE questions SET USED = 1 WHERE ID = " + id;
             stmt.executeUpdate(todo);
         } catch ( SQLException e ) {
             e.printStackTrace();
             System.exit( 0 );
         }
+        return question;
     }
 
     /**
