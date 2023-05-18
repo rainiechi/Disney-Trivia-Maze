@@ -9,7 +9,7 @@ public class AssetSetter {
     public AssetSetter(GameSettings theGs, ObjectManager[] theObj) {
         myGs = theGs;
         myObj = theObj;
-        //setWhiteDoors();
+        setWhiteDoors();
         setChests();
     }
 

@@ -116,7 +116,7 @@ public class PlayerManager {
             String objectName = myGp.getObj()[i].getName();
             switch(objectName) {
                 case "Door":
-                    TestPopUp pop = new TestPopUp(myGp);
+                    myGp.getPopUp();
                     break;
 
             }

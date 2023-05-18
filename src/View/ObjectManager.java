@@ -77,6 +77,9 @@ public class ObjectManager {
     public String getName() {
         return myName;
     }
+    public void setSolidArea(Rectangle theArea) {
+        mySolidArea = theArea;
+    }
     public Rectangle getSolidArea() {
         return mySolidArea;
     }
@@ -89,11 +92,17 @@ public class ObjectManager {
     public void setSolidAreaX(int theArea) {
         mySolidArea.x = theArea;
     }
+    public int getSolidAreaX() {
+        return mySolidArea.x;
+    }
     public void setSolidAreaY(int theArea) {
         mySolidArea.y = theArea;
     }
     public int getMySolidAreaDefaultY() {
         return mySolidAreaDefaultY;
+    }
+    public void setSolidAreaDefaultX(int theArea) {
+        mySolidAreaDefaultX = theArea;
     }
 
     public int getMySolidAreaDefaultX() {
