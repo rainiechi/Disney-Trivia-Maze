@@ -13,20 +13,23 @@ public class ObjectManager {
     private String myName;
     private int myWorldX;
     private int myWorldY;
-    GameSettings myGs;
+    private GameSettings myGs;
     private Rectangle mySolidArea;
     private int mySolidAreaDefaultX;
     private int mySolidAreaDefaultY;
     private boolean myCollision;
 
-    public ObjectManager(GameSettings theGs, String theName) {
+    public ObjectManager(GameSettings theGs, String theName, int theWorldX, int theWorldY) {
         myName = theName;
         this.myGs = theGs;
         switchObject();
         mySolidArea= new Rectangle(0,0,48,48);
         mySolidAreaDefaultX = mySolidArea.x;
         mySolidAreaDefaultY = mySolidArea.y;
-        myCollision = false;
+        myCollision = true;
+        myWorldX = theWorldX;
+        myWorldY = theWorldY;
+
 
     }
     public void switchObject() {
@@ -39,6 +42,8 @@ public class ObjectManager {
                     case "Exit":
                         myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/exit_door.png")));
                         break;
+                    case "Chest":
+                        myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/chest.png")));
                 }
             } catch (IOException e) {
                 e.printStackTrace();

@@ -9,15 +9,15 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class PlayerManager {
-    private BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
+    private BufferedImage myUp1, myUp2, myDown1, myDown2, myLeft1, myLeft2, myRight1, myRight2, myHead;
     private String myDirection;
 
-    private int spriteCounter;
-    private int spriteNum;
+    private int mySpriteCounter;
+    private int mySpriteNum;
     private GameSettings myGs;
     private GamePanel myGp;
 
-    Player myPlayer;
+    private Player myPlayer;
     private int myX;
     private int myY;
     private int myWorldX;
@@ -35,8 +35,8 @@ public class PlayerManager {
         this.myGp = gp;
         this.myGs = myGs;
         this.myKeyH = keyH;
-        spriteNum = 1;
-        spriteCounter = 0;
+        mySpriteNum = 1;
+        mySpriteCounter = 0;
         setDefaultValues();
         getPlayerImage();
     }
@@ -49,20 +49,21 @@ public class PlayerManager {
         myWorldY = myPlayer.getMyWorldY();
         myX = myPlayer.getScreenX();
         myY = myPlayer.getScreenY();
-        mySpeed = myPlayer.getPlayerSpeed();
+        mySpeed = 2 + myPlayer.getPlayerSpeed();
 
         myDirection = "down";
     }
     public void getPlayerImage() {
         try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_left.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_right.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_1.xcf.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_2.xcf.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_right_1.xcf.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_right_2.xcf.png"));
+            myUp1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up1.png"));
+            myUp2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up2.png"));
+            myDown1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_left.png"));
+            myDown2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_right.png"));
+            myLeft1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_1.xcf.png"));
+            myLeft2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_2.xcf.png"));
+            myRight1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_right_1.xcf.png"));
+            myRight2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_right_2.xcf.png"));
+            myHead = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/sprite_headshot.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -95,14 +96,14 @@ public class PlayerManager {
                     case "right": myWorldX += mySpeed; break;
                 }
             }
-            spriteCounter++;
-            if (spriteCounter > 12) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
+            mySpriteCounter++;
+            if (mySpriteCounter > 12) {
+                if (mySpriteNum == 1) {
+                    mySpriteNum = 2;
+                } else if (mySpriteNum == 2) {
+                    mySpriteNum = 1;
                 }
-                spriteCounter = 0;
+                mySpriteCounter = 0;
             }
         }
     }
@@ -115,6 +116,7 @@ public class PlayerManager {
                 case "Door":
                     PopUp pop = new PopUp();
                     break;
+
             }
         }
     }
@@ -123,35 +125,35 @@ public class PlayerManager {
 
         switch(myDirection) {
             case "up":
-                if (spriteNum == 1) {
-                    image = up1;
+                if (mySpriteNum == 1) {
+                    image = myUp1;
                 }
-                if (spriteNum == 2) {
-                    image = up2;
+                if (mySpriteNum == 2) {
+                    image = myUp2;
                 }
                 break;
             case "down":
-                if (spriteNum == 1) {
-                    image = down1;
+                if (mySpriteNum == 1) {
+                    image = myDown1;
                 }
-                if (spriteNum == 2) {
-                    image = down2;
+                if (mySpriteNum == 2) {
+                    image = myDown2;
                 }
                 break;
             case "left":
-                if (spriteNum == 1) {
-                    image = left1;
+                if (mySpriteNum == 1) {
+                    image = myLeft1;
                 }
-                if (spriteNum == 2) {
-                    image = left2;
+                if (mySpriteNum == 2) {
+                    image = myLeft2;
                 }
                 break;
             case "right":
-                if (spriteNum == 1) {
-                    image = right1;
+                if (mySpriteNum == 1) {
+                    image = myRight1;
                 }
-                if (spriteNum == 2) {
-                    image = right2;
+                if (mySpriteNum == 2) {
+                    image = myRight2;
                 }
                 break;
         }
@@ -204,5 +206,16 @@ public class PlayerManager {
 
     public int getMySolidAreaDefaultX() {
         return mySolidAreaDefaultX;
+    }
+    public BufferedImage getMyDown1() {
+        return myDown1;
+    }
+
+    public BufferedImage getMyHead() {
+        return myHead;
+    }
+
+    public void setMyHead(BufferedImage myHead) {
+        this.myHead = myHead;
     }
 }
