@@ -76,7 +76,6 @@ public class PopUp implements ActionListener {
      */
     private void initializeUI()
     {
-
         // JFrame for the pop up.
         myFrame.setTitle("Who want to be Disney Expert");
         myFrame.setResizable(false);

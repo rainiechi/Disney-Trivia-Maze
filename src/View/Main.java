@@ -2,7 +2,7 @@ package View;
 import javax.swing.JFrame;
     public class Main {
 //        public static void main(String[] args) {
-//            JFrame window = new JFrame();
+//            JFrame window = new JFrame();wwwwws
 //            window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //            window.setResizable(false);
 //            window.setTitle("Disney Trivia Maze");
@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 //            window.pack();
 //
 //            window.setLocationRelativeTo(null);
-//            window.setVisible(true);
+//            window.setVisible(true);w
 //
 //            gamePanel.startGameThread();
 //        }

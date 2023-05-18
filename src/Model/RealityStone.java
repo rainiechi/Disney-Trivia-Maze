@@ -5,7 +5,7 @@ public class RealityStone extends Stone{
         super("Reality Stone", "Revealed answer to trivia question!", 1);
     }
     public void useAbility(Door theDoor) {
-        theDoor.getAnswer();
+        theDoor.getQuestionObject().getMyAnswer();
         decreaseUses();
     }
     public String getDescription() {

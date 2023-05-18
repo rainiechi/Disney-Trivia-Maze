@@ -7,10 +7,9 @@ import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class Door {
+public class MockDoor {
     BufferedImage myImage;
-    private DBRetriever myRetriever;
-    private Question myQuestion;
+    private MockQuestion myQuestion;
     private boolean myUnlocked;
     private boolean myAttempted;
     private String myPlayerAnswer;
@@ -26,9 +25,8 @@ public class Door {
 //        tr.resetAllToUnused();
 //    }
 
-    public Door () {
-        myRetriever = new DBRetriever();
-        myQuestion = myRetriever.retrieveQuestion();
+    public MockDoor () {
+        myQuestion = new MockQuestion();
         myUnlocked = false;
         myAttempted = false;
         myPlayerAnswer = null;
@@ -48,7 +46,10 @@ public class Door {
     public void checkPlayerAnswer() {
         String myAnswer = myQuestion.getMyAnswer();
         if (myAnswer.toLowerCase().equals(myPlayerAnswer.toLowerCase())) {
+            System.out.println("Correct");
             myUnlocked = true;
+        } else {
+            System.out.println("Wrong");
         }
         myAttempted = true;
     }
@@ -73,29 +74,29 @@ public class Door {
     }
 
 
-    public Question getQuestionObject() {
+    public MockQuestion getQuestionObject() {
         return myQuestion;
     }
 
-//    public String getQuestion() {
-//        return myQuestion.getMyQuestion();
-//    }
-//
-//    public String getAnswer() {
-//        return myQuestion.getMyAnswer();
-//    }
-//
-//    public String getOption1() {
-//        return myQuestion.getMyOption1();
-//    }
-//    public String getMyOption2() {
-//        return myQuestion.getMyOption2();
-//    }
-//    public String getMyOption3() {
-//        return myQuestion.getMyOption3();
-//    }
-//    public String getMyOption4() {
-//        return myQuestion.getMyOption4();
-//    }
+    public String getQuestion() {
+        return myQuestion.getMyQuestion();
+    }
+
+    public String getAnswer() {
+        return myQuestion.getMyAnswer();
+    }
+
+    public String getOption1() {
+        return myQuestion.getMyOption1();
+    }
+    public String getMyOption2() {
+        return myQuestion.getMyOption2();
+    }
+    public String getMyOption3() {
+        return myQuestion.getMyOption3();
+    }
+    public String getMyOption4() {
+        return myQuestion.getMyOption4();
+    }
 
 }
