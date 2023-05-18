@@ -66,7 +66,7 @@ public class DoorTest {
      */
     @Test
     public void testCheckPlayerAnswerCorrect() {
-        door.setPlayerMyAnswer(door.getAnswer());
+        door.setPlayerMyAnswer(door.getQuestionObject().getMyAnswer());
         door.checkPlayerAnswer();
 
         assertTrue(door.getMyUnlock());
@@ -90,22 +90,22 @@ public class DoorTest {
      */
     @Test
     public void testGetOption1() {
-        assertNotNull(door.getOption1());
+        assertNotNull(door.getQuestionObject().getMyOption1());
     }
 
     @Test
     public void testGetMyOption2() {
-        assertNotNull(door.getMyOption2());
+        assertNotNull(door.getQuestionObject().getMyOption2());
     }
 
     @Test
     public void testGetMyOption3() {
-        assertNotNull(door.getMyOption3());
+        assertNotNull(door.getQuestionObject().getMyOption3());
     }
 
     @Test
     public void testGetMyOption4() {
-        assertNotNull(door.getMyOption4());
+        assertNotNull(door.getQuestionObject().getMyOption4());
     }
 
     /**
@@ -131,7 +131,7 @@ public class DoorTest {
 
     @Test
     public void testGetQAnswer() {
-        assertNotNull(door.getAnswer());
+        assertNotNull(door.getQuestionObject().getMyAnswer());
     }
 
 }

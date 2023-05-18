@@ -1,9 +1,11 @@
 package View;
 
 import Model.GameSettings;
+import Model.MockQuestion;
 import Model.Player;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -114,12 +116,14 @@ public class PlayerManager {
             String objectName = myGp.getObj()[i].getName();
             switch(objectName) {
                 case "Door":
-                    PopUp pop = new PopUp();
+                    TestPopUp pop = new TestPopUp(myGp);
                     break;
 
             }
         }
     }
+
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
