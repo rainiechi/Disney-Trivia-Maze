@@ -18,12 +18,12 @@ public class Door {
 
 //    For testing, delete later
 //    For testing, delete later
-    public static void main(String[] args) {
-        Door door = new Door();
-        door.displayQuestion();
-        DBRetriever tr = new DBRetriever();
-        tr.resetAllToUnused();
-    }
+//    public static void main(String[] args) {
+//        Door door = new Door();
+//        door.displayQuestion();
+//        DBRetriever tr = new DBRetriever();
+//        tr.resetAllToUnused();
+//    }
 
     public Door () {
         myRetriever = new DBRetriever();

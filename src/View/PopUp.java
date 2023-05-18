@@ -1,5 +1,7 @@
 package View;
 
+import Model.Door;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,14 +49,16 @@ public class PopUp implements ActionListener {
      * It is the correct answer to the question.
      */
     private String myCorrectAnswer;
+    private Door myDoor;
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
+//
+//        new PopUp();
+//    }
 
-        new PopUp();
-    }
-
-    public PopUp() {
+    public PopUp(Door theDoor) {
         myFrame = new JFrame();
+        myDoor = theDoor;
         myQuestionPanel = new JPanel();
         myQuestionArea = new JTextArea();
         myOptionPanel = new JPanel();
@@ -166,8 +170,11 @@ public class PopUp implements ActionListener {
     private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers) {
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
             JOptionPane.showMessageDialog(myFrame, "Correct!");
+            myDoor.setAttempted(true);
+
         } else {
             JOptionPane.showMessageDialog(myFrame, "Incorrect!");
+            myDoor.setAttempted(true);
         }
     }
 

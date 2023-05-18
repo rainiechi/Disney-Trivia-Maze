@@ -1,5 +1,6 @@
 package View;
 
+import Model.Door;
 import Model.GameSettings;
 import Model.Maze;
 import Model.Player;
@@ -18,6 +19,8 @@ public class GamePanel extends JPanel implements Runnable{
     private CollisionChecker myCollisionChecker;
     private Maze myMaze;
     private MiniMap myMiniMap;
+    private Door myDoor;
+    private PopUp myPopUp;
     Thread myGameThread;
     private int myFPS;
 
@@ -25,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
         myGS = new GameSettings();
         myMaze = new Maze(myGS);
         myPlayer = new Player();
+        myDoor = new Door();
         myTileM = new TileManager(this, myGS);
         myMiniMap = new MiniMap(this, myGS, myMaze);
         keyH = new KeyHandler(myMiniMap);
@@ -49,6 +53,9 @@ public class GamePanel extends JPanel implements Runnable{
 
         myGameThread = new Thread(this);
         myGameThread.start();
+    }
+    public void createPopUp() {
+        myPopUp = new PopUp(myDoor);
     }
     @Override
     public void run() {
@@ -114,5 +121,8 @@ public class GamePanel extends JPanel implements Runnable{
     }
     public CollisionChecker getCC() {
         return myCollisionChecker;
+    }
+    public PopUp getPopUp() {
+        return myPopUp;
     }
 }
