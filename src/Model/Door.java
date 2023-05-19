@@ -2,14 +2,13 @@ package Model;
 
 import SQLite.DBRetriever;
 
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
 
-
 public class Door {
-    private BufferedImage myImage;
+    BufferedImage myImage;
     private DBRetriever myRetriever;
     private Question myQuestion;
     private boolean myUnlocked;
@@ -19,12 +18,13 @@ public class Door {
 
 //    For testing, delete later
 //    For testing, delete later
-//    public static void main(String[] args) {
-//        Door door = new Door();
-//        door.displayQuestion();
-//        DBRetriever tr = new DBRetriever();
-//        tr.resetAllToUnused();
-//    }
+    public static void main(String[] args) {
+        Door door = new Door();
+        door.displayQuestion();
+        //System.out.println(door.getAnswer());
+        DBRetriever tr = new DBRetriever();
+        tr.resetAllToUnused();
+    }
 
     public Door () {
         myRetriever = new DBRetriever();
@@ -32,11 +32,6 @@ public class Door {
         myUnlocked = false;
         myAttempted = false;
         myPlayerAnswer = null;
-        try{
-            myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall_door.png")));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
     public void displayQuestion() {
         // Testing purposes. Will be done in GUI implementation once we have SQLite database.
@@ -77,9 +72,6 @@ public class Door {
         myPlayerAnswer = answer;
     }
 
-    public BufferedImage getImage() {
-        return myImage;
-    }
 
     public Question getQuestionObject() {
         return myQuestion;
