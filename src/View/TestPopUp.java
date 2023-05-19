@@ -1,5 +1,6 @@
 package View;
 
+import Model.Door;
 import Model.MockQuestion;
 import Model.Question;
 import Model.MockDoor;
@@ -13,8 +14,8 @@ public class TestPopUp {
     private final static Color LIGHT_BLUE = new Color(228, 246, 248);
     private final static Color BLUE =new Color(210, 246, 250);
 
-    private MockDoor myDoor; //change to real door later
-    private MockQuestion myQuestion;
+    private Door myDoor; //change to real door later
+    private Question myQuestion;
     private JDialog dialog;
 
     JLabel questionLabel;
@@ -23,8 +24,8 @@ public class TestPopUp {
     JButton optionButton3;
     JButton optionButton4;
 
-    public TestPopUp(final GamePanel theGP) {
-        myDoor = new MockDoor();
+    public TestPopUp(final GamePanel theGP, Door theDoor) {
+        myDoor = theDoor;
         myQuestion = myDoor.getQuestionObject();
         loadQuestion();
         createTriviaDialog(theGP);

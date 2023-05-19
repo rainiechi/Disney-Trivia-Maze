@@ -1,12 +1,9 @@
 package View;
 
-import Model.Door;
 import Model.GameSettings;
-import Model.MockQuestion;
 import Model.Player;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -30,7 +27,6 @@ public class PlayerManager {
     private int mySolidAreaDefaultX;
     private int mySolidAreaDefaultY;
     private boolean myCollision;
-    private Door myDoor;
 
     private KeyHandler myKeyH;
 
@@ -90,7 +86,7 @@ public class PlayerManager {
             myGp.getCC().checkTile(this);
 
             int objIndex = myGp.getCC().checkObject(this, true);
-            pickUpObject(objIndex);
+            myGp.getCC().pickUpObject(objIndex);
 
             if (!myCollision) {
                 switch(myDirection) {
@@ -108,22 +104,6 @@ public class PlayerManager {
                     mySpriteNum = 1;
                 }
                 mySpriteCounter = 0;
-            }
-        }
-    }
-    public void pickUpObject(int i) {
-        // Any number is fine as long as its not the index
-        // of an object.
-        if (i != 999) {
-            String objectName = myGp.getObj()[i].getName();
-            switch(objectName) {
-                case "Door":
-                    if (!myGp.getObj()[i].isLocked()) {
-                        PopUp pop = new PopUp(myDoor);
-                        myGp.getObj()[i].setLocked(true);
-                    }
-                    break;
-
             }
         }
     }
@@ -216,15 +196,9 @@ public class PlayerManager {
     public int getMySolidAreaDefaultX() {
         return mySolidAreaDefaultX;
     }
-    public BufferedImage getMyDown1() {
-        return myDown1;
-    }
 
     public BufferedImage getMyHead() {
         return myHead;
     }
 
-    public void setMyHead(BufferedImage myHead) {
-        this.myHead = myHead;
-    }
 }

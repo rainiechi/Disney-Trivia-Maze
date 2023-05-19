@@ -100,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable{
         // Tile
        myTileM.draw(g2);
 
-       myMiniMap.drawFullMapScreen(g2);
+       myMiniMap.drawMiniMapScreen(g2);
 
         for (int i = 0; i < myObj.length; i++) {
             if(myObj[i] != null) {

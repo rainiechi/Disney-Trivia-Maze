@@ -1,5 +1,6 @@
 package View;
 
+import Model.Door;
 import Model.GameSettings;
 import Model.Maze;
 
@@ -142,5 +143,32 @@ public class CollisionChecker {
 
         return index;
     }
-
+    public void pickUpObject(int i) {
+        // Any number is fine as long as its not the index
+        // of an object.
+        if (i != 999) {
+            String objectName = myGp.getObj()[i].getName();
+            switch(objectName) {
+                case "Door":
+                    if (!myGp.getObj()[i].isTouched()) {
+                        Door door = new Door();
+                        myGp.getObj()[i].setTouched(true);
+                        myGp.getObj()[i].setDoor(door);
+                    }
+                    if (!myGp.getObj()[i].isLocked()) {
+                        PopUp pop = new PopUp(myGp.getObj()[i].getDoor());
+                        if (!myGp.getObj()[i].getDoor().getMyUnlock()) {
+                            myGp.getObj()[i] = null;
+                        } else {
+                            myGp.getObj()[i].setLocked(true);
+                        }
+                    } else {
+                        // will do later
+                    }
+                    break;
+                case "Chest":
+                    break;
+            }
+        }
+    }
 }

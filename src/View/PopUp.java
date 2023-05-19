@@ -171,9 +171,10 @@ public class PopUp implements ActionListener {
     private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers) {
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
             JOptionPane.showMessageDialog(myFrame, "Correct!");
-
+            myDoor.setMyUnlock(true);
         } else {
             JOptionPane.showMessageDialog(myFrame, "Incorrect!");
+            myDoor.setAttempted(true);
         }
     }
 

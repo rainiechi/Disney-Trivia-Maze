@@ -16,7 +16,7 @@ public class DoorManager extends ObjectManager {
         setMyImage(myDoor.getImage());
         myDoor.setAttempted(true);
     }
-    public void setDoorSettings() {
-        myDoor.setAttempted(true);
+    public Door getDoor() {
+        return myDoor;
     }
 }

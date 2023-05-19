@@ -44,16 +44,15 @@ public class MiniMap {
 
     }
 
-    public void drawFullMapScreen(Graphics2D theG2) {
+    public void drawMiniMapScreen(Graphics2D theG2) {
         if (myMapEnabled) {
-            //theG2.fillRect(0, 0, myGs.getScreenWidth(), myGs.getScreenHeight());
 
             // Draw Map
             int width = 200;
             int height = 200;
             int x = myGs.getScreenWidth() - width - 50;
             int y = 50;
-            theG2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
+            theG2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
             theG2.drawImage(myMazeMap, x, y, width, height, null);
 
             // Draw player
