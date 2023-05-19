@@ -18,13 +18,13 @@ public class Door {
 
 //    For testing, delete later
 //    For testing, delete later
-    public static void main(String[] args) {
-        Door door = new Door();
-        door.displayQuestion();
-        //System.out.println(door.getAnswer());
-        DBRetriever tr = new DBRetriever();
-        tr.resetAllToUnused();
-    }
+//    public static void main(String[] args) {
+//        Door door = new Door();
+//        door.displayQuestion();
+//        //System.out.println(door.getAnswer());
+//        DBRetriever tr = new DBRetriever();
+//        tr.resetAllToUnused();
+//    }
 
     public Door () {
         myRetriever = new DBRetriever();
@@ -32,6 +32,11 @@ public class Door {
         myUnlocked = false;
         myAttempted = false;
         myPlayerAnswer = null;
+        try{
+            myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall_door.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void displayQuestion() {
         // Testing purposes. Will be done in GUI implementation once we have SQLite database.
@@ -71,11 +76,15 @@ public class Door {
     public void setPlayerMyAnswer(final String answer) {
         myPlayerAnswer = answer;
     }
-
+    public BufferedImage getImage() {
+        return myImage;
+    }
 
     public Question getQuestionObject() {
         return myQuestion;
     }
+
+
 
 //    public String getQuestion() {
 //        return myQuestion.getMyQuestion();
