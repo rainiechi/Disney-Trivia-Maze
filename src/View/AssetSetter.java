@@ -3,22 +3,31 @@ package View;
 import Model.GameSettings;
 
 public class AssetSetter {
-    private GamePanel myGp;
     private GameSettings myGs;
+    private ObjectManager[] myObj;
 
-    public AssetSetter(GamePanel theGp, GameSettings theGs) {
+    public AssetSetter(GameSettings theGs, ObjectManager[] theObj) {
         myGs = theGs;
-        myGp = theGp;
-        setObject();
+        myObj = theObj;
+        setWhiteDoors();
+        setChests();
     }
 
-    public void setObject() {
-        myGp.getObj()[0] = new ObjectManager(myGs, "Door");
-        myGp.getObj()[0].setWorldX(4* myGs.getTileSize());
-        myGp.getObj()[0].setWorldY(1 * myGs.getTileSize());
-
-        myGp.getObj()[1] = new ObjectManager(myGs, "Exit");
-        myGp.getObj()[1].setWorldX(17* myGs.getTileSize());
-        myGp.getObj()[1].setWorldY(1 * myGs.getTileSize());
+    public void setWhiteDoors() {
+        int y = 14;
+        int x = 8;
+        for (int i = 0; i <= 20; i++) {
+            myObj[i] = new ObjectManager(myGs, "Door", x * myGs.getTileSize(), y * myGs.getTileSize(), true);
+            y += 13;
+            if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19) {
+                y = 14;
+                x += 13;
+            }
+        }
+    }
+    public void setChests() {
+        myObj[21] = new ObjectManager(myGs, "Chest", 8 * myGs.getTileSize(), 2 * myGs.getTileSize(), true);
+        myObj[22] = new ObjectManager(myGs, "Chest", 60 * myGs.getTileSize(), 2 * myGs.getTileSize(), true);
+        myObj[23] = new ObjectManager(myGs, "Chest", 21 * myGs.getTileSize(), 16 * myGs.getTileSize(), true);
     }
 }

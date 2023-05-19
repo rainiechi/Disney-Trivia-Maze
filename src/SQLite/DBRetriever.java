@@ -20,14 +20,14 @@ public class DBRetriever {
     }
 
     /**
-     * Builds conection with database RealQuestions
+     * Builds connection with database RealQuestions
      * @return SQLiteDataSource
      */
     public SQLiteDataSource buildConnection() {
         SQLiteDataSource ds = null;
         try {
             ds = new SQLiteDataSource();
-            ds.setUrl("jdbc:sqlite:RealQuestions.db");
+            ds.setUrl("jdbc:sqlite:C:\\Users\\amand\\IdeaProjects\\amandas_branch\\Disney-Trivia-Maze\\RealQuestions.db");
         } catch ( Exception e ) {
             e.printStackTrace();
             System.exit(0);
@@ -40,6 +40,7 @@ public class DBRetriever {
      * Retrieves a random question that has not been used, then marks the question as used once retrieved.
      */
     public Question retrieveQuestion() {
+        resetAllToUnused();
         Question question = null;
         String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
         try ( Connection conn = myDs.getConnection();

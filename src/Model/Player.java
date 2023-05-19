@@ -24,8 +24,8 @@ public class Player {
         myBackpack = new Backpack();
         myScreenX = myGs.getScreenWidth()/2 - (myGs.getTileSize()/2);
         myScreenY = myGs.getScreenHeight()/2 - (myGs.getTileSize()/2);
-        myWorldX = myGs.getTileSize() * 4;
-        myWorldY = myGs.getTileSize() * 16;
+        myWorldX = myGs.getTileSize() * 35;
+        myWorldY = myGs.getTileSize() * 28;
         myPlayerSpeed = 3;
         mySpaceStone = false;
         mySoulStone = false;

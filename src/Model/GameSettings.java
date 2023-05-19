@@ -25,8 +25,8 @@ public class GameSettings {
         myMaxScreenRow = 12;
         myScreenWidth = 48 * myMaxScreenCol;
         myScreenHeight = 48 * myMaxScreenRow;
-        myMaxWorldCol = 52;
-        myMaxWorldRow = 48;
+        myMaxWorldCol = 68;
+        myMaxWorldRow = 63;
         myWorldWidth = myTileSize * myMaxScreenCol;
         myWorldHeight = myTileSize * myMaxScreenRow;
         myFPS = 60;

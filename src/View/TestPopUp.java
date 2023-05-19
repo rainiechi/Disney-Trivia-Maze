@@ -24,8 +24,8 @@ public class TestPopUp {
     JButton optionButton3;
     JButton optionButton4;
 
-    public TestPopUp(final GamePanel theGP) {
-        myDoor = new Door();
+    public TestPopUp(final GamePanel theGP, Door theDoor) {
+        myDoor = theDoor;
         myQuestion = myDoor.getQuestionObject();
         loadQuestion();
         createTriviaDialog(theGP);
