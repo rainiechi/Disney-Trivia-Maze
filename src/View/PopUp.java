@@ -69,12 +69,12 @@ public class PopUp implements ActionListener {
         myOption4 = new JButton();
 
 
-        loadQuestions("Hello world and if the question is long it will wrap around"
+        loadQuestions("Hello world and if the question is long it will wrap around "
                 ,"option1",
                 "option2", "option3", "option4", "option2" );
         initializeUI(new GamePanel());
 
-        displayQuestion(true);
+        //displayQuestion(true);
     }
 
     /**
