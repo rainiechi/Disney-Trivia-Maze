@@ -30,16 +30,27 @@ public class PlayerManager {
 
     private KeyHandler myKeyH;
 
-    public PlayerManager(GamePanel gp, KeyHandler keyH, GameSettings myGs, Player myPlayer) {
-        this.myPlayer = myPlayer;
-        this.myGp = gp;
-        this.myGs = myGs;
-        this.myKeyH = keyH;
+    /**
+     * Constructor initializes the fields.
+     * @param theGp GamePanel passed in.
+     * @param theKeyH KeyHandler passed in
+     * @param theGs GameSettings passed in
+     * @param thePlayer Player passed in
+     */
+    public PlayerManager(GamePanel theGp, KeyHandler theKeyH, GameSettings theGs, Player thePlayer) {
+        this.myPlayer = thePlayer;
+        this.myGp = theGp;
+        this.myGs = theGs;
+        this.myKeyH = theKeyH;
         mySpriteNum = 1;
         mySpriteCounter = 0;
         setDefaultValues();
-        getPlayerImage();
+        setPlayerImage();
     }
+
+    /**
+     * Sets default values for collision area, speed, and coordinates on maze.
+     */
     public void setDefaultValues() {
         myCollision = false;
         mySolidArea = new Rectangle(6,16,44,44);
@@ -53,7 +64,11 @@ public class PlayerManager {
 
         myDirection = "down";
     }
-    public void getPlayerImage() {
+
+    /**
+     * Sets BufferedImage fields to images.
+     */
+    public void setPlayerImage() {
         try {
             myUp1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up1.png"));
             myUp2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up2.png"));
@@ -68,6 +83,10 @@ public class PlayerManager {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Method updates the image of sprite character when a key is pressed.
+     */
     public void update() {
         if (myKeyH.isDownPressed() || myKeyH.isLeftPressed() ||
                 myKeyH.isRightPressed() || myKeyH.isUpPressed()) {
@@ -108,8 +127,11 @@ public class PlayerManager {
         }
     }
 
-
-    public void draw(Graphics2D g2) {
+    /**
+     * Method draws the sprite.
+     * @param theG2 Graphics2D object
+     */
+    public void draw(Graphics2D theG2) {
         BufferedImage image = null;
 
         switch(myDirection) {
@@ -146,57 +168,115 @@ public class PlayerManager {
                 }
                 break;
         }
-        g2.drawImage(image, myX, myY, myGs.getTileSize(), myGs.getTileSize(), null);
+        theG2.drawImage(image, myX, myY, myGs.getTileSize(), myGs.getTileSize(), null);
 
     }
 
+    /**
+     * Getter method for myWorldX.
+     * @return myWorldX
+     */
     public int getMyWorldX() {
         return myWorldX;
     }
 
-
+    /**
+     * Getter method for myWorldY.
+     * @return myWorldY
+     */
     public int getMyWorldY() {
         return myWorldY;
     }
-
+    /**
+     * Getter method for myX.
+     * @return myX.
+     */
     public int getMyX() {
         return myX;
     }
+    /**
+     * Getter method for myY.
+     * @return myY.
+     */
     public int getMyY() {
         return myY;
     }
 
+    /**
+     * Getter method for player speed.
+     * @return player speed.
+     */
     public int getSpeed() {
         return mySpeed;
     }
 
+    /**
+     * Getter method for player direction.
+     * @return player direction.
+     */
     public String getDirection() {
         return myDirection;
     }
+
+    /**
+     * Setter method for collision.
+     * @param collision boolean
+     */
     public void setCollision(boolean collision) {
         myCollision = collision;
     }
+    /**
+     * Getter method for collision.
+     * @return myCollision
+     */
     public boolean isCollision() {
         return myCollision;
     }
+
+    /**
+     * Getter method for solid area.
+     * @return mySolidArea
+     */
     public Rectangle getSolidArea() {
         return mySolidArea;
     }
+
+    /**
+     * Setter method for mySolidArea.x.
+     * @param theArea area to be set.
+     */
     public void setSolidAreaX(int theArea) {
         mySolidArea.x = theArea;
     }
+    /**
+     * Setter method for mySolidArea.y.
+     * @param theArea area to be set.
+     */
     public void setSolidAreaY(int theArea) {
         mySolidArea.y = theArea;
     }
 
+    /**
+     * Getter method for the default value of
+     * mySolidArea.y.
+     * @return mySolidAreaDefaultY default value
+     */
     public int getMySolidAreaDefaultY() {
         return mySolidAreaDefaultY;
     }
-
+    /**
+     * Getter method for the default value of
+     * mySolidArea.x.
+     * @return mySolidAreaDefaultX default value
+     */
     public int getMySolidAreaDefaultX() {
         return mySolidAreaDefaultX;
     }
 
+    /**
+     * Getter method for BufferedImage of sprite headshot.
+     * @return myHead, image of sprite head.
+     */
     public BufferedImage getMyHead() {
         return myHead;
     }

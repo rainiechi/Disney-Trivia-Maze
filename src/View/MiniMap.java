@@ -7,12 +7,23 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class MiniMap {
+    /** private GamePanel object field */
     private GamePanel myGp;
+    /** private GameSettings object field */
     private GameSettings myGs;
+    /** Private field for image */
     private BufferedImage myMazeMap;
+    /** Private boolean field if map is enabled */
     private boolean myMapEnabled;
+    /** private Maze object field */
     private Maze myMaze;
 
+    /**
+     * Constructor initializes the fields.
+     * @param theGp GamePanel passed to constructor
+     * @param theGs GameSettings passed to constructor
+     * @param theMaze Maze passed to constructor
+     */
     public MiniMap(GamePanel theGp, GameSettings theGs, Maze theMaze) {
         myGp = theGp;
         myGs = theGs;
@@ -20,6 +31,9 @@ public class MiniMap {
         createWorld();
     }
 
+    /**
+     * Method draws the map.
+     */
     public void createWorld() {
         int worldMapWidth = myGs.getTileSize() * myGs.getMaxWorldCol();
         int worldMapHeight = myGs.getTileSize() * myGs.getMaxWorldRow();
@@ -44,6 +58,10 @@ public class MiniMap {
 
     }
 
+    /**
+     * Method draws the maze and player scaled down so it is a mini map.
+     * @param theG2 graphics2D object
+     */
     public void drawMiniMapScreen(Graphics2D theG2) {
         if (myMapEnabled) {
 
@@ -66,9 +84,18 @@ public class MiniMap {
         }
     }
 
-    public void setMapEnabled(boolean enabled) {
-        myMapEnabled = enabled;
+    /**
+     * Setter method for myMapEnabled.
+     * @param theEnabled boolean to be set.
+     */
+    public void setMapEnabled(boolean theEnabled) {
+        myMapEnabled = theEnabled;
     }
+
+    /**
+     * Getter method for myMapEnabled.
+     * @return true if enabled, false otherwise.
+     */
     public boolean isMapEnabled() {
         return myMapEnabled;
     }
