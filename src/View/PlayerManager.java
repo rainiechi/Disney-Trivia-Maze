@@ -1,5 +1,6 @@
 package View;
 
+import Model.Door;
 import Model.GameSettings;
 import Model.MockQuestion;
 import Model.Player;
@@ -29,6 +30,7 @@ public class PlayerManager {
     private int mySolidAreaDefaultX;
     private int mySolidAreaDefaultY;
     private boolean myCollision;
+    private Door myDoor;
 
     private KeyHandler myKeyH;
 
@@ -116,7 +118,10 @@ public class PlayerManager {
             String objectName = myGp.getObj()[i].getName();
             switch(objectName) {
                 case "Door":
-                    myGp.createPopUp();
+                    if (!myGp.getObj()[i].isLocked()) {
+                        PopUp pop = new PopUp(myDoor);
+                        myGp.getObj()[i].setLocked(true);
+                    }
                     break;
 
             }

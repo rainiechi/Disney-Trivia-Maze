@@ -2,13 +2,14 @@ package Model;
 
 import SQLite.DBRetriever;
 
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.IOException;
 
+
 public class Door {
-    BufferedImage myImage;
+    private BufferedImage myImage;
     private DBRetriever myRetriever;
     private Question myQuestion;
     private boolean myUnlocked;
@@ -31,6 +32,11 @@ public class Door {
         myUnlocked = false;
         myAttempted = false;
         myPlayerAnswer = null;
+        try{
+            myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall_door.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     public void displayQuestion() {
         // Testing purposes. Will be done in GUI implementation once we have SQLite database.
@@ -71,6 +77,9 @@ public class Door {
         myPlayerAnswer = answer;
     }
 
+    public BufferedImage getImage() {
+        return myImage;
+    }
 
     public Question getQuestionObject() {
         return myQuestion;

@@ -69,10 +69,11 @@ public class PopUp implements ActionListener {
         myOptionGroup = new ButtonGroup();
 
         loadQuestions("The question is should be here and if the question is long it should not matter hopefully "
-                ,"option1",
-                "option2", "option3", "option4", "option2" );
+                , "option1",
+                "option2", "option3", "option4", "option2");
         initializeUI();
         displayQuestion(true);
+
     }
 
     /**
@@ -81,7 +82,7 @@ public class PopUp implements ActionListener {
     private void initializeUI()
     {
         // JFrame for the pop up.
-        myFrame.setTitle("Who want to be Disney Expert");
+        myFrame.setTitle("Who want to be a Disney Expert");
         myFrame.setResizable(false);
         myFrame.setSize(400,400);
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -170,11 +171,9 @@ public class PopUp implements ActionListener {
     private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers) {
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
             JOptionPane.showMessageDialog(myFrame, "Correct!");
-            myDoor.setAttempted(true);
 
         } else {
             JOptionPane.showMessageDialog(myFrame, "Incorrect!");
-            myDoor.setAttempted(true);
         }
     }
 

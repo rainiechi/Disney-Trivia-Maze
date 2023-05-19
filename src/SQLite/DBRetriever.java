@@ -40,6 +40,7 @@ public class DBRetriever {
      * Retrieves a random question that has not been used, then marks the question as used once retrieved.
      */
     public Question retrieveQuestion() {
+        resetAllToUnused();
         Question question = null;
         String query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
         try ( Connection conn = myDs.getConnection();

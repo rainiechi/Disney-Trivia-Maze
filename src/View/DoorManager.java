@@ -1,17 +1,22 @@
 package View;
 
+import Model.Door;
 import Model.GameSettings;
 
 import java.awt.*;
 
 public class DoorManager extends ObjectManager {
-    public DoorManager(GameSettings theGs, String theName, int theWorldX, int theWorldY) {
-        super(theGs, theName, theWorldX, theWorldY);
+    private Door myDoor;
+    public DoorManager(GameSettings theGs, String theName, int theWorldX, int theWorldY, Boolean theCheck) {
+        super(theGs, theName, theWorldX, theWorldY, theCheck);
+        myDoor = new Door();
         setSolidArea(new Rectangle(0,0,48,48));
         setSolidAreaDefaultX(getSolidAreaX());
-//        mySolidAreaDefaultY = mySolidArea.y;
-//        myCollision = true;
-//        myWorldX = theWorldX;
-//        myWorldY = theWorldY;
+        setMySolidAreaDefaultY(getSolidAreaY());
+        setMyImage(myDoor.getImage());
+        myDoor.setAttempted(true);
+    }
+    public void setDoorSettings() {
+        myDoor.setAttempted(true);
     }
 }

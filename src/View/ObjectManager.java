@@ -1,12 +1,10 @@
 package View;
 
+import Model.Door;
 import Model.GameSettings;
 
-
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class ObjectManager {
     public BufferedImage myImage;
@@ -18,37 +16,45 @@ public class ObjectManager {
     private int mySolidAreaDefaultX;
     private int mySolidAreaDefaultY;
     private boolean myCollision;
+    private Door myDoor;
+    private boolean myLocked;
 
-    public ObjectManager(GameSettings theGs, String theName, int theWorldX, int theWorldY) {
+    public ObjectManager(GameSettings theGs, String theName, int theWorldX, int theWorldY, boolean theCheck) {
         myName = theName;
         this.myGs = theGs;
-        switchObject();
         mySolidArea= new Rectangle(0,0,48,48);
         mySolidAreaDefaultX = mySolidArea.x;
         mySolidAreaDefaultY = mySolidArea.y;
-        myCollision = true;
+        myCollision = theCheck;
         myWorldX = theWorldX;
         myWorldY = theWorldY;
+        myLocked = false;
 
 
     }
-    public void switchObject() {
-        if (myName != null) {
-            try{
-                switch (myName) {
-                    case "Door":
-                        myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall_door.png")));
-                        break;
-                    case "Exit":
-                        myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/exit_door.png")));
-                        break;
-                    case "Chest":
-                        myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/chest.png")));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//    public void switchObject() {
+//        if (myName != null) {
+//            try{
+//                switch (myName) {
+//                    case "Door":
+//                        myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall_door.png")));
+//                        break;
+//                    case "Exit":
+//                        myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/exit_door.png")));
+//                        break;
+//                    case "Chest":
+//                        myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/chest.png")));
+//                }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+    public void setLocked(boolean b) {
+        myLocked = b;
+    }
+    public boolean isLocked() {
+        return myLocked;
     }
     public void draw(Graphics2D theG2, GamePanel theGp) {
         int screenX = myWorldX - theGp.getPlayerManager().getMyWorldX() + theGp.getPlayerManager().getMyX();
@@ -98,14 +104,20 @@ public class ObjectManager {
     public void setSolidAreaY(int theArea) {
         mySolidArea.y = theArea;
     }
+    public int getSolidAreaY() {
+        return mySolidArea.y;
+    }
     public int getMySolidAreaDefaultY() {
         return mySolidAreaDefaultY;
+    }
+    public void setMySolidAreaDefaultY(int theArea) { mySolidAreaDefaultY = theArea; }
+    public int getMySolidAreaDefaultX() {
+        return mySolidAreaDefaultX;
     }
     public void setSolidAreaDefaultX(int theArea) {
         mySolidAreaDefaultX = theArea;
     }
-
-    public int getMySolidAreaDefaultX() {
-        return mySolidAreaDefaultX;
+    public void setMyImage(BufferedImage theImage) {
+        myImage = theImage;
     }
 }

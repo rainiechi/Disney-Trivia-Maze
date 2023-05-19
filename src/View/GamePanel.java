@@ -21,6 +21,7 @@ public class GamePanel extends JPanel implements Runnable{
     private MiniMap myMiniMap;
     private Door myDoor;
     private PopUp myPopUp;
+    private DoorManager[] myDoorM;
     Thread myGameThread;
     private int myFPS;
 
