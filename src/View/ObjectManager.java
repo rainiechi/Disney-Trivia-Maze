@@ -10,20 +10,43 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ObjectManager {
+    /**
+     * Private BufferedImage field for image
+     */
     public BufferedImage myImage;
+    /** Private String field for name of object */
     private String myName;
+    /** Private int field for X coordinate on map */
     private int myWorldX;
+    /** Private int field for Y coordinate on map  */
     private int myWorldY;
+    /** Private field for game settings */
     private GameSettings myGs;
+    /** Private Rectangle field for solid area of object */
     private Rectangle mySolidArea;
+    /** Private int field for solid area default value x of object */
     private int mySolidAreaDefaultX;
+    /** Private int field for solid area default value y of object */
     private int mySolidAreaDefaultY;
+    /** Private boolean field for collision */
     private boolean myCollision;
+    /** Private boolean field for if object has been touched */
     private boolean myTouchedObj;
-    private Door myDoor;
-    private Chest myChest;
+    /** Private boolean field for if object has been locked */
     private boolean myLocked;
+    /** Private Door object */
+    private Door myDoor;
+    /** Private Chest object */
+    private Chest myChest;
 
+    /**
+     * Constructor initializes fields.
+     * @param theGs GameSettings passed in constructor
+     * @param theName name of object
+     * @param theWorldX X coordinate on map
+     * @param theWorldY Y coordinate on map
+     * @param theCheck collision check
+     */
     public ObjectManager(GameSettings theGs, String theName, int theWorldX, int theWorldY, boolean theCheck) {
         myName = theName;
         this.myGs = theGs;
@@ -39,6 +62,10 @@ public class ObjectManager {
         myDoor = null;
         myChest = null;
     }
+
+    /**
+     * Method identifies object by name and sets image based on name of object.
+     */
     public void switchObject() {
         if (myName != null) {
             try{
@@ -57,12 +84,12 @@ public class ObjectManager {
             }
         }
     }
-    public void setLocked(boolean b) {
-        myLocked = b;
-    }
-    public boolean isLocked() {
-        return myLocked;
-    }
+
+    /**
+     * Method draws the object.
+     * @param theG2 Graphics2D object to draw
+     * @param theGp GamePanel passed to constructor
+     */
     public void draw(Graphics2D theG2, GamePanel theGp) {
         int screenX = myWorldX - theGp.getPlayerManager().getMyWorldX() + theGp.getPlayerManager().getMyX();
         int screenY = myWorldY - theGp.getPlayerManager().getMyWorldY() + theGp.getPlayerManager().getMyY();
@@ -75,54 +102,115 @@ public class ObjectManager {
             theG2.drawImage(myImage, screenX, screenY, myGs.getTileSize(), myGs.getTileSize(), null);
         }
     }
+
+    /**
+     * Setter method for Door object.
+     * @param theDoor door object
+     */
     public void setDoor(Door theDoor) {
         myDoor = theDoor;
     }
+
+    /**
+     * Getter method for myDoor.
+     * @return myDoor door object
+     */
     public Door getDoor() {
         return myDoor;
     }
+
+    /**
+     * Setter method for Chest object
+     * @param theChest chest object
+     */
     public void setChest(Chest theChest) {
         myChest = theChest;
     }
+
+    /**
+     * Getter method for myChest
+     * @return myChest chest object
+     */
     public Chest getChest() {
         return myChest;
     }
-    public void setWorldX (int theX) {
-        myWorldX = theX;
-    }
+
+    /**
+     * Getter method for myWorldX.
+     * @return myWorldX
+     */
     public int getWorldX() {
         return myWorldX;
     }
+
+    /**
+     * Getter method for myWorldY
+     * @return myWorldY
+     */
     public int getWorldY() {
         return myWorldY;
     }
-    public void setWorldY (int theY) {
-        myWorldY = theY;
-    }
+
+    /**
+     * Getter method for myName
+     * @return myName
+     */
     public String getName() {
         return myName;
     }
+
+    /**
+     * Setter method for solid area.
+     * @param theArea rectangle object to be set.
+     */
     public void setSolidArea(Rectangle theArea) {
         mySolidArea = theArea;
     }
+
+    /**
+     * Getter method for solid area.
+     * @return mySolidArea rectangle object
+     */
     public Rectangle getSolidArea() {
         return mySolidArea;
     }
+
+    /**
+     * Getter method for myCollision.
+     * @return true if collision, false otherwise.
+     */
     public boolean isCollision() {
         return myCollision;
     }
-    public void setCollision(boolean theCheck) {
-        myCollision = theCheck;
-    }
+
+    /**
+     * Setter method for mySolidArea.x
+     * @param theArea int area to be set.
+     */
     public void setSolidAreaX(int theArea) {
         mySolidArea.x = theArea;
     }
+
+    /**
+     * Getter method for mySolidArea.x
+     * @return mySolidArea.x
+     */
     public int getSolidAreaX() {
         return mySolidArea.x;
     }
+
+    /**
+     * Setter method for mySolidArea.y
+     * @param theArea int area to be set.
+     */
     public void setSolidAreaY(int theArea) {
         mySolidArea.y = theArea;
     }
+
+    /**
+     * Getter method for mySolidArea.y
+     * @return mySolidArea.y
+     */
     public int getSolidAreaY() {
         return mySolidArea.y;
     }
@@ -136,6 +224,11 @@ public class ObjectManager {
     public void setSolidAreaDefaultX(int theArea) {
         mySolidAreaDefaultX = theArea;
     }
+
+    /**
+     * Setter method for myImage
+     * @param theImage image passed in
+     */
     public void setMyImage(BufferedImage theImage) {
         myImage = theImage;
     }
@@ -144,5 +237,19 @@ public class ObjectManager {
     }
     public void setTouched(boolean theBoolean) {
         myTouchedObj = theBoolean;
+    }
+    /**
+     * Setter method for myLocked.
+     * @param b boolean passed in to set myLocked
+     */
+    public void setLocked(boolean b) {
+        myLocked = b;
+    }
+    /**
+     * Getter method for myLocked.
+     * @return true if the object is locked, otherwise false.
+     */
+    public boolean isLocked() {
+        return myLocked;
     }
 }

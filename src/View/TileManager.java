@@ -7,18 +7,31 @@ import java.awt.*;
 
 
 public class TileManager {
+    /** Field for GamePanel */
     private GamePanel myGp;
+    /** Field for GameSettings */
     private GameSettings myGs;
+    /** Field for Maze */
     private Maze myMaze;
 
-    public TileManager(GamePanel gp, GameSettings gs) {
-        this.myGp = gp;
-        this.myGs = gs;
-        myMaze = new Maze(gs);
+    /**
+     * Constructor initializes the fields.
+     * @param theGp GamePanel object passed in
+     * @param theGs GameSettings object passed in
+     * @param theMaze Maze object passed in
+     */
+    public TileManager(GamePanel theGp, GameSettings theGs, Maze theMaze) {
+        this.myGp = theGp;
+        this.myGs = theGs;
+        myMaze = theMaze;
 
     }
 
-    public void draw(Graphics2D g2) {
+    /**
+     * Method draws the 2D array of tiles from Maze class.
+     * @param theG2 Graphics2D object
+     */
+    public void draw(Graphics2D theG2) {
     int worldCol = 0;
     int worldRow = 0;
 
@@ -41,13 +54,14 @@ public class TileManager {
                     worldY + myGs.getTileSize() > myGp.getPlayerManager().getMyWorldY() - myGp.getPlayerManager().getMyY() &&
                     worldY - myGs.getTileSize() < myGp.getPlayerManager().getMyWorldY() + myGp.getPlayerManager().getMyY()) {
 
-                g2.drawImage(myMaze.getTile(tileNum).getImage(), screenX, screenY, myGs.getTileSize(), myGs.getTileSize(), null);
+                theG2.drawImage(myMaze.getTile(tileNum).getImage(), screenX, screenY, myGs.getTileSize(), myGs.getTileSize(), null);
             }
 
             worldCol++;
 
             if (worldCol == myGs.getMaxWorldCol()) {
                 worldCol = 0;
+                // moves to next row after
                 worldRow++;
             }
         }

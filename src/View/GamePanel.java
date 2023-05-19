@@ -30,7 +30,7 @@ public class GamePanel extends JPanel implements Runnable{
         myMaze = new Maze(myGS);
         myPlayer = new Player();
         myDoor = new Door();
-        myTileM = new TileManager(this, myGS);
+        myTileM = new TileManager(this, myGS, myMaze);
         myMiniMap = new MiniMap(this, myGS, myMaze);
         keyH = new KeyHandler(myMiniMap);
         playerManager = new PlayerManager(this, keyH, myGS, myPlayer);
