@@ -19,8 +19,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Door myDoor;
     private PopUp myPopUp;
     //private DoorManager[] myDoorM;
-    Thread myGameThread;
-    private int myFPS;
+    private Thread myGameThread;
     private QuestionRecord myQuestionRecord;
 
     public GamePanel() {
@@ -34,7 +33,6 @@ public class GamePanel extends JPanel implements Runnable{
         playerManager = new PlayerManager(this, keyH, myPlayer);
         myObj = new ObjectManager[45];
         myAsset = new AssetSetter(myObj);
-        myFPS = 60;
         myCollisionChecker = new CollisionChecker(this, myMaze, myQuestionRecord);
 
 
@@ -57,7 +55,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
     @Override
     public void run() {
-        double drawInterval = 1000000000 / myFPS; // 0.0166 seconds
+        double drawInterval = 1000000000 / GameSettings.FPS; // 0.0166 seconds
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (myGameThread != null) {
