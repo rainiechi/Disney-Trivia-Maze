@@ -19,7 +19,8 @@ import javax.swing.JFrame;
 //        }
         public static void main(String[] args) {
             GamePanel gamePanel = new GamePanel();
-            new GameFrame(gamePanel);
-            gamePanel.startGameThread();
+            //gamePanel.startGameThread();
+            new GameFrame();
+
         }
     }

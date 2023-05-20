@@ -14,29 +14,34 @@ public class GameFrame extends JFrame {
     private JMenuItem myAboutItem;
     private JMenuItem myInstructionItem;
 
-    private JPanel myGamePanel;
+    private GamePanel myGamePanel;
     private JButton resumeButton;
+
+    private WelcomePanel myWelcomePanel;
 
 
     /**
      * GameFrame Constructor.
-     * @param theGamePanel the game panel to be contained by GameFrame
      */
-    public GameFrame(final JPanel theGamePanel) {
-        if (theGamePanel == null) {
-            throw new IllegalArgumentException("Game Panel cannot be null");
-        }
-        resumeButtonSetUp();
-        initMenuBar();
-        menuBarListener();
+    public GameFrame() {
+        myGamePanel = new GamePanel();
+        myWelcomePanel = new WelcomePanel();
+        this.setContentPane(myWelcomePanel);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setTitle(GAME_TITLE);
-        myGamePanel = theGamePanel;
-        add(myGamePanel);
         pack();
-        setLocationRelativeTo(null);
-        setVisible(true);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
+
+    public void switchToGamePanel() {
+        resumeButtonSetUp();
+        initMenuBar();
+        setContentPane(myGamePanel);
+        revalidate(); // Refresh the content pane
+        myGamePanel.requestFocusInWindow();
+        myGamePanel.startGameThread(); // Start the game thread
     }
 
     /**
@@ -74,6 +79,7 @@ public class GameFrame extends JFrame {
         myHelpMenu.add(myAboutItem);
         myHelpMenu.add(myInstructionItem);
         setJMenuBar(myMenuBar);
+        menuBarListener();
     }
 
     /**
