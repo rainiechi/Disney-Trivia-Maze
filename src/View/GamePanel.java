@@ -56,7 +56,7 @@ public class GamePanel extends JPanel implements Runnable{
         myGameThread.start();
     }
     public void createPopUp() {
-        myPopUp = new PopUp(myDoor);
+        myPopUp = new PopUp();
     }
     @Override
     public void run() {

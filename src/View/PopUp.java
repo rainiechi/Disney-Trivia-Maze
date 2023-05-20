@@ -1,5 +1,8 @@
 package View;
 
+import Model.Door;
+import Model.Question;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

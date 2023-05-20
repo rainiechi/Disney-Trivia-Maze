@@ -2,14 +2,13 @@ package Model;
 
 import SQLite.DBRetriever;
 
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
 
-
 public class Door {
-    private BufferedImage myImage;
+    BufferedImage myImage;
     private DBRetriever myRetriever;
     private Question myQuestion;
     private boolean myUnlocked;
@@ -22,6 +21,7 @@ public class Door {
 //    public static void main(String[] args) {
 //        Door door = new Door();
 //        door.displayQuestion();
+//        //System.out.println(door.getAnswer());
 //        DBRetriever tr = new DBRetriever();
 //        tr.resetAllToUnused();
 //    }
@@ -76,7 +76,6 @@ public class Door {
     public void setPlayerMyAnswer(final String answer) {
         myPlayerAnswer = answer;
     }
-
     public BufferedImage getImage() {
         return myImage;
     }
@@ -84,6 +83,8 @@ public class Door {
     public Question getQuestionObject() {
         return myQuestion;
     }
+
+
 
 //    public String getQuestion() {
 //        return myQuestion.getMyQuestion();
