@@ -1,5 +1,6 @@
 package View;
 
+import Model.Door;
 import Model.GameSettings;
 import Model.Maze;
 import Model.Player;
@@ -17,6 +18,10 @@ public class GamePanel extends JPanel implements Runnable{
     private ObjectManager[] myObj;
     private CollisionChecker myCollisionChecker;
     private Maze myMaze;
+    private MiniMap myMiniMap;
+    private Door myDoor;
+    private PopUp myPopUp;
+    private DoorManager[] myDoorM;
     Thread myGameThread;
     private int myFPS;
 
@@ -24,13 +29,15 @@ public class GamePanel extends JPanel implements Runnable{
         myGS = new GameSettings();
         myMaze = new Maze(myGS);
         myPlayer = new Player();
-        keyH = new KeyHandler();
-        myTileM = new TileManager(this, myGS);
+        myDoor = new Door();
+        myTileM = new TileManager(this, myGS, myMaze);
+        myMiniMap = new MiniMap(this, myGS, myMaze);
+        keyH = new KeyHandler(myMiniMap);
         playerManager = new PlayerManager(this, keyH, myGS, myPlayer);
-        myObj = new ObjectManager[20];
-        myAsset = new AssetSetter(this, myGS);
+        myObj = new ObjectManager[45];
+        myAsset = new AssetSetter(myGS, myObj);
         myFPS = 60;
-        myCollisionChecker = new CollisionChecker(this, myGS);
+        myCollisionChecker = new CollisionChecker(this, myGS, myMaze);
 
 
 
@@ -47,6 +54,9 @@ public class GamePanel extends JPanel implements Runnable{
 
         myGameThread = new Thread(this);
         myGameThread.start();
+    }
+    public void createPopUp() {
+        myPopUp = new PopUp(myDoor);
     }
     @Override
     public void run() {
@@ -90,6 +100,8 @@ public class GamePanel extends JPanel implements Runnable{
         // Tile
        myTileM.draw(g2);
 
+       myMiniMap.drawMiniMapScreen(g2);
+
         for (int i = 0; i < myObj.length; i++) {
             if(myObj[i] != null) {
                 myObj[i].draw(g2, this);
@@ -110,5 +122,8 @@ public class GamePanel extends JPanel implements Runnable{
     }
     public CollisionChecker getCC() {
         return myCollisionChecker;
+    }
+    public PopUp getPopUp() {
+        return myPopUp;
     }
 }

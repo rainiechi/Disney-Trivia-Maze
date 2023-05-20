@@ -1,7 +1,9 @@
 package Model;
 
-public class Chest {
+import java.awt.image.BufferedImage;
 
+public class Chest {
+    private BufferedImage myImage;
     private Stone myStone; //the stone in the chest
     private boolean myEmptyChest; //if the chest is currently empty
 
@@ -66,7 +68,9 @@ public class Chest {
         myStone = null;
         myEmptyChest = true;
     }
-
+    public BufferedImage getImage() {
+        return myImage;
+    }
 
 
 }

@@ -1,7 +1,8 @@
 package View;
 
+import Model.Chest;
+import Model.Door;
 import Model.GameSettings;
-
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,26 +10,62 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ObjectManager {
+    /**
+     * Private BufferedImage field for image
+     */
     public BufferedImage myImage;
+    /** Private String field for name of object */
     private String myName;
+    /** Private int field for X coordinate on map */
     private int myWorldX;
+    /** Private int field for Y coordinate on map  */
     private int myWorldY;
-    GameSettings myGs;
+    /** Private field for game settings */
+    private GameSettings myGs;
+    /** Private Rectangle field for solid area of object */
     private Rectangle mySolidArea;
+    /** Private int field for solid area default value x of object */
     private int mySolidAreaDefaultX;
+    /** Private int field for solid area default value y of object */
     private int mySolidAreaDefaultY;
+    /** Private boolean field for collision */
     private boolean myCollision;
+    /** Private boolean field for if object has been touched */
+    private boolean myTouchedObj;
+    /** Private boolean field for if object has been locked */
+    private boolean myLocked;
+    /** Private Door object */
+    private Door myDoor;
+    /** Private Chest object */
+    private Chest myChest;
 
-    public ObjectManager(GameSettings theGs, String theName) {
+    /**
+     * Constructor initializes fields.
+     * @param theGs GameSettings passed in constructor
+     * @param theName name of object
+     * @param theWorldX X coordinate on map
+     * @param theWorldY Y coordinate on map
+     * @param theCheck collision check
+     */
+    public ObjectManager(GameSettings theGs, String theName, int theWorldX, int theWorldY, boolean theCheck) {
         myName = theName;
         this.myGs = theGs;
         switchObject();
         mySolidArea= new Rectangle(0,0,48,48);
         mySolidAreaDefaultX = mySolidArea.x;
         mySolidAreaDefaultY = mySolidArea.y;
-        myCollision = false;
-
+        myCollision = theCheck;
+        myWorldX = theWorldX;
+        myWorldY = theWorldY;
+        myLocked = false;
+        myTouchedObj = false;
+        myDoor = null;
+        myChest = null;
     }
+
+    /**
+     * Method identifies object by name and sets image based on name of object.
+     */
     public void switchObject() {
         if (myName != null) {
             try{
@@ -39,12 +76,20 @@ public class ObjectManager {
                     case "Exit":
                         myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/exit_door.png")));
                         break;
+                    case "Chest":
+                        myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/chest.png")));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
+
+    /**
+     * Method draws the object.
+     * @param theG2 Graphics2D object to draw
+     * @param theGp GamePanel passed to constructor
+     */
     public void draw(Graphics2D theG2, GamePanel theGp) {
         int screenX = myWorldX - theGp.getPlayerManager().getMyWorldX() + theGp.getPlayerManager().getMyX();
         int screenY = myWorldY - theGp.getPlayerManager().getMyWorldY() + theGp.getPlayerManager().getMyY();
@@ -57,41 +102,154 @@ public class ObjectManager {
             theG2.drawImage(myImage, screenX, screenY, myGs.getTileSize(), myGs.getTileSize(), null);
         }
     }
-    public void setWorldX (int theX) {
-        myWorldX = theX;
+
+    /**
+     * Setter method for Door object.
+     * @param theDoor door object
+     */
+    public void setDoor(Door theDoor) {
+        myDoor = theDoor;
     }
+
+    /**
+     * Getter method for myDoor.
+     * @return myDoor door object
+     */
+    public Door getDoor() {
+        return myDoor;
+    }
+
+    /**
+     * Setter method for Chest object
+     * @param theChest chest object
+     */
+    public void setChest(Chest theChest) {
+        myChest = theChest;
+    }
+
+    /**
+     * Getter method for myChest
+     * @return myChest chest object
+     */
+    public Chest getChest() {
+        return myChest;
+    }
+
+    /**
+     * Getter method for myWorldX.
+     * @return myWorldX
+     */
     public int getWorldX() {
         return myWorldX;
     }
+
+    /**
+     * Getter method for myWorldY
+     * @return myWorldY
+     */
     public int getWorldY() {
         return myWorldY;
     }
-    public void setWorldY (int theY) {
-        myWorldY = theY;
-    }
+
+    /**
+     * Getter method for myName
+     * @return myName
+     */
     public String getName() {
         return myName;
     }
+
+    /**
+     * Setter method for solid area.
+     * @param theArea rectangle object to be set.
+     */
+    public void setSolidArea(Rectangle theArea) {
+        mySolidArea = theArea;
+    }
+
+    /**
+     * Getter method for solid area.
+     * @return mySolidArea rectangle object
+     */
     public Rectangle getSolidArea() {
         return mySolidArea;
     }
+
+    /**
+     * Getter method for myCollision.
+     * @return true if collision, false otherwise.
+     */
     public boolean isCollision() {
         return myCollision;
     }
-    public void setCollision(boolean theCheck) {
-        myCollision = theCheck;
-    }
+
+    /**
+     * Setter method for mySolidArea.x
+     * @param theArea int area to be set.
+     */
     public void setSolidAreaX(int theArea) {
         mySolidArea.x = theArea;
     }
+
+    /**
+     * Getter method for mySolidArea.x
+     * @return mySolidArea.x
+     */
+    public int getSolidAreaX() {
+        return mySolidArea.x;
+    }
+
+    /**
+     * Setter method for mySolidArea.y
+     * @param theArea int area to be set.
+     */
     public void setSolidAreaY(int theArea) {
         mySolidArea.y = theArea;
+    }
+
+    /**
+     * Getter method for mySolidArea.y
+     * @return mySolidArea.y
+     */
+    public int getSolidAreaY() {
+        return mySolidArea.y;
     }
     public int getMySolidAreaDefaultY() {
         return mySolidAreaDefaultY;
     }
-
+    public void setMySolidAreaDefaultY(int theArea) { mySolidAreaDefaultY = theArea; }
     public int getMySolidAreaDefaultX() {
         return mySolidAreaDefaultX;
+    }
+    public void setSolidAreaDefaultX(int theArea) {
+        mySolidAreaDefaultX = theArea;
+    }
+
+    /**
+     * Setter method for myImage
+     * @param theImage image passed in
+     */
+    public void setMyImage(BufferedImage theImage) {
+        myImage = theImage;
+    }
+    public boolean isTouched() {
+        return myTouchedObj;
+    }
+    public void setTouched(boolean theBoolean) {
+        myTouchedObj = theBoolean;
+    }
+    /**
+     * Setter method for myLocked.
+     * @param b boolean passed in to set myLocked
+     */
+    public void setLocked(boolean b) {
+        myLocked = b;
+    }
+    /**
+     * Getter method for myLocked.
+     * @return true if the object is locked, otherwise false.
+     */
+    public boolean isLocked() {
+        return myLocked;
     }
 }

@@ -3,8 +3,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
-    private boolean upPressed, downPressed, rightPressed, leftPressed;
+    private boolean upPressed, downPressed, rightPressed, leftPressed, myMapPressed, myExitMapPressed;
+    private MiniMap myMiniMap;
 
+    public KeyHandler(MiniMap theMiniMap) {
+        this.myMiniMap = theMiniMap;
+    }
     @Override
     public void keyTyped(KeyEvent e) {
         // not needed
@@ -25,7 +29,15 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_D) {
             setRightPressed(true);
         }
-    }
+        if (code == KeyEvent.VK_M) {
+            myMiniMap.setMapEnabled(true);
+            }
+        if (code == KeyEvent.VK_X) {
+            if (myMiniMap.isMapEnabled()) {
+                myMiniMap.setMapEnabled(false);
+                }
+            }
+        }
 
     @Override
     public void keyReleased(KeyEvent e) {
@@ -75,5 +87,20 @@ public class KeyHandler implements KeyListener {
 
     public void setLeftPressed(boolean leftPressed) {
         this.leftPressed = leftPressed;
+    }
+
+    public boolean isMapPressed() {
+        return myMapPressed;
+    }
+    public void setMapPressed(boolean mapPressed) {
+        this.myMapPressed = mapPressed;
+    }
+
+    public boolean isMyExitMapPressed() {
+        return myExitMapPressed;
+    }
+
+    public void setMyExitMapPressed(boolean myExitMapPressed) {
+        this.myExitMapPressed = myExitMapPressed;
     }
 }
