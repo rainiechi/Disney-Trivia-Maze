@@ -3,15 +3,18 @@ package View;
 import Model.Door;
 import Model.GameSettings;
 import Model.Maze;
+import Model.QuestionRecord;
 
 public class CollisionChecker {
     private GamePanel myGp;
     private GameSettings myGs;
     private Maze myMaze;
-    public CollisionChecker(GamePanel theGp, GameSettings theGs, Maze theMaze) {
+    private QuestionRecord myQuestionRecord;
+    public CollisionChecker(GamePanel theGp, GameSettings theGs, Maze theMaze, final QuestionRecord theQuestionRecord) {
         myGp = theGp;
         myGs = theGs;
         myMaze = theMaze;
+        myQuestionRecord = theQuestionRecord;
     }
 
     public void checkTile(PlayerManager thePlayer) {
@@ -151,12 +154,12 @@ public class CollisionChecker {
             switch(objectName) {
                 case "Door":
                     if (!myGp.getObj()[i].isTouched()) {
-                        Door door = new Door();
+                        Door door = new Door(myQuestionRecord);
                         myGp.getObj()[i].setTouched(true);
                         myGp.getObj()[i].setDoor(door);
                     }
                     if (!myGp.getObj()[i].isLocked()) {
-                        PopUp pop = new PopUp();  //myGp.getObj()[i].getDoor() -> was in the constructor
+                        PopUp pop = new PopUp(myGp.getObj()[i].getDoor());  //myGp.getObj()[i].getDoor() -> was in the constructor
                         if (!myGp.getObj()[i].getDoor().getMyUnlock()) {
                             myGp.getObj()[i] = null;
                         } else {

@@ -6,7 +6,10 @@ import java.awt.*;
 public class GameFrame extends JFrame {
     private static final String GAME_TITLE = "Disney Trivia Maze";
     private static final int BORDER = 15;
-    private static final Color BG = new Color(123, 63, 0);
+    private static final Color PINK = new Color(245,218,223);
+    private static final Color BROWN = new Color(164,116,73);
+    private static final Color DARK_BROWN = new Color(78,53,36);
+    private static final Color BEIGE = new Color(242, 235, 228);
     private JMenuBar myMenuBar;
     private JMenuItem mySaveItem;
     private JMenuItem myLoadItem;
@@ -42,6 +45,7 @@ public class GameFrame extends JFrame {
         revalidate(); // Refresh the content pane
         myGamePanel.requestFocusInWindow();
         myGamePanel.startGameThread(); // Start the game thread
+        showDialog(new InstructionPanel()); //show instructions
     }
 
     /**
@@ -49,6 +53,10 @@ public class GameFrame extends JFrame {
      */
     public void resumeButtonSetUp() {
         resumeButton = new JButton("RESUME");
+        resumeButton.setBackground(BEIGE);
+        resumeButton.setForeground(DARK_BROWN);
+        resumeButton.setBorder(BorderFactory.createLineBorder(DARK_BROWN, 1));
+        resumeButton.setSize(new Dimension(60,18));
         //disposes the window and resumes game
         resumeButton.addActionListener(theEvent -> {
             Component comp = (Component) theEvent.getSource();
@@ -110,11 +118,11 @@ public class GameFrame extends JFrame {
      */
     class ExitPanel extends JPanel {
         public ExitPanel() {
-            setBackground(BG);
+            setBackground(PINK);
             JLabel exitLabel1 = new JLabel("CONFIRM EXIT");
-            exitLabel1.setForeground(Color.ORANGE);
+            exitLabel1.setForeground(DARK_BROWN);
             JLabel exitLabel2 = new JLabel("UNSAVED PROGRESS WILL BE LOST");
-            exitLabel2.setForeground(Color.WHITE);
+            exitLabel2.setForeground(BROWN);
 
             JPanel exitPanel1 = new JPanel();
             exitPanel1.setOpaque(false);
@@ -129,6 +137,9 @@ public class GameFrame extends JFrame {
             add(exitPanel2);
 
             JButton exitButton = new JButton("EXIT");
+            exitButton.setBackground(BEIGE);
+            exitButton.setForeground(DARK_BROWN);
+            exitButton.setBorder(BorderFactory.createLineBorder(DARK_BROWN, 1));
             exitButton.addActionListener(theEvent -> dispose());
             add(exitButton);
             add(resumeButton);
@@ -140,13 +151,13 @@ public class GameFrame extends JFrame {
      */
     class AboutPanel extends JPanel {
         public AboutPanel() {
-            setBackground(BG);
+            setBackground(PINK);
             JLabel aboutLabel1 = new JLabel("ABOUT");
-            aboutLabel1.setForeground(Color.ORANGE);
+            aboutLabel1.setForeground(DARK_BROWN);
             JLabel aboutLabel2 = new JLabel("Made with Java 19");
-            aboutLabel2.setForeground(Color.WHITE);
+            aboutLabel2.setForeground(BROWN);
             JLabel aboutLabel3 = new JLabel("Created by: Amanda, Rainie, Karan");
-            aboutLabel3.setForeground(Color.WHITE);
+            aboutLabel3.setForeground(BROWN);
 
             JPanel aboutPanel1 = new JPanel();
             aboutPanel1.setOpaque(false);
@@ -167,6 +178,7 @@ public class GameFrame extends JFrame {
             add(aboutPanel3);
             add(resumeButton);
         }
+
     }
 
 
@@ -175,17 +187,17 @@ public class GameFrame extends JFrame {
      */
     class InstructionPanel extends JPanel {
         public InstructionPanel() {
-            setBackground(BG);
+            setBackground(PINK);
             JLabel insLabel1 = new JLabel("INSTRUCTION");
-            insLabel1.setForeground(Color.ORANGE);
+            insLabel1.setForeground(DARK_BROWN);
             JLabel insLabel2 = new JLabel("Oh no! You're trapped in Andy's maze");
-            insLabel2.setForeground(Color.WHITE);
+            insLabel2.setForeground(BROWN);
             JLabel insLabel3 = new JLabel("Unlock doors by answering trivia questions");
-            insLabel3.setForeground(Color.WHITE);
+            insLabel3.setForeground(BROWN);
             JLabel insLabel4 = new JLabel("You must find Boo's door to beat the maze");
-            insLabel4.setForeground(Color.WHITE);
+            insLabel4.setForeground(BROWN);
             JLabel insLabel5 = new JLabel("Find infinity stones to help you along the way!");
-            insLabel5.setForeground(Color.WHITE);
+            insLabel5.setForeground(BROWN);
 
             JPanel insPanel1 = new JPanel();
             insPanel1.setOpaque(false);

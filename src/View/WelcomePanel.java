@@ -1,6 +1,7 @@
 package View;
 
 import Model.GameSettings;
+import SQLite.DBRetriever;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -86,7 +87,6 @@ public class WelcomePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(myBackground, 0, 0, getWidth(), getHeight(), this);
-
         g.setColor(Color.BLACK);
         int logoX = (getWidth() - myLogoIcon.getWidth(this)) / 2; // Center the logo horizontally
         int logoY = 100; // Adjust the vertical position of the logo

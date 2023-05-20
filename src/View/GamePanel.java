@@ -1,9 +1,6 @@
 package View;
 
-import Model.Door;
-import Model.GameSettings;
-import Model.Maze;
-import Model.Player;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,15 +18,16 @@ public class GamePanel extends JPanel implements Runnable{
     private MiniMap myMiniMap;
     private Door myDoor;
     private PopUp myPopUp;
-    private DoorManager[] myDoorM;
+    //private DoorManager[] myDoorM;
     Thread myGameThread;
     private int myFPS;
+    private QuestionRecord myQuestionRecord;
 
     public GamePanel() {
         myGS = new GameSettings();
         myMaze = new Maze(myGS);
         myPlayer = new Player();
-        myDoor = new Door();
+        myQuestionRecord = new QuestionRecord();
         myTileM = new TileManager(this, myGS, myMaze);
         myMiniMap = new MiniMap(this, myGS, myMaze);
         keyH = new KeyHandler(myMiniMap);
@@ -37,7 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
         myObj = new ObjectManager[45];
         myAsset = new AssetSetter(myGS, myObj);
         myFPS = 60;
-        myCollisionChecker = new CollisionChecker(this, myGS, myMaze);
+        myCollisionChecker = new CollisionChecker(this, myGS, myMaze, myQuestionRecord);
 
 
 
@@ -56,7 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
         myGameThread.start();
     }
     public void createPopUp() {
-        myPopUp = new PopUp();
+        //myPopUp = new PopUp();
     }
     @Override
     public void run() {

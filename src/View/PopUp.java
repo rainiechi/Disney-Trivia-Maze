@@ -55,13 +55,32 @@ public class PopUp implements ActionListener {
      */
     private String myCorrectAnswer;
 
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
+//
+//        new PopUp();
+//    }
 
-        new PopUp();
-    }
+//    public PopUp() {
+//        //myFrame = new JFrame();
+//        myDialog = new JDialog((Frame) null, true);
+//        myQuestionPanel = new JPanel();
+//        myQuestionArea = new JTextArea();
+//        myOptionPanel = new JPanel();
+//        myOption1 = new JButton();
+//        myOption2 = new JButton();
+//        myOption3 = new JButton();
+//        myOption4 = new JButton();
+//
+//
+//        loadQuestions("Hello world and if the question is long it will wrap around "
+//                ,"option1",
+//                "option2", "option3", "option4", "option2" );
+//        initializeUI(new GamePanel());
+//
+//        //displayQuestion(true);
+//    }
 
-    public PopUp() {
-        //myFrame = new JFrame();
+    public PopUp(final Door theDoor) {
         myDialog = new JDialog((Frame) null, true);
         myQuestionPanel = new JPanel();
         myQuestionArea = new JTextArea();
@@ -70,14 +89,16 @@ public class PopUp implements ActionListener {
         myOption2 = new JButton();
         myOption3 = new JButton();
         myOption4 = new JButton();
-
-
-        loadQuestions("Hello world and if the question is long it will wrap around "
-                ,"option1",
-                "option2", "option3", "option4", "option2" );
+        loadQuestion(theDoor.getQuestionObject());
         initializeUI(new GamePanel());
-
-        //displayQuestion(true);
+    }
+    private void loadQuestion(final Question theQuestion) {
+        myQuestionArea.setText(theQuestion.getMyQuestion());
+        myOption1.setText(theQuestion.getMyOption1());
+        myOption2.setText(theQuestion.getMyOption2());
+        myOption3.setText(theQuestion.getMyOption3());
+        myOption4.setText(theQuestion.getMyOption4());
+        myCorrectAnswer = theQuestion.getMyAnswer();
     }
 
     /**
