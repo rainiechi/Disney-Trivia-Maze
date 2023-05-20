@@ -7,19 +7,20 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class Maze {
-    GameSettings myGs;
     private Tile[] myTile;
 
     private int [][]  myMapTileNum;
+    private int myMaxWorldColumn;
+    private int myMaxWorldRow;
 
     /**
      * Constructor intializes fields.
-     * @param gs GameSettings
      */
-    public Maze(GameSettings gs) {
+    public Maze() {
         myTile = new Tile[20];
-        this.myGs = gs;
-        myMapTileNum = new int[myGs.getMaxWorldCol()][myGs.getMaxWorldRow()];
+        myMaxWorldColumn = GameSettings.MAX_WORLD_COLUMN;
+        myMaxWorldRow = GameSettings.MAX_WORLD_ROW;
+        myMapTileNum = new int[myMaxWorldColumn][myMaxWorldRow];
         loadMap("/res/map/maze_ver2.txt");
         getTileImage();
     }
@@ -36,10 +37,10 @@ public class Maze {
             int col = 0;
             int row = 0;
 
-            while (col < myGs.getMaxWorldCol() && row < myGs.getMaxWorldRow()) {
+            while (col < myMaxWorldColumn && row < myMaxWorldRow) {
                 String line = br.readLine();
 
-                while (col < myGs.getMaxWorldCol()) {
+                while (col < myMaxWorldColumn) {
                     String numbers[] = line.split(" ");
 
                     int num = Integer.parseInt(numbers[col]);
@@ -47,7 +48,7 @@ public class Maze {
                     col++;
 
                 }
-                if (col == myGs.getMaxWorldCol()) {
+                if (col == myMaxWorldColumn) {
                     col = 0;
                     row++;
                 }

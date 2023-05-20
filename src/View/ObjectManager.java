@@ -10,18 +10,19 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class ObjectManager {
+
+    private static final int TILE_SIZE = GameSettings.TILE_SIZE;
     /**
      * Private BufferedImage field for image
      */
-    public BufferedImage myImage;
+    private BufferedImage myImage;
     /** Private String field for name of object */
     private String myName;
     /** Private int field for X coordinate on map */
     private int myWorldX;
     /** Private int field for Y coordinate on map  */
     private int myWorldY;
-    /** Private field for game settings */
-    private GameSettings myGs;
+
     /** Private Rectangle field for solid area of object */
     private Rectangle mySolidArea;
     /** Private int field for solid area default value x of object */
@@ -39,17 +40,16 @@ public class ObjectManager {
     /** Private Chest object */
     private Chest myChest;
 
+
     /**
      * Constructor initializes fields.
-     * @param theGs GameSettings passed in constructor
      * @param theName name of object
      * @param theWorldX X coordinate on map
      * @param theWorldY Y coordinate on map
      * @param theCheck collision check
      */
-    public ObjectManager(GameSettings theGs, String theName, int theWorldX, int theWorldY, boolean theCheck) {
+    public ObjectManager(final String theName, final int theWorldX, final int theWorldY, final boolean theCheck) {
         myName = theName;
-        this.myGs = theGs;
         switchObject();
         mySolidArea= new Rectangle(0,0,48,48);
         mySolidAreaDefaultX = mySolidArea.x;
@@ -90,16 +90,16 @@ public class ObjectManager {
      * @param theG2 Graphics2D object to draw
      * @param theGp GamePanel passed to constructor
      */
-    public void draw(Graphics2D theG2, GamePanel theGp) {
+    public void draw(final Graphics2D theG2, final GamePanel theGp) {
         int screenX = myWorldX - theGp.getPlayerManager().getMyWorldX() + theGp.getPlayerManager().getMyX();
         int screenY = myWorldY - theGp.getPlayerManager().getMyWorldY() + theGp.getPlayerManager().getMyY();
 
-        if (myWorldX + myGs.getTileSize() > theGp.getPlayerManager().getMyWorldX() - theGp.getPlayerManager().getMyX() &&
-                myWorldX - myGs.getTileSize() < theGp.getPlayerManager().getMyWorldX() + theGp.getPlayerManager().getMyX() &&
-                myWorldY + myGs.getTileSize() > theGp.getPlayerManager().getMyWorldY()  - theGp.getPlayerManager().getMyY() &&
-                myWorldY - myGs.getTileSize() < theGp.getPlayerManager().getMyWorldY()  + theGp.getPlayerManager().getMyY()) {
+        if (myWorldX + TILE_SIZE > theGp.getPlayerManager().getMyWorldX() - theGp.getPlayerManager().getMyX() &&
+                myWorldX - TILE_SIZE < theGp.getPlayerManager().getMyWorldX() + theGp.getPlayerManager().getMyX() &&
+                myWorldY + TILE_SIZE > theGp.getPlayerManager().getMyWorldY()  - theGp.getPlayerManager().getMyY() &&
+                myWorldY - TILE_SIZE < theGp.getPlayerManager().getMyWorldY()  + theGp.getPlayerManager().getMyY()) {
 
-            theG2.drawImage(myImage, screenX, screenY, myGs.getTileSize(), myGs.getTileSize(), null);
+            theG2.drawImage(myImage, screenX, screenY, TILE_SIZE, TILE_SIZE, null);
         }
     }
 

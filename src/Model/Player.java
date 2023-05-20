@@ -22,10 +22,12 @@ public class Player {
     public Player() {
         myGs = new GameSettings();
         myBackpack = new Backpack();
-        myScreenX = myGs.getScreenWidth()/2 - (myGs.getTileSize()/2);
-        myScreenY = myGs.getScreenHeight()/2 - (myGs.getTileSize()/2);
-        myWorldX = myGs.getTileSize() * 35;
-        myWorldY = myGs.getTileSize() * 28;
+
+
+        myScreenX = GameSettings.SCREEN_WIDTH/2 - (GameSettings.TILE_SIZE/2);
+        myScreenY = GameSettings.SCREEN_HEIGHT/2 - (GameSettings.TILE_SIZE/2);
+        myWorldX = GameSettings.TILE_SIZE * 35;
+        myWorldY = GameSettings.TILE_SIZE * 28;
         myPlayerSpeed = 3;
         mySpaceStone = false;
         mySoulStone = false;
