@@ -27,17 +27,30 @@ public class GameFrame extends JFrame {
      * GameFrame Constructor.
      */
     public GameFrame() {
+        setIcon();
         myGamePanel = new GamePanel();
         myWelcomePanel = new WelcomePanel();
-        this.setContentPane(myWelcomePanel);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
-        this.setTitle(GAME_TITLE);
+        setContentPane(myWelcomePanel);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setTitle(GAME_TITLE);
         pack();
-        this.setLocationRelativeTo(null);
-        this.setVisible(true);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
+
+    /**
+     * Sets the icon for the game to pixar ball.
+     */
+    private void setIcon() {
+        ImageIcon icon = new ImageIcon("src/res/welcomeScreen/ball.png");
+        setIconImage(icon.getImage());
+    }
+
+    /**
+     * Switches from the welcome screen to the game screen.
+     */
     public void switchToGamePanel() {
         resumeButtonSetUp();
         initMenuBar();

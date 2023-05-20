@@ -161,7 +161,7 @@ public class CollisionChecker {
                     if (!myGp.getObj()[i].isLocked()) {
                         PopUp pop = new PopUp(myGp.getObj()[i].getDoor());//myGp.getObj()[i].getDoor() -> was in the constructor
                         System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
-                        if (!myGp.getObj()[i].getDoor().getMyUnlock()) {
+                        if (myGp.getObj()[i].getDoor().getMyUnlock()) {
                             myGp.getObj()[i] = null;
                         } else {
                             myGp.getObj()[i].setLocked(true);
