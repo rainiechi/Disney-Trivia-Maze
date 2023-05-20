@@ -57,11 +57,9 @@ public class PopUp implements ActionListener {
 
     public static void main(String[] args) {
 
-        new PopUp();
+     //   new PopUp(new Door());
     }
-
-    public PopUp() {
-        //myFrame = new JFrame();
+    public PopUp( ) {
         myDialog = new JDialog((Frame) null, true);
         myQuestionPanel = new JPanel();
         myQuestionArea = new JTextArea();
@@ -70,158 +68,179 @@ public class PopUp implements ActionListener {
         myOption2 = new JButton();
         myOption3 = new JButton();
         myOption4 = new JButton();
-
-
-        loadQuestions("Hello world and if the question is long it will wrap around "
-                ,"option1",
-                "option2", "option3", "option4", "option2" );
-        initializeUI(new GamePanel());
-
-        //displayQuestion(true);
     }
+//    public PopUp( Door door) {
+//        //myFrame = new JFrame();
+//        myDialog = new JDialog((Frame) null, true);
+//        myQuestionPanel = new JPanel();
+//        myQuestionArea = new JTextArea();
+//        myOptionPanel = new JPanel();
+//        myOption1 = new JButton();
+//        myOption2 = new JButton();
+//        myOption3 = new JButton();
+//        myOption4 = new JButton();
 
-    /**
-     * To set up the GUI for the pop-up on the door.
-     */
-    private void initializeUI(final GamePanel theGP) {
+//        Question q = new Question("Hello world and if the question is long it will wrap around"
+//                , "option2",
+//                "option2",
+//                "option2",
+//                "option2",
+//                "option2") {
 
+//        loadQuestions("Hello world and if the question is long it will wrap around "
+//                ,"option1",
+//                "option2", "option3", "option4", "option2" );
+//            initializeUI(new GamePanel());
 
-        // JFrame for the pop up.
-        myDialog.setTitle("Who want to be Disney Expert");
-        myDialog.setSize(400,300);
-        myDialog.setLayout(new BorderLayout());
-        myDialog.setUndecorated(true);
-        myDialog.setLocationRelativeTo(theGP);
+            //displayQuestion(true);
+//        }
 
-        int cornerRadius = 40; // Adjust the value as per your preference
-        myDialog.setShape(new RoundRectangle2D.Double(0, 0, 400, 300, cornerRadius, cornerRadius));
-
-        myQuestionPanel.setBackground(LIGHT_BLUE);
-        myQuestionPanel.setLayout(null);
-
-        // Text Area to contain the question.
-        myQuestionArea.setFont( new Font("Berlin Sans FB", Font.PLAIN, 24));
-        myQuestionArea.setBackground(LIGHT_BLUE);
-
-        int GaponBothSides = 45;
-        int GaponTop = 60;
-
-        myQuestionArea.setBounds(GaponBothSides,GaponTop,
-                myDialog.getWidth()-2*GaponBothSides,180 - GaponTop);
-        myQuestionArea.setLineWrap(true);
-        myQuestionArea.setWrapStyleWord(true);
-        myQuestionArea.setEditable(false);
-        myQuestionArea.setFocusable(false);
-
-        myQuestionPanel.add(myQuestionArea);
-
-        //------------------------------------------------------------------------------------------------------------
-
-        Font fontForButtons = new Font("Berlin Sans FB", Font.PLAIN, 16);
-
-        // All the Radio button to select the answer from.
-        myOption1.addActionListener(this);
-        myOption1.setFont( fontForButtons);
-        myOption1.setBackground(BLUE );
-
-        myOption2.addActionListener(this);
-        myOption2.setFont( fontForButtons);
-        myOption2.setBackground(Color.WHITE);
-
-        myOption3.addActionListener(this);
-        myOption3.setFont( fontForButtons);
-        myOption3.setBackground(Color.WHITE);
-
-        myOption4.addActionListener(this);
-        myOption4.setFont( fontForButtons);
-        myOption4.setBackground(BLUE);
+        /**
+         * To set up the GUI for the pop-up on the door.
+         */
+        private void initializeUI(final GamePanel theGP) {
 
 
-        myOptionPanel.add(myOption1);
-        myOptionPanel.add(myOption2);
-        myOptionPanel.add(myOption3);
-        myOptionPanel.add(myOption4);
+            // JFrame for the pop up.
+            myDialog.setTitle("Who want to be Disney Expert");
+            myDialog.setSize(400,300);
+            myDialog.setLayout(new BorderLayout());
+            myDialog.setUndecorated(true);
+            myDialog.setLocationRelativeTo(theGP);
 
-        myOptionPanel.setLayout(new GridLayout(2,2));
-        myOptionPanel.setPreferredSize(new Dimension(400,120));
-        //myOptionPanel.setOpaque(true);
+            int cornerRadius = 40; // Adjust the value as per your preference
+            myDialog.setShape(new RoundRectangle2D.Double(0, 0, 400, 300, cornerRadius, cornerRadius));
 
-        // Add the question panel and option panel to the dialog
-        myDialog.add(myQuestionPanel, BorderLayout.CENTER);
-        myDialog.add(myOptionPanel, BorderLayout.SOUTH);
+            myQuestionPanel.setBackground(LIGHT_BLUE);
+            myQuestionPanel.setLayout(null);
 
-        // Set the dialog to be visible
-        myDialog.setVisible(true);
+            // Text Area to contain the question.
+            myQuestionArea.setFont( new Font("Berlin Sans FB", Font.PLAIN, 24));
+            myQuestionArea.setBackground(LIGHT_BLUE);
 
-    }
+            int GaponBothSides = 45;
+            int GaponTop = 60;
 
-    /**
-     * Takes in different parameters such as questions options and answer and assign different texts
-     * to buttons based on parameters
-     *
-     * @param theQuestion  It is the question to display on the screen
-     * @param theOption1   It is the first option displayed to the res.player.
-     * @param theOption2   It is the second option displayed to the res.player.
-     * @param theOption3   It is the third option displayed to the res.player.
-     * @param theOption4   It is the fourth option displayed to the res.player.
-     * @param theCorrectAnswer It is the correct answer to the problem
-     */
-    private void loadQuestions( final String theQuestion, final String theOption1, final String theOption2,
-                                final String theOption3, final String theOption4, final String theCorrectAnswer  ) {
-        myQuestionArea.setText(theQuestion);
-        myOption1.setText(theOption1);
-        myOption2.setText(theOption2);
-        myOption3.setText(theOption3);
-        myOption4.setText(theOption4);
-        myCorrectAnswer = theCorrectAnswer;
+            myQuestionArea.setBounds(GaponBothSides,GaponTop,
+                    myDialog.getWidth()-2*GaponBothSides,180 - GaponTop);
+            myQuestionArea.setLineWrap(true);
+            myQuestionArea.setWrapStyleWord(true);
+            myQuestionArea.setEditable(false);
+            myQuestionArea.setFocusable(false);
 
-    }
+            myQuestionPanel.add(myQuestionArea);
 
-    /**
-     * Display the GUI in the screen.
-     * @param theQuestionDisplay It is used to decide whether to display the frame or not.
-     */
-    private void displayQuestion(final boolean theQuestionDisplay) {
-        myDialog.setVisible(theQuestionDisplay);
-    }
+            //------------------------------------------------------------------------------------------------------------
 
-    /**
-     * This method take in two parameters and check whether the user has selected the right answer.
-     * @param theCorrectAnswer It is the correct answer to the question.
-     * @param thePlayerAnswers It is the answer that the res.player selected.
-     */
-    private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers) {
-        if (theCorrectAnswer.equals(thePlayerAnswers)) {
-            JOptionPane.showMessageDialog(myDialog, "Correct!");
-        } else {
-            JOptionPane.showMessageDialog(myDialog, "Incorrect!");
+            Font fontForButtons = new Font("Berlin Sans FB", Font.PLAIN, 16);
+
+            // All the Radio button to select the answer from.
+            myOption1.addActionListener(this);
+            myOption1.setFont( fontForButtons);
+            myOption1.setBackground(BLUE );
+
+            myOption2.addActionListener(this);
+            myOption2.setFont( fontForButtons);
+            myOption2.setBackground(Color.WHITE);
+
+            myOption3.addActionListener(this);
+            myOption3.setFont( fontForButtons);
+            myOption3.setBackground(Color.WHITE);
+
+            myOption4.addActionListener(this);
+            myOption4.setFont( fontForButtons);
+            myOption4.setBackground(BLUE);
+
+
+            myOptionPanel.add(myOption1);
+            myOptionPanel.add(myOption2);
+            myOptionPanel.add(myOption3);
+            myOptionPanel.add(myOption4);
+
+            myOptionPanel.setLayout(new GridLayout(2,2));
+            myOptionPanel.setPreferredSize(new Dimension(400,120));
+            //myOptionPanel.setOpaque(true);
+
+            // Add the question panel and option panel to the dialog
+            myDialog.add(myQuestionPanel, BorderLayout.CENTER);
+            myDialog.add(myOptionPanel, BorderLayout.SOUTH);
+
+            // Set the dialog to be visible
+            myDialog.setVisible(true);
+
         }
-        myDialog.dispose();
-    }
 
-    /**
-     * Action perform methods for all the button. It records the user answer.
-     * @param e the event to be processed
-     */
-    @Override
-    public void actionPerformed( final ActionEvent e) {
+        /**
+         * Takes in different parameters such as questions options and answer and assign different texts
+         * to buttons based on parameters
+         *
+         * @param theQuestion  It is the question class object that contain all the details related to the question.
 
-        String playerAnswer;
-        if(e.getSource() == myOption1) {
-            playerAnswer = myOption1.getText();
-            checkAnswer(myCorrectAnswer, playerAnswer);
+         */
+//    private void loadQuestions( final String theQuestion, final String theOption1, final String theOption2,
+//                                final String theOption3, final String theOption4, final String theCorrectAnswer  ) {
+//        myQuestionArea.setText(theQuestion);
+//        myOption1.setText(theOption1);
+//        myOption2.setText(theOption2);
+//        myOption3.setText(theOption3);
+//        myOption4.setText(theOption4);
+//        myCorrectAnswer = theCorrectAnswer;
+//
+//    }
+        private void loadQuestions( Question theQuestion ) {
+            myQuestionArea.setText(theQuestion.getMyQuestion());
+            myOption1.setText(theQuestion.getMyOption1());
+            myOption2.setText(theQuestion.getMyOption2());
+            myOption3.setText(theQuestion.getMyOption3());
+            myOption4.setText(theQuestion.getMyOption4());
+            myCorrectAnswer = theQuestion.getMyAnswer();
+
         }
-        else if(e.getSource() == myOption2) {
-            playerAnswer = myOption2.getText();
-            checkAnswer(myCorrectAnswer, playerAnswer);
+        /**
+         * Display the GUI in the screen.
+         * @param theQuestionDisplay It is used to decide whether to display the frame or not.
+         */
+        private void displayQuestion(final boolean theQuestionDisplay) {
+            myDialog.setVisible(theQuestionDisplay);
         }
-        else if(e.getSource() == myOption3) {
-            playerAnswer = myOption3.getText();
-            checkAnswer(myCorrectAnswer, playerAnswer);
+
+        /**
+         * This method take in two parameters and check whether the user has selected the right answer.
+         * @param theCorrectAnswer It is the correct answer to the question.
+         * @param thePlayerAnswers It is the answer that the res.player selected.
+         */
+        private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers) {
+            if (theCorrectAnswer.equals(thePlayerAnswers)) {
+                JOptionPane.showMessageDialog(myDialog, "Correct!");
+            } else {
+                JOptionPane.showMessageDialog(myDialog, "Incorrect!");
+            }
+            myDialog.dispose();
         }
-        else if(e.getSource() == myOption4) {
-            playerAnswer = myOption4.getText();
-            checkAnswer(myCorrectAnswer, playerAnswer);
+
+        /**
+         * Action perform methods for all the button. It records the user answer.
+         * @param e the event to be processed
+         */
+        @Override
+        public void actionPerformed( final ActionEvent e) {
+
+            String playerAnswer;
+            if(e.getSource() == myOption1) {
+                playerAnswer = myOption1.getText();
+                checkAnswer(myCorrectAnswer, playerAnswer);
+            }
+            else if(e.getSource() == myOption2) {
+                playerAnswer = myOption2.getText();
+                checkAnswer(myCorrectAnswer, playerAnswer);
+            }
+            else if(e.getSource() == myOption3) {
+                playerAnswer = myOption3.getText();
+                checkAnswer(myCorrectAnswer, playerAnswer);
+            }
+            else if(e.getSource() == myOption4) {
+                playerAnswer = myOption4.getText();
+                checkAnswer(myCorrectAnswer, playerAnswer);
+            }
         }
     }
-}
