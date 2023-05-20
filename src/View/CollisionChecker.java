@@ -6,34 +6,34 @@ import Model.Maze;
 import Model.QuestionRecord;
 
 public class CollisionChecker {
+    private static final int TILE_SIZE = GameSettings.TILE_SIZE;
     private GamePanel myGp;
-    private GameSettings myGs;
     private Maze myMaze;
     private QuestionRecord myQuestionRecord;
-    public CollisionChecker(GamePanel theGp, GameSettings theGs, Maze theMaze, final QuestionRecord theQuestionRecord) {
+
+    public CollisionChecker(final GamePanel theGp, final Maze theMaze, final QuestionRecord theQuestionRecord) {
         myGp = theGp;
-        myGs = theGs;
         myMaze = theMaze;
         myQuestionRecord = theQuestionRecord;
     }
 
-    public void checkTile(PlayerManager thePlayer) {
+    public void checkTile(final PlayerManager thePlayer) {
         int entityLeftWorldX = thePlayer.getMyWorldX() + thePlayer.getSolidArea().x;
         int entityRightWorldX = thePlayer.getMyWorldX() + thePlayer.getSolidArea().x + thePlayer.getSolidArea().width;
         int entityTopWorldY = thePlayer.getMyWorldY() + thePlayer.getSolidArea().y;
         int entityBottomWorldY = thePlayer.getMyWorldY() + thePlayer.getSolidArea().y + thePlayer.getSolidArea().height;
 
-        int entityLeftCol = entityLeftWorldX/myGs.getTileSize();
-        int entityRightCol = entityRightWorldX/myGs.getTileSize();
-        int entityTopRow = entityTopWorldY/myGs.getTileSize();
-        int entityBottomRow = entityBottomWorldY/myGs.getTileSize();
+        int entityLeftCol = entityLeftWorldX/TILE_SIZE;
+        int entityRightCol = entityRightWorldX/TILE_SIZE;
+        int entityTopRow = entityTopWorldY/TILE_SIZE;
+        int entityBottomRow = entityBottomWorldY/TILE_SIZE;
 
         int tileNum1;
         int tileNum2;
 
         switch(thePlayer.getDirection()) {
             case "up":
-                entityTopRow = (entityTopWorldY - thePlayer.getSpeed())/myGs.getTileSize();
+                entityTopRow = (entityTopWorldY - thePlayer.getSpeed())/TILE_SIZE;
                 tileNum1 = myMaze.getMyMapTileNum(entityLeftCol, entityTopRow);
                 tileNum2 = myMaze.getMyMapTileNum(entityRightCol, entityTopRow);
 
@@ -43,7 +43,7 @@ public class CollisionChecker {
                 }
                 break;
             case "down":
-                entityBottomRow = (entityBottomWorldY + thePlayer.getSpeed())/myGs.getTileSize();
+                entityBottomRow = (entityBottomWorldY + thePlayer.getSpeed())/TILE_SIZE;
                 tileNum1 = myMaze.getMyMapTileNum(entityLeftCol, entityBottomRow);
                 tileNum2 = myMaze.getMyMapTileNum(entityRightCol, entityBottomRow);
 
@@ -53,7 +53,7 @@ public class CollisionChecker {
                 }
                 break;
             case "left":
-                entityLeftCol = (entityLeftWorldX - thePlayer.getSpeed())/myGs.getTileSize();
+                entityLeftCol = (entityLeftWorldX - thePlayer.getSpeed())/TILE_SIZE;
                 tileNum1 = myMaze.getMyMapTileNum(entityLeftCol, entityTopRow);
                 tileNum2 = myMaze.getMyMapTileNum(entityLeftCol, entityBottomRow);
 
@@ -63,7 +63,7 @@ public class CollisionChecker {
                 }
                 break;
             case "right":
-                entityRightCol = (entityRightWorldX + thePlayer.getSpeed())/myGs.getTileSize();
+                entityRightCol = (entityRightWorldX + thePlayer.getSpeed())/TILE_SIZE;
                 tileNum1 = myMaze.getMyMapTileNum(entityRightCol, entityTopRow);
                 tileNum2 = myMaze.getMyMapTileNum(entityRightCol, entityBottomRow);
 
@@ -75,7 +75,7 @@ public class CollisionChecker {
         }
     }
 
-    public int checkObject(PlayerManager thePlayer, boolean theCheck) {
+    public int checkObject(final PlayerManager thePlayer, final boolean theCheck) {
         int index = 999;
 
         for(int i = 0;  i < myGp.getObj().length; i++) {
@@ -146,7 +146,7 @@ public class CollisionChecker {
 
         return index;
     }
-    public void pickUpObject(int i) {
+    public void pickUpObject(final int i) {
         // Any number is fine as long as its not the index
         // of an object.
         if (i != 999) {
@@ -159,7 +159,8 @@ public class CollisionChecker {
                         myGp.getObj()[i].setDoor(door);
                     }
                     if (!myGp.getObj()[i].isLocked()) {
-                        PopUp pop = new PopUp(myGp.getObj()[i].getDoor());  //myGp.getObj()[i].getDoor() -> was in the constructor
+                        PopUp pop = new PopUp(myGp.getObj()[i].getDoor());//myGp.getObj()[i].getDoor() -> was in the constructor
+                        System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
                         if (!myGp.getObj()[i].getDoor().getMyUnlock()) {
                             myGp.getObj()[i] = null;
                         } else {

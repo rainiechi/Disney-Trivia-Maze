@@ -25,31 +25,30 @@ public class GamePanel extends JPanel implements Runnable{
 
     public GamePanel() {
         myGS = new GameSettings();
-        myMaze = new Maze(myGS);
+        myMaze = new Maze();
         myPlayer = new Player();
         myQuestionRecord = new QuestionRecord();
-        myTileM = new TileManager(this, myGS, myMaze);
-        myMiniMap = new MiniMap(this, myGS, myMaze);
+        myTileM = new TileManager(this, myMaze);
+        myMiniMap = new MiniMap(this, myMaze);
         keyH = new KeyHandler(myMiniMap);
-        playerManager = new PlayerManager(this, keyH, myGS, myPlayer);
+        playerManager = new PlayerManager(this, keyH, myPlayer);
         myObj = new ObjectManager[45];
-        myAsset = new AssetSetter(myGS, myObj);
+        myAsset = new AssetSetter(myObj);
         myFPS = 60;
-        myCollisionChecker = new CollisionChecker(this, myGS, myMaze, myQuestionRecord);
+        myCollisionChecker = new CollisionChecker(this, myMaze, myQuestionRecord);
 
 
 
 
-        this.setPreferredSize(new Dimension(myGS.getScreenWidth(), myGS.getScreenHeight()));
+        this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
 
         // BACKGROUND
-        this.setBackground(Color.LIGHT_GRAY);
+        this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
     }
     public void startGameThread() {
-
         myGameThread = new Thread(this);
         myGameThread.start();
     }

@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class DoorManager extends ObjectManager {
     private Door myDoor;
-    public DoorManager(GameSettings theGs, String theName, int theWorldX, int theWorldY, Boolean theCheck) {
-        super(theGs, theName, theWorldX, theWorldY, theCheck);
+    public DoorManager(String theName, int theWorldX, int theWorldY, Boolean theCheck) {
+        super(theName, theWorldX, theWorldY, theCheck);
         //myDoor = new Door();
         setSolidArea(new Rectangle(0,0,48,48));
         setSolidAreaDefaultX(getSolidAreaX());

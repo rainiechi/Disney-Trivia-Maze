@@ -55,6 +55,8 @@ public class PopUp implements ActionListener {
      */
     private String myCorrectAnswer;
 
+    private Door myDoor;
+
 //    public static void main(String[] args) {
 //
 //        new PopUp();
@@ -81,6 +83,10 @@ public class PopUp implements ActionListener {
 //    }
 
     public PopUp(final Door theDoor) {
+        if (theDoor == null) {
+            throw new NullPointerException("Door cannot be null");
+        }
+        myDoor = theDoor;
         myDialog = new JDialog((Frame) null, true);
         myQuestionPanel = new JPanel();
         myQuestionArea = new JTextArea();
@@ -89,7 +95,7 @@ public class PopUp implements ActionListener {
         myOption2 = new JButton();
         myOption3 = new JButton();
         myOption4 = new JButton();
-        loadQuestion(theDoor.getQuestionObject());
+        loadQuestion(myDoor.getQuestionObject());
         initializeUI(new GamePanel());
     }
     private void loadQuestion(final Question theQuestion) {
@@ -121,7 +127,7 @@ public class PopUp implements ActionListener {
         myQuestionPanel.setLayout(null);
 
         // Text Area to contain the question.
-        myQuestionArea.setFont( new Font("Berlin Sans FB", Font.PLAIN, 24));
+        myQuestionArea.setFont( new Font("Berlin Sans FB", Font.PLAIN, 20));
         myQuestionArea.setBackground(LIGHT_BLUE);
 
         int GaponBothSides = 45;
@@ -213,8 +219,11 @@ public class PopUp implements ActionListener {
      */
     private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers) {
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
+            myDoor.setAttempted(true);
+            myDoor.setMyUnlock(true);
             JOptionPane.showMessageDialog(myDialog, "Correct!");
         } else {
+            myDoor.setAttempted(true);
             JOptionPane.showMessageDialog(myDialog, "Incorrect!");
         }
         myDialog.dispose();

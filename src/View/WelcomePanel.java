@@ -10,13 +10,15 @@ import javax.swing.*;
 
 public class WelcomePanel extends JPanel {
 
+    private static final int SCREEN_WIDTH = GameSettings.SCREEN_WIDTH;
+    private static final int SCREEN_HEIGHT = GameSettings.SCREEN_HEIGHT;
+
     private static final Color BLUE = new Color(101,139,189);
     private static final Color YELLOW = new Color(249,239,125);
     private static final Font fontForButtons = new Font("Bahnschrift", Font.BOLD, 16);
 
     private JButton myNewGameButton;
     private JButton myLoadGameButton;
-    private GameSettings myGS;
     private Image myBackground;
     private Image myLogoIcon;
 
@@ -25,8 +27,7 @@ public class WelcomePanel extends JPanel {
      * Welcome Panel is the opening screen of the game.
      */
     public WelcomePanel() {
-        myGS = new GameSettings();
-        setPreferredSize(new Dimension(myGS.getScreenWidth(), myGS.getScreenHeight()));
+        setPreferredSize(new Dimension(SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
         ImageIcon backgroundIcon = new ImageIcon("src/res/welcomeScreen/toy_story_background.png");
         myBackground = backgroundIcon.getImage();
         ImageIcon logo = new ImageIcon("src/res/welcomeScreen/logo.png");
