@@ -10,42 +10,39 @@ import java.io.IOException;
 public class DialogForYesNoAnswer {
 
     private boolean playerAnswer;
-    JDialog myDialog;
+    private JDialog myDialog;
 
-    public DialogForYesNoAnswer(Frame parent, String theImage) throws IOException {
+    public DialogForYesNoAnswer(Frame parent, String labelText, Font labelFont, Color labelBackground,
+                                Color labelForeground) throws IOException {
 
         myDialog = new JDialog((Frame) null, true);
-        myDialog.setTitle("Who want to be Disney Expert");
+        myDialog.setTitle("Who wants to be a Disney Expert");
         myDialog.setLayout(new BorderLayout());
         myDialog.setSize(400, 300);
         myDialog.setLocationRelativeTo(parent);
 
         // Create components
-        ImageIcon originalIcon = new ImageIcon(theImage);
-
-
-        Image originalImage = originalIcon.getImage();
-        Image resizedImage = originalImage.getScaledInstance(400, 205, Image.SCALE_SMOOTH);
-
-        JLabel messageLabel = new JLabel();
-        messageLabel.setIcon(new ImageIcon(resizedImage));
+        JLabel messageLabel = new JLabel(labelText);
+        messageLabel.setHorizontalAlignment(JLabel.CENTER);
+        messageLabel.setVerticalAlignment(JLabel.CENTER);
+        messageLabel.setFont(labelFont);
+        messageLabel.setBackground(labelBackground);
+        messageLabel.setForeground(labelForeground);
+        messageLabel.setOpaque(true);
 
         // Add components to the dialog
+        myDialog.add(messageLabel, BorderLayout.CENTER);
 
-        myDialog.add(messageLabel, BorderLayout.NORTH);
-
-
-        //------------------------------------------------------------------------------------------------------------
         JButton yesButton = new JButton("Yes");
         yesButton.setFocusable(false);
-        yesButton.setBackground(new Color(42,187,156)); // Green color for the yes button
+        yesButton.setBackground(new Color(42, 187, 156)); // Green color for the yes button
 
         JButton noButton = new JButton("No");
         noButton.setFocusable(false);
-        noButton.setBackground(new Color(229,77,66)); // Red color for the yes button
+        noButton.setBackground(new Color(229, 77, 66)); // Red color for the no button
 
-        JPanel buttonPanel = new JPanel(new GridLayout(1,2));
-        buttonPanel.setPreferredSize(new Dimension(400,60));
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
+        buttonPanel.setPreferredSize(new Dimension(400, 60));
         buttonPanel.add(yesButton);
         buttonPanel.add(noButton);
         myDialog.add(buttonPanel, BorderLayout.SOUTH);
@@ -72,8 +69,7 @@ public class DialogForYesNoAnswer {
         myDialog.setVisible(true);
     }
 
-    public boolean getplayerAnswer() {
+    public boolean getPlayerAnswer() {
         return playerAnswer;
     }
-
 }
