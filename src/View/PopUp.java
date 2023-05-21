@@ -14,10 +14,7 @@ import java.awt.geom.RoundRectangle2D;
 public class PopUp implements ActionListener {
     private final static Color LIGHT_BLUE = new Color(228, 246, 248);
     private final static Color BLUE =new Color(210, 246, 250);
-//    /**
-//     * The JFrame for the GUI.
-//     */
-//    private final JFrame myFrame;
+
     /**
      *
      */
@@ -26,7 +23,7 @@ public class PopUp implements ActionListener {
     /**
      * The Question Panel contains the question
      */
-    private final JPanel myQuestionPanel;
+    private JPanel myQuestionPanel;
     /**
      * The text area for the Question.
      */
@@ -76,7 +73,7 @@ public class PopUp implements ActionListener {
         myOption4 = new JButton();
 
 
-        loadQuestions("Hello world and if the question is long it will wrap around "
+        loadQuestions("Hello world very long "
                 ,"option1 should be long and what if it is very very very long",
                 "option2", "option3", "option4", "option2" );
         initializeUI(new GamePanel());
@@ -125,73 +122,14 @@ public class PopUp implements ActionListener {
         int cornerRadius = 40; // Adjust the value as per your preference
         myDialog.setShape(new RoundRectangle2D.Double(0, 0, 400, 300, cornerRadius, cornerRadius));
 
-//        myQuestionPanel.setBackground(LIGHT_BLUE);
-//        myQuestionPanel.setLayout(null);
-//
-//        // Text Area to contain the question.
-//        myQuestionArea.setFont( new Font("Berlin Sans FB", Font.PLAIN, 20));
-//        myQuestionArea.setBackground(LIGHT_BLUE);
-//
-//        int GaponBothSides = 45;
-//        int GaponTop = 60;
-//
-//        myQuestionArea.setBounds(GaponBothSides,GaponTop,
-//                myDialog.getWidth()-2*GaponBothSides,180 - GaponTop);
-//        myQuestionArea.setLineWrap(true);
-//        myQuestionArea.setWrapStyleWord(true);
-//        myQuestionArea.setEditable(false);
-//        myQuestionArea.setFocusable(false);
-//
-//        myQuestionPanel.add(myQuestionArea);
+
+        myQuestionPanel.setSize(new Dimension(400,180));
+        setGridBagLayoutForComponents(myQuestionArea.getText()
+                ,myQuestionPanel,
+                new Font("Berlin Sans FB", Font.PLAIN, 20),
+                LIGHT_BLUE);
 
 
-        //myQuestionPanel.setBackground(LIGHT_BLUE);
-        myQuestionPanel.setLayout(new GridBagLayout());
-
-        myQuestionArea.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
-        myQuestionArea.setBackground(LIGHT_BLUE);
-        myQuestionArea.setLineWrap(true);
-        myQuestionArea.setWrapStyleWord(true);
-        myQuestionArea.setEditable(false);
-        myQuestionArea.setFocusable(false);
-
-        myQuestionArea.setSize(340,1);
-
-
-        // Create a GridBagConstraints instance
-        GridBagConstraints gbc = new GridBagConstraints();
-
-        //gbc.gridx=0;
-        //gbc.gridy=0;
-        //gbc.ipadx=1;
-        //gbc.gridwidth = 360;
-        //gbc.fill = GridBagConstraints.HORIZONTAL;
-        //gbc.insets = new Insets(10, 10, 10, 10);
-        //gbc.anchor = GridBagConstraints.CENTER;
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.CENTER;
-        gbc.anchor = GridBagConstraints.CENTER;
-
-        System.out.println("GridBagConstraints values:");
-        System.out.println("Grid x: " + gbc.gridx);
-        System.out.println("Grid y: " + gbc.gridy);
-        System.out.println("Grid width: " + gbc.gridwidth);
-        System.out.println("Grid height: " + gbc.gridheight);
-        System.out.println("Anchor: " + gbc.anchor);
-        System.out.println("Fill: " + gbc.fill);
-        System.out.println("Insets: " + gbc.insets);
-        System.out.println("IPad x: " + gbc.ipadx);
-        System.out.println("IPad y: " + gbc.ipady);
-        System.out.println("Weight x: " + gbc.weightx);
-        System.out.println("Weight y: " + gbc.weighty);
-
-        // Add the JTextArea to the JPanel with GridBagConstraints
-        //myQuestionPanel.setBounds(20,10,360,160);
-        myQuestionPanel.add(myQuestionArea, gbc);
 
         //------------------------------------------------------------------------------------------------------------
 
@@ -251,23 +189,7 @@ public class PopUp implements ActionListener {
                                 final String theOption3, final String theOption4, final String theCorrectAnswer  ) {
         myQuestionArea.setText(theQuestion);
 
-        myQuestionPanel.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.CENTER;
-        gbc.anchor = GridBagConstraints.CENTER;
-        myQuestionPanel.add(myQuestionArea, gbc);
-
-        JTextArea Option1Area = new JTextArea(theOption1);
-        Option1Area.setLineWrap(true);
-        Option1Area.setWrapStyleWord(true);
-
-        myOption1.setLayout(new GridBagLayout());
-        myOption1.add(Option1Area, gbc);
-
+        myOption1.setText(theOption1);
         myOption2.setText(theOption2);
         myOption3.setText(theOption3);
         myOption4.setText(theOption4);
@@ -275,25 +197,43 @@ public class PopUp implements ActionListener {
 
     }
 
-    public void setGridBagLayoutForComponents(String Text, Component components) {
-        Container container = null;
+    /**
+     * Method that allow the components to have text roll over to the next line.
+     * @param theText
+     * @param panel
+     */
+    public void setGridBagLayoutForComponents(String theText, JPanel  panel, Font theFont, Color theColor) {
+
+        JTextArea textArea = new JTextArea();
+        textArea.setText(theText);
+
+        textArea.setFont(theFont);
+        textArea.setBackground(theColor);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setEditable(false);
+        textArea.setFocusable(false);
+
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
+        gbc.gridwidth = 360;
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
-        gbc.fill = GridBagConstraints.CENTER;
-        gbc.anchor = GridBagConstraints.CENTER;
-        myQuestionPanel.add(myQuestionArea, gbc);
+        //gbc.fill = GridBagConstraints.CENTER;
 
-        if (components instanceof Container) {
-            container = (Container) components;
-            container.setLayout(new GridBagLayout());
+        gbc.insets = new Insets(0, 20, 0, 20); // Set the desired insets (top, left, bottom, right)
+        //gbc.ipadx=1;
+        //gbc.anchor = GridBagConstraints.CENTER;
 
 
+        panel.setLayout(new GridBagLayout());
+        System.out.println(panel.getSize());
+        System.out.println((panel.getWidth()*panel.getHeight())/360);
 
-            //container.add(components, constraints);
-        }
+        //textArea.setSize(new Dimension( 360,(panel.getWidth()*panel.getHeight())/360));
+        //panel.setBackground(theColor);
+        panel.add(textArea, gbc);
     }
 
 
