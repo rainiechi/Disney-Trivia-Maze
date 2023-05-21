@@ -4,6 +4,7 @@ import Model.Door;
 import Model.Question;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -57,36 +58,14 @@ public class PopUp implements ActionListener {
 
     private Door myDoor;
 
-//    public static void main(String[] args) {
-//
-//        new PopUp();
-//    }
+    public static void main(String[] args) {
 
-//    public PopUp() {
-//        //myFrame = new JFrame();
-//        myDialog = new JDialog((Frame) null, true);
-//        myQuestionPanel = new JPanel();
-//        myQuestionArea = new JTextArea();
-//        myOptionPanel = new JPanel();
-//        myOption1 = new JButton();
-//        myOption2 = new JButton();
-//        myOption3 = new JButton();
-//        myOption4 = new JButton();
-//
-//
-//        loadQuestions("Hello world and if the question is long it will wrap around "
-//                ,"option1",
-//                "option2", "option3", "option4", "option2" );
-//        initializeUI(new GamePanel());
-//
-//        //displayQuestion(true);
-//    }
+        new PopUp();
 
-    public PopUp(final Door theDoor) {
-        if (theDoor == null) {
-            throw new NullPointerException("Door cannot be null");
-        }
-        myDoor = theDoor;
+    }
+
+    public PopUp() {
+        //myFrame = new JFrame();
         myDialog = new JDialog((Frame) null, true);
         myQuestionPanel = new JPanel();
         myQuestionArea = new JTextArea();
@@ -95,9 +74,32 @@ public class PopUp implements ActionListener {
         myOption2 = new JButton();
         myOption3 = new JButton();
         myOption4 = new JButton();
-        loadQuestion(myDoor.getQuestionObject());
+
+
+        loadQuestions("Hello world and if the question is long it will wrap around "
+                ,"option1 should be long and what if it is very very very long",
+                "option2", "option3", "option4", "option2" );
         initializeUI(new GamePanel());
+
+        //displayQuestion(true);
     }
+
+    //    public PopUp(final Door theDoor) {
+//        if (theDoor == null) {
+//            throw new NullPointerException("Door cannot be null");
+//        }
+//        myDoor = theDoor;
+//        myDialog = new JDialog((Frame) null, true);
+//        myQuestionPanel = new JPanel();
+//        myQuestionArea = new JTextArea();
+//        myOptionPanel = new JPanel();
+//        myOption1 = new JButton();
+//        myOption2 = new JButton();
+//        myOption3 = new JButton();
+//        myOption4 = new JButton();
+//        loadQuestion(myDoor.getQuestionObject());
+//        initializeUI(new GamePanel());
+//    }
     private void loadQuestion(final Question theQuestion) {
         myQuestionArea.setText(theQuestion.getMyQuestion());
         myOption1.setText(theQuestion.getMyOption1());
@@ -123,24 +125,73 @@ public class PopUp implements ActionListener {
         int cornerRadius = 40; // Adjust the value as per your preference
         myDialog.setShape(new RoundRectangle2D.Double(0, 0, 400, 300, cornerRadius, cornerRadius));
 
-        myQuestionPanel.setBackground(LIGHT_BLUE);
-        myQuestionPanel.setLayout(null);
+//        myQuestionPanel.setBackground(LIGHT_BLUE);
+//        myQuestionPanel.setLayout(null);
+//
+//        // Text Area to contain the question.
+//        myQuestionArea.setFont( new Font("Berlin Sans FB", Font.PLAIN, 20));
+//        myQuestionArea.setBackground(LIGHT_BLUE);
+//
+//        int GaponBothSides = 45;
+//        int GaponTop = 60;
+//
+//        myQuestionArea.setBounds(GaponBothSides,GaponTop,
+//                myDialog.getWidth()-2*GaponBothSides,180 - GaponTop);
+//        myQuestionArea.setLineWrap(true);
+//        myQuestionArea.setWrapStyleWord(true);
+//        myQuestionArea.setEditable(false);
+//        myQuestionArea.setFocusable(false);
+//
+//        myQuestionPanel.add(myQuestionArea);
 
-        // Text Area to contain the question.
-        myQuestionArea.setFont( new Font("Berlin Sans FB", Font.PLAIN, 20));
+
+        //myQuestionPanel.setBackground(LIGHT_BLUE);
+        myQuestionPanel.setLayout(new GridBagLayout());
+
+        myQuestionArea.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         myQuestionArea.setBackground(LIGHT_BLUE);
-
-        int GaponBothSides = 45;
-        int GaponTop = 60;
-
-        myQuestionArea.setBounds(GaponBothSides,GaponTop,
-                myDialog.getWidth()-2*GaponBothSides,180 - GaponTop);
         myQuestionArea.setLineWrap(true);
         myQuestionArea.setWrapStyleWord(true);
         myQuestionArea.setEditable(false);
         myQuestionArea.setFocusable(false);
 
-        myQuestionPanel.add(myQuestionArea);
+        myQuestionArea.setSize(340,1);
+
+
+        // Create a GridBagConstraints instance
+        GridBagConstraints gbc = new GridBagConstraints();
+
+        //gbc.gridx=0;
+        //gbc.gridy=0;
+        //gbc.ipadx=1;
+        //gbc.gridwidth = 360;
+        //gbc.fill = GridBagConstraints.HORIZONTAL;
+        //gbc.insets = new Insets(10, 10, 10, 10);
+        //gbc.anchor = GridBagConstraints.CENTER;
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        System.out.println("GridBagConstraints values:");
+        System.out.println("Grid x: " + gbc.gridx);
+        System.out.println("Grid y: " + gbc.gridy);
+        System.out.println("Grid width: " + gbc.gridwidth);
+        System.out.println("Grid height: " + gbc.gridheight);
+        System.out.println("Anchor: " + gbc.anchor);
+        System.out.println("Fill: " + gbc.fill);
+        System.out.println("Insets: " + gbc.insets);
+        System.out.println("IPad x: " + gbc.ipadx);
+        System.out.println("IPad y: " + gbc.ipady);
+        System.out.println("Weight x: " + gbc.weightx);
+        System.out.println("Weight y: " + gbc.weighty);
+
+        // Add the JTextArea to the JPanel with GridBagConstraints
+        //myQuestionPanel.setBounds(20,10,360,160);
+        myQuestionPanel.add(myQuestionArea, gbc);
 
         //------------------------------------------------------------------------------------------------------------
 
@@ -150,19 +201,22 @@ public class PopUp implements ActionListener {
         myOption1.addActionListener(this);
         myOption1.setFont( fontForButtons);
         myOption1.setBackground(BLUE );
+        myOption1.setFocusable(false);
 
         myOption2.addActionListener(this);
         myOption2.setFont( fontForButtons);
         myOption2.setBackground(Color.WHITE);
+        myOption2.setFocusable(false);
 
         myOption3.addActionListener(this);
         myOption3.setFont( fontForButtons);
         myOption3.setBackground(Color.WHITE);
+        myOption3.setFocusable(false);
 
         myOption4.addActionListener(this);
         myOption4.setFont( fontForButtons);
         myOption4.setBackground(BLUE);
-
+        myOption4.setFocusable(false);
 
         myOptionPanel.add(myOption1);
         myOptionPanel.add(myOption2);
@@ -196,13 +250,52 @@ public class PopUp implements ActionListener {
     private void loadQuestions( final String theQuestion, final String theOption1, final String theOption2,
                                 final String theOption3, final String theOption4, final String theCorrectAnswer  ) {
         myQuestionArea.setText(theQuestion);
-        myOption1.setText(theOption1);
+
+        myQuestionPanel.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.CENTER;
+        myQuestionPanel.add(myQuestionArea, gbc);
+
+        JTextArea Option1Area = new JTextArea(theOption1);
+        Option1Area.setLineWrap(true);
+        Option1Area.setWrapStyleWord(true);
+
+        myOption1.setLayout(new GridBagLayout());
+        myOption1.add(Option1Area, gbc);
+
         myOption2.setText(theOption2);
         myOption3.setText(theOption3);
         myOption4.setText(theOption4);
         myCorrectAnswer = theCorrectAnswer;
 
     }
+
+    public void setGridBagLayoutForComponents(String Text, Component components) {
+        Container container = null;
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.CENTER;
+        gbc.anchor = GridBagConstraints.CENTER;
+        myQuestionPanel.add(myQuestionArea, gbc);
+
+        if (components instanceof Container) {
+            container = (Container) components;
+            container.setLayout(new GridBagLayout());
+
+
+
+            //container.add(components, constraints);
+        }
+    }
+
 
     /**
      * Display the GUI in the screen.

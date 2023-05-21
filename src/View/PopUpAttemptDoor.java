@@ -8,26 +8,35 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 public class PopUpAttemptDoor {
+
     private boolean retryAttempt;
     JDialog myDialog;
 
     public PopUpAttemptDoor(Frame parent) throws IOException {
 
         myDialog = new JDialog((Frame) null, true);
+        myDialog.setTitle("Who want to be Disney Expert");
+        myDialog.setLayout(new BorderLayout());
         myDialog.setSize(400, 300);
         myDialog.setLocationRelativeTo(parent);
 
         // Create components
-        ImageIcon imageIcon = new ImageIcon("C:\\Users\\12063\\Desktop\\Intellij Projects\\Trivia Maze" +
-                "\\Disney-Trivia-Maze\\src\\res\\Miscellaneous_images\\3d-question-Image.png");
+        ImageIcon originalIcon = new ImageIcon("C:\\Users\\12063\\Desktop\\Intellij Projects\\Trivia Maze" +
+                "\\Disney-Trivia-Maze\\src\\res\\Miscellaneous_images\\boo door.png");
 
-        System.out.println(imageIcon);
+
+        Image originalImage = originalIcon.getImage();
+        Image resizedImage = originalImage.getScaledInstance(400, 205, Image.SCALE_SMOOTH);
+
         JLabel messageLabel = new JLabel();
-        //messageLabel.setText("Do you want to attempt the door again?");
-        messageLabel.setIcon(imageIcon);
+        messageLabel.setIcon(new ImageIcon(resizedImage));
 
-        messageLabel.setFont( new Font("Berlin Sans FB", Font.PLAIN, 20));
+        // Add components to the dialog
 
+        myDialog.add(messageLabel, BorderLayout.NORTH);
+
+
+        //------------------------------------------------------------------------------------------------------------
         JButton yesButton = new JButton("Yes");
         yesButton.setFocusable(false);
         yesButton.setBackground(new Color(42,187,156)); // Green color for the yes button
@@ -35,17 +44,6 @@ public class PopUpAttemptDoor {
         JButton noButton = new JButton("No");
         noButton.setFocusable(false);
         noButton.setBackground(new Color(229,77,66)); // Red color for the yes button
-
-        // Set layout
-        myDialog.setLayout(new BorderLayout());
-
-        // Add components to the dialog
-        JPanel messagePanel = new JPanel(new FlowLayout());
-        messagePanel.add(messageLabel);
-        myDialog.add(messagePanel, BorderLayout.NORTH);
-
-
-        //------------------------------------------------------------------------------------------------------------
 
         JPanel buttonPanel = new JPanel(new GridLayout(1,2));
         buttonPanel.setPreferredSize(new Dimension(400,60));
@@ -87,4 +85,8 @@ public class PopUpAttemptDoor {
         System.out.println("Retry attempt: " + retry);
 
     }
+    public boolean isRetryAttempt() {
+        return retryAttempt;
+    }
+
 }
