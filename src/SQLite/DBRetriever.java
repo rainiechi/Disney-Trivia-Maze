@@ -27,7 +27,7 @@ public class DBRetriever {
         SQLiteDataSource ds = null;
         try {
             ds = new SQLiteDataSource();
-            ds.setUrl("jdbc:sqlite:RealQuestions.db");
+            ds.setUrl("jdbc:sqlite:src/SQLite/RealQuestions.db");
         } catch ( Exception e ) {
             e.printStackTrace();
             System.exit(0);
