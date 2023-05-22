@@ -49,6 +49,7 @@ public class PopUp implements ActionListener {
      * It is the correct answer to the question.
      */
     private String myCorrectAnswer;
+    private Door myDoor;
 
 //    public static void main(String[] args) {
 //
@@ -85,6 +86,7 @@ public class PopUp implements ActionListener {
 //    }
 
     public PopUp( final Door theDoor){
+        myDoor = theDoor;
         myDialog = new JDialog((Frame) null, true);
         myQuestionPanel = new JPanel();
         myQuestionArea = new JTextArea();
@@ -201,8 +203,11 @@ public class PopUp implements ActionListener {
     private void checkAnswer( final String theCorrectAnswer, final String thePlayerAnswers){
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
             JOptionPane.showMessageDialog(myDialog, "Correct!");
+            myDoor.setMyUnlock(true);
+
         } else {
             JOptionPane.showMessageDialog(myDialog, "Incorrect!");
+            myDoor.setAttempted(true);
         }
         myDialog.dispose();
     }
