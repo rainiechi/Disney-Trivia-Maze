@@ -27,7 +27,7 @@ public class DBRetriever {
         SQLiteDataSource ds = null;
         try {
             ds = new SQLiteDataSource();
-            ds.setUrl("jdbc:sqlite:RealQuestions.db");
+            ds.setUrl("jdbc:sqlite:"+"C:\\Users\\12063\\Desktop\\Intellij Projects\\Trivia Maze\\RealQuestions.db");
         } catch ( Exception e ) {
             e.printStackTrace();
             System.exit(0);
@@ -46,8 +46,8 @@ public class DBRetriever {
         try ( Connection conn = myDs.getConnection();
               Statement stmt = conn.createStatement(); ) {
             ResultSet rs = stmt.executeQuery(query);
-                query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
-                rs = stmt.executeQuery(query);
+            query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
+            rs = stmt.executeQuery(query);
 
 
             question = new Question(rs.getString( "QUESTION" ),
@@ -65,7 +65,4 @@ public class DBRetriever {
         }
         return question;
     }
-
-
-
 }
