@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 //            window.setLocationRelativeTo(null);
 //            window.setVisible(true);w
 //
-//            gamePanel.startGameThread();
+//            gassssssmePanel.startGameThread();
 //        }
         public static void main(String[] args) {
             GamePanel gamePanel = new GamePanel();
