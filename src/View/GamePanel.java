@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable{
         myMiniMap = new MiniMap(this, myMaze);
         keyH = new KeyHandler(myMiniMap);
         playerManager = new PlayerManager(this, keyH, myPlayer);
-        myObj = new ObjectManager[45];
+        myObj = new ObjectManager[60];
         myAsset = new AssetSetter(myObj);
         myCollisionChecker = new CollisionChecker(this, myMaze, myQuestionRecord);
 

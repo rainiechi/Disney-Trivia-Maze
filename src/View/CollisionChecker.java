@@ -146,33 +146,37 @@ public class CollisionChecker {
 
         return index;
     }
-    public void pickUpObject(final int i) {
+    public void pickUpObject(final int theIndex, final KeyHandler theKeyH) {
         // Any number is fine as long as its not the index
         // of an object.
-        if (i != 999) {
-            String objectName = myGp.getObj()[i].getName();
+        if (theIndex != 999) {
+            String objectName = myGp.getObj()[theIndex].getName();
             switch(objectName) {
-                case "Door":
-                    if (!myGp.getObj()[i].isTouched()) {
-                        Door door = new Door(myQuestionRecord);
-                        myGp.getObj()[i].setTouched(true);
-                        myGp.getObj()[i].setDoor(door);
-                    }
-                    if (!myGp.getObj()[i].isLocked()) {
-                        PopUp pop = new PopUp(myGp.getObj()[i].getDoor());//myGp.getObj()[i].getDoor() -> was in the constructor
-                        System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
-                        if (myGp.getObj()[i].getDoor().getMyUnlock()) {
-                            myGp.getObj()[i] = null;
-                        } else {
-                            myGp.getObj()[i].setLocked(true);
-                        }
-                    } else {
-                        // will do later
-                    }
+                case "Door", "SideDoor":
+                    doorMethod(theIndex);
+                    theKeyH.setAllKeys();
                     break;
                 case "Chest":
                     break;
             }
+        }
+    }
+    public void doorMethod(final int theIndex) {
+        if (!myGp.getObj()[theIndex].isTouched()) {
+            Door door = new Door(myQuestionRecord);
+            myGp.getObj()[theIndex].setTouched(true);
+            myGp.getObj()[theIndex].setDoor(door);
+        }
+        if (!myGp.getObj()[theIndex].isLocked()) {
+            PopUp pop = new PopUp(myGp.getObj()[theIndex].getDoor());//myGp.getObj()[i].getDoor() -> was in the constructor
+            System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
+            if (myGp.getObj()[theIndex].getDoor().getMyUnlock()) {
+                myGp.getObj()[theIndex] = null;
+            } else {
+                myGp.getObj()[theIndex].setLocked(true);
+            }
+        } else {
+            // will do later
         }
     }
 }

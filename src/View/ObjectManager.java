@@ -73,6 +73,9 @@ public class ObjectManager {
                     case "Door":
                         myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall_door.png")));
                         break;
+                    case "SideDoor":
+                        myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/sidedoor.png")));
+                        break;
                     case "Exit":
                         myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/exit_door.png")));
                         break;

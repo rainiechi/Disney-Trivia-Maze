@@ -27,7 +27,7 @@ public class DBRetriever {
         SQLiteDataSource ds = null;
         try {
             ds = new SQLiteDataSource();
-            ds.setUrl("jdbc:sqlite:"+"C:\\Users\\12063\\Desktop\\Intellij Projects\\Trivia Maze\\RealQuestions.db");
+            ds.setUrl("jdbc:sqlite:RealQuestions.db");
         } catch ( Exception e ) {
             e.printStackTrace();
             System.exit(0);
