@@ -1,9 +1,6 @@
 package View;
 
-import Model.Door;
-import Model.GameSettings;
-import Model.Maze;
-import Model.Player;
+import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,46 +18,44 @@ public class GamePanel extends JPanel implements Runnable{
     private MiniMap myMiniMap;
     private Door myDoor;
     private PopUp myPopUp;
-    private DoorManager[] myDoorM;
-    Thread myGameThread;
-    private int myFPS;
+    //private DoorManager[] myDoorM;
+    private Thread myGameThread;
+    private QuestionRecord myQuestionRecord;
 
     public GamePanel() {
         myGS = new GameSettings();
-        myMaze = new Maze(myGS);
+        myMaze = new Maze();
         myPlayer = new Player();
-        myDoor = new Door();
-        myTileM = new TileManager(this, myGS, myMaze);
-        myMiniMap = new MiniMap(this, myGS, myMaze);
+        myQuestionRecord = new QuestionRecord();
+        myTileM = new TileManager(this, myMaze);
+        myMiniMap = new MiniMap(this, myMaze);
         keyH = new KeyHandler(myMiniMap);
-        playerManager = new PlayerManager(this, keyH, myGS, myPlayer);
+        playerManager = new PlayerManager(this, keyH, myPlayer);
         myObj = new ObjectManager[45];
-        myAsset = new AssetSetter(myGS, myObj);
-        myFPS = 60;
-        myCollisionChecker = new CollisionChecker(this, myGS, myMaze);
+        myAsset = new AssetSetter(myObj);
+        myCollisionChecker = new CollisionChecker(this, myMaze, myQuestionRecord);
 
 
 
 
-        this.setPreferredSize(new Dimension(myGS.getScreenWidth(), myGS.getScreenHeight()));
+        this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
 
         // BACKGROUND
-        this.setBackground(Color.LIGHT_GRAY);
+        this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
     }
     public void startGameThread() {
-
         myGameThread = new Thread(this);
         myGameThread.start();
     }
     public void createPopUp() {
-        myPopUp = new PopUp(myDoor);
+        //myPopUp = new PopUp();
     }
     @Override
     public void run() {
-        double drawInterval = 1000000000 / myFPS; // 0.0166 seconds
+        double drawInterval = 1000000000 / GameSettings.FPS; // 0.0166 seconds
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (myGameThread != null) {

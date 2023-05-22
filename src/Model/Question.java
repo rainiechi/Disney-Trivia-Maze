@@ -8,10 +8,11 @@ public class Question {
     private String myOption3;
     private String myOption4;
 
+    private int myID;
+
 
     public Question(final String theQuestion, final String theAnswer, final String theOption1,
-                    final String theOption2, final String theOption3, final String theOption4) {
-
+                    final String theOption2, final String theOption3, final String theOption4, final int theID) {
         if (theQuestion == null || theAnswer == null || theOption1 == null || theOption2 == null
         || theOption3 == null || theOption4 == null) {
             throw new IllegalArgumentException("All required parameters must not be null.");
@@ -22,6 +23,7 @@ public class Question {
         myOption2 = theOption2;
         myOption3 = theOption3;
         myOption4 = theOption4;
+        myID = theID;
     }
 
 
@@ -48,6 +50,9 @@ public class Question {
         return myOption4;
     }
 
+    public int getMyID() {
+        return myID;
+    }
 
 
 

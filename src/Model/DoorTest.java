@@ -11,6 +11,7 @@ public class DoorTest {
 
     private Door door;
     private Player player;
+    private QuestionRecord questionRecord;
 
     /**
      * This method is used to set up the initial condition for all the tests.
@@ -18,8 +19,8 @@ public class DoorTest {
     @BeforeEach
     public void setUp() {
         DBRetriever rt = new DBRetriever();
-        rt.resetAllToUnused();
-        door = new Door();
+        questionRecord = new QuestionRecord();
+        door = new Door(questionRecord);
         player = new Player();
 
     }

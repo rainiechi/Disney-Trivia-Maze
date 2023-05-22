@@ -2,19 +2,18 @@ package Model;
 
 import SQLite.DBRetriever;
 
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-
 public class Door {
-    private BufferedImage myImage;
+    BufferedImage myImage;
     private DBRetriever myRetriever;
     private Question myQuestion;
     private boolean myUnlocked;
     private boolean myAttempted;
     private String myPlayerAnswer;
+    private QuestionRecord myRecord;
 
 
 //    For testing, delete later
@@ -22,13 +21,14 @@ public class Door {
 //    public static void main(String[] args) {
 //        Door door = new Door();
 //        door.displayQuestion();
-//        DBRetriever tr = new DBRetriever();
-//        tr.resetAllToUnused();
+//        //System.out.println(door.getAnswer());
 //    }
 
-    public Door () {
+    public Door (final QuestionRecord theRecord) {
+
+        myRecord = theRecord;
         myRetriever = new DBRetriever();
-        myQuestion = myRetriever.retrieveQuestion();
+        myQuestion = getUnusedQuestion(myRetriever);
         myUnlocked = false;
         myAttempted = false;
         myPlayerAnswer = null;
@@ -38,6 +38,25 @@ public class Door {
             e.printStackTrace();
         }
     }
+
+    public Question getUnusedQuestion(final DBRetriever theRetriever) {
+        if (theRetriever == null) {
+            throw new IllegalArgumentException("DBRetriever must not be null");
+        }
+        Question question = theRetriever.retrieveQuestion();
+        boolean questionFound = false;
+
+        while (!questionFound) {
+            if (myRecord.checkIfUnused(question.getMyID())) {
+                myRecord.addToUsedQuestion(question.getMyID());
+                questionFound = true;
+            } else {
+                question = theRetriever.retrieveQuestion(); // Get another question if the current one is already used
+            }
+        }
+        return question;
+    }
+
     public void displayQuestion() {
         // Testing purposes. Will be done in GUI implementation once we have SQLite database.
         System.out.println(myQuestion.getMyQuestion());
@@ -76,7 +95,6 @@ public class Door {
     public void setPlayerMyAnswer(final String answer) {
         myPlayerAnswer = answer;
     }
-
     public BufferedImage getImage() {
         return myImage;
     }
@@ -84,6 +102,8 @@ public class Door {
     public Question getQuestionObject() {
         return myQuestion;
     }
+
+
 
 //    public String getQuestion() {
 //        return myQuestion.getMyQuestion();

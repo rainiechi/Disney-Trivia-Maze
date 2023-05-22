@@ -14,7 +14,6 @@ public class PlayerManager {
 
     private int mySpriteCounter;
     private int mySpriteNum;
-    private GameSettings myGs;
     private GamePanel myGp;
 
     private Player myPlayer;
@@ -34,13 +33,11 @@ public class PlayerManager {
      * Constructor initializes the fields.
      * @param theGp GamePanel passed in.
      * @param theKeyH KeyHandler passed in
-     * @param theGs GameSettings passed in
      * @param thePlayer Player passed in
      */
-    public PlayerManager(GamePanel theGp, KeyHandler theKeyH, GameSettings theGs, Player thePlayer) {
+    public PlayerManager(final GamePanel theGp, final KeyHandler theKeyH, final Player thePlayer) {
         this.myPlayer = thePlayer;
         this.myGp = theGp;
-        this.myGs = theGs;
         this.myKeyH = theKeyH;
         mySpriteNum = 1;
         mySpriteCounter = 0;
@@ -131,7 +128,7 @@ public class PlayerManager {
      * Method draws the sprite.
      * @param theG2 Graphics2D object
      */
-    public void draw(Graphics2D theG2) {
+    public void draw(final Graphics2D theG2) {
         BufferedImage image = null;
 
         switch(myDirection) {
@@ -168,7 +165,7 @@ public class PlayerManager {
                 }
                 break;
         }
-        theG2.drawImage(image, myX, myY, myGs.getTileSize(), myGs.getTileSize(), null);
+        theG2.drawImage(image, myX, myY, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE, null);
 
     }
 
@@ -220,10 +217,10 @@ public class PlayerManager {
 
     /**
      * Setter method for collision.
-     * @param collision boolean
+     * @param theCollision boolean
      */
-    public void setCollision(boolean collision) {
-        myCollision = collision;
+    public void setCollision(final boolean theCollision) {
+        myCollision = theCollision;
     }
     /**
      * Getter method for collision.
