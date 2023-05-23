@@ -35,9 +35,9 @@ public class HotbarGUI extends JDialog {
             slotButton.setPreferredSize(new Dimension(80, 80));
             slotButton.setBackground(new Color(234,210,182));
 
-            mybackPack.getStone(i).getStoneName();
+
             slotButton.setLayout(new GridBagLayout());
-            slotButton.setText( mybackPack.getStone(i).getStoneName());
+            slotButton.setIcon( (Icon) mybackPack.getStone(i).getImage());
 
             slots[i] = slotButton;
             add(slotButton);
@@ -121,7 +121,7 @@ public class HotbarGUI extends JDialog {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                //new HotbarGUI();
+                new HotbarGUI(new Backpack());
             }
         });
     }
