@@ -27,28 +27,25 @@ public class AssetSetter {
         int x = 8;
         int y = 14;
         for (int i = 0; i <= 20; i++) {
-            myObjManager[i] = new ObjectManager("Door", x * TILE_SIZE, y * TILE_SIZE, false);
+            myObjManager[i] = new ObjectManager("Door", x * TILE_SIZE, y * TILE_SIZE, true);
             y += 13;
             // Starts at a new column on the map.
             if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19) {
                 y = 14;
-                x += 15;
+                x += 13;
             }
         }
     }
     public void setSideDoors() {
         // Starts at (12,2) on the map
-        int x = 15;
+        int x = 12;
         int y = 3;
         for (int i = 21; i <= 42; i++) {
-            myObjManager[i] = new ObjectManager("SideDoor", x * TILE_SIZE, y * TILE_SIZE, false);
+            myObjManager[i] = new ObjectManager("SideDoor", x * TILE_SIZE, y * TILE_SIZE, true);
             y += 13;
-            if (i == 26) {
-                y = 16;
-                x += 16;
-            } else if (i == 31 || i == 35 || i == 39 || i == 43) {
+            if (i == 26 || i == 31 || i == 35 || i == 39 || i == 43) {
                 y = 3;
-                x += 16;
+                x += 13;
             }
         }
     }
