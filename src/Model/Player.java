@@ -27,7 +27,7 @@ public class Player {
         myScreenX = GameSettings.SCREEN_WIDTH/2 - (GameSettings.TILE_SIZE/2);
         myScreenY = GameSettings.SCREEN_HEIGHT/2 - (GameSettings.TILE_SIZE/2);
         myWorldX = GameSettings.TILE_SIZE * 35;
-        myWorldY = GameSettings.TILE_SIZE * 28;
+        myWorldY = GameSettings.TILE_SIZE * 70;
         myPlayerSpeed = 3;
         mySpaceStone = false;
         mySoulStone = false;
