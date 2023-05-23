@@ -1,5 +1,8 @@
 package Model;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
+
 public class SoulStone extends Stone{
     public SoulStone() {
         super("Soul Stone", "Walk up to the door you would like to attempt again.", 1);
@@ -10,6 +13,11 @@ public class SoulStone extends Stone{
         // Player can use stone and walk up to door to reset again.
         // Resets a locked door?
         thePlayer.setSoulStone(true);
+        try {
+            setImage(ImageIO.read(getClass().getResourceAsStream("/res/stones/soulStone.png")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         decreaseUses();
     }
     public String getDescription() {

@@ -153,8 +153,8 @@ public class CollisionChecker {
             String objectName = myGp.getObj()[theIndex].getName();
             switch(objectName) {
                 case "Door", "SideDoor":
-                    doorMethod(theIndex);
-                    theKeyH.setAllKeys();
+                    //doorMethod(theIndex);
+                    //theKeyH.setAllKeys();
                     break;
                 case "Chest":
                     break;

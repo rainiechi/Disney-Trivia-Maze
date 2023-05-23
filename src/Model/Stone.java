@@ -1,6 +1,9 @@
 package Model;
 
+import java.awt.image.BufferedImage;
+
 public class Stone {
+    private BufferedImage myImage;
     private String myStoneName;
     private String myAbility;
     private int myUses;
@@ -9,6 +12,7 @@ public class Stone {
         myStoneName = theStoneName;
         myAbility = theAbility;
         myUses = theUses;
+        myImage = null;
     }
     public void useAbility(Player thePlayer) {
     }
@@ -37,5 +41,11 @@ public class Stone {
     // used for testing
     public String toString() {
         return myStoneName;
+    }
+    public BufferedImage getImage() {
+        return myImage;
+    }
+    public void setImage(BufferedImage theImage) {
+        myImage = theImage;
     }
 }
