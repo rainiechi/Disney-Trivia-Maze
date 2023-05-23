@@ -10,12 +10,11 @@ import java.io.IOException;
 public class DialogForYesNoAnswer {
 
     private boolean playerAnswer;
-    private JDialog myDialog;
-
+    JDialog myDialog;
     public DialogForYesNoAnswer(Frame parent, String labelText, Font labelFont, Color labelBackground,
                                 Color labelForeground) throws IOException {
 
-        myDialog = new JDialog((Frame) null, true);
+        myDialog =  new JDialog(parent, true);
         myDialog.setTitle("Who wants to be a Disney Expert");
         myDialog.setLayout(new BorderLayout());
         myDialog.setSize(400, 300);
