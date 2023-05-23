@@ -18,11 +18,12 @@ public class Door {
 
 //    For testing, delete later
 //    For testing, delete later
-//    public static void main(String[] args) {
-//        Door door = new Door();
-//        door.displayQuestion();
-//        //System.out.println(door.getAnswer());
-//    }
+    public static void main(String[] args) {
+        QuestionRecord qr = new QuestionRecord();
+        Door door = new Door(qr);
+        door.displayQuestion();
+        //System.out.println(door.getAnswer());
+    }
 
     public Door (final QuestionRecord theRecord) {
 
