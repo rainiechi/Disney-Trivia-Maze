@@ -27,7 +27,7 @@ public class WelcomePanel extends JPanel {
      * Welcome Panel is the opening screen of the game.
      */
     public WelcomePanel() {
-        setPreferredSize(new Dimension(SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
+        setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         ImageIcon backgroundIcon = new ImageIcon("src/res/welcomeScreen/toy_story_background.png");
         myBackground = backgroundIcon.getImage();
         ImageIcon logo = new ImageIcon("src/res/welcomeScreen/logo.png");
