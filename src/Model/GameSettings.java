@@ -9,8 +9,8 @@ public class GameSettings {
     public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE;
     public static final int MAX_SCREEN_COLUMN = 16;
     public static final int MAX_SCREEN_ROW = 12;
-    public static final int SCREEN_WIDTH = 130 * MAX_SCREEN_COLUMN; // 1024 pixels
-    public static final int SCREEN_HEIGHT = 130 * MAX_SCREEN_ROW; // 768 pixels
+    public static final int SCREEN_WIDTH = 48 * MAX_SCREEN_COLUMN; // 1024 pixels
+    public static final int SCREEN_HEIGHT = 48 * MAX_SCREEN_ROW; // 768 pixels
     public static final int MAX_WORLD_COLUMN = 68;
     public static final int MAX_WORLD_ROW = 63;
     public static final int WORLD_WIDTH = TILE_SIZE * MAX_SCREEN_COLUMN;

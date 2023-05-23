@@ -52,41 +52,6 @@ public class PopUp implements ActionListener {
      */
     private String myCorrectAnswer;
     private Door myDoor;
-
-//    public static void main(String[] args) {
-//
-//        Door door = new Door();
-//        new PopUp( new Door());
-//    }
-
-//    public PopUp() {
-        //myFrame = new JFrame();
-//    public static void main(String[] args) {
-//
-//        new PopUp();
-//    }
-
-//    public PopUp() {
-//        //myFrame = new JFrame();
-//        myDialog = new JDialog((Frame) null, true);
-//        myQuestionPanel = new JPanel();
-//        myQuestionArea = new JTextArea();
-//        myOptionPanel = new JPanel();
-//        myOption1 = new JButton();
-//        myOption2 = new JButton();
-//        myOption3 = new JButton();
-//        myOption4 = new JButton();
-//
-//
-//        loadQuestions("Hello world and if the question is long it will wrap around "
-//                ,"option1",
-//                "option2", "option3", "option4", "option2" );
-//        initializeUI(new GamePanel());
-//
-//        //displayQuestion(true);
-//
-//    }
-
     public PopUp( final Door theDoor){
         myDoor = theDoor;
         myDialog = new JDialog((Frame) null, true);
@@ -115,7 +80,7 @@ public class PopUp implements ActionListener {
     /**
      * To set up the GUI for the pop-up on the door.
      */
-    private void initializeUI ( final GamePanel theGP){
+    private void initializeUI (final GamePanel theGP) {
         // JFrame for the pop up.
         myDialog.setTitle("Who want to be Disney Expert");
         myDialog.setSize(400, 300);
@@ -127,7 +92,7 @@ public class PopUp implements ActionListener {
         myQuestionPanel.setBackground(LIGHT_BLUE);
         myQuestionPanel.setLayout(null);
         // Text Area to contain the question.
-        myQuestionArea.setFont(new Font("Berlin Sans FB", Font.PLAIN, 24));
+        myQuestionArea.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         myQuestionArea.setBackground(LIGHT_BLUE);
         int GaponBothSides = 45;
         int GaponTop = 60;
