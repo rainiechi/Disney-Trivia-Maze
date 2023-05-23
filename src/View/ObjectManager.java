@@ -46,15 +46,15 @@ public class ObjectManager {
      * @param theName name of object
      * @param theWorldX X coordinate on map
      * @param theWorldY Y coordinate on map
-     * @param theCheck collision check
+     * @param theCollision collision check
      */
-    public ObjectManager(final String theName, final int theWorldX, final int theWorldY, final boolean theCheck) {
+    public ObjectManager(final String theName, final int theWorldX, final int theWorldY, final boolean theCollision) {
         myName = theName;
         switchObject();
         mySolidArea= new Rectangle(0,0,48,48);
         mySolidAreaDefaultX = mySolidArea.x;
         mySolidAreaDefaultY = mySolidArea.y;
-        myCollision = theCheck;
+        myCollision = theCollision;
         myWorldX = theWorldX;
         myWorldY = theWorldY;
         myLocked = false;
@@ -110,7 +110,7 @@ public class ObjectManager {
      * Setter method for Door object.
      * @param theDoor door object
      */
-    public void setDoor(Door theDoor) {
+    public void setDoor(final Door theDoor) {
         myDoor = theDoor;
     }
 
@@ -126,7 +126,7 @@ public class ObjectManager {
      * Setter method for Chest object
      * @param theChest chest object
      */
-    public void setChest(Chest theChest) {
+    public void setChest(final Chest theChest) {
         myChest = theChest;
     }
 
@@ -166,7 +166,7 @@ public class ObjectManager {
      * Setter method for solid area.
      * @param theArea rectangle object to be set.
      */
-    public void setSolidArea(Rectangle theArea) {
+    public void setSolidArea(final Rectangle theArea) {
         mySolidArea = theArea;
     }
 
@@ -206,7 +206,7 @@ public class ObjectManager {
      * Setter method for mySolidArea.y
      * @param theArea int area to be set.
      */
-    public void setSolidAreaY(int theArea) {
+    public void setSolidAreaY(final int theArea) {
         mySolidArea.y = theArea;
     }
 
@@ -224,7 +224,7 @@ public class ObjectManager {
     public int getMySolidAreaDefaultX() {
         return mySolidAreaDefaultX;
     }
-    public void setSolidAreaDefaultX(int theArea) {
+    public void setSolidAreaDefaultX(final int theArea) {
         mySolidAreaDefaultX = theArea;
     }
 
@@ -232,21 +232,21 @@ public class ObjectManager {
      * Setter method for myImage
      * @param theImage image passed in
      */
-    public void setMyImage(BufferedImage theImage) {
+    public void setMyImage(final BufferedImage theImage) {
         myImage = theImage;
     }
     public boolean isTouched() {
         return myTouchedObj;
     }
-    public void setTouched(boolean theBoolean) {
+    public void setTouched(final boolean theBoolean) {
         myTouchedObj = theBoolean;
     }
     /**
      * Setter method for myLocked.
-     * @param b boolean passed in to set myLocked
+     * @param theLocked boolean passed in to set myLocked
      */
-    public void setLocked(boolean b) {
-        myLocked = b;
+    public void setLocked(final boolean theLocked) {
+        myLocked = theLocked;
     }
     /**
      * Getter method for myLocked.

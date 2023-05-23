@@ -57,8 +57,8 @@ public class WelcomePanel extends JPanel {
         myNewGameButton.setBorder(BorderFactory.createLineBorder(BLUE, 3));
         myLoadGameButton.setBorder(BorderFactory.createLineBorder(BLUE, 3));
 
-        myNewGameButton.setBounds(300, 320, 150, 50);
-        myLoadGameButton.setBounds(300, 380, 150, 50);
+        myNewGameButton.setBounds(350, 320, 150, 50);
+        myLoadGameButton.setBounds(350, 380, 150, 50);
 
         addButtonListener();
 
