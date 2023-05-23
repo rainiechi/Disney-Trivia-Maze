@@ -38,7 +38,7 @@ public class Backpack {
      */
     public Stone getStone(final int theIndex) {
         if (myStorage[theIndex] == null) {
-            throw new NullPointerException("No stone at this index");
+            return null;
         }
         return myStorage[theIndex];
     }
