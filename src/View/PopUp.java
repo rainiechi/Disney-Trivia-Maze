@@ -9,6 +9,8 @@ import java.awt.geom.RoundRectangle2D;
 public class PopUp implements ActionListener {
     private final static Color LIGHT_BLUE = new Color(228, 246, 248);
     private final static Color BLUE = new Color(210, 246, 250);
+
+
 //    /**
 //     * The JFrame for the GUI.
 //     */
@@ -49,6 +51,7 @@ public class PopUp implements ActionListener {
      * It is the correct answer to the question.
      */
     private String myCorrectAnswer;
+    private Door myDoor;
 
 //    public static void main(String[] args) {
 //
@@ -85,6 +88,7 @@ public class PopUp implements ActionListener {
 //    }
 
     public PopUp( final Door theDoor){
+        myDoor = theDoor;
         myDialog = new JDialog((Frame) null, true);
         myQuestionPanel = new JPanel();
         myQuestionArea = new JTextArea();
@@ -94,10 +98,6 @@ public class PopUp implements ActionListener {
         myOption3 = new JButton();
         myOption4 = new JButton();
 
-
-        loadQuestions("Hello world and if the question is long it will wrap around "
-                , "option1",
-                "option2", "option3", "option4", "option2");
         loadQuestion(theDoor.getQuestionObject());
         initializeUI(new GamePanel());
 
@@ -198,13 +198,15 @@ public class PopUp implements ActionListener {
      * @param theCorrectAnswer It is the correct answer to the question.
      * @param thePlayerAnswers It is the answer that the res.player selected.
      */
-    private void checkAnswer( final String theCorrectAnswer, final String thePlayerAnswers){
+    private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers){
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
-            JOptionPane.showMessageDialog(myDialog, "Correct!");
+            myDoor.setMyUnlock(true);
+            showResultDialog(true);
         } else {
-            JOptionPane.showMessageDialog(myDialog, "Incorrect!");
+            myDoor.setAttempted(true);
+            myDoor.setMyUnlock(false);
+            showResultDialog(false);
         }
-        myDialog.dispose();
     }
     /**
      * Action perform methods for all the button. It records the user answer.
@@ -226,6 +228,86 @@ public class PopUp implements ActionListener {
             playerAnswer = myOption4.getText();
             checkAnswer(myCorrectAnswer, playerAnswer);
         }
+    }
+
+
+    /**
+     * Helper method that displays the result panel once player answers.
+     * @param theCorrect whether the question was correctly answered
+     */
+    private void showResultDialog(final boolean theCorrect) {
+        ResultPanel panel = new ResultPanel(theCorrect);
+        myDialog.dispose(); //closes the trivia dialog
+        JDialog dialog = new JDialog(myDialog, "Dialog", true);
+        dialog.getContentPane().add(panel);
+        dialog.setUndecorated(true);
+        dialog.pack();
+        dialog.setLocationRelativeTo(myDialog);
+        dialog.setVisible(true);
+    }
+
+    /**
+     * Helper class to create the result popup once player answers
+     */
+    class ResultPanel extends JPanel {
+        private static final int BORDER = 15;
+        private static final Color LIGHT_PINK = new Color(255, 182, 193);
+        private static final Color DARK_PINK = new Color(162, 72, 87);
+        private static final Color RED = new Color(139, 0, 0);
+        private static final Color BABY_PINK = new Color(245,218,223);
+        private static final Color BABY_GREEN = new Color(230,255,239);
+        private static final Color GREEN = new Color(95, 133, 117);
+        private static final Color DARK_GREEN = new Color(53, 94, 59);
+        private static final Color PASTEL_GREEN = new Color(193, 225, 193);
+
+        public ResultPanel(Boolean correct) {
+            JButton continueButton = new JButton("CONTINUE");
+            JLabel resultLabel1;
+            JLabel resultLabel2;
+            if (correct) {
+                setBackground(PASTEL_GREEN);
+                resultLabel1 = new JLabel("CORRECT");
+                resultLabel1.setForeground(DARK_GREEN);
+                resultLabel2 = new JLabel("You've unlocked this door!");
+                resultLabel2.setForeground(GREEN);
+                continueButton.setBackground(BABY_GREEN);
+                continueButton.setForeground(DARK_GREEN);
+                continueButton.setBorder(BorderFactory.createLineBorder(GREEN, 1));
+            } else {
+                setBackground(LIGHT_PINK);
+                resultLabel1 = new JLabel("INCORRECT");
+                resultLabel1.setForeground(RED);
+                resultLabel2 = new JLabel("The door will remain locked!");
+                resultLabel2.setForeground(DARK_PINK);
+                continueButton.setBackground(BABY_PINK);
+                continueButton.setForeground(RED);
+                continueButton.setBorder(BorderFactory.createLineBorder(DARK_PINK, 1));
+            }
+
+
+            JPanel resultPanel1 = new JPanel();
+            resultPanel1.setOpaque(false);
+            resultPanel1.add(resultLabel1);
+
+            JPanel resultPanel2 = new JPanel();
+            resultPanel2.setOpaque(false);
+            resultPanel2.add(resultLabel2);
+
+            setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER, BORDER,BORDER));
+            setLayout(new GridLayout(3, 1, 10, 10));
+            add(resultPanel1);
+            add(resultPanel2);
+            add(continueButton);
+
+            //disposes the window and resumes game
+            continueButton.addActionListener(theEvent -> {
+                Component comp = (Component) theEvent.getSource();
+                Window win = SwingUtilities.getWindowAncestor(comp);
+                win.dispose();
+            });
+
+        }
+
     }
 }
 
