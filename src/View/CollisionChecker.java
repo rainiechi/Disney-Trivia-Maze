@@ -146,22 +146,22 @@ public class CollisionChecker {
 
         return index;
     }
-    public void pickUpObject(final int theIndex, final KeyHandler theKeyH) {
+    public void pickUpObject(final int theIndex, final KeyHandler theKeyH, final PlayerManager thePlayer) {
         // Any number is fine as long as its not the index
         // of an object.
         if (theIndex != 999) {
             String objectName = myGp.getObj()[theIndex].getName();
             switch(objectName) {
                 case "Door", "SideDoor":
-                    //doorMethod(theIndex);
-                    //theKeyH.setAllKeys();
+                    doorMethod(theIndex, thePlayer);
+                    theKeyH.setAllKeys();
                     break;
                 case "Chest":
                     break;
             }
         }
     }
-    public void doorMethod(final int theIndex) {
+    public void doorMethod(final int theIndex, final PlayerManager thePlayer) {
         if (!myGp.getObj()[theIndex].isTouched()) {
             Door door = new Door(myQuestionRecord);
             myGp.getObj()[theIndex].setTouched(true);
@@ -172,6 +172,11 @@ public class CollisionChecker {
             System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
             if (myGp.getObj()[theIndex].getDoor().getMyUnlock()) {
                 myGp.getObj()[theIndex] = null;
+                if (thePlayer.getDirection().equals("left")) {
+                    myGp.getObj()[theIndex - 1] = null;
+                } else if (thePlayer.getDirection().equals("right")) {
+                    myGp.getObj()[theIndex + 1] = null;
+                }
             } else {
                 myGp.getObj()[theIndex].setLocked(true);
             }

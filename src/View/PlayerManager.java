@@ -102,7 +102,7 @@ public class PlayerManager {
             myGp.getCC().checkTile(this);
 
             int objIndex = myGp.getCC().checkObject(this, true);
-            myGp.getCC().pickUpObject(objIndex, myKeyH);
+            myGp.getCC().pickUpObject(objIndex, myKeyH, this);
 
             if (!myCollision) {
                 switch(myDirection) {
