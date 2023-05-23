@@ -37,6 +37,27 @@ public class DBRetriever {
     }
 
     /**
+     * Gets how many questions are in the database.
+     * @return how many questions are in the database
+     */
+    public int getEntryCount() {
+        int entryCount = 0;
+        String query = "SELECT COUNT(*) FROM questions";
+
+        try (Connection conn = myDs.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+            if (rs.next()) {
+                entryCount = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+        return entryCount;
+    }
+    /**
      * Retrieves a random question that has not been used, then marks the question as used once retrieved.
      */
     public Question retrieveQuestion() {

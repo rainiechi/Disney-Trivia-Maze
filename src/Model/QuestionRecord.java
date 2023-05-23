@@ -1,5 +1,7 @@
 package Model;
 
+import SQLite.DBRetriever;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,12 +10,15 @@ public class QuestionRecord {
      * The list of used question.
      */
     private List<Integer> myQuestionRecord;
+    private int myTotalQuestions;
 
     /**
      * QuestionRecord constructor. It keeps track of used questions.
      */
     public QuestionRecord() {
+        DBRetriever db = new DBRetriever();
         myQuestionRecord = new ArrayList<Integer>();
+        myTotalQuestions = db.getEntryCount();
     }
 
     /**
@@ -29,8 +34,8 @@ public class QuestionRecord {
      * @param theID the ID of the question to be added
      */
     public void addToUsedQuestion(final int theID) {
-        if (theID < 1 || theID > 82) {
-            throw new IllegalArgumentException("ID must be >= 1 and <= 82");
+        if (theID < 1 || theID > myTotalQuestions) {
+            throw new IllegalArgumentException("Invalid ID");
         }
         myQuestionRecord.add(theID);
     }
@@ -43,7 +48,7 @@ public class QuestionRecord {
      */
     public boolean checkIfUnused(final int theID) {
         int usedQuestions = myQuestionRecord.size();
-        if (usedQuestions == 82) {
+        if (usedQuestions == myTotalQuestions) {
             throw new RuntimeException("All questions have been used");
         }
         return !(myQuestionRecord.contains(theID));
