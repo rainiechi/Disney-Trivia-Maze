@@ -37,6 +37,9 @@ public class Backpack {
      * @return the stone at the index
      */
     public Stone getStone(final int theIndex) {
+        if (myStorage[theIndex] == null) {
+            return null;
+        }
         return myStorage[theIndex];
     }
 
