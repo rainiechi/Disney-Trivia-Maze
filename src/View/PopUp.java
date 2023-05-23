@@ -52,7 +52,7 @@ public class PopUp implements ActionListener {
      */
     private String myCorrectAnswer;
     private Door myDoor;
-    public PopUp( final Door theDoor){
+    public PopUp(final Door theDoor){
         myDoor = theDoor;
         myDialog = new JDialog((Frame) null, true);
         myQuestionPanel = new JPanel();
@@ -68,6 +68,11 @@ public class PopUp implements ActionListener {
 
         //displayQuestion(true);
     }
+
+    /**
+     * Loads the Question object to the popup.
+     * @param theQuestion the Question to be loaded
+     */
     private void loadQuestion ( final Question theQuestion){
         myQuestionArea.setText(theQuestion.getMyQuestion());
         myOption1.setText(theQuestion.getMyOption1());
@@ -131,26 +136,7 @@ public class PopUp implements ActionListener {
         // Set the dialog to be visible
         myDialog.setVisible(true);
     }
-    /**
-     * Takes in different parameters such as questions options and answer and assign different texts
-     * to buttons based on parameters
-     *
-     * @param theQuestion  It is the question to display on the screen
-     * @param theOption1   It is the first option displayed to the res.player.
-     * @param theOption2   It is the second option displayed to the res.player.
-     * @param theOption3   It is the third option displayed to the res.player.
-     * @param theOption4   It is the fourth option displayed to the res.player.
-     * @param theCorrectAnswer It is the correct answer to the problem
-     */
-    private void loadQuestions ( final String theQuestion, final String theOption1, final String theOption2,
-                                 final String theOption3, final String theOption4, final String theCorrectAnswer  ){
-        myQuestionArea.setText(theQuestion);
-        myOption1.setText(theOption1);
-        myOption2.setText(theOption2);
-        myOption3.setText(theOption3);
-        myOption4.setText(theOption4);
-        myCorrectAnswer = theCorrectAnswer;
-    }
+
     /**
      * Display the GUI in the screen.
      * @param theQuestionDisplay It is used to decide whether to display the frame or not.

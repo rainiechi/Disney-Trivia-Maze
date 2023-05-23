@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class StoneManager {
+
     private List<Stone> myStoneRecord;
 
     public StoneManager() {
@@ -16,12 +17,13 @@ public class StoneManager {
      * sets up the 6 stones in the record.
      */
     private void initializeStone() {
-        SoulStone soulStone = new SoulStone();
-        TimeStone timeStone = new TimeStone();
-        PowerStone powerStone = new PowerStone();
-        RealityStone realityStone = new RealityStone();
-        SpaceStone spaceStone = new SpaceStone();
-        MindStone mindStone = new MindStone();
+        StoneFactory stoneFactory = new StoneFactory();
+        Stone soulStone = stoneFactory.createStone("soul");
+        Stone timeStone = stoneFactory.createStone("time");
+        Stone powerStone = stoneFactory.createStone("power");
+        Stone realityStone = stoneFactory.createStone("reality");
+        Stone spaceStone = stoneFactory.createStone("space");
+        Stone mindStone = stoneFactory.createStone("mind");
         myStoneRecord.add(soulStone);
         myStoneRecord.add(timeStone);
         myStoneRecord.add(powerStone);
