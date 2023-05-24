@@ -2,10 +2,11 @@ package Model;
 
 import SQLite.DBRetriever;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QuestionRecord {
+public class QuestionRecord implements Serializable {
     /**
      * The list of used question.
      */

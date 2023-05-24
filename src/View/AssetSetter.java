@@ -2,7 +2,9 @@ package View;
 
 import Model.GameSettings;
 
-public class AssetSetter {
+import java.io.Serializable;
+
+public class AssetSetter implements Serializable{
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
 
     /** private array of ObjectManager field */
