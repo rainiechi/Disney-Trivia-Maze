@@ -4,6 +4,10 @@ import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class GamePanel extends JPanel implements Runnable{
     private TileManager myTileM;
@@ -26,11 +30,11 @@ public class GamePanel extends JPanel implements Runnable{
 
         //myPlayer = new Player();
         //myQuestionRecord = new QuestionRecord();
-        myTileM = new TileManager(this);
         //myMiniMap = new MiniMap(this);
         //myKeyHandler = new KeyHandler(myMiniMap);
         //playerManager = new PlayerManager(this, myKeyHandler, myPlayer);
         //myObjManagers = new ObjectManager[60];
+        myTileM = new TileManager(this);
         myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
         myCollisionChecker = new CollisionChecker(this, myGame.getMyQuestionRecord());
         this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
@@ -45,6 +49,37 @@ public class GamePanel extends JPanel implements Runnable{
         myGameThread = new Thread(this);
         myGameThread.start();
     }
+
+
+
+    public void saveGame() {
+        try {
+            FileOutputStream fileOut = new FileOutputStream("game_state.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(myGame);
+            out.close();
+            fileOut.close();
+            System.out.println("Game state saved successfully.");
+        } catch (Exception e) {
+            System.out.println("Error occurred while saving the game state: " + e.getMessage());
+        }
+    }
+
+    public void loadGame() {
+        try {
+            FileInputStream fileIn = new FileInputStream("game_state.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            Game loadedGame = (Game) in.readObject();
+            in.close();
+            fileIn.close();
+            setMyGame(loadedGame);
+            System.out.println("Game state loaded successfully.");
+        } catch (Exception e) {
+            System.out.println("Error occurred while loading the game state: " + e.getMessage());
+        }
+    }
+
+
 
     @Override
     public void run() {
@@ -85,11 +120,11 @@ public class GamePanel extends JPanel implements Runnable{
         return myGame;
     }
 
+
     public void setMyGame(final Game theGame) {
         myGame = theGame;
         myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
         myCollisionChecker = new CollisionChecker(this, myGame.getMyQuestionRecord());
-        repaint();
     }
 
     public void paintComponent(Graphics g) {

@@ -46,30 +46,11 @@ public class GameFrame extends JFrame {
     }
 
     private void saveGame() {
-        try {
-            FileOutputStream fileOut = new FileOutputStream("game_state.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(myGamePanel.getMyGame());
-            out.close();
-            fileOut.close();
-            System.out.println("Game state saved successfully.");
-        } catch (Exception e) {
-            System.out.println("Error occurred while saving the game state: " + e.getMessage());
-        }
+        myGamePanel.saveGame();
     }
 
     private void loadGame() {
-        try {
-            FileInputStream fileIn = new FileInputStream("game_state.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            Game loadedGame = (Game) in.readObject();
-            in.close();
-            fileIn.close();
-            myGamePanel.setMyGame(loadedGame);
-            System.out.println("Game state loaded successfully.");
-        } catch (Exception e) {
-            System.out.println("Error occurred while loading the game state: " + e.getMessage());
-        }
+        myGamePanel.loadGame();
     }
 
 

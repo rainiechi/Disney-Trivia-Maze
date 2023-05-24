@@ -5,7 +5,7 @@ import View.*;
 import java.io.Serializable;
 
 public class Game implements Serializable {
-    private static final long serialVersionUID = 20001222L;
+    //private static final long serialVersionUID = 20001222L;
     private static final int MAX_OBJ = 60;
     private Player myPlayer;
     private PlayerManager myPlayerManager;

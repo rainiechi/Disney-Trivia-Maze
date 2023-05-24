@@ -22,7 +22,7 @@ public class MiniMap implements Serializable {
     /** Private boolean field if map is enabled */
     private boolean myMapEnabled;
     /** private Maze object field */
-    private Maze myMaze;
+    private transient Maze myMaze;
 
 
 
