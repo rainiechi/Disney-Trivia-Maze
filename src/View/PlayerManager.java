@@ -17,7 +17,6 @@ public class PlayerManager implements Serializable {
     private int mySpriteCounter;
     private int mySpriteNum;
     private GamePanel myGp;
-
     private Player myPlayer;
     private int myX;
     private int myY;
@@ -38,14 +37,15 @@ public class PlayerManager implements Serializable {
      * @param thePlayer Player passed in
      */
     public PlayerManager(final GamePanel theGp, final KeyHandler theKeyH, final Player thePlayer) {
-        this.myPlayer = thePlayer;
-        this.myGp = theGp;
-        this.myKeyH = theKeyH;
+        myPlayer = thePlayer;
+        myGp = theGp;
+        myKeyH = theKeyH;
         mySpriteNum = 1;
         mySpriteCounter = 0;
         setDefaultValues();
         setPlayerImage();
     }
+
 
     /**
      * Sets default values for collision area, speed, and coordinates on maze.
@@ -278,6 +278,11 @@ public class PlayerManager implements Serializable {
      */
     public BufferedImage getMyHead() {
         return myHead;
+    }
+
+
+    public void setMyKeyH(final KeyHandler theKeyH) {
+        myKeyH = theKeyH;
     }
 
 }

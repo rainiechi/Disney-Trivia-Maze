@@ -10,41 +10,32 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class GamePanel extends JPanel implements Runnable{
-    private TileManager myTileM;
-    private AssetSetter myAssetSetter;
+    private final static Maze MAZE = new Maze();
+    private transient TileManager myTileM;
+    private transient AssetSetter myAssetSetter;
     private CollisionChecker myCollisionChecker;
-    private Maze myMaze;
     private transient Thread myGameThread;
-    //private Player myPlayer;
-    //private KeyHandler myKeyHandler;
-    //private PlayerManager playerManager;
-    //private ObjectManager[] myObjManagers;
-    //private MiniMap myMiniMap;
-    //private QuestionRecord myQuestionRecord;
-
     private Game myGame;
 
     public GamePanel() {
-        myMaze = new Maze();
-        myGame = new Game(this);
-
-        //myPlayer = new Player();
-        //myQuestionRecord = new QuestionRecord();
-        //myMiniMap = new MiniMap(this);
-        //myKeyHandler = new KeyHandler(myMiniMap);
-        //playerManager = new PlayerManager(this, myKeyHandler, myPlayer);
-        //myObjManagers = new ObjectManager[60];
         myTileM = new TileManager(this);
+        setMyGame(new Game(this));
         myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
-        myCollisionChecker = new CollisionChecker(this, myGame.getMyQuestionRecord());
-        this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
 
         // BACKGROUND
+        this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
-        this.addKeyListener(myGame.getMyKeyHandler());
+    }
+
+
+    public void setMyGame(final Game theGame) {
+        myGame = theGame;
+        myCollisionChecker = new CollisionChecker(this, myGame.getMyQuestionRecord());
+        addKeyListener(myGame.getMyKeyHandler());
         this.setFocusable(true);
     }
+
     public void startGameThread() {
         myGameThread = new Thread(this);
         myGameThread.start();
@@ -72,8 +63,12 @@ public class GamePanel extends JPanel implements Runnable{
             Game loadedGame = (Game) in.readObject();
             in.close();
             fileIn.close();
+
             setMyGame(loadedGame);
+            myGame.getMyPlayerManager().setPlayerImage(); //set up images again because they're transient
+
             System.out.println("Game state loaded successfully.");
+            repaint();
         } catch (Exception e) {
             System.out.println("Error occurred while loading the game state: " + e.getMessage());
         }
@@ -121,11 +116,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
 
-    public void setMyGame(final Game theGame) {
-        myGame = theGame;
-        myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
-        myCollisionChecker = new CollisionChecker(this, myGame.getMyQuestionRecord());
-    }
+
 
     public void paintComponent(Graphics g) {
 
@@ -151,7 +142,7 @@ public class GamePanel extends JPanel implements Runnable{
         return myGame.getMyPlayerManager();
     }
     public Maze getMaze() {
-        return myMaze;
+        return MAZE;
     }
     public ObjectManager[] getObj() {
         return myGame.getMyObjManagers();

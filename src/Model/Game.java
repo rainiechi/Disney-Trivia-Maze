@@ -15,6 +15,7 @@ public class Game implements Serializable {
     private KeyHandler myKeyHandler;
     private MiniMap myMiniMap;
 
+
     public Game(final GamePanel theGP) {
         myQuestionRecord = new QuestionRecord();
         myStoneManager = new StoneManager();
