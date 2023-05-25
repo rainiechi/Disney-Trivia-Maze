@@ -43,7 +43,6 @@ public class AssetSetter {
         int count = 0;
         for (int i = 21; i <= 52; i++) {
             myObjManager[i] = new ObjectManager("SideDoor", x * TILE_SIZE, y * TILE_SIZE, true);
-            System.out.println(count);
             if (count == 2) {
                 x += 8;
                 count = 0;

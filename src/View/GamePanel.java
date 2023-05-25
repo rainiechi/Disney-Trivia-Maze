@@ -16,9 +16,7 @@ public class GamePanel extends JPanel implements Runnable{
     private CollisionChecker myCollisionChecker;
     private Maze myMaze;
     private MiniMap myMiniMap;
-    private Door myDoor;
-    private PopUp myPopUp;
-    //private DoorManager[] myDoorM;
+
     private Thread myGameThread;
     private QuestionRecord myQuestionRecord;
 
@@ -49,9 +47,6 @@ public class GamePanel extends JPanel implements Runnable{
     public void startGameThread() {
         myGameThread = new Thread(this);
         myGameThread.start();
-    }
-    public void createPopUp() {
-        //myPopUp = new PopUp();
     }
     @Override
     public void run() {
@@ -118,7 +113,5 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionChecker getCC() {
         return myCollisionChecker;
     }
-    public PopUp getPopUp() {
-        return myPopUp;
-    }
+
 }

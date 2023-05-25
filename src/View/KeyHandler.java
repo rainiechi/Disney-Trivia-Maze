@@ -30,11 +30,10 @@ public class KeyHandler implements KeyListener {
             setRightPressed(true);
         }
         if (code == KeyEvent.VK_M) {
-            myMiniMap.setMapEnabled(true);
-            }
-        if (code == KeyEvent.VK_X) {
-            if (myMiniMap.isMapEnabled()) {
-                myMiniMap.setMapEnabled(false);
+                if (myMiniMap.isMapEnabled()) {
+                    myMiniMap.setMapEnabled(false);
+                } else {
+                    myMiniMap.setMapEnabled(true);
                 }
             }
         }
