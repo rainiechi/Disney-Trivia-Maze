@@ -72,5 +72,10 @@ public class AssetSetter implements Serializable{
         myObjManager[53] = new ObjectManager("Chest", 8 * TILE_SIZE, 2 * TILE_SIZE, true);
         myObjManager[54] = new ObjectManager("Chest", 60 * TILE_SIZE, 2 * TILE_SIZE, true);
         myObjManager[55] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
+        myObjManager[56] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
+        myObjManager[57] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
+        myObjManager[58] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
+        myObjManager[59] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
+        myObjManager[60] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
     }
 }

@@ -1,9 +1,6 @@
 package View;
 
-import Model.Door;
-import Model.GameSettings;
-import Model.Maze;
-import Model.QuestionRecord;
+import Model.*;
 
 import java.io.Serializable;
 
@@ -148,7 +145,7 @@ public class CollisionChecker implements Serializable {
 
         return index;
     }
-    public void pickUpObject(final int theIndex, final KeyHandler theKeyH, final PlayerManager thePlayer) {
+    public void pickUpObject(final int theIndex, final KeyHandler theKeyH, final PlayerManager thePlayer, final Chest theChest) {
         // Any number is fine as long as its not the index
         // of an object.
         if (theIndex != 999) {
@@ -159,6 +156,8 @@ public class CollisionChecker implements Serializable {
                     theKeyH.setAllKeys();
                     break;
                 case "Chest":
+                    System.out.println("Chest");
+                    chestMethods(theIndex, theChest);
                     break;
             }
         }
@@ -184,6 +183,17 @@ public class CollisionChecker implements Serializable {
             }
         } else {
             // will do later
+            // Add stone methods for reattempting door
         }
     }
+    public void chestMethods(final int theIndex, final Chest theChest) {
+        if (!myGp.getObjManager(theIndex).isTouched()) {
+            Chest chest = new Chest();
+            myGp.getObjManager(theIndex).setTouched(true);
+            myGp.getObjManager(theIndex).setChest(chest);
+        } if (!myGp.getObjManager(theIndex).isLocked()) {
+            // pop up for chest
+        }
+    }
+
 }

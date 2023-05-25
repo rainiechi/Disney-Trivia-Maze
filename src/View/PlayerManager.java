@@ -1,5 +1,6 @@
 package View;
 
+import Model.Chest;
 import Model.GameSettings;
 import Model.Player;
 
@@ -103,7 +104,7 @@ public class PlayerManager implements Serializable {
             myGp.getCC().checkTile(this);
 
             int objIndex = myGp.getCC().checkObject(this, true);
-            myGp.getCC().pickUpObject(objIndex, myKeyH, this);
+            myGp.getCC().pickUpObject(objIndex, myKeyH, this, new Chest());
 
             if (!myCollision) {
                 switch(myDirection) {
