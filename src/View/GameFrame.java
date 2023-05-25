@@ -1,7 +1,13 @@
 package View;
 
+import Model.Game;
+
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class GameFrame extends JFrame {
     private static final String GAME_TITLE = "Disney Trivia Maze";
@@ -37,6 +43,14 @@ public class GameFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+    }
+
+    private void saveGame() {
+        myGamePanel.saveGame();
+    }
+
+    private void loadGame() {
+        myGamePanel.loadGame();
     }
 
 
@@ -110,6 +124,8 @@ public class GameFrame extends JFrame {
         myExitItem.addActionListener(theEvent -> showDialog(new ExitPanel()));
         myAboutItem.addActionListener(theEvent -> showDialog(new AboutPanel()));
         myInstructionItem.addActionListener(theEvent -> showDialog(new InstructionPanel()));
+        mySaveItem.addActionListener(e -> saveGame());
+        myLoadItem.addActionListener(e -> loadGame());
     }
 
     /**
@@ -211,6 +227,8 @@ public class GameFrame extends JFrame {
             insLabel4.setForeground(BROWN);
             JLabel insLabel5 = new JLabel("Find infinity stones to help you along the way!");
             insLabel5.setForeground(BROWN);
+            JLabel insLabel6 = new JLabel("(Press M for map)");
+            insLabel6.setForeground(BROWN);
 
             JPanel insPanel1 = new JPanel();
             insPanel1.setOpaque(false);
@@ -232,13 +250,18 @@ public class GameFrame extends JFrame {
             insPanel5.setOpaque(false);
             insPanel5.add(insLabel5);
 
+            JPanel insPanel6 = new JPanel();
+            insPanel6.setOpaque(false);
+            insPanel6.add(insLabel6);
+
             setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER, BORDER,BORDER));
-            setLayout(new GridLayout(6, 1, 10, 10));
+            setLayout(new GridLayout(7, 1, 10, 10));
             add(insPanel1);
             add(insPanel2);
             add(insPanel3);
             add(insPanel4);
             add(insPanel5);
+            add(insPanel6);
             add(resumeButton);
         }
     }

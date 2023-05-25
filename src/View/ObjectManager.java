@@ -8,14 +8,15 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class ObjectManager {
+public class ObjectManager implements Serializable {
 
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
     /**
      * Private BufferedImage field for image
      */
-    private BufferedImage myImage;
+    private transient BufferedImage myImage;
     /** Private String field for name of object */
     private String myName;
     /** Private int field for X coordinate on map */

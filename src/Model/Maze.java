@@ -1,17 +1,14 @@
 package Model;
 
 import javax.imageio.ImageIO;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
-public class Maze {
-    private Tile[] myTile;
+public class Maze implements Serializable {
+    private transient Tile[] myTile;
 
-    private int [][]  myMapTileNum;
-    private int myMaxWorldColumn;
-    private int myMaxWorldRow;
+    private transient int [][]  myMapTileNum;
+    private transient int myMaxWorldColumn;
+    private transient int myMaxWorldRow;
 
     /**
      * Constructor intializes fields.
@@ -29,7 +26,7 @@ public class Maze {
      * Reads 2D array text file to load map of res.tiles.
      * @param theFile text file
      */
-    public void loadMap(String theFile) {
+    private void loadMap(final String theFile) {
         try {
             InputStream is = getClass().getResourceAsStream(theFile);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));

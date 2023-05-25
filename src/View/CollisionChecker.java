@@ -5,15 +5,17 @@ import Model.GameSettings;
 import Model.Maze;
 import Model.QuestionRecord;
 
-public class CollisionChecker {
+import java.io.Serializable;
+
+public class CollisionChecker implements Serializable {
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
     private GamePanel myGp;
     private Maze myMaze;
     private QuestionRecord myQuestionRecord;
 
-    public CollisionChecker(final GamePanel theGp, final Maze theMaze, final QuestionRecord theQuestionRecord) {
+    public CollisionChecker(final GamePanel theGp, final QuestionRecord theQuestionRecord) {
         myGp = theGp;
-        myMaze = theMaze;
+        myMaze = new Maze();
         myQuestionRecord = theQuestionRecord;
     }
 
@@ -162,23 +164,23 @@ public class CollisionChecker {
         }
     }
     public void doorMethod(final int theIndex, final PlayerManager thePlayer) {
-        if (!myGp.getObj()[theIndex].isTouched()) {
+        if (!myGp.getObjManager(theIndex).isTouched()) {
             Door door = new Door(myQuestionRecord);
-            myGp.getObj()[theIndex].setTouched(true);
-            myGp.getObj()[theIndex].setDoor(door);
+            myGp.getObjManager(theIndex).setTouched(true);
+            myGp.getObjManager(theIndex).setDoor(door);
         }
-        if (!myGp.getObj()[theIndex].isLocked()) {
-            PopUp pop = new PopUp(myGp.getObj()[theIndex].getDoor());//myGp.getObj()[i].getDoor() -> was in the constructor
+        if (!myGp.getObjManager(theIndex).isLocked()) {
+            PopUp pop = new PopUp(myGp.getObjManager(theIndex).getDoor());//myGp.getObj()[i].getDoor() -> was in the constructor
             System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
-            if (myGp.getObj()[theIndex].getDoor().getMyUnlock()) {
-                myGp.getObj()[theIndex] = null;
+            if (myGp.getObjManager(theIndex).getDoor().getMyUnlock()) {
+                myGp.deleteObjManager(theIndex);
                 if (thePlayer.getDirection().equals("left")) {
-                    myGp.getObj()[theIndex - 1] = null;
+                    myGp.deleteObjManager(theIndex - 1);
                 } else if (thePlayer.getDirection().equals("right")) {
-                    myGp.getObj()[theIndex + 1] = null;
+                    myGp.deleteObjManager(theIndex + 1);
                 }
             } else {
-                myGp.getObj()[theIndex].setLocked(true);
+                myGp.getObjManager(theIndex).setLocked(true);
             }
         } else {
             // will do later

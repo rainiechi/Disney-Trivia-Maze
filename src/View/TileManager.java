@@ -4,9 +4,10 @@ import Model.GameSettings;
 import Model.Maze;
 
 import java.awt.*;
+import java.io.Serializable;
 
 
-public class TileManager {
+public class TileManager implements Serializable {
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
     private static final int MAX_WORLD_COL = GameSettings.MAX_WORLD_COLUMN;
     private static final int MAX_WORLD_ROW = GameSettings.MAX_WORLD_ROW;
@@ -18,11 +19,10 @@ public class TileManager {
     /**
      * Constructor initializes the fields.
      * @param theGp GamePanel object passed in
-     * @param theMaze Maze object passed in
      */
-    public TileManager(final GamePanel theGp, final Maze theMaze) {
+    public TileManager(final GamePanel theGp) {
         myGp = theGp;
-        myMaze = theMaze;
+        myMaze = new Maze();
 
     }
 

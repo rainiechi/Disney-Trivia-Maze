@@ -1,8 +1,9 @@
 package View;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
-public class KeyHandler implements KeyListener {
+public class KeyHandler implements KeyListener, Serializable {
     private boolean upPressed, downPressed, rightPressed, leftPressed, myMapPressed, myExitMapPressed;
     private MiniMap myMiniMap;
 
@@ -30,12 +31,12 @@ public class KeyHandler implements KeyListener {
             setRightPressed(true);
         }
         if (code == KeyEvent.VK_M) {
-                if (myMiniMap.isMapEnabled()) {
-                    myMiniMap.setMapEnabled(false);
-                } else {
-                    myMiniMap.setMapEnabled(true);
-                }
+            if (myMiniMap.isMapEnabled()) {
+                myMiniMap.setMapEnabled(false);
+            } else {
+                myMiniMap.setMapEnabled(true);
             }
+        }
         }
 
     @Override

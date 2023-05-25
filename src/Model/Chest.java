@@ -3,7 +3,7 @@ package Model;
 import java.awt.image.BufferedImage;
 
 public class Chest {
-    private BufferedImage myImage;
+    private transient BufferedImage myImage;
     private Stone myStone; //the stone in the chest
     private boolean myEmptyChest; //if the chest is currently empty
 

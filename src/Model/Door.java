@@ -5,25 +5,17 @@ import SQLite.DBRetriever;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class Door {
-    BufferedImage myImage;
-    private DBRetriever myRetriever;
+public class Door implements Serializable {
+    private transient BufferedImage myImage;
+    private transient DBRetriever myRetriever;
     private Question myQuestion;
     private boolean myUnlocked;
     private boolean myAttempted;
     private String myPlayerAnswer;
     private QuestionRecord myRecord;
 
-
-//    For testing, delete later
-//    For testing, delete later
-    public static void main(String[] args) {
-        QuestionRecord qr = new QuestionRecord();
-        Door door = new Door(qr);
-        door.displayQuestion();
-        //System.out.println(door.getAnswer());
-    }
 
     public Door (final QuestionRecord theRecord) {
 

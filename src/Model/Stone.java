@@ -1,9 +1,10 @@
 package Model;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Stone {
-    private BufferedImage myImage;
+public class Stone implements Serializable {
+    private transient BufferedImage myImage;
     private String myStoneName;
     private String myAbility;
     private int myUses;

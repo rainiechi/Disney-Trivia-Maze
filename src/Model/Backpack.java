@@ -1,6 +1,8 @@
 package Model;
 
-public class Backpack {
+import java.io.Serializable;
+
+public class Backpack implements Serializable {
     private static final int MAX_ITEMS = 6; //at most can have 6 stones
     private Stone[] myStorage;
     private int currItems; //current # of stones
@@ -37,6 +39,9 @@ public class Backpack {
      * @return the stone at the index
      */
     public Stone getStone(final int theIndex) {
+        if (myStorage[theIndex] == null) {
+            return null;
+        }
         return myStorage[theIndex];
     }
 

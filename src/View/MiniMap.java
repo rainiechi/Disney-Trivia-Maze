@@ -5,8 +5,9 @@ import Model.Maze;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class MiniMap {
+public class MiniMap implements Serializable {
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
     private static final int MAX_WORLD_COL = GameSettings.MAX_WORLD_COLUMN;
     private static final int MAX_WORLD_ROW = GameSettings.MAX_WORLD_ROW;
@@ -17,22 +18,21 @@ public class MiniMap {
     private GamePanel myGp;
 
     /** Private field for image */
-    private BufferedImage myMazeMap;
+    private transient BufferedImage myMazeMap;
     /** Private boolean field if map is enabled */
     private boolean myMapEnabled;
     /** private Maze object field */
-    private Maze myMaze;
+    private transient Maze myMaze;
 
 
 
     /**
      * Constructor initializes the fields.
      * @param theGp GamePanel passed to constructor
-     * @param theMaze Maze passed to constructor
      */
-    public MiniMap(GamePanel theGp, Maze theMaze) {
+    public MiniMap(GamePanel theGp) {
         myGp = theGp;
-        myMaze = theMaze;
+        myMaze = new Maze();
         createWorld();
     }
 
