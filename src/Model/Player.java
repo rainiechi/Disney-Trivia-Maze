@@ -16,7 +16,7 @@ public class Player implements Serializable {
 
     private boolean mySpaceStone;
     private boolean mySoulStone;
-    GameSettings myGs;
+    private transient GameSettings myGs;
 
     /**
      * Player constructor.

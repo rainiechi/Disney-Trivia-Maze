@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Contains all the pixel setting of the game.
  */
-public class GameSettings implements Serializable {
+public class GameSettings {
     public static final int ORIGINAL_TILE_SIZE = 32;
     public static final int SCALE = 2;
     public static final int TILE_SIZE = ORIGINAL_TILE_SIZE * SCALE;

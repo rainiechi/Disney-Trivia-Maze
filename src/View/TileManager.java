@@ -7,14 +7,14 @@ import java.awt.*;
 import java.io.Serializable;
 
 
-public class TileManager implements Serializable {
+public class TileManager {
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
     private static final int MAX_WORLD_COL = GameSettings.MAX_WORLD_COLUMN;
     private static final int MAX_WORLD_ROW = GameSettings.MAX_WORLD_ROW;
+    private final static Maze MAZE = new Maze();
     /** Field for GamePanel */
     private GamePanel myGp;
     /** Field for Maze */
-    private Maze myMaze;
 
     /**
      * Constructor initializes the fields.
@@ -22,7 +22,6 @@ public class TileManager implements Serializable {
      */
     public TileManager(final GamePanel theGp) {
         myGp = theGp;
-        myMaze = new Maze();
 
     }
 
@@ -36,7 +35,7 @@ public class TileManager implements Serializable {
 
         while (worldCol < MAX_WORLD_COL && worldRow < MAX_WORLD_ROW) {
 
-            int tileNum = myMaze.getMyMapTileNum(worldCol,worldRow);
+            int tileNum = MAZE.getMyMapTileNum(worldCol,worldRow);
             // WORLD X AND Y is position on MAP
             int worldX = worldCol * TILE_SIZE;
             int worldY = worldRow * TILE_SIZE;
@@ -53,7 +52,7 @@ public class TileManager implements Serializable {
                     worldY + TILE_SIZE > myGp.getPlayerManager().getMyWorldY() - myGp.getPlayerManager().getMyY() &&
                     worldY - TILE_SIZE < myGp.getPlayerManager().getMyWorldY() + myGp.getPlayerManager().getMyY()) {
 
-                theG2.drawImage(myMaze.getTile(tileNum).getImage(), screenX, screenY, TILE_SIZE, TILE_SIZE, null);
+                theG2.drawImage(MAZE.getTile(tileNum).getImage(), screenX, screenY, TILE_SIZE, TILE_SIZE, null);
             }
 
             worldCol++;

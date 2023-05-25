@@ -3,12 +3,11 @@ package Model;
 import javax.imageio.ImageIO;
 import java.io.*;
 
-public class Maze implements Serializable {
-    private transient Tile[] myTile;
-
-    private transient int [][]  myMapTileNum;
-    private transient int myMaxWorldColumn;
-    private transient int myMaxWorldRow;
+public class Maze {
+    private Tile[] myTile;
+    private int [][]  myMapTileNum;
+    private int myMaxWorldColumn;
+    private int myMaxWorldRow;
 
     /**
      * Constructor intializes fields.

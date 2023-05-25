@@ -9,13 +9,12 @@ import java.io.Serializable;
 
 public class CollisionChecker implements Serializable {
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
+    private final static Maze MAZE = new Maze();
     private GamePanel myGp;
-    private Maze myMaze;
     private QuestionRecord myQuestionRecord;
 
     public CollisionChecker(final GamePanel theGp, final QuestionRecord theQuestionRecord) {
         myGp = theGp;
-        myMaze = new Maze();
         myQuestionRecord = theQuestionRecord;
     }
 
@@ -36,41 +35,41 @@ public class CollisionChecker implements Serializable {
         switch(thePlayer.getDirection()) {
             case "up":
                 entityTopRow = (entityTopWorldY - thePlayer.getSpeed())/TILE_SIZE;
-                tileNum1 = myMaze.getMyMapTileNum(entityLeftCol, entityTopRow);
-                tileNum2 = myMaze.getMyMapTileNum(entityRightCol, entityTopRow);
+                tileNum1 = MAZE.getMyMapTileNum(entityLeftCol, entityTopRow);
+                tileNum2 = MAZE.getMyMapTileNum(entityRightCol, entityTopRow);
 
                 // If one of the tiles boolean is true and player is hitting it, collision is true
-                if (myMaze.getTile(tileNum1).isCollision()|| myMaze.getTile(tileNum2).isCollision()) {
+                if (MAZE.getTile(tileNum1).isCollision()|| MAZE.getTile(tileNum2).isCollision()) {
                     thePlayer.setCollision(true);
                 }
                 break;
             case "down":
                 entityBottomRow = (entityBottomWorldY + thePlayer.getSpeed())/TILE_SIZE;
-                tileNum1 = myMaze.getMyMapTileNum(entityLeftCol, entityBottomRow);
-                tileNum2 = myMaze.getMyMapTileNum(entityRightCol, entityBottomRow);
+                tileNum1 = MAZE.getMyMapTileNum(entityLeftCol, entityBottomRow);
+                tileNum2 = MAZE.getMyMapTileNum(entityRightCol, entityBottomRow);
 
                 // If one of the tiles boolean is true and player is hitting it, collision is true
-                if (myGp.getMaze().getTile(tileNum1).isCollision() || myGp.getMaze().getTile(tileNum2).isCollision()) {
+                if (MAZE.getTile(tileNum1).isCollision() || MAZE.getTile(tileNum2).isCollision()) {
                     thePlayer.setCollision(true);
                 }
                 break;
             case "left":
                 entityLeftCol = (entityLeftWorldX - thePlayer.getSpeed())/TILE_SIZE;
-                tileNum1 = myMaze.getMyMapTileNum(entityLeftCol, entityTopRow);
-                tileNum2 = myMaze.getMyMapTileNum(entityLeftCol, entityBottomRow);
+                tileNum1 = MAZE.getMyMapTileNum(entityLeftCol, entityTopRow);
+                tileNum2 = MAZE.getMyMapTileNum(entityLeftCol, entityBottomRow);
 
                 // If one of the tiles boolean is true and player is hitting it, collision is true
-                if (myMaze.getTile(tileNum1).isCollision() || myMaze.getTile(tileNum2).isCollision()) {
+                if (MAZE.getTile(tileNum1).isCollision() || MAZE.getTile(tileNum2).isCollision()) {
                     thePlayer.setCollision(true);
                 }
                 break;
             case "right":
                 entityRightCol = (entityRightWorldX + thePlayer.getSpeed())/TILE_SIZE;
-                tileNum1 = myMaze.getMyMapTileNum(entityRightCol, entityTopRow);
-                tileNum2 = myMaze.getMyMapTileNum(entityRightCol, entityBottomRow);
+                tileNum1 = MAZE.getMyMapTileNum(entityRightCol, entityTopRow);
+                tileNum2 = MAZE.getMyMapTileNum(entityRightCol, entityBottomRow);
 
                 // If one of the tiles boolean is true and player is hitting it, collision is true
-                if (myMaze.getTile(tileNum1).isCollision() ||myMaze.getTile(tileNum2).isCollision()) {
+                if (MAZE.getTile(tileNum1).isCollision() ||MAZE.getTile(tileNum2).isCollision()) {
                     thePlayer.setCollision(true);
                 }
                 break;
