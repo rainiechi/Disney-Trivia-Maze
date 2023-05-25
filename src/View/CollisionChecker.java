@@ -181,8 +181,8 @@ public class CollisionChecker implements Serializable {
                 myGp.getObjManager(theIndex).setLocked(true);
             }
         } else {
-            // will do later
-            // Add stone methods for reattempting door
+            // if player has soul stone, pop up will ask if they want to reattempt the door
+            // if player does not have soul stone, pop up will say the door is locked.
         }
     }
     public void chestMethods(final int theIndex, final Chest theChest) {

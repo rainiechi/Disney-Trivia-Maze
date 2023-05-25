@@ -28,8 +28,8 @@ public class Player implements Serializable {
 
         myScreenX = GameSettings.SCREEN_WIDTH/2 - (GameSettings.TILE_SIZE/2);
         myScreenY = GameSettings.SCREEN_HEIGHT/2 - (GameSettings.TILE_SIZE/2);
-        myWorldX = GameSettings.TILE_SIZE * 22;
-        myWorldY = GameSettings.TILE_SIZE * 17;
+        myWorldX = GameSettings.TILE_SIZE * 38;
+        myWorldY = GameSettings.TILE_SIZE * 68;
         myPlayerSpeed = 3;
         mySpaceStone = false;
         mySoulStone = false;
@@ -200,15 +200,8 @@ public class Player implements Serializable {
         return myWorldY;
     }
 
-    public void setMyWorldY(int myWorldY) {
-        this.myWorldY = myWorldY;
-    }
-
     public int getMyWorldX() {
         return myWorldX;
     }
 
-    public void setMyWorldX(int myWorldX) {
-        this.myWorldX = myWorldX;
-    }
 }

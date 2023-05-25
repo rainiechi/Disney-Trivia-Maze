@@ -57,5 +57,11 @@ public class ChestTest {
         Chest chest = new Chest();
         assertEquals(null, chest.getMyStone());
     }
-
+    @Test
+    void testRandomProbability() {
+        Chest chest = new Chest();
+        chest.setMyRandomNumber(120);
+        chest.randomProbability();
+        assertEquals(false, chest.getMyEmptyChest());
+    }
 }

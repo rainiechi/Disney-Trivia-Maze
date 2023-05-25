@@ -29,7 +29,7 @@ public class AssetSetter {
         int x = 8;
         int y = 14;
         for (int i = 0; i <= 20; i++) {
-            myObjManager[i] = new ObjectManager("Door", x * TILE_SIZE, y * TILE_SIZE, true);
+            myObjManager[i] = new ObjectManager("Door", x * TILE_SIZE, y * TILE_SIZE, false);
             y += 13;
             // Starts at a new column on the map.
             if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19) {
@@ -44,7 +44,7 @@ public class AssetSetter {
         int y = 3;
         int count = 0;
         for (int i = 21; i <= 52; i++) {
-            myObjManager[i] = new ObjectManager("SideDoor", x * TILE_SIZE, y * TILE_SIZE, true);
+            myObjManager[i] = new ObjectManager("SideDoor", x * TILE_SIZE, y * TILE_SIZE, false);
             if (count == 2) {
                 x += 8;
                 count = 0;
@@ -70,12 +70,12 @@ public class AssetSetter {
      */
     public void setChests() {
         myObjManager[53] = new ObjectManager("Chest", 8 * TILE_SIZE, 2 * TILE_SIZE, true);
-        myObjManager[54] = new ObjectManager("Chest", 60 * TILE_SIZE, 2 * TILE_SIZE, true);
-        myObjManager[55] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
-        myObjManager[56] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
-        myObjManager[57] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
-        myObjManager[58] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
-        myObjManager[59] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
-        myObjManager[60] = new ObjectManager("Chest", 21 * TILE_SIZE, 16 * TILE_SIZE, true);
+        myObjManager[54] = new ObjectManager("Chest", 53 * TILE_SIZE, 16 * TILE_SIZE, true);
+        myObjManager[55] = new ObjectManager("Chest", 23 * TILE_SIZE, 16 * TILE_SIZE, true);
+        myObjManager[56] = new ObjectManager("Chest", 8 * TILE_SIZE, 29 * TILE_SIZE, true);
+        myObjManager[57] = new ObjectManager("Chest", 68 * TILE_SIZE, 2 * TILE_SIZE, true);
+        myObjManager[58] = new ObjectManager("Chest", 23 * TILE_SIZE, 55 * TILE_SIZE, true);
+        myObjManager[59] = new ObjectManager("Chest", 68 * TILE_SIZE, 29 * TILE_SIZE, true);
+        myObjManager[60] = new ObjectManager("Chest", 54 * TILE_SIZE, 42 * TILE_SIZE, true);
     }
 }
