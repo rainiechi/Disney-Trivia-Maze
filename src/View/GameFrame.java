@@ -1,5 +1,7 @@
 package View;
 
+import Model.Backpack;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -22,6 +24,9 @@ public class GameFrame extends JFrame {
 
     private WelcomePanel myWelcomePanel;
 
+    private HotbarGUI myHotBar;
+    private Backpack myBackPack;
+
 
     /**
      * GameFrame Constructor.
@@ -37,6 +42,13 @@ public class GameFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+
+
+        myBackPack = new Backpack();
+        myHotBar = new HotbarGUI(myBackPack);
+//        JPanel panel = myHotBar.updateGUI();
+//        panel.setBounds(10,10,100,100);
+//        add(panel);
     }
 
 
@@ -54,11 +66,20 @@ public class GameFrame extends JFrame {
     public void switchToGamePanel() {
         resumeButtonSetUp();
         initMenuBar();
-        setContentPane(myGamePanel);
+
+        //setContentPane(myGamePanel);
+        setContentPane(myGamePanel.layeredPane);
         revalidate(); // Refresh the content pane
-        myGamePanel.requestFocusInWindow();
+
+        //myGamePanel.requestFocusInWindow();
         myGamePanel.startGameThread(); // Start the game thread
+
+
         showDialog(new InstructionPanel()); //show instructions
+
+//        JPanel panel = myHotBar.updateGUI();
+//        panel.setBounds(10,10,100,100);
+//        add(panel);
     }
 
     /**
