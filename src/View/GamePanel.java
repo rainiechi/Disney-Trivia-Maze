@@ -51,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
             out.close();
             fileOut.close();
             System.out.println("Game state saved successfully.");
+            showDialog(new SaveLoadPanel(true));
         } catch (Exception e) {
             System.out.println("Error occurred while saving the game state: " + e.getMessage());
         }
@@ -68,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable{
             myGame.getMyPlayerManager().setPlayerImage(); //set up images again because they're transient
 
             System.out.println("Game state loaded successfully.");
+            showDialog(new SaveLoadPanel(false));
             repaint();
         } catch (Exception e) {
             System.out.println("Error occurred while loading the game state: " + e.getMessage());
@@ -158,6 +160,71 @@ public class GamePanel extends JPanel implements Runnable{
 
     public CollisionChecker getCC() {
         return myCollisionChecker;
+    }
+
+
+    /**
+     * Creates and show JDialog
+     * @param thePanel the panel to be contained by the JDialog
+     */
+    private void showDialog(final JPanel thePanel) {
+        GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(GamePanel.this);
+        JDialog dialog = new JDialog(frame, "hi", true);
+        dialog.getContentPane().add(thePanel);
+        dialog.setUndecorated(true);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }
+
+
+    /**
+     * The popup screen for game saved and game loaded.
+     */
+    class SaveLoadPanel extends JPanel {
+        private static final int BORDER = 15;
+
+        private static final Color PERIWINKLE = new Color(220, 215, 247);
+        private static final Color DARK_BLUE = new Color(70, 130, 180);
+        private static final Color PASTEL_BLUE = new Color(173, 216, 230);
+
+        public SaveLoadPanel(Boolean save) { //true for save false for load
+            JButton continueButton = new JButton("CONTINUE");
+            JLabel resultLabel1 = new JLabel();
+            setBackground(PERIWINKLE);
+
+            continueButton.setForeground(DARK_BLUE);
+            continueButton.setBackground(PASTEL_BLUE);
+            continueButton.setBorder(BorderFactory.createLineBorder(DARK_BLUE, 1));
+
+            if (save) {
+                resultLabel1 = new JLabel("PROGRESS SAVED");
+                resultLabel1.setForeground(DARK_BLUE);
+            } else {
+                resultLabel1 = new JLabel("PROGRESS LOADED");
+                resultLabel1.setForeground(DARK_BLUE);
+            }
+
+
+            JPanel resultPanel1 = new JPanel();
+            resultPanel1.setOpaque(false);
+            resultPanel1.add(resultLabel1);
+
+
+            setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER, BORDER,BORDER));
+            setLayout(new GridLayout(2, 1, 10, 10));
+            add(resultPanel1);
+            add(continueButton);
+
+            //disposes the window and resumes game
+            continueButton.addActionListener(theEvent -> {
+                Component comp = (Component) theEvent.getSource();
+                Window win = SwingUtilities.getWindowAncestor(comp);
+                win.dispose();
+            });
+
+        }
+
     }
 
 }
