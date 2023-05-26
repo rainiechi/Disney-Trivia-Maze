@@ -8,14 +8,17 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class ObjectManager {
+public class ObjectManager implements Serializable {
 
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
     /**
      * Private BufferedImage field for image
      */
-    private BufferedImage myImage;
+    private transient BufferedImage myImage;
     /** Private String field for name of object */
     private String myName;
     /** Private int field for X coordinate on map */
@@ -254,5 +257,28 @@ public class ObjectManager {
      */
     public boolean isLocked() {
         return myLocked;
+    }
+
+
+
+    //these two methods are used to manually serialize myImage since BufferedImage has to be transient
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+
+        // Serialize the image data
+        if (myImage != null) {
+            ImageIO.write(myImage, "png", out);
+        }
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+
+        // Deserialize the image data
+        try {
+            myImage = ImageIO.read(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

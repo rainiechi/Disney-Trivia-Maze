@@ -1,5 +1,6 @@
 package View;
 
+import Model.Chest;
 import Model.GameSettings;
 import Model.Player;
 
@@ -7,15 +8,15 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class PlayerManager {
-    private BufferedImage myUp1, myUp2, myDown1, myDown2, myLeft1, myLeft2, myRight1, myRight2, myHead;
+public class PlayerManager implements Serializable {
+    private transient BufferedImage myUp1, myUp2, myDown1, myDown2, myLeft1, myLeft2, myRight1, myRight2, myHead;
     private String myDirection;
 
     private int mySpriteCounter;
     private int mySpriteNum;
     private GamePanel myGp;
-
     private Player myPlayer;
     private int myX;
     private int myY;
@@ -36,14 +37,15 @@ public class PlayerManager {
      * @param thePlayer Player passed in
      */
     public PlayerManager(final GamePanel theGp, final KeyHandler theKeyH, final Player thePlayer) {
-        this.myPlayer = thePlayer;
-        this.myGp = theGp;
-        this.myKeyH = theKeyH;
+        myPlayer = thePlayer;
+        myGp = theGp;
+        myKeyH = theKeyH;
         mySpriteNum = 1;
         mySpriteCounter = 0;
         setDefaultValues();
         setPlayerImage();
     }
+
 
     /**
      * Sets default values for collision area, speed, and coordinates on maze.
@@ -102,7 +104,7 @@ public class PlayerManager {
             myGp.getCC().checkTile(this);
 
             int objIndex = myGp.getCC().checkObject(this, true);
-            myGp.getCC().pickUpObject(objIndex, myKeyH, this);
+            myGp.getCC().pickUpObject(objIndex, myKeyH, this, new Chest());
 
             if (!myCollision) {
                 switch(myDirection) {
@@ -276,6 +278,11 @@ public class PlayerManager {
      */
     public BufferedImage getMyHead() {
         return myHead;
+    }
+
+
+    public void setMyKeyH(final KeyHandler theKeyH) {
+        myKeyH = theKeyH;
     }
 
 }

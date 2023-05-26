@@ -1,6 +1,8 @@
 package Model;
 
-public class Player {
+import java.io.Serializable;
+
+public class Player implements Serializable {
 
     private Backpack myBackpack;
     private int myScreenX;
@@ -14,7 +16,7 @@ public class Player {
 
     private boolean mySpaceStone;
     private boolean mySoulStone;
-    GameSettings myGs;
+    private transient GameSettings myGs;
 
     /**
      * Player constructor.
@@ -26,8 +28,8 @@ public class Player {
 
         myScreenX = GameSettings.SCREEN_WIDTH/2 - (GameSettings.TILE_SIZE/2);
         myScreenY = GameSettings.SCREEN_HEIGHT/2 - (GameSettings.TILE_SIZE/2);
-        myWorldX = GameSettings.TILE_SIZE * 35;
-        myWorldY = GameSettings.TILE_SIZE * 70;
+        myWorldX = GameSettings.TILE_SIZE * 38;
+        myWorldY = GameSettings.TILE_SIZE * 68;
         myPlayerSpeed = 3;
         mySpaceStone = false;
         mySoulStone = false;
@@ -198,15 +200,8 @@ public class Player {
         return myWorldY;
     }
 
-    public void setMyWorldY(int myWorldY) {
-        this.myWorldY = myWorldY;
-    }
-
     public int getMyWorldX() {
         return myWorldX;
     }
 
-    public void setMyWorldX(int myWorldX) {
-        this.myWorldX = myWorldX;
-    }
 }

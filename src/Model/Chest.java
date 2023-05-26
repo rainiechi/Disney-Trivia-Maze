@@ -1,11 +1,15 @@
 package Model;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Chest {
-    private BufferedImage myImage;
     private Stone myStone; //the stone in the chest
     private boolean myEmptyChest; //if the chest is currently empty
+    private int myRandomNumber;
+    private int myStoneIndex;
+    private Random myRand;
 
     /**
      * Constructor for non-empty chest.
@@ -22,6 +26,9 @@ public class Chest {
     public Chest() {
         myStone = null;
         myEmptyChest = true;
+        myRand = new Random();
+        myRandomNumber = myRand.nextInt(122);
+        randomProbability();
     }
 
     /**
@@ -31,6 +38,27 @@ public class Chest {
     public void addToChest(Stone theStone) {
         myStone = theStone;
         myEmptyChest = false;
+    }
+    public void randomProbability() {
+        Stone stone = null;
+        ArrayList<Stone> stones = new ArrayList<>();
+        StoneFactory sf = new StoneFactory();
+        stones.add(sf.createStone("Time"));
+        stones.add(sf.createStone("Power"));
+        stones.add(sf.createStone("Mind"));
+        stones.add(sf.createStone("Soul"));
+        stones.add(sf.createStone("Space"));
+        stones.add(sf.createStone("Reality"));
+        // 40% Chance probability of chest containing stones
+
+        if (myRandomNumber % 3 == 0) {
+            // Chooses random stone from arraylist
+            myStoneIndex =  myRand.nextInt(6);
+            stone = stones.get(myStoneIndex);
+            // removes from list so there are no duplicate types
+            stones.remove(myStoneIndex);
+        }
+        addToChest(stone);
     }
 
     /**
@@ -68,8 +96,11 @@ public class Chest {
         myStone = null;
         myEmptyChest = true;
     }
-    public BufferedImage getImage() {
-        return myImage;
+    public void setMyRandomNumber(int theNum) {
+        myRandomNumber = theNum;
+    }
+    public void setMyStoneIndex(int theIndex) {
+        myStoneIndex = theIndex;
     }
 
 

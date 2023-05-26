@@ -1,9 +1,10 @@
 package Model;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Tile {
-    private BufferedImage myTileImage;
+public class Tile implements Serializable {
+    private transient BufferedImage myTileImage;
 
     private boolean myCollision;
 

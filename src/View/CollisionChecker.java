@@ -1,19 +1,17 @@
 package View;
 
-import Model.Door;
-import Model.GameSettings;
-import Model.Maze;
-import Model.QuestionRecord;
+import Model.*;
 
-public class CollisionChecker {
+import java.io.Serializable;
+
+public class CollisionChecker implements Serializable {
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
+    private final static Maze MAZE = new Maze();
     private GamePanel myGp;
-    private Maze myMaze;
     private QuestionRecord myQuestionRecord;
 
-    public CollisionChecker(final GamePanel theGp, final Maze theMaze, final QuestionRecord theQuestionRecord) {
+    public CollisionChecker(final GamePanel theGp, final QuestionRecord theQuestionRecord) {
         myGp = theGp;
-        myMaze = theMaze;
         myQuestionRecord = theQuestionRecord;
     }
 
@@ -34,41 +32,41 @@ public class CollisionChecker {
         switch(thePlayer.getDirection()) {
             case "up":
                 entityTopRow = (entityTopWorldY - thePlayer.getSpeed())/TILE_SIZE;
-                tileNum1 = myMaze.getMyMapTileNum(entityLeftCol, entityTopRow);
-                tileNum2 = myMaze.getMyMapTileNum(entityRightCol, entityTopRow);
+                tileNum1 = MAZE.getMyMapTileNum(entityLeftCol, entityTopRow);
+                tileNum2 = MAZE.getMyMapTileNum(entityRightCol, entityTopRow);
 
                 // If one of the tiles boolean is true and player is hitting it, collision is true
-                if (myMaze.getTile(tileNum1).isCollision()|| myMaze.getTile(tileNum2).isCollision()) {
+                if (MAZE.getTile(tileNum1).isCollision()|| MAZE.getTile(tileNum2).isCollision()) {
                     thePlayer.setCollision(true);
                 }
                 break;
             case "down":
                 entityBottomRow = (entityBottomWorldY + thePlayer.getSpeed())/TILE_SIZE;
-                tileNum1 = myMaze.getMyMapTileNum(entityLeftCol, entityBottomRow);
-                tileNum2 = myMaze.getMyMapTileNum(entityRightCol, entityBottomRow);
+                tileNum1 = MAZE.getMyMapTileNum(entityLeftCol, entityBottomRow);
+                tileNum2 = MAZE.getMyMapTileNum(entityRightCol, entityBottomRow);
 
                 // If one of the tiles boolean is true and player is hitting it, collision is true
-                if (myGp.getMaze().getTile(tileNum1).isCollision() || myGp.getMaze().getTile(tileNum2).isCollision()) {
+                if (MAZE.getTile(tileNum1).isCollision() || MAZE.getTile(tileNum2).isCollision()) {
                     thePlayer.setCollision(true);
                 }
                 break;
             case "left":
                 entityLeftCol = (entityLeftWorldX - thePlayer.getSpeed())/TILE_SIZE;
-                tileNum1 = myMaze.getMyMapTileNum(entityLeftCol, entityTopRow);
-                tileNum2 = myMaze.getMyMapTileNum(entityLeftCol, entityBottomRow);
+                tileNum1 = MAZE.getMyMapTileNum(entityLeftCol, entityTopRow);
+                tileNum2 = MAZE.getMyMapTileNum(entityLeftCol, entityBottomRow);
 
                 // If one of the tiles boolean is true and player is hitting it, collision is true
-                if (myMaze.getTile(tileNum1).isCollision() || myMaze.getTile(tileNum2).isCollision()) {
+                if (MAZE.getTile(tileNum1).isCollision() || MAZE.getTile(tileNum2).isCollision()) {
                     thePlayer.setCollision(true);
                 }
                 break;
             case "right":
                 entityRightCol = (entityRightWorldX + thePlayer.getSpeed())/TILE_SIZE;
-                tileNum1 = myMaze.getMyMapTileNum(entityRightCol, entityTopRow);
-                tileNum2 = myMaze.getMyMapTileNum(entityRightCol, entityBottomRow);
+                tileNum1 = MAZE.getMyMapTileNum(entityRightCol, entityTopRow);
+                tileNum2 = MAZE.getMyMapTileNum(entityRightCol, entityBottomRow);
 
                 // If one of the tiles boolean is true and player is hitting it, collision is true
-                if (myMaze.getTile(tileNum1).isCollision() ||myMaze.getTile(tileNum2).isCollision()) {
+                if (MAZE.getTile(tileNum1).isCollision() ||MAZE.getTile(tileNum2).isCollision()) {
                     thePlayer.setCollision(true);
                 }
                 break;
@@ -146,7 +144,7 @@ public class CollisionChecker {
 
         return index;
     }
-    public void pickUpObject(final int theIndex, final KeyHandler theKeyH, final PlayerManager thePlayer) {
+    public void pickUpObject(final int theIndex, final KeyHandler theKeyH, final PlayerManager thePlayer, final Chest theChest) {
         // Any number is fine as long as its not the index
         // of an object.
         if (theIndex != 999) {
@@ -157,31 +155,44 @@ public class CollisionChecker {
                     theKeyH.setAllKeys();
                     break;
                 case "Chest":
+                    System.out.println("Chest");
+                    chestMethods(theIndex, theChest);
                     break;
             }
         }
     }
     public void doorMethod(final int theIndex, final PlayerManager thePlayer) {
-        if (!myGp.getObj()[theIndex].isTouched()) {
+        if (!myGp.getObjManager(theIndex).isTouched()) {
             Door door = new Door(myQuestionRecord);
-            myGp.getObj()[theIndex].setTouched(true);
-            myGp.getObj()[theIndex].setDoor(door);
+            myGp.getObjManager(theIndex).setTouched(true);
+            myGp.getObjManager(theIndex).setDoor(door);
         }
-        if (!myGp.getObj()[theIndex].isLocked()) {
-            PopUp pop = new PopUp(myGp.getObj()[theIndex].getDoor());//myGp.getObj()[i].getDoor() -> was in the constructor
+        if (!myGp.getObjManager(theIndex).isLocked()) {
+            PopUp pop = new PopUp(myGp.getObjManager(theIndex).getDoor());//myGp.getObj()[i].getDoor() -> was in the constructor
             System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
-            if (myGp.getObj()[theIndex].getDoor().getMyUnlock()) {
-                myGp.getObj()[theIndex] = null;
+            if (myGp.getObjManager(theIndex).getDoor().getMyUnlock()) {
+                myGp.deleteObjManager(theIndex);
                 if (thePlayer.getDirection().equals("left")) {
-                    myGp.getObj()[theIndex - 1] = null;
+                    myGp.deleteObjManager(theIndex - 1);
                 } else if (thePlayer.getDirection().equals("right")) {
-                    myGp.getObj()[theIndex + 1] = null;
+                    myGp.deleteObjManager(theIndex + 1);
                 }
             } else {
-                myGp.getObj()[theIndex].setLocked(true);
+                myGp.getObjManager(theIndex).setLocked(true);
             }
         } else {
-            // will do later
+            // if player has soul stone, pop up will ask if they want to reattempt the door
+            // if player does not have soul stone, pop up will say the door is locked.
         }
     }
+    public void chestMethods(final int theIndex, final Chest theChest) {
+        if (!myGp.getObjManager(theIndex).isTouched()) {
+            Chest chest = new Chest();
+            myGp.getObjManager(theIndex).setTouched(true);
+            myGp.getObjManager(theIndex).setChest(chest);
+        } if (!myGp.getObjManager(theIndex).isLocked()) {
+            // pop up for chest
+        }
+    }
+
 }
