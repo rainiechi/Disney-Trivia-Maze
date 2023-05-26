@@ -22,7 +22,6 @@ public class GameFrame extends JFrame {
     private JMenuItem myExitItem;
     private JMenuItem myAboutItem;
     private JMenuItem myInstructionItem;
-
     private GamePanel myGamePanel;
     private JButton resumeButton;
 
@@ -45,13 +44,14 @@ public class GameFrame extends JFrame {
         setVisible(true);
     }
 
-    private void saveGame() {
+    public void saveGame() {
         myGamePanel.saveGame();
     }
 
-    private void loadGame() {
+    public void loadGame() {
         myGamePanel.loadGame();
     }
+
 
 
     /**
@@ -65,15 +65,21 @@ public class GameFrame extends JFrame {
     /**
      * Switches from the welcome screen to the game screen.
      */
-    public void switchToGamePanel() {
+    public void switchToGamePanel(final GamePanel theGamePanel) {
+        myGamePanel = theGamePanel;
         resumeButtonSetUp();
         initMenuBar();
-        setContentPane(myGamePanel);
+        setContentPane(theGamePanel);
         revalidate(); // Refresh the content pane
-        myGamePanel.requestFocusInWindow();
-        myGamePanel.startGameThread(); // Start the game thread
+        theGamePanel.requestFocusInWindow();
+        theGamePanel.startGameThread(); // Start the game thread
         showDialog(new InstructionPanel()); //show instructions
     }
+
+    public GamePanel getMyGamePanel() {
+        return myGamePanel;
+    }
+
 
     /**
      * Sets up the resume button that will be used in multiple windows.
