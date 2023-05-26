@@ -2,41 +2,37 @@ package View;
 
 import Model.Backpack;
 import Model.MindStone;
+import View.DialogForYesNoAnswer;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-public class HotbarGUI implements KeyListener {
+public class HotbarGUI extends JPanel implements KeyListener {
     private static final int HOTBAR_SIZE = 6;
 
     private JButton[] slots;
     private int selectedSlotIndex;
 
     Backpack mybackPack;
-    JDialog myHotbar;
 
     public HotbarGUI(final Backpack theBackPack) {
         slots = new JButton[HOTBAR_SIZE];
         selectedSlotIndex = 0;
         this.mybackPack = theBackPack;
-        myHotbar = new JDialog(); // Initialize to null initially
+        setLayout(new FlowLayout()); // Set layout to FlowLayout
     }
 
-    private void initializeGUI() {
-
-        myHotbar.getContentPane().removeAll();
-
-        myHotbar.setTitle("Hotbar");
-        myHotbar.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0)); // Set hgap and vgap to 0
-        myHotbar.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE); // Set the close operation
+    public JPanel updateGUI() {
+        removeAll(); // Clear existing buttons
+        setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
         for (int i = 0; i < HOTBAR_SIZE; i++) {
             JButton slotButton = new JButton();
             slotButton.setPreferredSize(new Dimension(50, 50));
             slotButton.setBackground(new Color(234, 210, 182));
-            slotButton.addKeyListener(this);
+            //slotButton.addKeyListener(this);
 
             slotButton.setLayout(new GridBagLayout());
             if (mybackPack.getStone(i) != null) {
@@ -45,7 +41,7 @@ public class HotbarGUI implements KeyListener {
             }
 
             slots[i] = slotButton;
-            myHotbar.add(slotButton);
+            add(slotButton);
 
             final int index = i;
             slotButton.addActionListener(new ActionListener() {
@@ -56,8 +52,7 @@ public class HotbarGUI implements KeyListener {
             });
         }
 
-        myHotbar.pack();
-        myHotbar.setVisible(true);
+        return this;
     }
 
     private void askToUseStone() throws IOException {
@@ -72,7 +67,6 @@ public class HotbarGUI implements KeyListener {
                 yesNoDialog.getPlayerAnswer()) {
             System.out.println("I am using the " + (selectedSlotIndex + 1));
         }
-        System.out.println( yesNoDialog.getPlayerAnswer() );
     }
 
     public void selectSlot(int slot) {
@@ -80,6 +74,8 @@ public class HotbarGUI implements KeyListener {
             slots[selectedSlotIndex].setEnabled(true);
             selectedSlotIndex = slot;
             slots[selectedSlotIndex].setEnabled(false);
+            System.out.println("Hello "+slot);
+
         }
     }
 
@@ -91,12 +87,8 @@ public class HotbarGUI implements KeyListener {
         selectSlot((selectedSlotIndex + 1) % HOTBAR_SIZE);
     }
 
-    private void updateGUI() {
-        initializeGUI();
-    }
-
     public static void main(String[] args) {
-
+        // Initialize the backpack and GUI
         Backpack pack = new Backpack();
         pack.addToBackpack(new MindStone());
         pack.addToBackpack(new MindStone());
@@ -105,23 +97,25 @@ public class HotbarGUI implements KeyListener {
         pack.addToBackpack(new MindStone());
         pack.addToBackpack(new MindStone());
 
-        HotbarGUI gui = new HotbarGUI(pack);
+        HotbarGUI toolbar = new HotbarGUI(pack);
 
-        gui.updateGUI();
+        // Create a JFrame to hold the toolbar
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 100);
 
-        pack.deleteStone(0);
-
-        gui.updateGUI();
+        // Add the toolbar to the frame
+        frame.add(toolbar.updateGUI());
+        frame.setVisible(true);
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        // Implementation for keyTyped event (if needed)
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
         switch (e.getKeyCode()) {
             case KeyEvent.VK_1:
                 selectSlot(0);
@@ -153,11 +147,12 @@ public class HotbarGUI implements KeyListener {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
-                break;}
+                break;
+        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        // Implementation for keyReleased event (if needed)
     }
 }
