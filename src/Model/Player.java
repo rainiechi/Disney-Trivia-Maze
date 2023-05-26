@@ -204,4 +204,7 @@ public class Player implements Serializable {
         return myWorldX;
     }
 
+    public Backpack getBackpack() {
+        return myBackpack;
+    }
 }

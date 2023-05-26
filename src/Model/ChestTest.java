@@ -34,7 +34,7 @@ public class ChestTest {
         Chest chest = new Chest(new PowerStone());
         player.takeStone(chest);
         player.displayBackpack();
-        assertEquals(chest.getMyEmptyChest(),true);
+        assertEquals(chest.isEmptyChest(),true);
         assertEquals("Chest empty", chest.chestToString());
     }
 
@@ -42,7 +42,7 @@ public class ChestTest {
     void testClearChest() {
         Chest chest = new Chest(new PowerStone());
         chest.clearChest();
-        assertEquals(true, chest.getMyEmptyChest());
+        assertEquals(true, chest.isEmptyChest());
     }
 
     @Test
@@ -62,6 +62,6 @@ public class ChestTest {
         Chest chest = new Chest();
         chest.setMyRandomNumber(120);
         chest.randomProbability();
-        assertEquals(false, chest.getMyEmptyChest());
+        assertEquals(false, chest.isEmptyChest());
     }
 }

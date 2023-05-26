@@ -2,7 +2,7 @@ package View;
 
 import Model.Backpack;
 import Model.MindStone;
-import View.DialogForYesNoAnswer;
+import Model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,12 +15,13 @@ public class HotbarGUI extends JPanel implements KeyListener {
     private JButton[] slots;
     private int selectedSlotIndex;
 
-    Backpack mybackPack;
+    //private Backpack myBackPack;
+    private Player myPlayer;
 
-    public HotbarGUI(final Backpack theBackPack) {
+    public HotbarGUI(final Player thePlayer) {
         slots = new JButton[HOTBAR_SIZE];
         selectedSlotIndex = 0;
-        this.mybackPack = theBackPack;
+        myPlayer = thePlayer;
         setLayout(new FlowLayout()); // Set layout to FlowLayout
     }
 
@@ -35,9 +36,9 @@ public class HotbarGUI extends JPanel implements KeyListener {
             //slotButton.addKeyListener(this);
 
             slotButton.setLayout(new GridBagLayout());
-            if (mybackPack.getStone(i) != null) {
-                slotButton.setIcon(new ImageIcon(mybackPack.getStone(i).getImage()));
-                slotButton.setToolTipText(mybackPack.getStone(i).getDescription()); // Set the tooltip text
+            if (myPlayer.getBackpack().getStone(i) != null) {
+                slotButton.setIcon(new ImageIcon(myPlayer.getBackpack().getStone(i).getImage()));
+                slotButton.setToolTipText(myPlayer.getBackpack().getStone(i).getDescription()); // Set the tooltip text
             }
 
             slots[i] = slotButton;
@@ -63,7 +64,7 @@ public class HotbarGUI extends JPanel implements KeyListener {
 
         DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer(frame, message, fontForText, brownColor, Color.WHITE);
 
-        if (mybackPack.getStone(selectedSlotIndex) != null &&
+        if (myPlayer.getBackpack().getStone(selectedSlotIndex) != null &&
                 yesNoDialog.getPlayerAnswer()) {
             System.out.println("I am using the " + (selectedSlotIndex + 1));
         }
@@ -87,27 +88,27 @@ public class HotbarGUI extends JPanel implements KeyListener {
         selectSlot((selectedSlotIndex + 1) % HOTBAR_SIZE);
     }
 
-    public static void main(String[] args) {
-        // Initialize the backpack and GUI
-        Backpack pack = new Backpack();
-        pack.addToBackpack(new MindStone());
-        pack.addToBackpack(new MindStone());
-        pack.addToBackpack(new MindStone());
-        pack.addToBackpack(new MindStone());
-        pack.addToBackpack(new MindStone());
-        pack.addToBackpack(new MindStone());
-
-        HotbarGUI toolbar = new HotbarGUI(pack);
-
-        // Create a JFrame to hold the toolbar
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 100);
-
-        // Add the toolbar to the frame
-        frame.add(toolbar.updateGUI());
-        frame.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        // Initialize the backpack and GUI
+//        Backpack pack = new Backpack();
+//        pack.addToBackpack(new MindStone());
+//        pack.addToBackpack(new MindStone());
+//        pack.addToBackpack(new MindStone());
+//        pack.addToBackpack(new MindStone());
+//        pack.addToBackpack(new MindStone());
+//        pack.addToBackpack(new MindStone());
+//
+//        HotbarGUI toolbar = new HotbarGUI(pack);
+//
+//        // Create a JFrame to hold the toolbar
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(400, 100);
+//
+//        // Add the toolbar to the frame
+//        frame.add(toolbar.updateGUI());
+//        frame.setVisible(true);
+//    }
 
     @Override
     public void keyTyped(KeyEvent e) {

@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Game myGame;
 
     private HotbarGUI myHotBar;
-    private Backpack myBackPack;
+    //private Backpack myBackpack;
     JLayeredPane layeredPane;
 
 
@@ -32,8 +32,8 @@ public class GamePanel extends JPanel implements Runnable{
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
 
-        myBackPack = new Backpack();
-        myHotBar = new HotbarGUI(myBackPack);
+        //myBackPack = new Backpack();
+        myHotBar = new HotbarGUI(myGame.getMyPlayerManager().getPlayer());
         layeredPane = new JLayeredPane();
 
         layeredPane = new JLayeredPane();

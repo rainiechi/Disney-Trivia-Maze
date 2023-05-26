@@ -284,5 +284,8 @@ public class PlayerManager implements Serializable {
     public void setMyKeyH(final KeyHandler theKeyH) {
         myKeyH = theKeyH;
     }
+    public Player getPlayer() {
+        return myPlayer;
+    }
 
 }

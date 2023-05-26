@@ -155,8 +155,7 @@ public class CollisionChecker implements Serializable {
                     theKeyH.setAllKeys();
                     break;
                 case "Chest":
-                    System.out.println("Chest");
-                    chestMethods(theIndex, theChest);
+                    chestMethods(theIndex, thePlayer.getPlayer());
                     break;
             }
         }
@@ -185,14 +184,16 @@ public class CollisionChecker implements Serializable {
             // if player does not have soul stone, pop up will say the door is locked.
         }
     }
-    public void chestMethods(final int theIndex, final Chest theChest) {
+    public void chestMethods(final int theIndex, final Player thePlayer) {
         if (!myGp.getObjManager(theIndex).isTouched()) {
             Chest chest = new Chest();
             myGp.getObjManager(theIndex).setTouched(true);
             myGp.getObjManager(theIndex).setChest(chest);
-        } if (!myGp.getObjManager(theIndex).isLocked()) {
-            // pop up for chest
+        } if (!myGp.getObjManager(theIndex).getChest().isEmptyChest() && !myGp.getObjManager(theIndex).isLocked()) {
+            thePlayer.addToBackpack(myGp.getObjManager(theIndex).getChest().getMyStone());
+            System.out.println(thePlayer.getCurrItem());
         }
+        myGp.getObjManager(theIndex).setLocked(true);
     }
 
 }

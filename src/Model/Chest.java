@@ -51,7 +51,7 @@ public class Chest {
         stones.add(sf.createStone("Reality"));
         // 40% Chance probability of chest containing stones
 
-        if (myRandomNumber % 3 == 0) {
+        if (myRandomNumber > 0) {
             // Chooses random stone from arraylist
             myStoneIndex =  myRand.nextInt(6);
             stone = stones.get(myStoneIndex);
@@ -77,8 +77,12 @@ public class Chest {
      * Returns if the chest is empty.
      * @return if the chest is empty
      */
-    public boolean getMyEmptyChest() {
-        return myEmptyChest;
+    public boolean isEmptyChest() {
+        boolean result = true;
+        if (myStone != null) {
+            result = false;
+        }
+        return result;
     }
 
     /**
