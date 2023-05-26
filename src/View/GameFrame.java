@@ -69,7 +69,9 @@ public class GameFrame extends JFrame {
         myGamePanel = theGamePanel;
         resumeButtonSetUp();
         initMenuBar();
-        setContentPane(theGamePanel);
+        setContentPane(theGamePanel.layeredPane);
+
+
         revalidate(); // Refresh the content pane
         theGamePanel.requestFocusInWindow();
         theGamePanel.startGameThread(); // Start the game thread

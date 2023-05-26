@@ -17,6 +17,11 @@ public class GamePanel extends JPanel implements Runnable{
     private transient Thread myGameThread;
     private Game myGame;
 
+    private HotbarGUI myHotBar;
+    private Backpack myBackPack;
+    JLayeredPane layeredPane;
+
+
     public GamePanel() {
         myTileM = new TileManager(this);
         setMyGame(new Game(this));
@@ -26,6 +31,21 @@ public class GamePanel extends JPanel implements Runnable{
         this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
+
+        myBackPack = new Backpack();
+        myHotBar = new HotbarGUI(myBackPack);
+        layeredPane = new JLayeredPane();
+
+        layeredPane = new JLayeredPane();
+        layeredPane.setLayout(new BorderLayout());
+        JPanel hotbarPanel = myHotBar.updateGUI();
+        hotbarPanel.setBounds(280, 550, 300, 50);
+
+        layeredPane.setLayer(hotbarPanel,JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(hotbarPanel,0);
+
+        layeredPane.add(this);
+
     }
 
 
