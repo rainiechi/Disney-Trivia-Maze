@@ -96,8 +96,6 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
-
-
     @Override
     public void run() {
         double drawInterval = 1000000000 / GameSettings.FPS; // 0.0166 seconds
