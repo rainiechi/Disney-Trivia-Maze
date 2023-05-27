@@ -3,15 +3,15 @@ package View;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import java.net.URL;
+import java.io.File;
 
 public class SoundManager {
     private Clip myClip;
-    private URL[] mySoundURL;
+    private File[] mySoundURL;
 
     public SoundManager() {
-        mySoundURL = new URL[3];
-        mySoundURL[0] = getClass().getResource("res/Sound/The Little Mermaid Under the Sea 8bit 16bit Chiptune.wav");
+        mySoundURL = new File[3];
+        mySoundURL[0] = new File ("C:\\Users\\amand\\IdeaProjects\\Disney-Trivia-Maze\\src\\res\\Sound\\The Little Mermaid Under the Sea.wav");
     }
 
     public void setFile(int theFile) {
@@ -20,7 +20,8 @@ public class SoundManager {
             myClip = AudioSystem.getClip();
             myClip.open(ais);
         } catch(Exception e) {
-
+            System.out.println("Not found");
+            e.printStackTrace();
         }
     }
     public void play() {
@@ -33,3 +34,4 @@ public class SoundManager {
         myClip.stop();
     }
 }
+

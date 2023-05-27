@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements Runnable{
     private CollisionChecker myCollisionChecker;
     private transient Thread myGameThread;
     private Game myGame;
+    private SoundManager mySound;
 
     private HotbarGUI myHotBar;
     //private Backpack myBackpack;
@@ -25,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel() {
         myTileM = new TileManager(this);
         setMyGame(new Game(this));
+        mySound = new SoundManager();
         myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
 
         // BACKGROUND
@@ -50,6 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 
     public void setMyGame(final Game theGame) {
+        System.out.println("1");
         myGame = theGame;
         myCollisionChecker = new CollisionChecker(this, myGame.getMyQuestionRecord());
         addKeyListener(myGame.getMyKeyHandler());
@@ -137,6 +140,20 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+
+    public void playMusic(int theIndex) {
+        mySound.setFile(theIndex);
+        mySound.play();
+        mySound.loop();
+
+    }
+    public void stopMusic() {
+        mySound.stop();
+    }
+    public void playSE(int i) {
+        mySound.setFile(i);
+        mySound.play();
+    }
 
     public void paintComponent(Graphics g) {
 

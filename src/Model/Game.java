@@ -25,7 +25,6 @@ public class Game implements Serializable {
         myKeyHandler = new KeyHandler(myMiniMap);
         myPlayer = new Player();
         myPlayerManager = new PlayerManager(theGP, myKeyHandler, myPlayer);
-        mySoundManager = new SoundManager();
     }
 
     public QuestionRecord getMyQuestionRecord() {
