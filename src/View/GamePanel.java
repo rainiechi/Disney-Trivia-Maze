@@ -1,11 +1,11 @@
 package View;
 
-import Model.*;
+import Model.Game;
+import Model.GameSettings;
+import Model.Maze;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -13,15 +13,14 @@ import java.io.ObjectOutputStream;
 
 public class GamePanel extends JPanel implements Runnable{
     private final static Maze MAZE = new Maze();
-    private transient TileManager myTileM;
-    private transient AssetSetter myAssetSetter;
+    private final transient TileManager myTileM;
+    private final transient AssetSetter myAssetSetter;
     private CollisionChecker myCollisionChecker;
     private transient Thread myGameThread;
     private Game myGame;
-    private SoundManager mySound;
+    private final SoundManager mySound;
 
-    private HotbarGUI myHotBar;
-    //private Backpack myBackpack;
+    private final HotbarGUI myHotBar;
     JLayeredPane layeredPane;
 
 
@@ -46,11 +45,8 @@ public class GamePanel extends JPanel implements Runnable{
         JPanel hotbarPanel = myHotBar.updateGUI();
         hotbarPanel.setBounds(280, 550, 300, 50);
 
-
         layeredPane.setLayer(hotbarPanel,JLayeredPane.PALETTE_LAYER);
         layeredPane.add(hotbarPanel,0);
-
-
 
         layeredPane.add(this);
 
@@ -107,7 +103,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        double drawInterval = 1000000000 / GameSettings.FPS; // 0.0166 seconds
+        double drawInterval = (double) 1000000000 / GameSettings.FPS; // 0.0166 seconds
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (myGameThread != null) {

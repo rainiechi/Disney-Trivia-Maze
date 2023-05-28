@@ -14,6 +14,7 @@ public class RealityStone extends Stone{
     }
     public void useAbility(Door theDoor) {
         theDoor.getQuestionObject().getMyAnswer();
+
         decreaseUses();
     }
     public String getDescription() {

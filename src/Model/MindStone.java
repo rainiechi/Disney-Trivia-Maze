@@ -15,6 +15,7 @@ public class MindStone extends Stone{
     public void useAbility(Player thePlayer) {
         // Eliminates 1 incorrect option. Can be used 5 times?
         // Not sure how to code this yet
+
         decreaseUses();
     }
     public String getDescription() {
