@@ -171,22 +171,26 @@ public class PopUp implements ActionListener {
                 randomNumber = random.nextInt(4) + 1;
                 switch (randomNumber) {
                     case 1:
-                       if(!myOption1.getText().equals(myCorrectAnswer)){
-                           counter++;
-                       }
+                        if(!myOption1.getText().equals(myCorrectAnswer)  && myOption1.isEnabled()){
+                            myOption1.setEnabled(false);
+                            counter++;
+                        }
                         break;
                     case 2:
-                        if(!myOption2.getText().equals(myCorrectAnswer)){
+                        if(!myOption2.getText().equals(myCorrectAnswer)  && myOption2.isEnabled()){
+                            myOption2.setEnabled(false);
                             counter++;
                         }
                         break;
                     case 3:
-                        if(!myOption3.getText().equals(myCorrectAnswer)){
+                        if(!myOption3.getText().equals(myCorrectAnswer)  && myOption3.isEnabled() ){
+                            myOption3.setEnabled(false);
                             counter++;
                         }
                         break;
                     case 4:
-                        if(!myOption4.getText().equals(myCorrectAnswer)){
+                        if(!myOption4.getText().equals(myCorrectAnswer)  && myOption4.isEnabled()){
+                            myOption4.setEnabled(false);
                             counter++;
                         }
                         break;

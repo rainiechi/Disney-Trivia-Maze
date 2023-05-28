@@ -96,6 +96,7 @@ public class HotbarGUI extends JPanel {
         if (myPlayer.getBackpack().getStone(selectedSlotIndex) != null &&
                 yesNoDialog.getPlayerAnswer()) {
             System.out.println("I am using the " + (selectedSlotIndex + 1));
+            //myPlayer.getBackpack().getStone(selectedSlotIndex).useAbility();
         }
     }
 
