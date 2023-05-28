@@ -4,6 +4,8 @@ import Model.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
@@ -33,9 +35,10 @@ public class GamePanel extends JPanel implements Runnable{
         this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
+        this.setFocusable(true); // Enable keyboard focus on
 
         //myBackPack = new Backpack();
-        myHotBar = new HotbarGUI(myGame.getMyPlayerManager().getPlayer());
+        myHotBar = new HotbarGUI(myGame.getMyPlayerManager().getPlayer(),this);
         layeredPane = new JLayeredPane();
 
         layeredPane = new JLayeredPane();
@@ -43,8 +46,11 @@ public class GamePanel extends JPanel implements Runnable{
         JPanel hotbarPanel = myHotBar.updateGUI();
         hotbarPanel.setBounds(280, 550, 300, 50);
 
+
         layeredPane.setLayer(hotbarPanel,JLayeredPane.PALETTE_LAYER);
         layeredPane.add(hotbarPanel,0);
+
+
 
         layeredPane.add(this);
 

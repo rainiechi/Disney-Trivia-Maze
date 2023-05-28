@@ -17,11 +17,13 @@ public class HotbarGUI extends JPanel implements KeyListener {
 
     //private Backpack myBackPack;
     private Player myPlayer;
+    private GamePanel myGamePanel;
 
-    public HotbarGUI(final Player thePlayer) {
+    public HotbarGUI(final Player thePlayer, GamePanel theGamePanel) {
         slots = new JButton[HOTBAR_SIZE];
         selectedSlotIndex = 0;
         myPlayer = thePlayer;
+        myGamePanel = theGamePanel;
         setLayout(new FlowLayout()); // Set layout to FlowLayout
     }
 
@@ -33,7 +35,7 @@ public class HotbarGUI extends JPanel implements KeyListener {
             JButton slotButton = new JButton();
             slotButton.setPreferredSize(new Dimension(50, 50));
             slotButton.setBackground(new Color(234, 210, 182));
-            //slotButton.addKeyListener(this);
+            slotButton.addKeyListener(this);
 
             slotButton.setLayout(new GridBagLayout());
             if (myPlayer.getBackpack().getStone(i) != null) {
@@ -45,14 +47,48 @@ public class HotbarGUI extends JPanel implements KeyListener {
             add(slotButton);
 
             final int index = i;
-            slotButton.addActionListener(new ActionListener() {
+//            slotButton.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    selectSlot(index);
+//                }
+//            });
+
+            slotButton.addMouseListener(new MouseAdapter() {
+                private final int DOUBLE_CLICK_DELAY = 300; // Time threshold for a double-click in milliseconds
+                private boolean clickedOnce = false;
+
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    selectSlot(index);
+                public void mouseClicked(MouseEvent e) {
+                    if (SwingUtilities.isLeftMouseButton(e)) {
+                        if (e.getClickCount() == 2) {
+                            selectSlot(index);
+                            try {
+                                //selectSlot(index);
+                                askToUseStone();
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        } else {
+                            clickedOnce = true;
+                            Timer timer = new Timer(DOUBLE_CLICK_DELAY, new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent evt) {
+                                    if (clickedOnce) {
+                                        selectSlot(index);
+                                    }
+                                    clickedOnce = false;
+                                }
+                            });
+                            timer.setRepeats(false);
+                            timer.start();
+                        }
+                    }
                 }
             });
-        }
 
+
+        }
         return this;
     }
 
@@ -75,7 +111,7 @@ public class HotbarGUI extends JPanel implements KeyListener {
             slots[selectedSlotIndex].setEnabled(true);
             selectedSlotIndex = slot;
             slots[selectedSlotIndex].setEnabled(false);
-            System.out.println("Hello "+slot);
+            myGamePanel.requestFocusInWindow();  //
 
         }
     }
