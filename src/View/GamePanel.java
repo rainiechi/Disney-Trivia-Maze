@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements Runnable{
     private CollisionChecker myCollisionChecker;
     private transient Thread myGameThread;
     private Game myGame;
-    private final SoundManager mySound;
+    private transient final SoundManager mySound;
 
     private final HotbarGUI myHotBar;
     JLayeredPane layeredPane;

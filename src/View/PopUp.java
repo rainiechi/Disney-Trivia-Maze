@@ -12,11 +12,9 @@ public class PopUp implements ActionListener {
     private final static Color LIGHT_BLUE = new Color(228, 246, 248);
     private final static Color BLUE = new Color(210, 246, 250);
 
+    private final static Color DARK_BLUE = new Color(123, 195, 203);
 
-//    /**
-//     * The JFrame for the GUI.
-//     */
-//    private final JFrame myFrame;
+    private GamePanel myGP;
     /**
      *
      */
@@ -54,9 +52,18 @@ public class PopUp implements ActionListener {
      */
     private String myCorrectAnswer;
     private Door myDoor;
-    public PopUp(final Door theDoor){
+
+    private Timer timer;
+    private final int myCountdown;
+    private JLabel timerLabel;
+    public PopUp(final Door theDoor, final GamePanel theGP){
+        if (theDoor == null || theGP == null) {
+            throw new IllegalArgumentException("Door and GamePanel cannot be null");
+        }
+        myGP = theGP;
+        myCountdown = myGP.getMyGame().getTime();; // Countdown duration in seconds
         myDoor = theDoor;
-        myDialog = new JDialog((Frame) null, true);
+        myDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(theGP), true); //attach the dialog to the frame so they dont seperate
         myQuestionPanel = new JPanel();
         myQuestionArea = new JTextArea();
         myOptionPanel = new JPanel();
@@ -64,11 +71,46 @@ public class PopUp implements ActionListener {
         myOption2 = new JButton();
         myOption3 = new JButton();
         myOption4 = new JButton();
-
         loadQuestion(theDoor.getQuestionObject());
-        initializeUI(new GamePanel());
 
+        timerGUISetup();
+        startTimer();
+        initializeUI();
         //displayQuestion(true);
+    }
+
+    public void timerGUISetup() {
+        timerLabel = new JLabel();
+        timerLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
+        timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        timerLabel.setVerticalAlignment(SwingConstants.CENTER);
+        timerLabel.setPreferredSize(new Dimension(100, 50));
+        timerLabel.setOpaque(true);
+        timerLabel.setBackground(LIGHT_BLUE);
+        timerLabel.setForeground(DARK_BLUE);
+    }
+    public void startTimer() {
+        // Create the timer with a 1-second delay
+        timer = new Timer(1000, new ActionListener() {
+            private int remainingTime = myCountdown;
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (remainingTime <= 0) {
+                    timer.stop();
+                    myDialog.dispose();
+                    // Perform actions when time is up
+                    myDoor.setAttempted(true);
+                    myDoor.setMyUnlock(false);
+                } else {
+                    // Update the countdown label or perform other actions
+                    System.out.println("Time Remaining: " + remainingTime);
+                    timerLabel.setText("Time Remaining: " + remainingTime);
+                    remainingTime--;
+                }
+            }
+        });
+
+        timer.start(); // Start the timer
     }
 
     /**
@@ -87,13 +129,13 @@ public class PopUp implements ActionListener {
     /**
      * To set up the GUI for the pop-up on the door.
      */
-    private void initializeUI (final GamePanel theGP) {
+    private void initializeUI () {
         // JFrame for the pop up.
         myDialog.setTitle("Who want to be Disney Expert");
         myDialog.setSize(400, 300);
         myDialog.setLayout(new BorderLayout());
         myDialog.setUndecorated(true);
-        myDialog.setLocationRelativeTo(theGP);
+        myDialog.setLocationRelativeTo(myGP);
         int cornerRadius = 40; // Adjust the value as per your preference
         myDialog.setShape(new RoundRectangle2D.Double(0, 0, 400, 300, cornerRadius, cornerRadius));
         myQuestionPanel.setBackground(LIGHT_BLUE);
@@ -102,7 +144,7 @@ public class PopUp implements ActionListener {
         myQuestionArea.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         myQuestionArea.setBackground(LIGHT_BLUE);
         int GaponBothSides = 45;
-        int GaponTop = 60;
+        int GaponTop = 25;
         myQuestionArea.setBounds(GaponBothSides, GaponTop,
                 myDialog.getWidth() - 2 * GaponBothSides, 180 - GaponTop);
         myQuestionArea.setLineWrap(true);
@@ -133,11 +175,15 @@ public class PopUp implements ActionListener {
         myOptionPanel.setPreferredSize(new Dimension(400, 120));
         //myOptionPanel.setOpaque(true);
         // Add the question panel and option panel to the dialog
+        myDialog.add(timerLabel, BorderLayout.NORTH);
         myDialog.add(myQuestionPanel, BorderLayout.CENTER);
         myDialog.add(myOptionPanel, BorderLayout.SOUTH);
         // Set the dialog to be visible
         myDialog.setVisible(true);
     }
+
+
+
 
     /**
      * Display the GUI in the screen.
@@ -215,15 +261,19 @@ public class PopUp implements ActionListener {
     public void actionPerformed ( final ActionEvent e){
         String playerAnswer;
         if (e.getSource() == myOption1) {
+            timer.stop();
             playerAnswer = myOption1.getText();
             checkAnswer(myCorrectAnswer, playerAnswer);
         } else if (e.getSource() == myOption2) {
+            timer.stop();
             playerAnswer = myOption2.getText();
             checkAnswer(myCorrectAnswer, playerAnswer);
         } else if (e.getSource() == myOption3) {
+            timer.stop();
             playerAnswer = myOption3.getText();
             checkAnswer(myCorrectAnswer, playerAnswer);
         } else if (e.getSource() == myOption4) {
+            timer.stop();
             playerAnswer = myOption4.getText();
             checkAnswer(myCorrectAnswer, playerAnswer);
         }

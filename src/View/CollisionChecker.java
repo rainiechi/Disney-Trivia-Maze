@@ -167,7 +167,7 @@ public class CollisionChecker implements Serializable {
             myGp.getObjManager(theIndex).setDoor(door);
         }
         if (!myGp.getObjManager(theIndex).isLocked()) {
-            PopUp pop = new PopUp(myGp.getObjManager(theIndex).getDoor());//myGp.getObj()[i].getDoor() -> was in the constructor
+            PopUp pop = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
             System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
             if (myGp.getObjManager(theIndex).getDoor().getMyUnlock()) {
                 myGp.deleteObjManager(theIndex);

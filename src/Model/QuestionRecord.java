@@ -36,7 +36,7 @@ public class QuestionRecord implements Serializable {
      */
     public void addToUsedQuestion(final int theID) {
         if (theID < 1 || theID > myTotalQuestions) {
-            throw new IllegalArgumentException("Invalid ID");
+            throw new IllegalArgumentException("Invalid ID" + theID);
         }
         myQuestionRecord.add(theID);
     }
