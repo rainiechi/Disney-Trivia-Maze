@@ -98,6 +98,7 @@ public class PopUp implements ActionListener {
                 if (remainingTime <= 0) {
                     timer.stop();
                     myDialog.dispose();
+                    showResultDialog("TimesOut");
                     // Perform actions when time is up
                     myDoor.setAttempted(true);
                     myDoor.setMyUnlock(false);
@@ -200,11 +201,11 @@ public class PopUp implements ActionListener {
     private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers){
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
             myDoor.setMyUnlock(true);
-            showResultDialog(true);
+            showResultDialog("Correct");
         } else {
             myDoor.setAttempted(true);
             myDoor.setMyUnlock(false);
-            showResultDialog(false);
+            showResultDialog("Incorrect");
         }
     }
 
@@ -282,10 +283,10 @@ public class PopUp implements ActionListener {
 
     /**
      * Helper method that displays the result panel once player answers.
-     * @param theCorrect whether the question was correctly answered
+     * @param theString the type of dialog to show
      */
-    private void showResultDialog(final boolean theCorrect) {
-        ResultPanel panel = new ResultPanel(theCorrect);
+    private void showResultDialog(final String theString) {
+        ResultPanel panel = new ResultPanel(theString);
         myDialog.dispose(); //closes the trivia dialog
         JDialog dialog = new JDialog(myDialog, "Dialog", true);
         dialog.getContentPane().add(panel);
@@ -309,11 +310,11 @@ public class PopUp implements ActionListener {
         private static final Color DARK_GREEN = new Color(53, 94, 59);
         private static final Color PASTEL_GREEN = new Color(193, 225, 193);
 
-        public ResultPanel(Boolean correct) {
+        public ResultPanel(final String theString) {
             JButton continueButton = new JButton("CONTINUE");
             JLabel resultLabel1;
             JLabel resultLabel2;
-            if (correct) {
+            if (theString.equalsIgnoreCase("Correct")) {
                 setBackground(PASTEL_GREEN);
                 resultLabel1 = new JLabel("CORRECT");
                 resultLabel1.setForeground(DARK_GREEN);
@@ -322,7 +323,7 @@ public class PopUp implements ActionListener {
                 continueButton.setBackground(BABY_GREEN);
                 continueButton.setForeground(DARK_GREEN);
                 continueButton.setBorder(BorderFactory.createLineBorder(GREEN, 1));
-            } else {
+            } else if (theString.equalsIgnoreCase("Incorrect")) {
                 setBackground(LIGHT_PINK);
                 resultLabel1 = new JLabel("INCORRECT");
                 resultLabel1.setForeground(RED);
@@ -331,6 +332,17 @@ public class PopUp implements ActionListener {
                 continueButton.setBackground(BABY_PINK);
                 continueButton.setForeground(RED);
                 continueButton.setBorder(BorderFactory.createLineBorder(DARK_PINK, 1));
+            } else if (theString.equalsIgnoreCase("TimesOut")) {
+                setBackground(LIGHT_PINK);
+                resultLabel1 = new JLabel("TIMES OUT");
+                resultLabel1.setForeground(RED);
+                resultLabel2 = new JLabel("The door will remain locked!");
+                resultLabel2.setForeground(DARK_PINK);
+                continueButton.setBackground(BABY_PINK);
+                continueButton.setForeground(RED);
+                continueButton.setBorder(BorderFactory.createLineBorder(DARK_PINK, 1));
+            } else {
+                throw new IllegalArgumentException("invalid input.");
             }
 
 
@@ -358,5 +370,10 @@ public class PopUp implements ActionListener {
         }
 
     }
+
+
+
+
+
 }
 
