@@ -1,7 +1,4 @@
 package View;
-
-import Model.Backpack;
-import Model.MindStone;
 import Model.Player;
 
 import javax.swing.*;
@@ -23,9 +20,10 @@ public class HotbarGUI extends JPanel implements KeyListener {
         selectedSlotIndex = 0;
         myPlayer = thePlayer;
         setLayout(new FlowLayout()); // Set layout to FlowLayout
+        updateGUI();
     }
 
-    public JPanel updateGUI() {
+    public void updateGUI() {
         removeAll(); // Clear existing buttons
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
@@ -52,8 +50,6 @@ public class HotbarGUI extends JPanel implements KeyListener {
                 }
             });
         }
-
-        return this;
     }
 
     private void askToUseStone() throws IOException {
@@ -76,7 +72,6 @@ public class HotbarGUI extends JPanel implements KeyListener {
             selectedSlotIndex = slot;
             slots[selectedSlotIndex].setEnabled(false);
             System.out.println("Hello "+slot);
-
         }
     }
 
@@ -88,27 +83,6 @@ public class HotbarGUI extends JPanel implements KeyListener {
         selectSlot((selectedSlotIndex + 1) % HOTBAR_SIZE);
     }
 
-//    public static void main(String[] args) {
-//        // Initialize the backpack and GUI
-//        Backpack pack = new Backpack();
-//        pack.addToBackpack(new MindStone());
-//        pack.addToBackpack(new MindStone());
-//        pack.addToBackpack(new MindStone());
-//        pack.addToBackpack(new MindStone());
-//        pack.addToBackpack(new MindStone());
-//        pack.addToBackpack(new MindStone());
-//
-//        HotbarGUI toolbar = new HotbarGUI(pack);
-//
-//        // Create a JFrame to hold the toolbar
-//        JFrame frame = new JFrame();
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(400, 100);
-//
-//        // Add the toolbar to the frame
-//        frame.add(toolbar.updateGUI());
-//        frame.setVisible(true);
-//    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -156,4 +130,28 @@ public class HotbarGUI extends JPanel implements KeyListener {
     public void keyReleased(KeyEvent e) {
         // Implementation for keyReleased event (if needed)
     }
+
+
+
+//    public static void main(String[] args) {
+//        // Initialize the backpack and GUI
+//        Backpack pack = new Backpack();
+//        pack.addToBackpack(new MindStone());
+//        pack.addToBackpack(new MindStone());
+//        pack.addToBackpack(new MindStone());
+//        pack.addToBackpack(new MindStone());
+//        pack.addToBackpack(new MindStone());
+//        pack.addToBackpack(new MindStone());
+//
+//        HotbarGUI toolbar = new HotbarGUI(pack);
+//
+//        // Create a JFrame to hold the toolbar
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(400, 100);
+//
+//        // Add the toolbar to the frame
+//        frame.add(toolbar.updateGUI());
+//        frame.setVisible(true);
+//    }
 }

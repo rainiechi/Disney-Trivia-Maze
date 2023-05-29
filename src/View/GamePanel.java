@@ -32,17 +32,16 @@ public class GamePanel extends JPanel implements Runnable{
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
 
-        //myBackPack = new Backpack();
+
         myHotBar = new HotbarGUI(myGame.getMyPlayerManager().getPlayer());
         layeredPane = new JLayeredPane();
-
-        layeredPane = new JLayeredPane();
         layeredPane.setLayout(new BorderLayout());
-        JPanel hotbarPanel = myHotBar.updateGUI();
-        hotbarPanel.setBounds(280, 550, 300, 50);
+//        JPanel hotbarPanel = myHotBar.updateGUI();
+//        myHotBar.updateGUI();
+        myHotBar.setBounds(280, 550, 300, 50);
 
-        layeredPane.setLayer(hotbarPanel,JLayeredPane.PALETTE_LAYER);
-        layeredPane.add(hotbarPanel,0);
+        layeredPane.setLayer(myHotBar,JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(myHotBar,0);
 
         layeredPane.add(this);
 

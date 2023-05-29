@@ -1,10 +1,11 @@
 package Model;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Chest {
+public class Chest implements Serializable {
     private Stone myStone; //the stone in the chest
     private boolean myEmptyChest; //if the chest is currently empty
     private int myRandomNumber;
