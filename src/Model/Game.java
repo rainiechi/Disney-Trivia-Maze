@@ -14,6 +14,7 @@ public class Game implements Serializable {
     private ObjectManager[] myObjManagers;
     private KeyHandler myKeyHandler;
     private MiniMap myMiniMap;
+    private SoundManager mySoundManager;
 
 
     public Game(final GamePanel theGP) {
@@ -62,4 +63,7 @@ public class Game implements Serializable {
         myObjManagers[theIndex] = null;
     }
 
+    public SoundManager getSoundManager() {
+        return mySoundManager;
+    }
 }

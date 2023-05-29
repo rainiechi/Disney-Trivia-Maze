@@ -33,7 +33,6 @@ public class GameFrame extends JFrame {
      */
     public GameFrame() {
         setIcon();
-        myGamePanel = new GamePanel();
         myWelcomePanel = new WelcomePanel();
         setContentPane(myWelcomePanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -42,6 +41,8 @@ public class GameFrame extends JFrame {
         pack();
         setLocationRelativeTo(null);
         setVisible(true);
+        myGamePanel = new GamePanel();
+        myGamePanel.playMusic(0);
     }
 
     public void saveGame() {
@@ -51,7 +52,6 @@ public class GameFrame extends JFrame {
     public void loadGame() {
         myGamePanel.loadGame();
     }
-
 
 
     /**

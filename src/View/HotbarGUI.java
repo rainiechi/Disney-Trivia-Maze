@@ -1,4 +1,7 @@
 package View;
+
+import Model.Backpack;
+import Model.MindStone;
 import Model.Player;
 
 import javax.swing.*;
@@ -6,7 +9,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-public class HotbarGUI extends JPanel implements KeyListener {
+public class HotbarGUI extends JPanel {
     private static final int HOTBAR_SIZE = 6;
 
     private JButton[] slots;
@@ -14,16 +17,17 @@ public class HotbarGUI extends JPanel implements KeyListener {
 
     //private Backpack myBackPack;
     private Player myPlayer;
+    private GamePanel myGamePanel;
 
-    public HotbarGUI(final Player thePlayer) {
+    public HotbarGUI(final Player thePlayer, GamePanel theGamePanel) {
         slots = new JButton[HOTBAR_SIZE];
         selectedSlotIndex = 0;
         myPlayer = thePlayer;
+        myGamePanel = theGamePanel;
         setLayout(new FlowLayout()); // Set layout to FlowLayout
-        updateGUI();
     }
 
-    public void updateGUI() {
+    public JPanel updateGUI() {
         removeAll(); // Clear existing buttons
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
@@ -31,7 +35,6 @@ public class HotbarGUI extends JPanel implements KeyListener {
             JButton slotButton = new JButton();
             slotButton.setPreferredSize(new Dimension(50, 50));
             slotButton.setBackground(new Color(234, 210, 182));
-            //slotButton.addKeyListener(this);
 
             slotButton.setLayout(new GridBagLayout());
             if (myPlayer.getBackpack().getStone(i) != null) {
@@ -43,13 +46,43 @@ public class HotbarGUI extends JPanel implements KeyListener {
             add(slotButton);
 
             final int index = i;
-            slotButton.addActionListener(new ActionListener() {
+
+            slotButton.addMouseListener(new MouseAdapter() {
+                private final int DOUBLE_CLICK_DELAY = 300; // Time threshold for a double-click in milliseconds
+                private boolean clickedOnce = false;
+
                 @Override
-                public void actionPerformed(ActionEvent e) {
-                    selectSlot(index);
+                public void mouseClicked(MouseEvent e) {
+                    if (SwingUtilities.isLeftMouseButton(e)) {
+                        if (e.getClickCount() == 2) {
+                            selectSlot(index);
+                            try {
+                                //selectSlot(index);
+                                askToUseStone();
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        } else {
+                            clickedOnce = true;
+                            Timer timer = new Timer(DOUBLE_CLICK_DELAY, new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent evt) {
+                                    if (clickedOnce) {
+                                        selectSlot(index);
+                                    }
+                                    clickedOnce = false;
+                                }
+                            });
+                            timer.setRepeats(false);
+                            timer.start();
+                        }
+                    }
                 }
             });
+
+
         }
+        return this;
     }
 
     private void askToUseStone() throws IOException {
@@ -63,6 +96,8 @@ public class HotbarGUI extends JPanel implements KeyListener {
         if (myPlayer.getBackpack().getStone(selectedSlotIndex) != null &&
                 yesNoDialog.getPlayerAnswer()) {
             System.out.println("I am using the " + (selectedSlotIndex + 1));
+            //myPlayer.getBackpack().getStone(selectedSlotIndex).useAbility();
+            myPlayer.useStone(myPlayer.getBackpack().getStone(selectedSlotIndex));
         }
     }
 
@@ -71,7 +106,8 @@ public class HotbarGUI extends JPanel implements KeyListener {
             slots[selectedSlotIndex].setEnabled(true);
             selectedSlotIndex = slot;
             slots[selectedSlotIndex].setEnabled(false);
-            System.out.println("Hello "+slot);
+            myGamePanel.requestFocusInWindow();  //
+
         }
     }
 
@@ -82,56 +118,6 @@ public class HotbarGUI extends JPanel implements KeyListener {
     public void scrollRight() {
         selectSlot((selectedSlotIndex + 1) % HOTBAR_SIZE);
     }
-
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        // Implementation for keyTyped event (if needed)
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        switch (e.getKeyCode()) {
-            case KeyEvent.VK_1:
-                selectSlot(0);
-                break;
-            case KeyEvent.VK_2:
-                selectSlot(1);
-                break;
-            case KeyEvent.VK_3:
-                selectSlot(2);
-                break;
-            case KeyEvent.VK_4:
-                selectSlot(3);
-                break;
-            case KeyEvent.VK_5:
-                selectSlot(4);
-                break;
-            case KeyEvent.VK_6:
-                selectSlot(5);
-                break;
-            case KeyEvent.VK_LEFT:
-                scrollLeft();
-                break;
-            case KeyEvent.VK_RIGHT:
-                scrollRight();
-                break;
-            case KeyEvent.VK_ENTER:
-                try {
-                    askToUseStone();
-                } catch (IOException ex) {
-                    throw new RuntimeException(ex);
-                }
-                break;
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        // Implementation for keyReleased event (if needed)
-    }
-
-
 
 //    public static void main(String[] args) {
 //        // Initialize the backpack and GUI
@@ -154,4 +140,5 @@ public class HotbarGUI extends JPanel implements KeyListener {
 //        frame.add(toolbar.updateGUI());
 //        frame.setVisible(true);
 //    }
+
 }

@@ -1,6 +1,8 @@
 package View;
 
-import Model.*;
+import Model.Game;
+import Model.GameSettings;
+import Model.Maze;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,37 +13,40 @@ import java.io.ObjectOutputStream;
 
 public class GamePanel extends JPanel implements Runnable{
     private final static Maze MAZE = new Maze();
-    private transient TileManager myTileM;
-    private transient AssetSetter myAssetSetter;
+    private final transient TileManager myTileM;
+    private final transient AssetSetter myAssetSetter;
     private CollisionChecker myCollisionChecker;
     private transient Thread myGameThread;
     private Game myGame;
+    private final SoundManager mySound;
 
-    private HotbarGUI myHotBar;
-    //private Backpack myBackpack;
+    private final HotbarGUI myHotBar;
     JLayeredPane layeredPane;
 
 
     public GamePanel() {
         myTileM = new TileManager(this);
         setMyGame(new Game(this));
+        mySound = new SoundManager();
         myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
 
         // BACKGROUND
         this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
+        this.setFocusable(true); // Enable keyboard focus on
 
+        //myBackPack = new Backpack();
+        myHotBar = new HotbarGUI(myGame.getMyPlayerManager().getPlayer(),this);
+        layeredPane = new JLayeredPane();
 
-        myHotBar = new HotbarGUI(myGame.getMyPlayerManager().getPlayer());
         layeredPane = new JLayeredPane();
         layeredPane.setLayout(new BorderLayout());
-//        JPanel hotbarPanel = myHotBar.updateGUI();
-//        myHotBar.updateGUI();
-        myHotBar.setBounds(280, 550, 300, 50);
+        JPanel hotbarPanel = myHotBar.updateGUI();
+        hotbarPanel.setBounds(280, 550, 300, 50);
 
-        layeredPane.setLayer(myHotBar,JLayeredPane.PALETTE_LAYER);
-        layeredPane.add(myHotBar,0);
+        layeredPane.setLayer(hotbarPanel,JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(hotbarPanel,0);
 
         layeredPane.add(this);
 
@@ -49,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 
     public void setMyGame(final Game theGame) {
+        System.out.println("1");
         myGame = theGame;
         myCollisionChecker = new CollisionChecker(this, myGame.getMyQuestionRecord());
         addKeyListener(myGame.getMyKeyHandler());
@@ -95,11 +101,9 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
-
-
     @Override
     public void run() {
-        double drawInterval = 1000000000 / GameSettings.FPS; // 0.0166 seconds
+        double drawInterval = (double) 1000000000 / GameSettings.FPS; // 0.0166 seconds
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (myGameThread != null) {
@@ -138,6 +142,20 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
+
+    public void playMusic(int theIndex) {
+        mySound.setFile(theIndex);
+        mySound.play();
+        mySound.loop();
+
+    }
+    public void stopMusic() {
+        mySound.stop();
+    }
+    public void playSE(int i) {
+        mySound.setFile(i);
+        mySound.play();
+    }
 
     public void paintComponent(Graphics g) {
 
