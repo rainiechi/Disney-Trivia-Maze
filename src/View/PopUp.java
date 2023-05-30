@@ -104,7 +104,7 @@ public class PopUp implements ActionListener {
                     myDoor.setMyUnlock(false);
                 } else {
                     // Update the countdown label or perform other actions
-                    System.out.println("Time Remaining: " + remainingTime);
+                    //System.out.println("Time Remaining: " + remainingTime);
                     timerLabel.setText("Time Remaining: " + remainingTime);
                     remainingTime--;
                 }
