@@ -11,7 +11,7 @@ public class SoundManager {
 
     public SoundManager() {
         mySoundURL = new File[3];
-        mySoundURL[0] = new File ("C:\\Users\\amand\\IdeaProjects\\Disney-Trivia-Maze\\src\\res\\Sound\\The Little Mermaid Under the Sea.wav");
+        mySoundURL[0] = new File ("src/res/Sound/The Little Mermaid Under the Sea.wav");
     }
 
     public void setFile(int theFile) {
