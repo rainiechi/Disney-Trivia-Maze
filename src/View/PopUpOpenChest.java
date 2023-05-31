@@ -22,11 +22,6 @@ public class PopUpOpenChest {
         //Color brownColor = new Color(123, 63, 0);
 
         Frame parentFrame = null;
-        try {
-            new DialogForYesNoAnswer(parentFrame, message, fontForText, Color.PINK, Color.WHITE);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

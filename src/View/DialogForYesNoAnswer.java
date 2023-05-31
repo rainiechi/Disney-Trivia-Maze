@@ -1,74 +1,76 @@
 package View;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class DialogForYesNoAnswer {
+    private static final int BORDER = 15;
+    private static final Color DARK_PINK = new Color(162, 72, 87);
+    private static final Color RED = new Color(139, 0, 0);
+    private static final Color BABY_PINK = new Color(245,218,223);
+    private static final Color BABY_GREEN = new Color(230,255,239);
+    private static final Color GREEN = new Color(95, 133, 117);
+    private static final Color DARK_GREEN = new Color(53, 94, 59);
 
-    private boolean playerAnswer;
+    private static final Color LIGHT_BLUE = new Color(230, 241, 255);
+
+    private boolean myUserAnswer;
     JDialog myDialog;
-    public DialogForYesNoAnswer(Frame parent, String labelText, Font labelFont, Color labelBackground,
-                                Color labelForeground) throws IOException {
-
-        myDialog =  new JDialog(parent, true);
-        myDialog.setTitle("Who wants to be a Disney Expert");
-        myDialog.setLayout(new BorderLayout());
-        myDialog.setSize(400, 300);
-        myDialog.setLocationRelativeTo(parent);
-
-        // Create components
-        JLabel messageLabel = new JLabel(labelText);
-        messageLabel.setHorizontalAlignment(JLabel.CENTER);
-        messageLabel.setVerticalAlignment(JLabel.CENTER);
-        messageLabel.setFont(labelFont);
-        messageLabel.setBackground(labelBackground);
-        messageLabel.setForeground(labelForeground);
-        messageLabel.setOpaque(true);
-
-        // Add components to the dialog
-        myDialog.add(messageLabel, BorderLayout.CENTER);
-
-        JButton yesButton = new JButton("Yes");
-        yesButton.setFocusable(false);
-        yesButton.setBackground(new Color(42, 187, 156)); // Green color for the yes button
-
-        JButton noButton = new JButton("No");
-        noButton.setFocusable(false);
-        noButton.setBackground(new Color(229, 77, 66)); // Red color for the no button
-
-        JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
-        buttonPanel.setPreferredSize(new Dimension(400, 60));
-        buttonPanel.add(yesButton);
-        buttonPanel.add(noButton);
-        myDialog.add(buttonPanel, BorderLayout.SOUTH);
-
-        // Add action listeners
-        yesButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                playerAnswer = true;
-                myDialog.dispose();
-            }
-        });
-
-        noButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                playerAnswer = false;
-                myDialog.dispose();
-            }
-        });
-
-        // Set dialog properties
+    private GamePanel myGp;
+    private JLabel myLabel;
+    public DialogForYesNoAnswer(String theLabel, GamePanel theGP) {
+        myLabel = new JLabel(theLabel);
+        myGp = theGP;
+        myUserAnswer = false;
+        myDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(myGp), "Dialog", true);
+        myDialog.getContentPane().add(addToDialog());
+        myDialog.setUndecorated(true);
+        myDialog.pack();
+        myDialog.setLocationRelativeTo(myGp);
         myDialog.setResizable(false);
         myDialog.setVisible(true);
     }
+    public JPanel addToDialog() {
 
-    public boolean getPlayerAnswer() {
-        return playerAnswer;
+        JPanel labelPanel = new JPanel();
+        labelPanel.setOpaque(false);
+        labelPanel.add(myLabel);
+
+        JButton yesButton = new JButton("Yes");
+        JButton noButton = new JButton("No");
+
+        yesButton.setBackground(BABY_GREEN);
+        yesButton.setForeground(DARK_GREEN);
+        yesButton.setBorder(BorderFactory.createLineBorder(GREEN, 1));
+        noButton.setBackground(BABY_PINK);
+        noButton.setForeground(RED);
+        noButton.setBorder(BorderFactory.createLineBorder(DARK_PINK, 1));
+
+        JPanel panel = new JPanel();
+        panel.setBorder(BorderFactory.createEmptyBorder(20, BORDER, 20,BORDER));
+        panel.setLayout(new GridLayout(3,1,10,10));
+        panel.setBackground(LIGHT_BLUE);
+        panel.add(labelPanel);
+        panel.add(yesButton);
+        panel.add(noButton);
+
+        yesButton.addActionListener(theEvent -> {
+            myUserAnswer = true;
+            myDialog.dispose();
+        });
+
+        noButton.addActionListener(theEvent -> {
+            Component comp = (Component) theEvent.getSource();
+            Window win = SwingUtilities.getWindowAncestor(comp);
+            win.dispose();
+        });
+
+        return panel;
+    }
+
+    public boolean getMyUserAnswer() {
+        return myUserAnswer;
     }
 }
