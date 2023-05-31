@@ -1,14 +1,17 @@
 package View;
 
 import Model.GameSettings;
+import Model.Maze;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class AssetSetter {
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
 
     /** private array of ObjectManager field */
     private ObjectManager[] myObjManager;
+    private Maze myMaze;
 
     /**
      * Constructor initializes fields.
@@ -16,10 +19,11 @@ public class AssetSetter {
      */
     public AssetSetter(final ObjectManager[] theObjManager) {
         myObjManager = theObjManager;
+        myMaze = new Maze();
         setWhiteDoors();
         setChests();
         setSideDoors();
-        myObjManager[61] = new ObjectManager("Exit", 38 * TILE_SIZE, 1 * TILE_SIZE, true);
+        randomExitLocation();
     }
 
     /**
@@ -78,5 +82,9 @@ public class AssetSetter {
         myObjManager[58] = new ObjectManager("Chest", 23 * TILE_SIZE, 55 * TILE_SIZE, true);
         myObjManager[59] = new ObjectManager("Chest", 68 * TILE_SIZE, 29 * TILE_SIZE, true);
         myObjManager[60] = new ObjectManager("Chest", 54 * TILE_SIZE, 42 * TILE_SIZE, true);
+    }
+
+    public void randomExitLocation() {
+            myObjManager[61] = new ObjectManager("Exit", 38 * TILE_SIZE, 1 * TILE_SIZE, true);
     }
 }

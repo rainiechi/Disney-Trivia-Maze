@@ -82,7 +82,7 @@ public class Maze {
             myTile[8].setCollision(true);
             myTile[9].setImage(ImageIO.read(getClass().getResourceAsStream("/res/tiles/bottom_left_corner.png")));
             myTile[9].setCollision(true);
-            myTile[10].setImage(ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall_door.png")));
+            myTile[10].setImage(ImageIO.read(getClass().getResourceAsStream("/res/tiles/exit_door.png")));
             myTile[11].setImage(ImageIO.read(getClass().getResourceAsStream("/res/tiles/bottom_right_corner.png")));
             myTile[11].setCollision(true);
             myTile[12].setImage(ImageIO.read(getClass().getResourceAsStream("/res/tiles/hallway_bottom_left.png")));
@@ -108,6 +108,9 @@ public class Maze {
      */
     public int getMyMapTileNum(int col, int row) {
         return myMapTileNum[col][row];
+    }
+    public void setMyMapTileNum(int col, int row, int theNum) {
+        myMapTileNum[col][row] = theNum;
     }
 
     /**
