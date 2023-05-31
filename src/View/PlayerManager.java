@@ -104,7 +104,7 @@ public class PlayerManager implements Serializable {
             myGp.getCC().checkTile(this);
 
             int objIndex = myGp.getCC().checkObject(this, true);
-            myGp.getCC().pickUpObject(objIndex, myKeyH, this, new Chest(myGp.getGame().getMyStoneManager()));
+            myGp.getCC().pickUpObject(objIndex, myKeyH, this);
 
             if (!myCollision) {
                 switch(myDirection) {

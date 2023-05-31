@@ -115,6 +115,8 @@ public class ChestPopUp {
         panel.add(myStoneIcon);
         panel.add(continueButton);
 
+        myGp.getHotBar().updateGUI();
+
         continueButton.addActionListener(theEvent -> {
             Component comp = (Component) theEvent.getSource();
             Window win = SwingUtilities.getWindowAncestor(comp);

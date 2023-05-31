@@ -28,7 +28,6 @@ public class HotbarGUI extends JPanel {
     }
 
     public JPanel updateGUI() {
-        removeAll(); // Clear existing buttons
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
         for (int i = 0; i < HOTBAR_SIZE; i++) {
@@ -121,15 +120,13 @@ public class HotbarGUI extends JPanel {
 
 //    public static void main(String[] args) {
 //        // Initialize the backpack and GUI
-//        Backpack pack = new Backpack();
-//        pack.addToBackpack(new MindStone());
-//        pack.addToBackpack(new MindStone());
-//        pack.addToBackpack(new MindStone());
-//        pack.addToBackpack(new MindStone());
-//        pack.addToBackpack(new MindStone());
-//        pack.addToBackpack(new MindStone());
+//        Player player = new Player();
+//        player.addToBackpack(new MindStone());
+//        player.addToBackpack(new MindStone());
+//        player.addToBackpack(new MindStone());
 //
-//        HotbarGUI toolbar = new HotbarGUI(pack);
+//
+//        HotbarGUI toolbar = new HotbarGUI(player, new GamePanel());
 //
 //        // Create a JFrame to hold the toolbar
 //        JFrame frame = new JFrame();

@@ -146,15 +146,15 @@ public class CollisionChecker implements Serializable {
 
         return index;
     }
-    public void pickUpObject(final int theIndex, final KeyHandler theKeyH, final PlayerManager thePlayer, final Chest theChest) {
+    public void pickUpObject(final int theIndex, final KeyHandler theKeyH, final PlayerManager thePlayer) {
         // Any number is fine as long as its not the index
         // of an object.
         if (theIndex != 999) {
             String objectName = myGp.getObj()[theIndex].getName();
             switch(objectName) {
                 case "Door", "SideDoor":
-                    doorMethod(theIndex, thePlayer);
-                    theKeyH.setAllKeys();
+                    //doorMethod(theIndex, thePlayer);
+                    //theKeyH.setAllKeys();
                     break;
                 case "Chest":
                     chestMethods(theIndex, thePlayer.getPlayer());

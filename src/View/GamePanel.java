@@ -134,6 +134,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
     public void update() {
         myGame.getMyPlayerManager().update();
+
     }
 
 
@@ -199,6 +200,9 @@ public class GamePanel extends JPanel implements Runnable{
     }
     public Game getGame() {
         return myGame;
+    }
+    public HotbarGUI getHotBar() {
+        return myHotBar;
     }
 
 
