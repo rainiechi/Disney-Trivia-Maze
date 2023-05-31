@@ -100,7 +100,7 @@ public class PlayerTest {
 
     @Test
     void testTakeStoneFromEmptyChest() {
-        Chest chest = new Chest();
+        Chest chest = new Chest(new StoneManager());
         NullPointerException thrown = assertThrows(
                 NullPointerException.class,
                 () -> myPlayer.takeStone(chest),

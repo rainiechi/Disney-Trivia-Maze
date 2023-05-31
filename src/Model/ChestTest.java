@@ -14,7 +14,7 @@ public class ChestTest {
 
     @Test
     void testEmptyChestToString() {
-        Chest emptyChest = new Chest();
+        Chest emptyChest = new Chest(new StoneManager());
         String actual = emptyChest.chestToString();
         assertEquals("Chest empty", actual);
     }
@@ -54,14 +54,15 @@ public class ChestTest {
 
     @Test
     void testGetMyStoneEmptyChest() {
-        Chest chest = new Chest();
+        Chest chest = new Chest(new StoneManager());
         assertEquals(null, chest.getMyStone());
     }
     @Test
     void testRandomProbability() {
-        Chest chest = new Chest();
+        StoneManager sm = new StoneManager();
+        Chest chest = new Chest(sm);
         chest.setMyRandomNumber(120);
-        chest.randomProbability();
+        chest.randomProbability(sm);
         assertEquals(false, chest.isEmptyChest());
     }
 }
