@@ -15,7 +15,6 @@ public class HotbarGUI extends JPanel {
     private JButton[] slots;
     private int selectedSlotIndex;
 
-    //private Backpack myBackPack;
     private Player myPlayer;
     private GamePanel myGamePanel;
 
@@ -25,22 +24,31 @@ public class HotbarGUI extends JPanel {
         myPlayer = thePlayer;
         myGamePanel = theGamePanel;
         setLayout(new FlowLayout()); // Set layout to FlowLayout
+
+        updateGUI();
     }
 
-    public JPanel updateGUI() {
+    public void updateGUI() {
+        removeAll();
+        revalidate(); // Revalidate the panel
+        repaint(); // Repaint the panel
+        //myPlayer.displayBackpack();
+
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
         for (int i = 0; i < HOTBAR_SIZE; i++) {
             JButton slotButton = new JButton();
-            slotButton.setPreferredSize(new Dimension(50, 50));
-            slotButton.setBackground(new Color(234, 210, 182));
+
 
             slotButton.setLayout(new GridBagLayout());
             if (myPlayer.getBackpack().getStone(i) != null) {
                 slotButton.setIcon(new ImageIcon(myPlayer.getBackpack().getStone(i).getImage()));
                 slotButton.setToolTipText(myPlayer.getBackpack().getStone(i).getDescription()); // Set the tooltip text
+                System.out.println("Index of Stones " + i);
             }
 
+            slotButton.setPreferredSize(new Dimension(50, 50));
+            slotButton.setBackground(new Color(234, 210, 182));
             slots[i] = slotButton;
             add(slotButton);
 
@@ -56,7 +64,6 @@ public class HotbarGUI extends JPanel {
                         if (e.getClickCount() == 2) {
                             selectSlot(index);
                             try {
-                                //selectSlot(index);
                                 askToUseStone();
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
@@ -78,10 +85,7 @@ public class HotbarGUI extends JPanel {
                     }
                 }
             });
-
-
         }
-        return this;
     }
 
     private void askToUseStone() throws IOException {
@@ -95,7 +99,6 @@ public class HotbarGUI extends JPanel {
         if (myPlayer.getBackpack().getStone(selectedSlotIndex) != null &&
                 yesNoDialog.getPlayerAnswer()) {
             System.out.println("I am using the " + (selectedSlotIndex + 1));
-            //myPlayer.getBackpack().getStone(selectedSlotIndex).useAbility();
             myPlayer.useStone(myPlayer.getBackpack().getStone(selectedSlotIndex));
         }
     }
@@ -105,8 +108,7 @@ public class HotbarGUI extends JPanel {
             slots[selectedSlotIndex].setEnabled(true);
             selectedSlotIndex = slot;
             slots[selectedSlotIndex].setEnabled(false);
-            myGamePanel.requestFocusInWindow();  //
-
+            myGamePanel.requestFocusInWindow();
         }
     }
 
@@ -117,25 +119,4 @@ public class HotbarGUI extends JPanel {
     public void scrollRight() {
         selectSlot((selectedSlotIndex + 1) % HOTBAR_SIZE);
     }
-
-//    public static void main(String[] args) {
-//        // Initialize the backpack and GUI
-//        Player player = new Player();
-//        player.addToBackpack(new MindStone());
-//        player.addToBackpack(new MindStone());
-//        player.addToBackpack(new MindStone());
-//
-//
-//        HotbarGUI toolbar = new HotbarGUI(player, new GamePanel());
-//
-//        // Create a JFrame to hold the toolbar
-//        JFrame frame = new JFrame();
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(400, 100);
-//
-//        // Add the toolbar to the frame
-//        frame.add(toolbar.updateGUI());
-//        frame.setVisible(true);
-//    }
-
 }

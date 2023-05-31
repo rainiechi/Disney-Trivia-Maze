@@ -1,5 +1,7 @@
 package Model;
 
+import View.CollisionChecker;
+
 import java.io.Serializable;
 
 public class Player implements Serializable {
@@ -159,12 +161,18 @@ public class Player implements Serializable {
             throw new IllegalArgumentException("Player does not have this stone.");
         } else {
             Stone stone = myBackpack.getStone(stoneIndex);
-            stone.useAbility(this);
-            if (stone.getUses() == 0) {
-                myBackpack.deleteStone(stoneIndex);
-            }
-            if (stone.getStoneName().equals("Soul Stone")) setSoulStone(false);
-            if (stone.getStoneName().equals("Space Stone")) setSpaceStone(false);
+
+//            if (stone.getStoneName().equals("Reality Stone") || stone.getStoneName().equals("Mind Stone")) {
+//                //CollisionChecker coll =
+//
+//            } else {
+                stone.useAbility(this);
+                if (stone.getUses() == 0) {
+                    myBackpack.deleteStone(stoneIndex);
+                }
+                if (stone.getStoneName().equals("Soul Stone")) setSoulStone(false);
+                if (stone.getStoneName().equals("Space Stone")) setSpaceStone(false);
+           // }
         }
     }
 
