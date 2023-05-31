@@ -10,11 +10,12 @@ import java.awt.event.ActionListener;
 public class EndPanel extends JPanel{
     private static final int SCREEN_WIDTH = GameSettings.SCREEN_WIDTH;
     private static final int SCREEN_HEIGHT = GameSettings.SCREEN_HEIGHT;
+    private static final Color PINK = new Color(245,218,223);
     private Timer myTimer;
     private JTextArea myText;
     private StringBuilder mySB;
     private int myIndex;
-    private static final Color PINK = new Color(245,218,223);
+
 
     public EndPanel() {
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
@@ -22,7 +23,7 @@ public class EndPanel extends JPanel{
         setLayout(null);
 
         myText = new JTextArea();
-        myText.setBounds(100, 100, SCREEN_WIDTH, SCREEN_HEIGHT); // Increased height to accommodate multiple lines
+        myText.setBounds(100, 100, SCREEN_WIDTH, SCREEN_HEIGHT);
         myText.setFont(new Font("Berlin Sans FB", Font.PLAIN, 20));
         myText.setForeground(PINK);
         myText.setBackground(Color.BLACK);
@@ -58,7 +59,7 @@ public class EndPanel extends JPanel{
             }
         });
 
-        myTimer.start(); // Start the timer
+        myTimer.start();
     }
 
     public void paintComponent(Graphics g) {
