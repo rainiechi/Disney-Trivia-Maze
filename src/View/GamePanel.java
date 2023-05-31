@@ -181,9 +181,7 @@ public class GamePanel extends JPanel implements Runnable{
     public PlayerManager getPlayerManager() {
         return myGame.getMyPlayerManager();
     }
-    public Maze getMaze() {
-        return MAZE;
-    }
+
     public ObjectManager[] getObj() {
         return myGame.getMyObjManagers();
     }
@@ -198,6 +196,9 @@ public class GamePanel extends JPanel implements Runnable{
 
     public CollisionChecker getCC() {
         return myCollisionChecker;
+    }
+    public Game getGame() {
+        return myGame;
     }
 
 

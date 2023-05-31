@@ -9,8 +9,8 @@ public class Chest implements Serializable {
     private Stone myStone; //the stone in the chest
     private boolean myEmptyChest; //if the chest is currently empty
     private int myRandomNumber;
-    private int myStoneIndex;
     private Random myRand;
+    private boolean myLocked;
 
     /**
      * Constructor for non-empty chest.
@@ -19,17 +19,19 @@ public class Chest implements Serializable {
     public Chest(final Stone theStone) {
         myStone = theStone;
         myEmptyChest = false;
+        myLocked = false;
     }
 
     /**
      * Constructor for empty chest.
      */
-    public Chest() {
+    public Chest(StoneManager theStoneM) {
         myStone = null;
         myEmptyChest = true;
         myRand = new Random();
         myRandomNumber = myRand.nextInt(122);
-        randomProbability();
+        myLocked = false;
+        randomProbability(theStoneM);
     }
 
     /**
@@ -40,26 +42,14 @@ public class Chest implements Serializable {
         myStone = theStone;
         myEmptyChest = false;
     }
-    public void randomProbability() {
-        Stone stone = null;
-        ArrayList<Stone> stones = new ArrayList<>();
-        StoneFactory sf = new StoneFactory();
-        stones.add(sf.createStone("Time"));
-        stones.add(sf.createStone("Power"));
-        stones.add(sf.createStone("Mind"));
-        stones.add(sf.createStone("Soul"));
-        stones.add(sf.createStone("Space"));
-        stones.add(sf.createStone("Reality"));
+    public void randomProbability(StoneManager theStoneM) {
+        Stone result = null;
         // 40% Chance probability of chest containing stones
-
-        if (myRandomNumber > 0) {
+        if (myRandomNumber % 3 == 0) {
             // Chooses random stone from arraylist
-            myStoneIndex =  myRand.nextInt(6);
-            stone = stones.get(myStoneIndex);
-            // removes from list so there are no duplicate types
-            stones.remove(myStoneIndex);
+            result = theStoneM.generateStone();
         }
-        addToChest(stone);
+        addToChest(result);
     }
 
     /**
@@ -104,9 +94,12 @@ public class Chest implements Serializable {
     public void setMyRandomNumber(int theNum) {
         myRandomNumber = theNum;
     }
-    public void setMyStoneIndex(int theIndex) {
-        myStoneIndex = theIndex;
-    }
 
+    public boolean isLocked() {
+        return myLocked;
+    }
+    public void setLocked(boolean theLock) {
+        myLocked = theLock;
+    }
 
 }

@@ -38,13 +38,13 @@ public class StoneManager implements Serializable {
      * @return the randomly pulled stone
      */
     public Stone generateStone() {
-        if (myStoneRecord.size() == 0) {
-            throw new IllegalArgumentException("all 6 stones have been generated");
+        Stone result = null;
+        if (myStoneRecord.size() != 0) {
+            Random random = new Random();
+            int randomIndex = random.nextInt(myStoneRecord.size());
+            result = myStoneRecord.get(randomIndex);
+            myStoneRecord.remove(randomIndex);
         }
-        Random random = new Random();
-        int randomIndex = random.nextInt(myStoneRecord.size());
-        Stone result = myStoneRecord.get(randomIndex);
-        myStoneRecord.remove(randomIndex);
         return result;
     }
 

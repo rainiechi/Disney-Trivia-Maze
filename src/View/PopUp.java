@@ -130,7 +130,7 @@ public class PopUp implements ActionListener {
      * To set up the GUI for the pop-up on the door.
      */
     private void initializeUI () {
-        // JFrame for the pop up.
+        // JDialog for the pop up.
         myDialog.setTitle("Who want to be Disney Expert");
         myDialog.setSize(400, 300);
         myDialog.setLayout(new BorderLayout());

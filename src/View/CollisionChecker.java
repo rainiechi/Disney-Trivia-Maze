@@ -2,6 +2,8 @@ package View;
 
 import Model.*;
 
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.io.Serializable;
 
 public class CollisionChecker implements Serializable {
@@ -156,6 +158,7 @@ public class CollisionChecker implements Serializable {
                     break;
                 case "Chest":
                     chestMethods(theIndex, thePlayer.getPlayer());
+                    theKeyH.setAllKeys();
                     break;
             }
         }
@@ -186,14 +189,22 @@ public class CollisionChecker implements Serializable {
     }
     public void chestMethods(final int theIndex, final Player thePlayer) {
         if (!myGp.getObjManager(theIndex).isTouched()) {
-            Chest chest = new Chest();
+            Chest chest = new Chest(myGp.getGame().getMyStoneManager());
             myGp.getObjManager(theIndex).setTouched(true);
             myGp.getObjManager(theIndex).setChest(chest);
-        } if (!myGp.getObjManager(theIndex).getChest().isEmptyChest() && !myGp.getObjManager(theIndex).isLocked()) {
-            thePlayer.addToBackpack(myGp.getObjManager(theIndex).getChest().getMyStone());
-            System.out.println(thePlayer.getCurrItem());
+        } if (!myGp.getObjManager(theIndex).isLocked()) {
+            ChestPopUp pop = new ChestPopUp(myGp.getObjManager(theIndex).getChest(), myGp, thePlayer);
+            System.out.println(myGp.getObjManager(theIndex).getChest().isLocked());
+            if (myGp.getObjManager(theIndex).getChest().isLocked()) {
+                myGp.getObjManager(theIndex).setLocked(true);
+                try {
+                    myGp.getObjManager(theIndex).setMyImage(ImageIO.read(getClass().getResourceAsStream("/res/tiles/chest_opened.png")));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-        myGp.getObjManager(theIndex).setLocked(true);
+
     }
 
 }
