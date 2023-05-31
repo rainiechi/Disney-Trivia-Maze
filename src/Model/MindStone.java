@@ -14,13 +14,17 @@ public class MindStone extends Stone{
             e.printStackTrace();
         }
     }
-
+    @Override
     public void useAbility(PopUp thePop) {
         // Eliminates 1 incorrect option. Can be used 5 times?
-        // Not sure how to code this yet
-
+        thePop.disableWrongAnswerButton(1);
         decreaseUses();
     }
+
+    public void useAbility(Player thePlayer) {
+
+    }
+
     public String getDescription() {
         String s = "Eliminates one incorrect answer. Can be used 3 times.";
         return s;

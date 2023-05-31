@@ -3,6 +3,7 @@ package View;
 import Model.Backpack;
 import Model.MindStone;
 import Model.Player;
+import Model.Stone;
 
 import javax.swing.*;
 import java.awt.*;
@@ -59,13 +60,11 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
                     if (SwingUtilities.isLeftMouseButton(e)) {
                         if (e.getClickCount() == 2) {
                             selectSlot(index);
-                            DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to use this item?", myGamePanel);
-//                            try {
-//                                //selectSlot(index);
-//
-//                            } catch (IOException ex) {
-//                                throw new RuntimeException(ex);
-//                            }
+                            try {
+                                askToUseStone();
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
                         } else {
                             clickedOnce = true;
                             Timer timer = new Timer(DOUBLE_CLICK_DELAY, new ActionListener() {
@@ -86,6 +85,24 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
 
             revalidate();
             repaint();
+        }
+    }
+    private void askToUseStone() throws IOException {
+        Stone stone = myPlayer.getBackpack().getStone(selectedSlotIndex);
+        if (stone != null) {
+
+            DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer("Would you like to use this item?", myGamePanel);
+            if (yesNoDialog.getMyUserAnswer()) {
+
+                if (stone.getStoneName().equals("Reality Stone")) {
+                    stone.useAbility(myGamePanel.getCC().getPop());
+                } else if (stone.getStoneName().equals("Mind Stone")) {
+                    stone.useAbility(myGamePanel.getCC().getPop());
+                } else {
+                    myPlayer.useStone(myPlayer.getBackpack().getStone(selectedSlotIndex));
+                }
+
+            }
         }
     }
 
