@@ -19,6 +19,7 @@ public class AssetSetter {
         setWhiteDoors();
         setChests();
         setSideDoors();
+        myObjManager[61] = new ObjectManager("Exit", 38 * TILE_SIZE, 1 * TILE_SIZE, true);
     }
 
     /**

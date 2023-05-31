@@ -10,14 +10,6 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
-    private static final Color DARK_PINK = new Color(162, 72, 87);
-    private static final Color RED = new Color(139, 0, 0);
-    private static final Color BABY_PINK = new Color(245,218,223);
-    private static final Color BABY_GREEN = new Color(230,255,239);
-    private static final Color GREEN = new Color(95, 133, 117);
-    private static final Color DARK_GREEN = new Color(53, 94, 59);
-
-    private static final Color LIGHT_BLUE = new Color(230, 241, 255);
     private static final int HOTBAR_SIZE = 6;
 
     private JButton[] slots;
