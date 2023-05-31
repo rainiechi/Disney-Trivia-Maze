@@ -29,7 +29,6 @@ public class HotbarGUI extends JPanel {
     }
 
     public void updateGUI() {
-        removeAll();
         revalidate(); // Revalidate the panel
         repaint(); // Repaint the panel
         //myPlayer.displayBackpack();
@@ -63,10 +62,11 @@ public class HotbarGUI extends JPanel {
                     if (SwingUtilities.isLeftMouseButton(e)) {
                         if (e.getClickCount() == 2) {
                             selectSlot(index);
-                            try {
-                                askToUseStone();
-                            } catch (IOException ex) {
-                                throw new RuntimeException(ex);
+                            DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to use this item?", myGamePanel);
+                            if (myPlayer.getBackpack().getStone(selectedSlotIndex) != null &&
+                                    d.getMyUserAnswer()) {
+                                System.out.println("I am using the " + (selectedSlotIndex + 1));
+                                myPlayer.useStone(myPlayer.getBackpack().getStone(selectedSlotIndex));
                             }
                         } else {
                             clickedOnce = true;
@@ -88,20 +88,6 @@ public class HotbarGUI extends JPanel {
         }
     }
 
-    private void askToUseStone() throws IOException {
-        Frame frame = null;
-        String message = "Do you want to use the Stone?";
-        Font fontForText = new Font("Berlin Sans FB", Font.PLAIN, 26);
-        Color brownColor = new Color(123, 63, 0);
-
-        DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer(frame, message, fontForText, brownColor, Color.WHITE);
-
-        if (myPlayer.getBackpack().getStone(selectedSlotIndex) != null &&
-                yesNoDialog.getPlayerAnswer()) {
-            System.out.println("I am using the " + (selectedSlotIndex + 1));
-            myPlayer.useStone(myPlayer.getBackpack().getStone(selectedSlotIndex));
-        }
-    }
 
     public void selectSlot(int slot) {
         if (slot >= 0 && slot < HOTBAR_SIZE) {

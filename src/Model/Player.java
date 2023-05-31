@@ -184,8 +184,8 @@ public class Player implements Serializable {
     }
 
     /**
-     * Returns number of Stones that is in res.player's backpack.
-     * @return number of Stones that is in res.player's backpack
+     * Returns number of Stones that is in player's backpack.
+     * @return number of Stones that is in player's backpack
      */
     public int getCurrItem() {
         return myBackpack.getCurrItems();
