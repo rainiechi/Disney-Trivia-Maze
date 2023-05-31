@@ -3,7 +3,6 @@ package View;
 import Model.*;
 
 import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -12,7 +11,6 @@ public class CollisionChecker implements Serializable {
     private final static Maze MAZE = new Maze();
     private GamePanel myGp;
     private QuestionRecord myQuestionRecord;
-    PopUp pop;
 
     public CollisionChecker(final GamePanel theGp, final QuestionRecord theQuestionRecord) {
         myGp = theGp;
@@ -154,29 +152,16 @@ public class CollisionChecker implements Serializable {
         if (theIndex != 999) {
             String objectName = myGp.getObj()[theIndex].getName();
             switch(objectName) {
-                case "Door", "SideDoor":
-                    doorMethod(theIndex, thePlayer);
+                case "Door", "SideDoor", "Exit":
+                    //doorMethod(theIndex, thePlayer);
                     break;
                 case "Chest":
                     chestMethods(theIndex, thePlayer.getPlayer());
-                    break;
-                case "Exit":
-                    GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(myGp);
-                    frame.switchToEndPanel();
                     break;
             }
             theKeyH.setAllKeys();
         }
     }
-
-    public PopUp getPop() {
-        return pop;
-    }
-
-    public void setPop(PopUp pop) {
-        this.pop = pop;
-    }
-
     public void doorMethod(final int theIndex, final PlayerManager thePlayer) {
         if (!myGp.getObjManager(theIndex).isTouched()) {
             Door door = new Door(myQuestionRecord);
@@ -186,8 +171,7 @@ public class CollisionChecker implements Serializable {
         if (!myGp.getObjManager(theIndex).isLocked()) {
            DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to attempt this door?", myGp);
             if (d.getMyUserAnswer()) {
-                pop = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
-                pop = null;
+                PopUp pop = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
                 System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
                 if (myGp.getObjManager(theIndex).getDoor().getMyUnlock()) {
                     myGp.deleteObjManager(theIndex);
