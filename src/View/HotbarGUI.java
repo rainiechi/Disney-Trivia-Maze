@@ -10,14 +10,6 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
-    private static final Color DARK_PINK = new Color(162, 72, 87);
-    private static final Color RED = new Color(139, 0, 0);
-    private static final Color BABY_PINK = new Color(245,218,223);
-    private static final Color BABY_GREEN = new Color(230,255,239);
-    private static final Color GREEN = new Color(95, 133, 117);
-    private static final Color DARK_GREEN = new Color(53, 94, 59);
-
-    private static final Color LIGHT_BLUE = new Color(230, 241, 255);
     private static final int HOTBAR_SIZE = 6;
 
     private JButton[] slots;
@@ -36,7 +28,10 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
         setLayout(new FlowLayout()); // Set layout to FlowLayout
     }
 
-    public JPanel updateGUI() {
+    public void updateGUI() {
+        removeAll();
+
+
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
         for (int i = 0; i < HOTBAR_SIZE; i++) {
@@ -89,9 +84,9 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
                 }
             });
 
-
+            revalidate();
+            repaint();
         }
-        return this;
     }
 
     public void selectSlot(int slot) {
@@ -112,24 +107,24 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
         selectSlot((selectedSlotIndex + 1) % HOTBAR_SIZE);
     }
 
-    public static void main(String[] args) {
-        // Initialize the backpack and GUI
-        Player player = new Player();
-        player.addToBackpack(new MindStone());
-        player.addToBackpack(new MindStone());
-        player.addToBackpack(new MindStone());
-
-
-        HotbarGUI toolbar = new HotbarGUI(player, new GamePanel());
-
-        // Create a JFrame to hold the toolbar
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 100);
-
-        // Add the toolbar to the frame
-        frame.add(toolbar.updateGUI());
-        frame.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        // Initialize the backpack and GUI
+//        Player player = new Player();
+//        player.addToBackpack(new MindStone());
+//        player.addToBackpack(new MindStone());
+//        player.addToBackpack(new MindStone());
+//
+//
+//        HotbarGUI toolbar = new HotbarGUI(player, new GamePanel());
+//
+//        // Create a JFrame to hold the toolbar
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(400, 100);
+//
+//        // Add the toolbar to the frame
+//        frame.add(toolbar.updateGUI());
+//        frame.setVisible(true);
+//    }
 
 }

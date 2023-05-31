@@ -42,11 +42,13 @@ public class GamePanel extends JPanel implements Runnable{
 
         layeredPane = new JLayeredPane();
         layeredPane.setLayout(new BorderLayout());
-        JPanel hotbarPanel = myHotBar.updateGUI();
-        hotbarPanel.setBounds(280, 550, 300, 50);
+        //JPanel hotbarPanel = myHotBar.updateGUI();
 
-        layeredPane.setLayer(hotbarPanel,JLayeredPane.PALETTE_LAYER);
-        layeredPane.add(hotbarPanel,0);
+        myHotBar.setBounds(280, 550, 300, 50);
+        myHotBar.updateGUI();
+
+        layeredPane.setLayer(myHotBar,JLayeredPane.PALETTE_LAYER);
+        layeredPane.add(myHotBar,0);
 
         layeredPane.add(this);
 

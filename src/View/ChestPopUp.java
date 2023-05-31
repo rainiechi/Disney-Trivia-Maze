@@ -29,7 +29,6 @@ public class ChestPopUp {
         if (d.getMyUserAnswer()) {
             showDialog(itemPanel());
         }
-        //initializeUI(addToDialog());
     }
 
     private void showDialog(final JPanel thePanel) {
@@ -46,9 +45,11 @@ public class ChestPopUp {
             myItemLabel = new JLabel("You've obtained a " + myChest.getMyStone() + "!");
             myStoneIcon = new JLabel(new ImageIcon(myChest.getMyStone().getImage()));
             myPlayer.takeStone(myChest);
+            myPlayer.getBackpack().displayCurrInventory();
             myItem = true;
         } else {
             myItemLabel = new JLabel("There was nothing inside the chest!");
+            myPlayer.getBackpack().displayCurrInventory();
             myStoneIcon = new JLabel(new ImageIcon("src/res/Miscellaneous_images/mike_wazowski.jpg"));
         }
         JPanel labelPanel = new JPanel();
