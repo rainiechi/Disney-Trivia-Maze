@@ -22,7 +22,7 @@ public class PopUpAttemptDoor {
         Font fontForText = new Font("Berlin Sans FB", Font.PLAIN, 32);
         Color brownColor = new Color(123, 63, 0);
 
-        new DialogForYesNoAnswer(theParent, door, fontForText, brownColor, Color.WHITE);
+        //new DialogForYesNoAnswer(theParent, door, fontForText, brownColor, Color.WHITE);
     }
 
     public static void main(String[] args) throws IOException {
