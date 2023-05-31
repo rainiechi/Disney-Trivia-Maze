@@ -291,7 +291,7 @@ public class PopUp implements ActionListener {
         dialog.getContentPane().add(panel);
         dialog.setUndecorated(true);
         dialog.pack();
-        dialog.setLocationRelativeTo(myDialog);
+        dialog.setLocationRelativeTo(myGP);
         dialog.setVisible(true);
     }
 
