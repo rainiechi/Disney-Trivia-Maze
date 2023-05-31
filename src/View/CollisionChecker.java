@@ -153,14 +153,13 @@ public class CollisionChecker implements Serializable {
             String objectName = myGp.getObj()[theIndex].getName();
             switch(objectName) {
                 case "Door", "SideDoor":
-                    //doorMethod(theIndex, thePlayer);
-                    //theKeyH.setAllKeys();
+                    doorMethod(theIndex, thePlayer);
                     break;
                 case "Chest":
                     chestMethods(theIndex, thePlayer.getPlayer());
-                    theKeyH.setAllKeys();
                     break;
             }
+            theKeyH.setAllKeys();
         }
     }
     public void doorMethod(final int theIndex, final PlayerManager thePlayer) {
@@ -170,21 +169,26 @@ public class CollisionChecker implements Serializable {
             myGp.getObjManager(theIndex).setDoor(door);
         }
         if (!myGp.getObjManager(theIndex).isLocked()) {
-            PopUp pop = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
-            System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
-            if (myGp.getObjManager(theIndex).getDoor().getMyUnlock()) {
-                myGp.deleteObjManager(theIndex);
-                if (thePlayer.getDirection().equals("left")) {
-                    myGp.deleteObjManager(theIndex - 1);
-                } else if (thePlayer.getDirection().equals("right")) {
-                    myGp.deleteObjManager(theIndex + 1);
+            DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to attempt this door?", myGp);
+            if (d.getMyUserAnswer()) {
+                PopUp pop = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
+                System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
+                if (myGp.getObjManager(theIndex).getDoor().getMyUnlock()) {
+                    myGp.deleteObjManager(theIndex);
+                    if (thePlayer.getDirection().equals("left")) {
+                        myGp.deleteObjManager(theIndex - 1);
+                    } else if (thePlayer.getDirection().equals("right")) {
+                        myGp.deleteObjManager(theIndex + 1);
+                    }
+                } else {
+                    myGp.getObjManager(theIndex).setLocked(true);
                 }
-            } else {
-                myGp.getObjManager(theIndex).setLocked(true);
             }
-        } else {
-            // if player has soul stone, pop up will ask if they want to reattempt the door
-            // if player does not have soul stone, pop up will say the door is locked.
+        } else if (thePlayer.getPlayer().hasSoulStone() && myGp.getObjManager(theIndex).getDoor().getAttempt()) {
+            DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to use the Soul Stone to attempt this door again?", myGp);
+            if (d.getMyUserAnswer()) {
+                myGp.getObjManager(theIndex).setLocked(false);
+            }
         }
     }
     public void chestMethods(final int theIndex, final Player thePlayer) {
