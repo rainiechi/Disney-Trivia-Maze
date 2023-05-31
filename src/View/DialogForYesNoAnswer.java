@@ -17,7 +17,7 @@ public class DialogForYesNoAnswer {
     private static final Color LIGHT_BLUE = new Color(230, 241, 255);
 
     private boolean myUserAnswer;
-    JDialog myDialog;
+    private JDialog myDialog;
     private GamePanel myGp;
     private JLabel myLabel;
     public DialogForYesNoAnswer(String theLabel, GamePanel theGP) {

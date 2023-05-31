@@ -27,6 +27,7 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
     private Player myPlayer;
     private GamePanel myGamePanel;
     private JDialog myDialog;
+    private DialogForYesNoAnswer myDialogForYesNoAnswer;
 
     public HotbarGUI(final Player thePlayer, GamePanel theGamePanel) {
         slots = new JButton[HOTBAR_SIZE];
@@ -64,7 +65,7 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
                     if (SwingUtilities.isLeftMouseButton(e)) {
                         if (e.getClickCount() == 2) {
                             selectSlot(index);
-                            initializeUI(useStone());
+                            myDialogForYesNoAnswer = new DialogForYesNoAnswer("Would you like to use this item?", myGamePanel);
 //                            try {
 //                                //selectSlot(index);
 //
@@ -92,61 +93,6 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
 
         }
         return this;
-    }
-
-//    private void askToUseStone() throws IOException {
-//        Frame frame = null;
-//        String message = "Do you want to use the Stone?";
-//        Font fontForText = new Font("Berlin Sans FB", Font.PLAIN, 26);
-//        Color brownColor = new Color(123, 63, 0);
-//
-//        DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer(frame, message, fontForText, brownColor, Color.WHITE);
-//
-//        if (myPlayer.getBackpack().getStone(selectedSlotIndex) != null &&
-//                yesNoDialog.getPlayerAnswer()) {
-//            System.out.println("I am using the " + (selectedSlotIndex + 1));
-//            //myPlayer.getBackpack().getStone(selectedSlotIndex).useAbility();
-//            myPlayer.useStone(myPlayer.getBackpack().getStone(selectedSlotIndex));
-//        }
-//    }
-    public void initializeUI(final JPanel thePanel) {
-        myDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(myGamePanel), "Dialog", true);
-        myDialog.getContentPane().add(thePanel);
-        myDialog.setUndecorated(true);
-        myDialog.pack();
-        myDialog.setLocationRelativeTo(myGamePanel);
-        myDialog.setVisible(true);
-    }
-
-    public JPanel useStone() {
-        JLabel label = new JLabel("Would you like to use this item?");
-        JPanel labelPanel = new JPanel();
-        labelPanel.setOpaque(false);
-        labelPanel.add(label);
-        JButton yesButton = new JButton("Yes");
-        JButton noButton = new JButton("No");
-        yesButton.setBackground(BABY_GREEN);
-        yesButton.setForeground(DARK_GREEN);
-        yesButton.setBorder(BorderFactory.createLineBorder(GREEN, 1));
-        noButton.setBackground(BABY_PINK);
-        noButton.setForeground(RED);
-        noButton.setBorder(BorderFactory.createLineBorder(DARK_PINK, 1));
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createEmptyBorder(20, BORDER, 20, BORDER));
-        panel.setLayout(new GridLayout(3, 1, 10, 10));
-        panel.setBackground(LIGHT_BLUE);
-        panel.add(labelPanel);
-        panel.add(yesButton);
-        panel.add(noButton);
-        noButton.addActionListener(theEvent -> {
-            Component comp = (Component) theEvent.getSource();
-            Window win = SwingUtilities.getWindowAncestor(comp);
-            win.dispose();
-        });
-        yesButton.addActionListener(theEvent -> {
-            myPlayer.useStone(myPlayer.getBackpack().getStone(selectedSlotIndex));
-        });
-        return panel;
     }
 
     public void selectSlot(int slot) {
