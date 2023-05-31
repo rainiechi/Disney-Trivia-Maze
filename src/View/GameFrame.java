@@ -34,7 +34,7 @@ public class GameFrame extends JFrame {
     public GameFrame() {
         setIcon();
         myWelcomePanel = new WelcomePanel();
-        setContentPane(myGamePanel);
+        setContentPane(myWelcomePanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setTitle(GAME_TITLE);

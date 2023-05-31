@@ -160,9 +160,8 @@ public class CollisionChecker implements Serializable {
                     chestMethods(theIndex, thePlayer.getPlayer());
                     break;
                 case "Exit":
-                    doorMethod(theIndex, thePlayer);
-//                    GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(myGp);
-//                    frame.switchToEndPanel();
+                    GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(myGp);
+                    frame.switchToEndPanel();
                     break;
             }
             theKeyH.setAllKeys();
