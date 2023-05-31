@@ -53,9 +53,9 @@ public class PopUp implements ActionListener {
     private String myCorrectAnswer;
     private Door myDoor;
 
-    private Timer timer;
+    private Timer myTimer;
     private final int myCountdown;
-    private JLabel timerLabel;
+    private JLabel myTimerLabel;
     public PopUp(final Door theDoor, final GamePanel theGP){
         if (theDoor == null || theGP == null) {
             throw new IllegalArgumentException("Door and GamePanel cannot be null");
@@ -80,23 +80,23 @@ public class PopUp implements ActionListener {
     }
 
     public void timerGUISetup() {
-        timerLabel = new JLabel();
-        timerLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
-        timerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        timerLabel.setVerticalAlignment(SwingConstants.CENTER);
-        timerLabel.setPreferredSize(new Dimension(100, 50));
-        timerLabel.setOpaque(true);
-        timerLabel.setBackground(LIGHT_BLUE);
-        timerLabel.setForeground(DARK_BLUE);
+        myTimerLabel = new JLabel();
+        myTimerLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
+        myTimerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        myTimerLabel.setVerticalAlignment(SwingConstants.CENTER);
+        myTimerLabel.setPreferredSize(new Dimension(100, 50));
+        myTimerLabel.setOpaque(true);
+        myTimerLabel.setBackground(LIGHT_BLUE);
+        myTimerLabel.setForeground(DARK_BLUE);
     }
     public void startTimer() {
         // Create the timer with a 1-second delay
-        timer = new Timer(1000, new ActionListener() {
+        myTimer = new Timer(1000, new ActionListener() {
             private int remainingTime = myCountdown;
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (remainingTime <= 0) {
-                    timer.stop();
+                    myTimer.stop();
                     myDialog.dispose();
                     showResultDialog("TimesOut");
                     // Perform actions when time is up
@@ -104,14 +104,13 @@ public class PopUp implements ActionListener {
                     myDoor.setMyUnlock(false);
                 } else {
                     // Update the countdown label or perform other actions
-                    //System.out.println("Time Remaining: " + remainingTime);
-                    timerLabel.setText("Time Remaining: " + remainingTime);
+                    myTimerLabel.setText("Time Remaining: " + remainingTime);
                     remainingTime--;
                 }
             }
         });
 
-        timer.start(); // Start the timer
+        myTimer.start(); // Start the timer
     }
 
     /**
@@ -176,7 +175,7 @@ public class PopUp implements ActionListener {
         myOptionPanel.setPreferredSize(new Dimension(400, 120));
         //myOptionPanel.setOpaque(true);
         // Add the question panel and option panel to the dialog
-        myDialog.add(timerLabel, BorderLayout.NORTH);
+        myDialog.add(myTimerLabel, BorderLayout.NORTH);
         myDialog.add(myQuestionPanel, BorderLayout.CENTER);
         myDialog.add(myOptionPanel, BorderLayout.SOUTH);
         // Set the dialog to be visible
@@ -262,19 +261,19 @@ public class PopUp implements ActionListener {
     public void actionPerformed ( final ActionEvent e){
         String playerAnswer;
         if (e.getSource() == myOption1) {
-            timer.stop();
+            myTimer.stop();
             playerAnswer = myOption1.getText();
             checkAnswer(myCorrectAnswer, playerAnswer);
         } else if (e.getSource() == myOption2) {
-            timer.stop();
+            myTimer.stop();
             playerAnswer = myOption2.getText();
             checkAnswer(myCorrectAnswer, playerAnswer);
         } else if (e.getSource() == myOption3) {
-            timer.stop();
+            myTimer.stop();
             playerAnswer = myOption3.getText();
             checkAnswer(myCorrectAnswer, playerAnswer);
         } else if (e.getSource() == myOption4) {
-            timer.stop();
+            myTimer.stop();
             playerAnswer = myOption4.getText();
             checkAnswer(myCorrectAnswer, playerAnswer);
         }
@@ -292,7 +291,7 @@ public class PopUp implements ActionListener {
         dialog.getContentPane().add(panel);
         dialog.setUndecorated(true);
         dialog.pack();
-        dialog.setLocationRelativeTo(myDialog);
+        dialog.setLocationRelativeTo(myGP);
         dialog.setVisible(true);
     }
 

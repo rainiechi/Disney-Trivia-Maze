@@ -76,7 +76,7 @@ public class GamePanel extends JPanel implements Runnable{
             out.close();
             fileOut.close();
             System.out.println("Game state saved successfully.");
-            showDialog(new SaveLoadPanel(true));
+            showDialog(new SaveLoadPanel("saved"));
         } catch (Exception e) {
             System.out.println("Error occurred while saving the game state: " + e.getMessage());
         }
@@ -94,9 +94,10 @@ public class GamePanel extends JPanel implements Runnable{
             myGame.getMyPlayerManager().setPlayerImage(); //set up images again because they're transient
 
             System.out.println("Game state loaded successfully.");
-            showDialog(new SaveLoadPanel(false));
+            showDialog(new SaveLoadPanel("loaded"));
             repaint();
         } catch (Exception e) {
+            showDialog(new SaveLoadPanel("NoSavedFile"));
             System.out.println("Error occurred while loading the game state: " + e.getMessage());
         }
     }
@@ -143,7 +144,7 @@ public class GamePanel extends JPanel implements Runnable{
 
 
 
-    public void playMusic(int theIndex) {
+    public void playMusic(final int theIndex) {
         mySound.setFile(theIndex);
         mySound.play();
         mySound.loop();
@@ -152,7 +153,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void stopMusic() {
         mySound.stop();
     }
-    public void playSE(int i) {
+    public void playSE(final int i) {
         mySound.setFile(i);
         mySound.play();
     }
@@ -225,7 +226,7 @@ public class GamePanel extends JPanel implements Runnable{
         private static final Color DARK_BLUE = new Color(70, 130, 180);
         private static final Color PASTEL_BLUE = new Color(173, 216, 230);
 
-        public SaveLoadPanel(Boolean save) { //true for save false for load
+        public SaveLoadPanel(final String theString) { //true for save false for load
             JButton continueButton = new JButton("CONTINUE");
             JLabel resultLabel1 = new JLabel();
             setBackground(PERIWINKLE);
@@ -234,11 +235,14 @@ public class GamePanel extends JPanel implements Runnable{
             continueButton.setBackground(PASTEL_BLUE);
             continueButton.setBorder(BorderFactory.createLineBorder(DARK_BLUE, 1));
 
-            if (save) {
+            if (theString.equalsIgnoreCase("saved")) {
                 resultLabel1 = new JLabel("PROGRESS SAVED");
                 resultLabel1.setForeground(DARK_BLUE);
-            } else {
+            } else if (theString.equalsIgnoreCase("loaded")){
                 resultLabel1 = new JLabel("PROGRESS LOADED");
+                resultLabel1.setForeground(DARK_BLUE);
+            } else if (theString.equalsIgnoreCase("NoSavedFile")) {
+                resultLabel1 = new JLabel("NO SAVED FILE FOUND");
                 resultLabel1.setForeground(DARK_BLUE);
             }
 
