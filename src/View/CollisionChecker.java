@@ -153,7 +153,7 @@ public class CollisionChecker implements Serializable {
             String objectName = myGp.getObj()[theIndex].getName();
             switch(objectName) {
                 case "Door", "SideDoor", "Exit":
-                    doorMethod(theIndex, thePlayer);
+                    //doorMethod(theIndex, thePlayer);
                     break;
                 case "Chest":
                     chestMethods(theIndex, thePlayer.getPlayer());
