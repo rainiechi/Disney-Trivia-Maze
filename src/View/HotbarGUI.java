@@ -36,7 +36,10 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
         setLayout(new FlowLayout()); // Set layout to FlowLayout
     }
 
-    public JPanel updateGUI() {
+    public void updateGUI() {
+        removeAll();
+
+
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
         for (int i = 0; i < HOTBAR_SIZE; i++) {
@@ -89,9 +92,9 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
                 }
             });
 
-
+            revalidate();
+            repaint();
         }
-        return this;
     }
 
     public void selectSlot(int slot) {
@@ -112,24 +115,24 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
         selectSlot((selectedSlotIndex + 1) % HOTBAR_SIZE);
     }
 
-    public static void main(String[] args) {
-        // Initialize the backpack and GUI
-        Player player = new Player();
-        player.addToBackpack(new MindStone());
-        player.addToBackpack(new MindStone());
-        player.addToBackpack(new MindStone());
-
-
-        HotbarGUI toolbar = new HotbarGUI(player, new GamePanel());
-
-        // Create a JFrame to hold the toolbar
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 100);
-
-        // Add the toolbar to the frame
-        frame.add(toolbar.updateGUI());
-        frame.setVisible(true);
-    }
+//    public static void main(String[] args) {
+//        // Initialize the backpack and GUI
+//        Player player = new Player();
+//        player.addToBackpack(new MindStone());
+//        player.addToBackpack(new MindStone());
+//        player.addToBackpack(new MindStone());
+//
+//
+//        HotbarGUI toolbar = new HotbarGUI(player, new GamePanel());
+//
+//        // Create a JFrame to hold the toolbar
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        frame.setSize(400, 100);
+//
+//        // Add the toolbar to the frame
+//        frame.add(toolbar.updateGUI());
+//        frame.setVisible(true);
+//    }
 
 }
