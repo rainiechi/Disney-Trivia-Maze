@@ -34,7 +34,7 @@ public class GameFrame extends JFrame {
     public GameFrame() {
         setIcon();
         myWelcomePanel = new WelcomePanel();
-        setContentPane(myWelcomePanel);
+        setContentPane(myGamePanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
         setTitle(GAME_TITLE);
@@ -76,6 +76,13 @@ public class GameFrame extends JFrame {
         theGamePanel.requestFocusInWindow();
         theGamePanel.startGameThread(); // Start the game thread
         showDialog(new InstructionPanel()); //show instructions
+    }
+
+    public void switchToEndPanel() {
+        setContentPane(new EndPanel());
+        myMenuBar.removeAll();
+
+        revalidate();
     }
 
     public GamePanel getMyGamePanel() {

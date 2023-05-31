@@ -3,6 +3,7 @@ package View;
 import Model.*;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.io.IOException;
 import java.io.Serializable;
 
@@ -157,6 +158,11 @@ public class CollisionChecker implements Serializable {
                     break;
                 case "Chest":
                     chestMethods(theIndex, thePlayer.getPlayer());
+                    break;
+                case "Exit":
+                    doorMethod(theIndex, thePlayer);
+//                    GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(myGp);
+//                    frame.switchToEndPanel();
                     break;
             }
             theKeyH.setAllKeys();
