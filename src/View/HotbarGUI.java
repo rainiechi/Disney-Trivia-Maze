@@ -26,8 +26,7 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
     //private Backpack myBackPack;
     private Player myPlayer;
     private GamePanel myGamePanel;
-    private JDialog myDialog;
-    private DialogForYesNoAnswer myDialogForYesNoAnswer;
+
 
     public HotbarGUI(final Player thePlayer, GamePanel theGamePanel) {
         slots = new JButton[HOTBAR_SIZE];
@@ -65,7 +64,7 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
                     if (SwingUtilities.isLeftMouseButton(e)) {
                         if (e.getClickCount() == 2) {
                             selectSlot(index);
-                            myDialogForYesNoAnswer = new DialogForYesNoAnswer("Would you like to use this item?", myGamePanel);
+                            DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to use this item?", myGamePanel);
 //                            try {
 //                                //selectSlot(index);
 //
