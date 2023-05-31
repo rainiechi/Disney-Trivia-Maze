@@ -12,6 +12,7 @@ public class CollisionChecker implements Serializable {
     private final static Maze MAZE = new Maze();
     private GamePanel myGp;
     private QuestionRecord myQuestionRecord;
+    PopUp pop;
 
     public CollisionChecker(final GamePanel theGp, final QuestionRecord theQuestionRecord) {
         myGp = theGp;
@@ -167,6 +168,15 @@ public class CollisionChecker implements Serializable {
             theKeyH.setAllKeys();
         }
     }
+
+    public PopUp getPop() {
+        return pop;
+    }
+
+    public void setPop(PopUp pop) {
+        this.pop = pop;
+    }
+
     public void doorMethod(final int theIndex, final PlayerManager thePlayer) {
         if (!myGp.getObjManager(theIndex).isTouched()) {
             Door door = new Door(myQuestionRecord);
@@ -176,7 +186,8 @@ public class CollisionChecker implements Serializable {
         if (!myGp.getObjManager(theIndex).isLocked()) {
            DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to attempt this door?", myGp);
             if (d.getMyUserAnswer()) {
-                PopUp pop = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
+                pop = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
+                pop = null;
                 System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
                 if (myGp.getObjManager(theIndex).getDoor().getMyUnlock()) {
                     myGp.deleteObjManager(theIndex);

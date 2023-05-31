@@ -14,11 +14,15 @@ public class RealityStone extends Stone{
             e.printStackTrace();
         }
     }
+    @Override
     public void useAbility(PopUp thePop) {
-        //theDoor.getQuestionObject().getMyAnswer();
-
+        //Revealed answer to trivia question!
+        thePop.disableWrongAnswerButton(3);
         decreaseUses();
     }
+
+    public void useAbility(Player thePlayer) {}
+
     public String getDescription() {
         String s = "Reveals the answer in a trivia. Can only be used once.";
         return s;
