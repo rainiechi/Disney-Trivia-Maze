@@ -145,7 +145,7 @@ public class GameFrame extends JFrame {
         dialog.getContentPane().add(thePanel);
         dialog.setUndecorated(true);
         dialog.pack();
-        dialog.setLocationRelativeTo((Window) this);
+        dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }
 
