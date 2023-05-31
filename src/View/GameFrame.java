@@ -78,6 +78,13 @@ public class GameFrame extends JFrame {
         showDialog(new InstructionPanel()); //show instructions
     }
 
+    public void switchToEndPanel() {
+        setContentPane(new EndPanel());
+        myMenuBar.removeAll();
+
+        revalidate();
+    }
+
     public GamePanel getMyGamePanel() {
         return myGamePanel;
     }
