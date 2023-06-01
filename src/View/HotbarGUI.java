@@ -96,14 +96,15 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
 
                 if (stone.getStoneName().equals("Reality Stone")){
                     if( myGamePanel.getCC().getPop().getMyDialog().isVisible()) {
-                        System.out.println("used the reality stone");
                         myGamePanel.getCC().getPop().disableWrongAnswerButton(3);
                         myPlayer.useStone(stone);
                     }
                 }
             } else if (stone.getStoneName().equals("Mind Stone")) {
-                myGamePanel.getCC().getPop().disableWrongAnswerButton(1);
-                myPlayer.useStone(stone);
+                if( myGamePanel.getCC().getPop().getMyDialog().isVisible()) {
+                    myGamePanel.getCC().getPop().disableWrongAnswerButton(1);
+                    myPlayer.useStone(stone);
+                }
             } else {
                 myPlayer.useStone(stone);
             }
