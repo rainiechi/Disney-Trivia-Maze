@@ -1,5 +1,8 @@
-package Model;
+package View;
 
+import Model.Player;
+import Model.QuestionRecord;
+import Model.StoneManager;
 import View.*;
 
 import java.io.Serializable;

@@ -1,7 +1,11 @@
 package Model;
 
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public abstract class Stone implements Serializable {
@@ -50,4 +54,26 @@ public abstract class Stone implements Serializable {
     public void setImage(BufferedImage theImage) {
         myImage = theImage;
     }
+
+    //these two methods are used to manually serialize myImage since BufferedImage has to be transient
+    private void writeObject(ObjectOutputStream out) throws IOException {
+        out.defaultWriteObject();
+
+        // Serialize the image data
+        if (myImage != null) {
+            ImageIO.write(myImage, "png", out);
+        }
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+        in.defaultReadObject();
+
+        // Deserialize the image data
+        try {
+            myImage = ImageIO.read(in);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
