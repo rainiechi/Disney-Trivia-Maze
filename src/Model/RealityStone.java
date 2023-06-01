@@ -1,6 +1,6 @@
 package Model;
 
-import View.PopUp;
+
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -14,12 +14,7 @@ public class RealityStone extends Stone{
             e.printStackTrace();
         }
     }
-//    @Override
-//    public void useAbility(PopUp thePop) {
-//        //Revealed answer to trivia question!
-//        thePop.disableWrongAnswerButton(3);
-//        decreaseUses();
-//    }
+
 
     public void useAbility(Player thePlayer) {
         decreaseUses();

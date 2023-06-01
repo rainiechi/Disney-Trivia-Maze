@@ -12,7 +12,7 @@ public class CollisionChecker implements Serializable {
     private final static Maze MAZE = new Maze();
     private GamePanel myGp;
     private QuestionRecord myQuestionRecord;
-    PopUp pop;
+    private transient PopUp pop;
 
     public CollisionChecker(final GamePanel theGp, final QuestionRecord theQuestionRecord) {
         myGp = theGp;

@@ -1,6 +1,6 @@
 package Model;
 
-import View.PopUp;
+
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
