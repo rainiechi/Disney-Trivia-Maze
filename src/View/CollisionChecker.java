@@ -189,7 +189,7 @@ public class CollisionChecker implements Serializable {
                 pop = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
 
                 while(pop.getMyDialog().isVisible()){
-                    System.out.println("while");
+                    System.out.print("");
                 }
                 System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
                 //System.out.println("Door unlock in collsion "+myGp.getObjManager(theIndex).getDoor().getMyUnlock());
