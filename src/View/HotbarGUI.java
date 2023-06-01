@@ -3,15 +3,14 @@ package View;
 import Model.Backpack;
 import Model.MindStone;
 import Model.Player;
+import Model.Stone;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-
-public class HotbarGUI extends JPanel {
-    private static final int BORDER = 15;
+public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
     private static final int HOTBAR_SIZE = 6;
 
     private JButton[] slots;
@@ -32,7 +31,6 @@ public class HotbarGUI extends JPanel {
 
     public void updateGUI() {
         removeAll();
-
 
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
@@ -60,27 +58,26 @@ public class HotbarGUI extends JPanel {
                 public void mouseClicked(MouseEvent e) {
                     if (SwingUtilities.isLeftMouseButton(e)) {
                         if (e.getClickCount() == 2) {
-                            selectSlot(index);
-                            DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to use this item?", myGamePanel);
-//                            try {
-//                                //selectSlot(index);
-//
-//                            } catch (IOException ex) {
-//                                throw new RuntimeException(ex);
-//                            }
-                        } else {
+                            try {
+                                askToUseStone();
+                            } catch (IOException ex) {
+                                throw new RuntimeException(ex);
+                            }
+                        }
+                        else {
                             clickedOnce = true;
+
                             Timer timer = new Timer(DOUBLE_CLICK_DELAY, new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent evt) {
                                     if (clickedOnce) {
-                                        selectSlot(index);
                                     }
                                     clickedOnce = false;
                                 }
                             });
                             timer.setRepeats(false);
                             timer.start();
+                            myGamePanel.requestFocusInWindow();
                         }
                     }
                 }
@@ -90,23 +87,27 @@ public class HotbarGUI extends JPanel {
             repaint();
         }
     }
+    private void askToUseStone() throws IOException {
+        Stone stone = myPlayer.getBackpack().getStone(selectedSlotIndex);
+        if (stone != null) {
 
-    public void selectSlot(int slot) {
-        if (slot >= 0 && slot < HOTBAR_SIZE) {
-            slots[selectedSlotIndex].setEnabled(true);
-            selectedSlotIndex = slot;
-            slots[selectedSlotIndex].setEnabled(false);
-            myGamePanel.requestFocusInWindow();  //
+            DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer("Would you like to use this item?", myGamePanel);
+            if (yesNoDialog.getMyUserAnswer()) {
 
+                if (stone.getStoneName().equals("Reality Stone")) {
+                    //stone.useAbility(myGamePanel.getCC().getPop());
+                    myGamePanel.getCC().getPop().disableWrongAnswerButton(3);
+                    myPlayer.useStone(stone);
+
+                } else if (stone.getStoneName().equals("Mind Stone")) {
+                    myGamePanel.getCC().getPop().disableWrongAnswerButton(1);
+                    myPlayer.useStone(stone);
+                } else {
+                    myPlayer.useStone(stone);
+                }
+            }
         }
-    }
-
-    public void scrollLeft() {
-        selectSlot((selectedSlotIndex - 1 + HOTBAR_SIZE) % HOTBAR_SIZE);
-    }
-
-    public void scrollRight() {
-        selectSlot((selectedSlotIndex + 1) % HOTBAR_SIZE);
+        myGamePanel.requestFocusInWindow();
     }
 
 //    public static void main(String[] args) {
