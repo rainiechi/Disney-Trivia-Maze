@@ -158,7 +158,7 @@ public class Player implements Serializable {
     public void useStone(final Stone theStone) {
         int stoneIndex = myBackpack.findStone(theStone);
 
-        System.out.println("The stone is a Mind stone "+theStone.getStoneName());
+        //System.out.println("The stone is a Mind stone "+theStone.getStoneName());
         if (stoneIndex < 0) {
             throw new IllegalArgumentException("Player does not have this stone.");
         } else {
