@@ -1,13 +1,7 @@
 package View;
 
-import Model.Game;
-
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class GameFrame extends JFrame {
     private static final String GAME_TITLE = "Disney Trivia Maze";
@@ -42,7 +36,7 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         myGamePanel = new GamePanel();
-        myGamePanel.playMusic(0);
+        //myGamePanel.playMusic(0);
     }
 
     public void saveGame() {
@@ -76,6 +70,13 @@ public class GameFrame extends JFrame {
         theGamePanel.requestFocusInWindow();
         theGamePanel.startGameThread(); // Start the game thread
         showDialog(new InstructionPanel()); //show instructions
+    }
+
+    public void switchToEndPanel() {
+        setContentPane(new EndPanel());
+        myMenuBar.removeAll();
+
+        revalidate();
     }
 
     public GamePanel getMyGamePanel() {

@@ -1,7 +1,7 @@
 package View;
 
 import Model.GameSettings;
-import SQLite.DBRetriever;
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;

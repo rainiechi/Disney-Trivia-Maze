@@ -1,6 +1,5 @@
 package View;
 
-import Model.Game;
 import Model.GameSettings;
 import Model.Maze;
 
@@ -98,6 +97,9 @@ public class GamePanel extends JPanel implements Runnable{
             System.out.println("Game state loaded successfully.");
             showDialog(new SaveLoadPanel("loaded"));
             repaint();
+            myHotBar.updateGUI();
+
+            myGame.getMyPlayer().getBackpack().displayCurrInventory(); //for testing
         } catch (Exception e) {
             showDialog(new SaveLoadPanel("NoSavedFile"));
             System.out.println("Error occurred while loading the game state: " + e.getMessage());
