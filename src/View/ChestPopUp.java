@@ -45,6 +45,7 @@ public class ChestPopUp {
             myItemLabel = new JLabel("You've obtained a " + myChest.getMyStone() + "!");
             myStoneIcon = new JLabel(new ImageIcon(myChest.getMyStone().getImage()));
             myPlayer.takeStone(myChest);
+            myGp.getHotBar().updateGUI();
             myPlayer.getBackpack().displayCurrInventory();
             myItem = true;
         } else {
@@ -69,7 +70,6 @@ public class ChestPopUp {
         panel.add(myStoneIcon);
         panel.add(continueButton);
 
-        //myGp.getHotBar().updateGUI();
 
         continueButton.addActionListener(theEvent -> {
             Component comp = (Component) theEvent.getSource();

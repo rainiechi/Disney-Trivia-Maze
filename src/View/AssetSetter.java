@@ -34,7 +34,7 @@ public class AssetSetter {
         int x = 8;
         int y = 14;
         for (int i = 0; i <= 20; i++) {
-            myObjManager[i] = new ObjectManager("Door", x * TILE_SIZE, y * TILE_SIZE, true);
+            myObjManager[i] = new ObjectManager("Door", x * TILE_SIZE, y * TILE_SIZE, false);
             y += 13;
             // Starts at a new column on the map.
             if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19) {
@@ -49,7 +49,7 @@ public class AssetSetter {
         int y = 3;
         int count = 0;
         for (int i = 21; i <= 52; i++) {
-            myObjManager[i] = new ObjectManager("SideDoor", x * TILE_SIZE, y * TILE_SIZE, true);
+            myObjManager[i] = new ObjectManager("SideDoor", x * TILE_SIZE, y * TILE_SIZE, false);
             if (count == 2) {
                 x += 8;
                 count = 0;

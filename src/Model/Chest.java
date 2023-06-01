@@ -44,8 +44,7 @@ public class Chest implements Serializable {
     public void randomProbability(StoneManager theStoneM) {
         Stone result = null;
         // 40% Chance probability of chest containing stones
-        //if (myRandomNumber < 6) {
-            if (myRandomNumber >= 0) {
+        if (myRandomNumber >= 0) {
             // Chooses random stone from arraylist
             result = theStoneM.generateStone();
         }

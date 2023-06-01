@@ -25,12 +25,12 @@ public class StoneManager implements Serializable {
         Stone realityStone = stoneFactory.createStone("reality");
         Stone spaceStone = stoneFactory.createStone("space");
         Stone mindStone = stoneFactory.createStone("mind");
-        myStoneRecord.add(soulStone);
-        myStoneRecord.add(timeStone);
         myStoneRecord.add(powerStone);
-        myStoneRecord.add(realityStone);
-        myStoneRecord.add(spaceStone);
         myStoneRecord.add(mindStone);
+        myStoneRecord.add(realityStone);
+        myStoneRecord.add(soulStone);
+        myStoneRecord.add(spaceStone);
+        myStoneRecord.add(timeStone);
     }
 
     /**
