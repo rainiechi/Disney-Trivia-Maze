@@ -66,7 +66,7 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
                         }
                         else {
                             clickedOnce = true;
-
+                            myGamePanel.requestFocusInWindow();
                             Timer timer = new Timer(DOUBLE_CLICK_DELAY, new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent evt) {
@@ -94,17 +94,18 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
             DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer("Would you like to use this item?", myGamePanel);
             if (yesNoDialog.getMyUserAnswer()) {
 
-                if (stone.getStoneName().equals("Reality Stone")) {
-                    //stone.useAbility(myGamePanel.getCC().getPop());
-                    myGamePanel.getCC().getPop().disableWrongAnswerButton(3);
-                    myPlayer.useStone(stone);
-
-                } else if (stone.getStoneName().equals("Mind Stone")) {
-                    myGamePanel.getCC().getPop().disableWrongAnswerButton(1);
-                    myPlayer.useStone(stone);
-                } else {
-                    myPlayer.useStone(stone);
+                if (stone.getStoneName().equals("Reality Stone")){
+                    if( myGamePanel.getCC().getPop().getMyDialog().isVisible()) {
+                        System.out.println("used the reality stone");
+                        myGamePanel.getCC().getPop().disableWrongAnswerButton(3);
+                        myPlayer.useStone(stone);
+                    }
                 }
+            } else if (stone.getStoneName().equals("Mind Stone")) {
+                myGamePanel.getCC().getPop().disableWrongAnswerButton(1);
+                myPlayer.useStone(stone);
+            } else {
+                myPlayer.useStone(stone);
             }
         }
         myGamePanel.requestFocusInWindow();

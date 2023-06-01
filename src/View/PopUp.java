@@ -15,6 +15,12 @@ public class PopUp implements ActionListener {
     private final static Color DARK_BLUE = new Color(123, 195, 203);
 
     private GamePanel myGP;
+
+    public JDialog getMyDialog() {
+        return myDialog;
+    }
+
+
     /**
      *
      */
