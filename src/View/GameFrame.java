@@ -1,13 +1,7 @@
 package View;
 
-import Model.Game;
-
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class GameFrame extends JFrame {
     private static final String GAME_TITLE = "Disney Trivia Maze";

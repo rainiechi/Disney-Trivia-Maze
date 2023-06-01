@@ -41,7 +41,7 @@ public class ObjectManager implements Serializable {
     /** Private Door object */
     private Door myDoor;
     /** Private Chest object */
-    private Chest myChest;
+    private transient Chest myChest;
 
 
     /**
