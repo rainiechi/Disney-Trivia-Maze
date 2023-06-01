@@ -5,7 +5,7 @@ import View.PopUp;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
-public abstract class Stone implements Serializable {
+public class Stone implements Serializable {
     private transient BufferedImage myImage;
     private String myStoneName;
     private String myAbility;
@@ -18,11 +18,13 @@ public abstract class Stone implements Serializable {
         myImage = null;
     }
 
-    public abstract void useAbility(Player thePlayer);
+    public void useAbility(Player thePlayer) {}
 
-    public abstract void useAbility(PopUp thePop);
+    public String getDescription() {
+        String s = "";
+        return s;
+    }
 
-    public abstract String getDescription();
 
     public String getStoneName() {
         return myStoneName;

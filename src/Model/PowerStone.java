@@ -18,12 +18,6 @@ public class PowerStone extends Stone {
         thePlayer.setPlayerSpeed(5);
         decreaseUses();
     }
-
-    @Override
-    public void useAbility(PopUp thePop) {
-
-    }
-
     public String getDescription() {
         String s = "Increase speed by 2! Can only be used once.";
         return s;

@@ -21,11 +21,6 @@ public class TimeStone extends Stone{
         decreaseUses();
     }
 
-    @Override
-    public void useAbility(PopUp thePop) {
-
-    }
-
     public String getDescription() {
         String s = "Permanently increase trivia timer by 5 seconds! Can only be used once.";
         return s;

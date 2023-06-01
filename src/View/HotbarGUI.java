@@ -95,9 +95,9 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
             if (yesNoDialog.getMyUserAnswer()) {
 
                 if (stone.getStoneName().equals("Reality Stone")) {
-                    stone.useAbility(myGamePanel.getCC().getPop());
+                    //stone.useAbility(myGamePanel.getCC().getPop());
                 } else if (stone.getStoneName().equals("Mind Stone")) {
-                    stone.useAbility(myGamePanel.getCC().getPop());
+                    //stone.useAbility(myGamePanel.getCC().getPop());
                 } else {
                     myPlayer.useStone(myPlayer.getBackpack().getStone(selectedSlotIndex));
                 }
