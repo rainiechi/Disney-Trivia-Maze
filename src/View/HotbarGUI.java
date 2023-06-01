@@ -59,6 +59,7 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
                     if (SwingUtilities.isLeftMouseButton(e)) {
                         if (e.getClickCount() == 2) {
                             try {
+                                selectedSlotIndex=index;
                                 askToUseStone();
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
@@ -66,6 +67,7 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
                         }
                         else {
                             clickedOnce = true;
+                            selectedSlotIndex=index;
                             myGamePanel.requestFocusInWindow();
                             Timer timer = new Timer(DOUBLE_CLICK_DELAY, new ActionListener() {
                                 @Override

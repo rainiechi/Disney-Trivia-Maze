@@ -164,18 +164,12 @@ public class Player implements Serializable {
         } else {
             Stone stone = myBackpack.getStone(stoneIndex);
 
-//            if (stone.getStoneName().equals("Reality Stone") || stone.getStoneName().equals("Mind Stone")) {
-//                //CollisionChecker coll =
-//
-//            } else {
-                stone.useAbility(this);
-                if (stone.getUses() == 0) {
-                    myBackpack.deleteStone(stoneIndex);
-
-                }
-                if (stone.getStoneName().equals("Soul Stone")) setSoulStone(false);
-                if (stone.getStoneName().equals("Space Stone")) setSpaceStone(false);
-           // }
+            stone.useAbility(this);
+            if (stone.getUses() == 0) {
+                myBackpack.deleteStone(stoneIndex);
+            }
+            if (stone.getStoneName().equals("Soul Stone")) setSoulStone(false);
+            if (stone.getStoneName().equals("Space Stone")) setSpaceStone(false);
         }
     }
 
