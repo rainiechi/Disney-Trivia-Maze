@@ -32,7 +32,6 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
     public void updateGUI() {
         removeAll();
 
-
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
 
         for (int i = 0; i < HOTBAR_SIZE; i++) {
@@ -59,25 +58,26 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
                 public void mouseClicked(MouseEvent e) {
                     if (SwingUtilities.isLeftMouseButton(e)) {
                         if (e.getClickCount() == 2) {
-                            selectSlot(index);
                             try {
                                 askToUseStone();
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
-                        } else {
+                        }
+                        else {
                             clickedOnce = true;
+
                             Timer timer = new Timer(DOUBLE_CLICK_DELAY, new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent evt) {
                                     if (clickedOnce) {
-                                        selectSlot(index);
                                     }
                                     clickedOnce = false;
                                 }
                             });
                             timer.setRepeats(false);
                             timer.start();
+                            myGamePanel.requestFocusInWindow();
                         }
                     }
                 }
@@ -95,33 +95,19 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
             if (yesNoDialog.getMyUserAnswer()) {
 
                 if (stone.getStoneName().equals("Reality Stone")) {
-                    stone.useAbility(myGamePanel.getCC().getPop());
-                } else if (stone.getStoneName().equals("Mind Stone")) {
-                    stone.useAbility(myGamePanel.getCC().getPop());
-                } else {
-                    myPlayer.useStone(myPlayer.getBackpack().getStone(selectedSlotIndex));
-                }
+                    //stone.useAbility(myGamePanel.getCC().getPop());
+                    myGamePanel.getCC().getPop().disableWrongAnswerButton(3);
+                    myPlayer.useStone(stone);
 
+                } else if (stone.getStoneName().equals("Mind Stone")) {
+                    myGamePanel.getCC().getPop().disableWrongAnswerButton(1);
+                    myPlayer.useStone(stone);
+                } else {
+                    myPlayer.useStone(stone);
+                }
             }
         }
-    }
-
-    public void selectSlot(int slot) {
-        if (slot >= 0 && slot < HOTBAR_SIZE) {
-            slots[selectedSlotIndex].setEnabled(true);
-            selectedSlotIndex = slot;
-            slots[selectedSlotIndex].setEnabled(false);
-            myGamePanel.requestFocusInWindow();  //
-
-        }
-    }
-
-    public void scrollLeft() {
-        selectSlot((selectedSlotIndex - 1 + HOTBAR_SIZE) % HOTBAR_SIZE);
-    }
-
-    public void scrollRight() {
-        selectSlot((selectedSlotIndex + 1) % HOTBAR_SIZE);
+        myGamePanel.requestFocusInWindow();
     }
 
 //    public static void main(String[] args) {

@@ -1,6 +1,5 @@
 package Model;
 
-import View.PopUp;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -14,15 +13,9 @@ public class MindStone extends Stone{
             e.printStackTrace();
         }
     }
-    @Override
-    public void useAbility(PopUp thePop) {
-        // Eliminates 1 incorrect option. Can be used 5 times?
-        thePop.disableWrongAnswerButton(1);
-        decreaseUses();
-    }
 
     public void useAbility(Player thePlayer) {
-
+        decreaseUses();
     }
 
     public String getDescription() {

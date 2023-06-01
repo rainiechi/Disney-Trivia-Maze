@@ -1,6 +1,5 @@
 package Model;
 
-import View.PopUp;
 
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
@@ -20,7 +19,6 @@ public abstract class Stone implements Serializable {
 
     public abstract void useAbility(Player thePlayer);
 
-    public abstract void useAbility(PopUp thePop);
 
     public abstract String getDescription();
 

@@ -1,6 +1,6 @@
 package Model;
 
-import View.PopUp;
+
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -19,12 +19,7 @@ public class PowerStone extends Stone {
         decreaseUses();
     }
 
-    @Override
-    public void useAbility(PopUp thePop) {
-
-    }
-
-    public String getDescription() {
+     public String getDescription() {
         String s = "Increase speed by 2! Can only be used once.";
         return s;
     }

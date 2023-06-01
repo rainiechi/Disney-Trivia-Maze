@@ -1,6 +1,5 @@
 package Model;
 
-import View.PopUp;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -21,11 +20,6 @@ public class SoulStone extends Stone{
         // Resets a locked door?
         thePlayer.setSoulStone(true);
         decreaseUses();
-    }
-
-    @Override
-    public void useAbility(PopUp thePop) {
-
     }
 
     public String getDescription() {

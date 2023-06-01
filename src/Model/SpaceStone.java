@@ -19,10 +19,6 @@ public class SpaceStone extends Stone{
         decreaseUses();
     }
 
-    @Override
-    public void useAbility(PopUp thePop) {
-
-    }
 
     public String getDescription() {
         String s = "Allows you to bypass a door without going through trivia. Can only be used once.";

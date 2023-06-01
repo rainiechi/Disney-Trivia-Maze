@@ -169,6 +169,7 @@ public class Player implements Serializable {
                 stone.useAbility(this);
                 if (stone.getUses() == 0) {
                     myBackpack.deleteStone(stoneIndex);
+
                 }
                 if (stone.getStoneName().equals("Soul Stone")) setSoulStone(false);
                 if (stone.getStoneName().equals("Space Stone")) setSpaceStone(false);
