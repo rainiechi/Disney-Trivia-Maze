@@ -47,6 +47,7 @@ public class Chest implements Serializable {
         if (myRandomNumber >= 0) {
             // Chooses random stone from arraylist
             result = theStoneM.generateStone();
+            //result = myStone;
         }
         addToChest(result);
     }

@@ -369,10 +369,5 @@ public class PopUp implements ActionListener {
         }
 
     }
-
-
-
-
-
 }
 

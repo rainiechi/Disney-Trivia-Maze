@@ -187,7 +187,7 @@ public class CollisionChecker implements Serializable {
            DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to attempt this door?", myGp);
             if (d.getMyUserAnswer()) {
                 pop = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
-                pop = null;
+
                 System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
                 if (myGp.getObjManager(theIndex).getDoor().getMyUnlock()) {
                     myGp.deleteObjManager(theIndex);
