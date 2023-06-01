@@ -188,7 +188,10 @@ public class CollisionChecker implements Serializable {
             if (d.getMyUserAnswer()) {
                 pop = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
 
+                while(pop.getMyDialog().isVisible()){}
                 System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
+                //System.out.println("Door unlock in collsion "+myGp.getObjManager(theIndex).getDoor().getMyUnlock());
+
                 if (myGp.getObjManager(theIndex).getDoor().getMyUnlock()) {
                     myGp.deleteObjManager(theIndex);
                     if (thePlayer.getDirection().equals("left")) {
