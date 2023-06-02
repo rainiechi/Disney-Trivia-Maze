@@ -1,6 +1,5 @@
 package Model;
 
-import View.PopUp;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -9,7 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class Stone implements Serializable {
+public abstract class Stone implements Serializable {
     private transient BufferedImage myImage;
     private String myStoneName;
     private String myAbility;
@@ -22,13 +21,10 @@ public class Stone implements Serializable {
         myImage = null;
     }
 
-    public void useAbility(Player thePlayer) {}
+    public abstract void useAbility(Player thePlayer);
 
-    public String getDescription() {
-        String s = "";
-        return s;
-    }
 
+    public abstract String getDescription();
 
     public String getStoneName() {
         return myStoneName;

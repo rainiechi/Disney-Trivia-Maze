@@ -1,6 +1,6 @@
 package Model;
 
-import View.PopUp;
+
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -14,6 +14,7 @@ public class RealityStone extends Stone{
             e.printStackTrace();
         }
     }
+
 
     public void useAbility(Player thePlayer) {
         decreaseUses();

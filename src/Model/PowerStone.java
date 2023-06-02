@@ -1,6 +1,6 @@
 package Model;
 
-import View.PopUp;
+
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -18,7 +18,8 @@ public class PowerStone extends Stone {
         thePlayer.setPlayerSpeed(5);
         decreaseUses();
     }
-    public String getDescription() {
+
+     public String getDescription() {
         String s = "Increase speed by 2! Can only be used once.";
         return s;
     }

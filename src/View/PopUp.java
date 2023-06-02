@@ -15,6 +15,7 @@ public class PopUp implements ActionListener {
     private final static Color DARK_BLUE = new Color(123, 195, 203);
 
     private GamePanel myGP;
+
     /**
      *
      */
@@ -60,10 +61,12 @@ public class PopUp implements ActionListener {
         if (theDoor == null || theGP == null) {
             throw new IllegalArgumentException("Door and GamePanel cannot be null");
         }
-        myGP = theGP;
+        this.myGP = theGP;
         myCountdown = myGP.getMyGame().getTime();; // Countdown duration in seconds
-        myDoor = theDoor;
+        this.myDoor = theDoor;
         myDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(theGP), true); //attach the dialog to the frame so they dont seperate
+//        myDialog = new JDialog();
+        myDialog.setModal(false);
         myQuestionPanel = new JPanel();
         myQuestionArea = new JTextArea();
         myOptionPanel = new JPanel();
@@ -182,8 +185,9 @@ public class PopUp implements ActionListener {
         myDialog.setVisible(true);
     }
 
-
-
+    public JDialog getMyDialog() {
+        return myDialog;
+    }
 
     /**
      * Display the GUI in the screen.
@@ -198,17 +202,23 @@ public class PopUp implements ActionListener {
      * @param thePlayerAnswers It is the answer that the res.player selected.
      */
     private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers){
+
+
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
+            //System.out.println("Unlocking the door from popup"); //for testing
             myDoor.setMyUnlock(true);
             showResultDialog("Correct");
         } else {
+            //System.out.println("locking the door from popup");
             myDoor.setAttempted(true);
             myDoor.setMyUnlock(false);
             showResultDialog("Incorrect");
         }
+        //myDoor.setMyUnlock(true);
     }
 
     public void disableWrongAnswerButton(int theNumberOfButtons){
+        System.out.println("theNumberOfButtons "+theNumberOfButtons);
         if (theNumberOfButtons >= 0 &&  theNumberOfButtons <= 3   ) {
             int counter=0;
             Random random = new Random();
@@ -369,10 +379,4 @@ public class PopUp implements ActionListener {
         }
 
     }
-
-
-
-
-
 }
-

@@ -1,6 +1,5 @@
 package Model;
 
-import View.PopUp;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
@@ -20,7 +19,7 @@ public class MindStone extends Stone{
     }
 
     public String getDescription() {
-        String s = "Eliminates one incorrect answer. Can be used 3 times.";
+        String s = "Eliminates one incorrect answer. Can be used 5 times.";
         return s;
     }
 }
