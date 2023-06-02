@@ -18,7 +18,7 @@ public class GamePanel extends JPanel implements Runnable{
     private Game myGame;
     private transient final SoundManager mySound;
     private final HotbarGUI myHotBar;
-    JLayeredPane layeredPane;
+    private JLayeredPane myLayeredPane;
 
 
     public GamePanel() {
@@ -26,7 +26,6 @@ public class GamePanel extends JPanel implements Runnable{
         setMyGame(new Game(this));
         mySound = new SoundManager();
         myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
-
         // BACKGROUND
         this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
@@ -35,19 +34,19 @@ public class GamePanel extends JPanel implements Runnable{
 
         //myBackPack = new Backpack();
         myHotBar = new HotbarGUI();
-        layeredPane = new JLayeredPane();
+        myLayeredPane = new JLayeredPane();
 
-        layeredPane = new JLayeredPane();
-        layeredPane.setLayout(new BorderLayout());
+        myLayeredPane = new JLayeredPane();
+        myLayeredPane.setLayout(new BorderLayout());
         //JPanel hotbarPanel = myHotBar.updateGUI();
 
         myHotBar.setBounds(280, 550, 300, 50);
         myHotBar.updateGUI(getMyGame().getMyPlayer(),this);
 
-        layeredPane.setLayer(myHotBar,JLayeredPane.PALETTE_LAYER);
-        layeredPane.add(myHotBar,0);
+        myLayeredPane.setLayer(myHotBar,JLayeredPane.PALETTE_LAYER);
+        myLayeredPane.add(myHotBar,0);
 
-        layeredPane.add(this);
+        myLayeredPane.add(this);
 
     }
 
@@ -62,6 +61,10 @@ public class GamePanel extends JPanel implements Runnable{
     public void startGameThread() {
         myGameThread = new Thread(this);
         myGameThread.start();
+    }
+
+    public JLayeredPane getMyLayeredPane() {
+        return myLayeredPane;
     }
 
 

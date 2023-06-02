@@ -63,7 +63,7 @@ public class GameFrame extends JFrame {
         myGamePanel = theGamePanel;
         resumeButtonSetUp();
         initMenuBar();
-        setContentPane(theGamePanel.layeredPane);
+        setContentPane(theGamePanel.getMyLayeredPane());
 
 
         revalidate(); // Refresh the content pane
