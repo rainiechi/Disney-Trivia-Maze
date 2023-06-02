@@ -32,7 +32,7 @@ public class Player implements Serializable {
         myScreenY = GameSettings.SCREEN_HEIGHT/2 - (GameSettings.TILE_SIZE/2);
         myWorldX = GameSettings.TILE_SIZE * 38;
         myWorldY = GameSettings.TILE_SIZE * 68;
-        myPlayerSpeed = 3;
+        myPlayerSpeed = 4; //change back to 3
         mySpaceStone = false;
         mySoulStone = false;
         myTimeLimit = 15;

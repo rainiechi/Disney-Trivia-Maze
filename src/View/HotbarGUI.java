@@ -10,7 +10,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
-public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
+public class HotbarGUI extends JPanel {
+    private static final int BORDER = 15;
     private static final int HOTBAR_SIZE = 6;
 
     private JButton[] slots;
@@ -29,7 +30,7 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
         setLayout(new FlowLayout()); // Set layout to FlowLayout
     }
 
-    public void updateGUI() {
+    public void updateGUI(Backpack backpack) {
         removeAll();
 
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -40,9 +41,9 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
             slotButton.setBackground(new Color(234, 210, 182));
 
             slotButton.setLayout(new GridBagLayout());
-            if (myPlayer.getBackpack().getStone(i) != null) {
-                slotButton.setIcon(new ImageIcon(myPlayer.getBackpack().getStone(i).getImage()));
-                slotButton.setToolTipText(myPlayer.getBackpack().getStone(i).getDescription()); // Set the tooltip text
+            if (backpack.getStone(i) != null) {
+                slotButton.setIcon(new ImageIcon(backpack.getStone(i).getImage()));
+                slotButton.setToolTipText(backpack.getStone(i).getDescription());
             }
 
             slots[i] = slotButton;
@@ -89,6 +90,8 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
             repaint();
         }
     }
+
+
     private void askToUseStone() throws IOException {
         Stone stone = myPlayer.getBackpack().getStone(selectedSlotIndex);
         if (stone != null) {

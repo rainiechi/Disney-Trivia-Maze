@@ -45,7 +45,7 @@ public class ChestPopUp {
             myItemLabel = new JLabel("You've obtained a " + myChest.getMyStone() + "!");
             myStoneIcon = new JLabel(new ImageIcon(myChest.getMyStone().getImage()));
             myPlayer.takeStone(myChest);
-            myGp.getHotBar().updateGUI();
+            myGp.getHotBar().updateGUI(myGp.getMyGame().getMyPlayer().getBackpack());
             myPlayer.getBackpack().displayCurrInventory();
             myItem = true;
         } else {

@@ -39,8 +39,7 @@ public class Chest {
      * @param theStone the Stone to be added
      */
     public void addToChest(Stone theStone) {
-        //myStone = theStone;
-        myStone = new PowerStone();
+        myStone = theStone;
     }
     public void randomProbability(StoneManager theStoneM) {
         Stone result = null;
