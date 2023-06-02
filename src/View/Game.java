@@ -18,11 +18,12 @@ public class Game implements Serializable {
     private ObjectManager[] myObjManagers;
     private KeyHandler myKeyHandler;
     private MiniMap myMiniMap;
-    private CollisionChecker myCollisionChecker;
+    private transient CollisionChecker myCollisionChecker;
 
-
-
-
+    /**
+     * Game object contains all necessary logic for the game.
+     * @param theGP the GamePanel
+     */
     public Game(final GamePanel theGP) {
         myQuestionRecord = new QuestionRecord();
         myStoneManager = new StoneManager();
@@ -34,18 +35,16 @@ public class Game implements Serializable {
         myCollisionChecker = new CollisionChecker(theGP, myQuestionRecord);
     }
 
+    public void setMyCollisionChecker(GamePanel theGamePanel) {
+        myCollisionChecker = new CollisionChecker(theGamePanel, myQuestionRecord);
+    }
+
     public CollisionChecker getMyCollisionChecker() {
         return myCollisionChecker;
     }
-    public Backpack getBackpack() {
-        return myPlayer.getBackpack();
-    }
+
     public int getTime() {
         return myPlayer.getTimeLimit();
-    }
-
-    public QuestionRecord getMyQuestionRecord() {
-        return myQuestionRecord;
     }
 
     public StoneManager getMyStoneManager() {

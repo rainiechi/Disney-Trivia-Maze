@@ -1,6 +1,5 @@
 package Model;
 
-import View.CollisionChecker;
 
 import java.io.Serializable;
 

@@ -18,7 +18,6 @@ public class GameFrame extends JFrame {
     private JMenuItem myInstructionItem;
     private GamePanel myGamePanel;
     private JButton resumeButton;
-
     private WelcomePanel myWelcomePanel;
 
 

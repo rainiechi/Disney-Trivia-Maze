@@ -17,6 +17,9 @@ public class EndPanel extends JPanel{
     private int myIndex;
 
 
+    /**
+     * The end screen that shows when player reaches the exit door.
+     */
     public EndPanel() {
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         setBackground(Color.BLACK);
@@ -62,7 +65,7 @@ public class EndPanel extends JPanel{
         myTimer.start();
     }
 
-    public void paintComponent(Graphics g) {
+    public void paintComponent(final Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
     }

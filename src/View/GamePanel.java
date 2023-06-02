@@ -93,15 +93,12 @@ public class GamePanel extends JPanel implements Runnable{
 
             setMyGame(loadedGame);
             myGame.getMyPlayerManager().setPlayerImage(); //set up images again because they're transient
-            myGame.getMyCollisionChecker().resetGP(this); //to make sure PopUp has the correct Frame owner
+            myGame.setMyCollisionChecker(this); //to make sure PopUp has the correct Frame owner
             System.out.println("Game state loaded successfully.");
             showDialog(new SaveLoadPanel("loaded"));
             myHotBar.updateGUI(getMyGame().getMyPlayer(),this);
-//            myHotBar.revalidate();
-//            myHotBar.repaint();
 
             repaint();
-
             myGame.getMyPlayer().getBackpack().displayCurrInventory(); //for testing
         } catch (Exception e) {
             showDialog(new SaveLoadPanel("NoSavedFile"));

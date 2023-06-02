@@ -20,7 +20,7 @@ public class DialogForYesNoAnswer {
     private JDialog myDialog;
     private GamePanel myGp;
     private JLabel myLabel;
-    public DialogForYesNoAnswer(String theLabel, GamePanel theGP) {
+    public DialogForYesNoAnswer(final String theLabel, final GamePanel theGP) {
         myLabel = new JLabel(theLabel);
         myGp = theGP;
         myUserAnswer = false;

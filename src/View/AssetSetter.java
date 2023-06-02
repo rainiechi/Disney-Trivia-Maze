@@ -11,7 +11,6 @@ public class AssetSetter {
 
     /** private array of ObjectManager field */
     private ObjectManager[] myObjManager;
-    private Maze myMaze;
 
     /**
      * Constructor initializes fields.
@@ -19,7 +18,6 @@ public class AssetSetter {
      */
     public AssetSetter(final ObjectManager[] theObjManager) {
         myObjManager = theObjManager;
-        myMaze = new Maze();
         setWhiteDoors();
         setChests();
         setSideDoors();

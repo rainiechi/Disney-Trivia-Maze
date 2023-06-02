@@ -1,7 +1,5 @@
 package View;
 
-import Model.Backpack;
-import Model.MindStone;
 import Model.Player;
 import Model.Stone;
 
@@ -93,14 +91,14 @@ public class HotbarGUI extends JPanel {
             if (yesNoDialog.getMyUserAnswer()) {
 
                 if (stone.getStoneName().equals("Reality Stone")) {
-                    if (theGP.getCC().getPop().getMyDialog().isVisible()) {
-                        theGP.getCC().getPop().disableWrongAnswerButton(3);
+                    if (theGP.getCC().getMyPopUp().getMyDialog().isVisible()) {
+                        theGP.getCC().getMyPopUp().disableWrongAnswerButton(3);
                         thePlayer.useStone(stone);
                     }
                 }
                 else if (stone.getStoneName().equals("Mind Stone")) {
-                    if (theGP.getCC().getPop().getMyDialog().isVisible()) {
-                        theGP.getCC().getPop().disableWrongAnswerButton(1);
+                    if (theGP.getCC().getMyPopUp().getMyDialog().isVisible()) {
+                        theGP.getCC().getMyPopUp().disableWrongAnswerButton(1);
                         thePlayer.useStone(stone);
                     }
                 }
@@ -111,24 +109,5 @@ public class HotbarGUI extends JPanel {
             theGP.requestFocusInWindow();
         }
     }
-//    public static void main(String[] args) {
-//        // Initialize the backpack and GUI
-//        Player player = new Player();
-//        player.addToBackpack(new MindStone());
-//        player.addToBackpack(new MindStone());
-//        player.addToBackpack(new MindStone());
-//
-//
-//        HotbarGUI toolbar = new HotbarGUI(player, new GamePanel());
-//
-//        // Create a JFrame to hold the toolbar
-//        JFrame frame = new JFrame();
-//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//        frame.setSize(400, 100);
-//
-//        // Add the toolbar to the frame
-//        frame.add(toolbar.updateGUI());
-//        frame.setVisible(true);
-//    }
 
 }

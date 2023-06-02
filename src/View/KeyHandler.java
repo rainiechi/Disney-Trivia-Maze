@@ -7,7 +7,7 @@ public class KeyHandler implements KeyListener, Serializable {
     private boolean upPressed, downPressed, rightPressed, leftPressed, myMapPressed, myExitMapPressed;
     private MiniMap myMiniMap;
 
-    public KeyHandler(MiniMap theMiniMap) {
+    public KeyHandler(final MiniMap theMiniMap) {
         this.myMiniMap = theMiniMap;
     }
     @Override

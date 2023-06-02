@@ -15,13 +15,12 @@ public class ChestPopUp {
     private static final Color LIGHT_BLUE = new Color(230, 241, 255);
     private Chest myChest;
     private GamePanel myGp;
-    private Boolean myItem;
     private JLabel myItemLabel;
     private JLabel myStoneIcon;
     private Player myPlayer;
 
 
-    public ChestPopUp(Chest theChest, GamePanel theGp, Player thePlayer) {
+    public ChestPopUp(final Chest theChest, final GamePanel theGp, final Player thePlayer) {
         myPlayer = thePlayer;
         myChest = theChest;
         myGp = theGp;
@@ -47,7 +46,6 @@ public class ChestPopUp {
             myPlayer.takeStone(myChest);
             myGp.getHotBar().updateGUI(myGp.getMyGame().getMyPlayer(),myGp);
             myPlayer.getBackpack().displayCurrInventory();
-            myItem = true;
         } else {
             myItemLabel = new JLabel("There was nothing inside the chest!");
             myPlayer.getBackpack().displayCurrInventory();
