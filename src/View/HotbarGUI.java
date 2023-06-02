@@ -59,6 +59,7 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
                     if (SwingUtilities.isLeftMouseButton(e)) {
                         if (e.getClickCount() == 2) {
                             try {
+                                selectedSlotIndex=index;
                                 askToUseStone();
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
@@ -66,6 +67,7 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
                         }
                         else {
                             clickedOnce = true;
+                            selectedSlotIndex=index;
                             myGamePanel.requestFocusInWindow();
                             Timer timer = new Timer(DOUBLE_CLICK_DELAY, new ActionListener() {
                                 @Override
@@ -94,24 +96,25 @@ public class HotbarGUI extends JPanel {    private static final int BORDER = 15;
             DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer("Would you like to use this item?", myGamePanel);
             if (yesNoDialog.getMyUserAnswer()) {
 
-                if (stone.getStoneName().equals("Reality Stone")){
-                    if( myGamePanel.getCC().getPop().getMyDialog().isVisible()) {
+                if (stone.getStoneName().equals("Reality Stone")) {
+                    if (myGamePanel.getCC().getPop().getMyDialog().isVisible()) {
                         myGamePanel.getCC().getPop().disableWrongAnswerButton(3);
                         myPlayer.useStone(stone);
                     }
                 }
-            } else if (stone.getStoneName().equals("Mind Stone")) {
-                if( myGamePanel.getCC().getPop().getMyDialog().isVisible()) {
-                    myGamePanel.getCC().getPop().disableWrongAnswerButton(1);
+                else if (stone.getStoneName().equals("Mind Stone")) {
+                    if (myGamePanel.getCC().getPop().getMyDialog().isVisible()) {
+                        myGamePanel.getCC().getPop().disableWrongAnswerButton(1);
+                        myPlayer.useStone(stone);
+                    }
+                }
+                else {
                     myPlayer.useStone(stone);
                 }
-            } else {
-                myPlayer.useStone(stone);
             }
+            myGamePanel.requestFocusInWindow();
         }
-        myGamePanel.requestFocusInWindow();
     }
-
 //    public static void main(String[] args) {
 //        // Initialize the backpack and GUI
 //        Player player = new Player();

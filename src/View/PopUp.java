@@ -218,6 +218,7 @@ public class PopUp implements ActionListener {
     }
 
     public void disableWrongAnswerButton(int theNumberOfButtons){
+        System.out.println("theNumberOfButtons "+theNumberOfButtons);
         if (theNumberOfButtons >= 0 &&  theNumberOfButtons <= 3   ) {
             int counter=0;
             Random random = new Random();
