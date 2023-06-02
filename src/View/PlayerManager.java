@@ -22,7 +22,6 @@ public class PlayerManager implements Serializable {
     private int myY;
     private int myWorldX;
     private int myWorldY;
-    private int mySpeed;
     private Rectangle mySolidArea;
     private int mySolidAreaDefaultX;
     private int mySolidAreaDefaultY;
@@ -59,7 +58,6 @@ public class PlayerManager implements Serializable {
         myWorldY = myPlayer.getMyWorldY();
         myX = myPlayer.getScreenX();
         myY = myPlayer.getScreenY();
-        mySpeed = 2 + myPlayer.getPlayerSpeed();
 
         myDirection = "down";
     }
@@ -108,10 +106,10 @@ public class PlayerManager implements Serializable {
 
             if (!myCollision) {
                 switch(myDirection) {
-                    case "up": myWorldY -= mySpeed; break;
-                    case "down": myWorldY += mySpeed; break;
-                    case "left": myWorldX -= mySpeed; break;
-                    case "right": myWorldX += mySpeed; break;
+                    case "up": myWorldY -= myPlayer.getPlayerSpeed(); break;
+                    case "down": myWorldY += myPlayer.getPlayerSpeed(); break;
+                    case "left": myWorldX -= myPlayer.getPlayerSpeed(); break;
+                    case "right": myWorldX += myPlayer.getPlayerSpeed(); break;
                 }
             }
             mySpriteCounter++;
@@ -206,7 +204,7 @@ public class PlayerManager implements Serializable {
      * @return player speed.
      */
     public int getSpeed() {
-        return mySpeed;
+        return myPlayer.getPlayerSpeed();
     }
 
     /**

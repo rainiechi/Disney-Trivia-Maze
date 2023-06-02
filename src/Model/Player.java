@@ -87,10 +87,10 @@ public class Player implements Serializable {
 
     /**
      * Sets the player's speed.
-     * @param speed speed to set.
+     * @param theSpeed speed to set.
      */
-    public void setPlayerSpeed(final int speed) {
-        myPlayerSpeed = speed;
+    public void setPlayerSpeed(final int theSpeed) {
+        myPlayerSpeed = theSpeed;
     }
 
 
