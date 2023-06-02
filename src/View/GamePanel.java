@@ -44,7 +44,7 @@ public class GamePanel extends JPanel implements Runnable{
         //JPanel hotbarPanel = myHotBar.updateGUI();
 
         myHotBar.setBounds(280, 550, 300, 50);
-        myHotBar.updateGUI(myGame.getMyPlayer().getBackpack());
+        myHotBar.updateGUI(myGame.getBackpack());
 
         layeredPane.setLayer(myHotBar,JLayeredPane.PALETTE_LAYER);
         layeredPane.add(myHotBar,0);
@@ -96,7 +96,7 @@ public class GamePanel extends JPanel implements Runnable{
 
             System.out.println("Game state loaded successfully.");
             showDialog(new SaveLoadPanel("loaded"));
-            myHotBar.updateGUI(myGame.getMyPlayer().getBackpack());
+            myHotBar.updateGUI(myGame.getBackpack());
             myHotBar.revalidate();
             myHotBar.repaint();
 
@@ -124,7 +124,7 @@ public class GamePanel extends JPanel implements Runnable{
 
             long currentTime = System.currentTimeMillis();
             if (currentTime - lastUpdateTime >= 3000) {
-                myHotBar.updateGUI(myGame.getMyPlayer().getBackpack()); // Call updateGUI() every second
+                myHotBar.updateGUI(myGame.getBackpack()); // Call updateGUI() every second
                 lastUpdateTime = currentTime;
             }
 

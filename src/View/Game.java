@@ -1,5 +1,6 @@
 package View;
 
+import Model.Backpack;
 import Model.Player;
 import Model.QuestionRecord;
 import Model.StoneManager;
@@ -27,10 +28,11 @@ public class Game implements Serializable {
         myKeyHandler = new KeyHandler(myMiniMap);
         myPlayer = new Player();
         myPlayerManager = new PlayerManager(theGP, myKeyHandler, myPlayer);
-
-
     }
 
+    public Backpack getBackpack() {
+        return myPlayer.getBackpack();
+    }
     public int getTime() {
         return myPlayer.getTimeLimit();
     }
