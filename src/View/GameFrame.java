@@ -18,7 +18,6 @@ public class GameFrame extends JFrame {
     private JMenuItem myInstructionItem;
     private GamePanel myGamePanel;
     private JButton resumeButton;
-
     private WelcomePanel myWelcomePanel;
 
 
@@ -36,7 +35,7 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         myGamePanel = new GamePanel();
-        myGamePanel.playMusic(0);
+        //myGamePanel.playMusic(0);
     }
 
     public void saveGame() {
@@ -63,7 +62,7 @@ public class GameFrame extends JFrame {
         myGamePanel = theGamePanel;
         resumeButtonSetUp();
         initMenuBar();
-        setContentPane(theGamePanel.layeredPane);
+        setContentPane(theGamePanel.getMyLayeredPane());
 
 
         revalidate(); // Refresh the content pane

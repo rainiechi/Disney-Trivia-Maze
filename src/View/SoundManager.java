@@ -14,7 +14,7 @@ public class SoundManager {
         mySoundURL[0] = new File ("src/res/Sound/The Little Mermaid Under the Sea.wav");
     }
 
-    public void setFile(int theFile) {
+    public void setFile(final int theFile) {
         try {
             AudioInputStream ais = AudioSystem.getAudioInputStream(mySoundURL[theFile]);
             myClip = AudioSystem.getClip();

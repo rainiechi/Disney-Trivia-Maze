@@ -14,13 +14,11 @@ public class GamePanel extends JPanel implements Runnable{
     private final static Maze MAZE = new Maze();
     private final transient TileManager myTileM;
     private final transient AssetSetter myAssetSetter;
-    private CollisionChecker myCollisionChecker;
     private transient Thread myGameThread;
     private Game myGame;
     private transient final SoundManager mySound;
-
     private final HotbarGUI myHotBar;
-    JLayeredPane layeredPane;
+    private JLayeredPane myLayeredPane;
 
 
     public GamePanel() {
@@ -28,7 +26,6 @@ public class GamePanel extends JPanel implements Runnable{
         setMyGame(new Game(this));
         mySound = new SoundManager();
         myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
-
         // BACKGROUND
         this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
@@ -36,20 +33,20 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true); // Enable keyboard focus on
 
         //myBackPack = new Backpack();
-        myHotBar = new HotbarGUI(myGame.getMyPlayerManager().getPlayer(),this);
-        layeredPane = new JLayeredPane();
+        myHotBar = new HotbarGUI();
+        myLayeredPane = new JLayeredPane();
 
-        layeredPane = new JLayeredPane();
-        layeredPane.setLayout(new BorderLayout());
+        myLayeredPane = new JLayeredPane();
+        myLayeredPane.setLayout(new BorderLayout());
         //JPanel hotbarPanel = myHotBar.updateGUI();
 
         myHotBar.setBounds(280, 550, 300, 50);
-        myHotBar.updateGUI(myGame.getMyPlayer().getBackpack());
+        myHotBar.updateGUI(getMyGame().getMyPlayer(),this);
 
-        layeredPane.setLayer(myHotBar,JLayeredPane.PALETTE_LAYER);
-        layeredPane.add(myHotBar,0);
+        myLayeredPane.setLayer(myHotBar,JLayeredPane.PALETTE_LAYER);
+        myLayeredPane.add(myHotBar,0);
 
-        layeredPane.add(this);
+        myLayeredPane.add(this);
 
     }
 
@@ -57,7 +54,6 @@ public class GamePanel extends JPanel implements Runnable{
     public void setMyGame(final Game theGame) {
         System.out.println("1");
         myGame = theGame;
-        myCollisionChecker = new CollisionChecker(this, myGame.getMyQuestionRecord());
         addKeyListener(myGame.getMyKeyHandler());
         this.setFocusable(true);
     }
@@ -65,6 +61,10 @@ public class GamePanel extends JPanel implements Runnable{
     public void startGameThread() {
         myGameThread = new Thread(this);
         myGameThread.start();
+    }
+
+    public JLayeredPane getMyLayeredPane() {
+        return myLayeredPane;
     }
 
 
@@ -93,15 +93,12 @@ public class GamePanel extends JPanel implements Runnable{
 
             setMyGame(loadedGame);
             myGame.getMyPlayerManager().setPlayerImage(); //set up images again because they're transient
-
+            myGame.setMyCollisionChecker(this); //to make sure PopUp has the correct Frame owner
             System.out.println("Game state loaded successfully.");
             showDialog(new SaveLoadPanel("loaded"));
-            myHotBar.updateGUI(myGame.getMyPlayer().getBackpack());
-            myHotBar.revalidate();
-            myHotBar.repaint();
+            myHotBar.updateGUI(getMyGame().getMyPlayer(),this);
 
             repaint();
-
             myGame.getMyPlayer().getBackpack().displayCurrInventory(); //for testing
         } catch (Exception e) {
             showDialog(new SaveLoadPanel("NoSavedFile"));
@@ -124,7 +121,7 @@ public class GamePanel extends JPanel implements Runnable{
 
             long currentTime = System.currentTimeMillis();
             if (currentTime - lastUpdateTime >= 3000) {
-                myHotBar.updateGUI(myGame.getMyPlayer().getBackpack()); // Call updateGUI() every second
+                myHotBar.updateGUI(myGame.getMyPlayer(),this); // Call updateGUI() every second
                 lastUpdateTime = currentTime;
             }
 
@@ -209,7 +206,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public CollisionChecker getCC() {
-        return myCollisionChecker;
+        return myGame.getMyCollisionChecker();
     }
     public Game getGame() {
         return myGame;

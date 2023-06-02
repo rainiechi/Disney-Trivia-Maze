@@ -5,14 +5,13 @@ import Model.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.IOException;
-import java.io.Serializable;
 
-public class CollisionChecker implements Serializable {
+public class CollisionChecker {
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
     private final static Maze MAZE = new Maze();
     private GamePanel myGp;
     private QuestionRecord myQuestionRecord;
-    private transient PopUp pop;
+    private PopUp myPopUp;
 
     public CollisionChecker(final GamePanel theGp, final QuestionRecord theQuestionRecord) {
         myGp = theGp;
@@ -77,38 +76,38 @@ public class CollisionChecker implements Serializable {
         }
     }
 
-    public int checkObject(final PlayerManager thePlayer, final boolean theCheck) {
+    public int checkObject(final PlayerManager thePlayer, final boolean theCollision) {
         int index = 999;
 
         for(int i = 0;  i < myGp.getObj().length; i++) {
-            if (myGp.getObj()[i] != null) {
+            if (myGp.getObjManager(i) != null) {
                 // Get entity's solid area position
                 thePlayer.getSolidArea().x = thePlayer.getMyWorldX() + thePlayer.getSolidArea().x;
                 thePlayer.getSolidArea().y = thePlayer.getMyWorldY() + thePlayer.getSolidArea().y;
 
                 // Get the object's solid position
-                myGp.getObj()[i].getSolidArea().x = myGp.getObj()[i].getWorldX() + myGp.getObj()[i].getSolidArea().x;
-                myGp.getObj()[i].getSolidArea().y = myGp.getObj()[i].getWorldY() + myGp.getObj()[i].getSolidArea().y;
+                myGp.getObjManager(i).getSolidArea().x = myGp.getObjManager(i).getWorldX() + myGp.getObjManager(i).getSolidArea().x;
+                myGp.getObjManager(i).getSolidArea().y = myGp.getObjManager(i).getWorldY() + myGp.getObjManager(i).getSolidArea().y;
 
                 switch(thePlayer.getDirection()) {
                     case "up":
                         thePlayer.getSolidArea().y -= thePlayer.getSpeed();
-                        if (thePlayer.getSolidArea().intersects(myGp.getObj()[i].getSolidArea())) {
-                            if (myGp.getObj()[i].isCollision()) {
+                        if (thePlayer.getSolidArea().intersects(myGp.getObjManager(i).getSolidArea())) {
+                            if (myGp.getObjManager(i).isCollision()) {
                                 thePlayer.setCollision(true);
                             }
-                            if (theCheck == true) {
+                            if (theCollision == true) {
                                 index = i;
                             }
                         }
                         break;
                     case "down":
                         thePlayer.getSolidArea().y += thePlayer.getSpeed();
-                        if (thePlayer.getSolidArea().intersects(myGp.getObj()[i].getSolidArea())) {
-                            if (myGp.getObj()[i].isCollision()) {
+                        if (thePlayer.getSolidArea().intersects(myGp.getObjManager(i).getSolidArea())) {
+                            if (myGp.getObjManager(i).isCollision()) {
                                 thePlayer.setCollision(true);
                             }
-                            if (theCheck == true) {
+                            if (theCollision == true) {
                                 index = i;
                             }
                         }
@@ -116,11 +115,11 @@ public class CollisionChecker implements Serializable {
                         break;
                     case "left":
                         thePlayer.getSolidArea().x -= thePlayer.getSpeed();
-                        if (thePlayer.getSolidArea().intersects(myGp.getObj()[i].getSolidArea())) {
-                            if (myGp.getObj()[i].isCollision()) {
+                        if (thePlayer.getSolidArea().intersects(myGp.getObjManager(i).getSolidArea())) {
+                            if (myGp.getObjManager(i).isCollision()) {
                                 thePlayer.setCollision(true);
                             }
-                            if (theCheck == true) {
+                            if (theCollision == true) {
                                 index = i;
                             }
                         }
@@ -128,11 +127,11 @@ public class CollisionChecker implements Serializable {
                         break;
                     case "right":
                         thePlayer.getSolidArea().x += thePlayer.getSpeed();
-                        if (thePlayer.getSolidArea().intersects(myGp.getObj()[i].getSolidArea())) {
-                            if (myGp.getObj()[i].isCollision()) {
+                        if (thePlayer.getSolidArea().intersects(myGp.getObjManager(i).getSolidArea())) {
+                            if (myGp.getObjManager(i).isCollision()) {
                                 thePlayer.setCollision(true);
                             }
-                            if (theCheck == true) {
+                            if (theCollision == true) {
                                 index = i;
                             }
                         }
@@ -141,8 +140,8 @@ public class CollisionChecker implements Serializable {
                 }
                 thePlayer.setSolidAreaX(thePlayer.getMySolidAreaDefaultX());
                 thePlayer.setSolidAreaY(thePlayer.getMySolidAreaDefaultY());
-                myGp.getObj()[i].setSolidAreaX(myGp.getObj()[i].getMySolidAreaDefaultX());
-                myGp.getObj()[i].setSolidAreaY(myGp.getObj()[i].getMySolidAreaDefaultY());
+                myGp.getObjManager(i).setSolidAreaX(myGp.getObjManager(i).getMySolidAreaDefaultX());
+                myGp.getObjManager(i).setSolidAreaY(myGp.getObjManager(i).getMySolidAreaDefaultY());
             }
         }
 
@@ -152,7 +151,7 @@ public class CollisionChecker implements Serializable {
         // Any number is fine as long as its not the index
         // of an object.
         if (theIndex != 999) {
-            String objectName = myGp.getObj()[theIndex].getName();
+            String objectName = myGp.getObjManager(theIndex).getName();
             switch(objectName) {
                 case "Door", "SideDoor":
                     doorMethod(theIndex, thePlayer);
@@ -169,12 +168,8 @@ public class CollisionChecker implements Serializable {
         }
     }
 
-    public PopUp getPop() {
-        return pop;
-    }
-
-    public void setPop(PopUp pop) {
-        this.pop = pop;
+    public PopUp getMyPopUp() {
+        return myPopUp;
     }
 
     public void doorMethod(final int theIndex, final PlayerManager thePlayer) {
@@ -184,11 +179,11 @@ public class CollisionChecker implements Serializable {
             myGp.getObjManager(theIndex).setDoor(door);
         }
         if (!myGp.getObjManager(theIndex).isLocked()) {
-           DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to attempt this door?", myGp);
+            DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to attempt this door?", myGp);
             if (d.getMyUserAnswer()) {
-                pop = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
+                myPopUp = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
 
-                while(pop.getMyDialog().isVisible()){
+                while(myPopUp.getMyDialog().isVisible()){
                     System.out.print("");
                 }
                 System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
@@ -208,6 +203,7 @@ public class CollisionChecker implements Serializable {
         } else if (thePlayer.getPlayer().hasSoulStone() && myGp.getObjManager(theIndex).getDoor().getAttempt()) {
             DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to use the Soul Stone to attempt this door again?", myGp);
             if (d.getMyUserAnswer()) {
+                thePlayer.getPlayer().useStone(new SoulStone());
                 myGp.getObjManager(theIndex).setLocked(false);
             }
         }

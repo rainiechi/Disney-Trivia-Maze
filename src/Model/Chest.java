@@ -39,7 +39,7 @@ public class Chest {
      * @param theStone the Stone to be added
      */
     public void addToChest(Stone theStone) {
-        myStone = theStone;
+        myStone = new SoulStone(); //fix
     }
     public void randomProbability(StoneManager theStoneM) {
         Stone result = null;
