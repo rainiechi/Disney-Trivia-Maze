@@ -18,6 +18,9 @@ public class Game implements Serializable {
     private ObjectManager[] myObjManagers;
     private KeyHandler myKeyHandler;
     private MiniMap myMiniMap;
+    private CollisionChecker myCollisionChecker;
+
+
 
 
     public Game(final GamePanel theGP) {
@@ -28,8 +31,12 @@ public class Game implements Serializable {
         myKeyHandler = new KeyHandler(myMiniMap);
         myPlayer = new Player();
         myPlayerManager = new PlayerManager(theGP, myKeyHandler, myPlayer);
+        myCollisionChecker = new CollisionChecker(theGP, myQuestionRecord);
     }
 
+    public CollisionChecker getMyCollisionChecker() {
+        return myCollisionChecker;
+    }
     public Backpack getBackpack() {
         return myPlayer.getBackpack();
     }

@@ -19,6 +19,10 @@ public class CollisionChecker implements Serializable {
         myQuestionRecord = theQuestionRecord;
     }
 
+    public void resetGP(GamePanel theGP) {
+        myGp = theGP;
+    }
+
     public void checkTile(final PlayerManager thePlayer) {
         int entityLeftWorldX = thePlayer.getMyWorldX() + thePlayer.getSolidArea().x;
         int entityRightWorldX = thePlayer.getMyWorldX() + thePlayer.getSolidArea().x + thePlayer.getSolidArea().width;

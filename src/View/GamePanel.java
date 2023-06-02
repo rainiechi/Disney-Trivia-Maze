@@ -14,11 +14,9 @@ public class GamePanel extends JPanel implements Runnable{
     private final static Maze MAZE = new Maze();
     private final transient TileManager myTileM;
     private final transient AssetSetter myAssetSetter;
-    private CollisionChecker myCollisionChecker;
     private transient Thread myGameThread;
     private Game myGame;
     private transient final SoundManager mySound;
-
     private final HotbarGUI myHotBar;
     JLayeredPane layeredPane;
 
@@ -36,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true); // Enable keyboard focus on
 
         //myBackPack = new Backpack();
-        myHotBar = new HotbarGUI(myGame.getMyPlayerManager().getPlayer(),this);
+        myHotBar = new HotbarGUI();
         layeredPane = new JLayeredPane();
 
         layeredPane = new JLayeredPane();
@@ -44,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable{
         //JPanel hotbarPanel = myHotBar.updateGUI();
 
         myHotBar.setBounds(280, 550, 300, 50);
-        myHotBar.updateGUI(myGame.getBackpack());
+        myHotBar.updateGUI(getMyGame().getMyPlayer(),this);
 
         layeredPane.setLayer(myHotBar,JLayeredPane.PALETTE_LAYER);
         layeredPane.add(myHotBar,0);
@@ -57,7 +55,6 @@ public class GamePanel extends JPanel implements Runnable{
     public void setMyGame(final Game theGame) {
         System.out.println("1");
         myGame = theGame;
-        myCollisionChecker = new CollisionChecker(this, myGame.getMyQuestionRecord());
         addKeyListener(myGame.getMyKeyHandler());
         this.setFocusable(true);
     }
@@ -93,12 +90,12 @@ public class GamePanel extends JPanel implements Runnable{
 
             setMyGame(loadedGame);
             myGame.getMyPlayerManager().setPlayerImage(); //set up images again because they're transient
-
+            myGame.getMyCollisionChecker().resetGP(this); //to make sure PopUp has the correct Frame owner
             System.out.println("Game state loaded successfully.");
             showDialog(new SaveLoadPanel("loaded"));
-            myHotBar.updateGUI(myGame.getBackpack());
-            myHotBar.revalidate();
-            myHotBar.repaint();
+            myHotBar.updateGUI(getMyGame().getMyPlayer(),this);
+//            myHotBar.revalidate();
+//            myHotBar.repaint();
 
             repaint();
 
@@ -124,7 +121,7 @@ public class GamePanel extends JPanel implements Runnable{
 
             long currentTime = System.currentTimeMillis();
             if (currentTime - lastUpdateTime >= 3000) {
-                myHotBar.updateGUI(myGame.getBackpack()); // Call updateGUI() every second
+                myHotBar.updateGUI(myGame.getMyPlayer(),this); // Call updateGUI() every second
                 lastUpdateTime = currentTime;
             }
 
@@ -209,7 +206,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
     public CollisionChecker getCC() {
-        return myCollisionChecker;
+        return myGame.getMyCollisionChecker();
     }
     public Game getGame() {
         return myGame;

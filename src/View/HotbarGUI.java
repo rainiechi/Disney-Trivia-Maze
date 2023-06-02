@@ -11,26 +11,19 @@ import java.awt.event.*;
 import java.io.IOException;
 
 public class HotbarGUI extends JPanel {
-    private static final int BORDER = 15;
     private static final int HOTBAR_SIZE = 6;
 
     private JButton[] slots;
     private int selectedSlotIndex;
 
-    //private Backpack myBackPack;
-    private Player myPlayer;
-    private GamePanel myGamePanel;
 
-
-    public HotbarGUI(final Player thePlayer, GamePanel theGamePanel) {
+    public HotbarGUI() {
         slots = new JButton[HOTBAR_SIZE];
         selectedSlotIndex = 0;
-        myPlayer = thePlayer;
-        myGamePanel = theGamePanel;
         setLayout(new FlowLayout()); // Set layout to FlowLayout
     }
 
-    public void updateGUI(Backpack backpack) {
+    public void updateGUI(final Player thePlayer, final GamePanel theGP) {
         removeAll();
 
         setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
@@ -41,9 +34,9 @@ public class HotbarGUI extends JPanel {
             slotButton.setBackground(new Color(234, 210, 182));
 
             slotButton.setLayout(new GridBagLayout());
-            if (backpack.getStone(i) != null) {
-                slotButton.setIcon(new ImageIcon(backpack.getStone(i).getImage()));
-                slotButton.setToolTipText(backpack.getStone(i).getDescription());
+            if (thePlayer.getBackpack().getStone(i) != null) {
+                slotButton.setIcon(new ImageIcon(thePlayer.getBackpack().getStone(i).getImage()));
+                slotButton.setToolTipText(thePlayer.getBackpack().getStone(i).getDescription());
             }
 
             slots[i] = slotButton;
@@ -61,7 +54,7 @@ public class HotbarGUI extends JPanel {
                         if (e.getClickCount() == 2) {
                             try {
                                 selectedSlotIndex=index;
-                                askToUseStone();
+                                askToUseStone(thePlayer, theGP);
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
@@ -69,7 +62,7 @@ public class HotbarGUI extends JPanel {
                         else {
                             clickedOnce = true;
                             selectedSlotIndex=index;
-                            myGamePanel.requestFocusInWindow();
+                            theGP.requestFocusInWindow();
                             Timer timer = new Timer(DOUBLE_CLICK_DELAY, new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent evt) {
@@ -80,7 +73,7 @@ public class HotbarGUI extends JPanel {
                             });
                             timer.setRepeats(false);
                             timer.start();
-                            myGamePanel.requestFocusInWindow();
+                            theGP.requestFocusInWindow();
                         }
                     }
                 }
@@ -92,30 +85,30 @@ public class HotbarGUI extends JPanel {
     }
 
 
-    private void askToUseStone() throws IOException {
-        Stone stone = myPlayer.getBackpack().getStone(selectedSlotIndex);
+    private void askToUseStone(final Player thePlayer, final GamePanel theGP) throws IOException {
+        Stone stone = thePlayer.getBackpack().getStone(selectedSlotIndex);
         if (stone != null) {
 
-            DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer("Would you like to use this item?", myGamePanel);
+            DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer("Would you like to use this item?", theGP);
             if (yesNoDialog.getMyUserAnswer()) {
 
                 if (stone.getStoneName().equals("Reality Stone")) {
-                    if (myGamePanel.getCC().getPop().getMyDialog().isVisible()) {
-                        myGamePanel.getCC().getPop().disableWrongAnswerButton(3);
-                        myPlayer.useStone(stone);
+                    if (theGP.getCC().getPop().getMyDialog().isVisible()) {
+                        theGP.getCC().getPop().disableWrongAnswerButton(3);
+                        thePlayer.useStone(stone);
                     }
                 }
                 else if (stone.getStoneName().equals("Mind Stone")) {
-                    if (myGamePanel.getCC().getPop().getMyDialog().isVisible()) {
-                        myGamePanel.getCC().getPop().disableWrongAnswerButton(1);
-                        myPlayer.useStone(stone);
+                    if (theGP.getCC().getPop().getMyDialog().isVisible()) {
+                        theGP.getCC().getPop().disableWrongAnswerButton(1);
+                        thePlayer.useStone(stone);
                     }
                 }
                 else {
-                    myPlayer.useStone(stone);
+                    thePlayer.useStone(stone);
                 }
             }
-            myGamePanel.requestFocusInWindow();
+            theGP.requestFocusInWindow();
         }
     }
 //    public static void main(String[] args) {

@@ -6,12 +6,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
+import java.io.Serializable;
 import java.util.Random;
 
 public class PopUp implements ActionListener {
     private final static Color LIGHT_BLUE = new Color(228, 246, 248);
     private final static Color BLUE = new Color(210, 246, 250);
-
     private final static Color DARK_BLUE = new Color(123, 195, 203);
 
     private GamePanel myGP;
@@ -77,7 +77,6 @@ public class PopUp implements ActionListener {
         timerGUISetup();
         startTimer();
         initializeUI();
-        //displayQuestion(true);
     }
 
     public void timerGUISetup() {
