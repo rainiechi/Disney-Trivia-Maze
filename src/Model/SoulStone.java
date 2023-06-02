@@ -18,7 +18,7 @@ public class SoulStone extends Stone{
         // use your Soul Stone to attempt this door again?"
         // Player can use stone and walk up to door to reset again.
         // Resets a locked door?
-        thePlayer.setSoulStone(true);
+        // thePlayer.setSoulStone(true);
         decreaseUses();
     }
 

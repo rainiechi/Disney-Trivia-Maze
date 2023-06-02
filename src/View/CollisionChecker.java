@@ -212,6 +212,7 @@ public class CollisionChecker implements Serializable {
         } else if (thePlayer.getPlayer().hasSoulStone() && myGp.getObjManager(theIndex).getDoor().getAttempt()) {
             DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to use the Soul Stone to attempt this door again?", myGp);
             if (d.getMyUserAnswer()) {
+                thePlayer.getPlayer().useStone(new SoulStone());
                 myGp.getObjManager(theIndex).setLocked(false);
             }
         }
