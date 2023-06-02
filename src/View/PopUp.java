@@ -64,9 +64,7 @@ public class PopUp implements ActionListener {
         this.myGP = theGP;
         myCountdown = myGP.getMyGame().getTime();; // Countdown duration in seconds
         this.myDoor = theDoor;
-        myDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(theGP), true); //attach the dialog to the frame so they dont seperate
-//        myDialog = new JDialog();
-        myDialog.setModal(false);
+        myDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(theGP), false);
         myQuestionPanel = new JPanel();
         myQuestionArea = new JTextArea();
         myOptionPanel = new JPanel();
