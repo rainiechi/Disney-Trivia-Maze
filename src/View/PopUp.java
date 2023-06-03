@@ -208,7 +208,7 @@ public class PopUp implements ActionListener {
         } else {
             //System.out.println("locking the door from popup");
             myDoor.setAttempted(true);
-            myDoor.setMyUnlock(false);
+            myGP.getGame().getMyPlayer().decreaseHealth();
             showResultDialog("Incorrect");
         }
         //myDoor.setMyUnlock(true);

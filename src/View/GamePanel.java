@@ -19,11 +19,13 @@ public class GamePanel extends JPanel implements Runnable{
     private transient final SoundManager mySound;
     private final HotbarGUI myHotBar;
     private JLayeredPane myLayeredPane;
+    private PlayerHealth myPlayerHealth;
 
 
     public GamePanel() {
         myTileM = new TileManager(this);
         setMyGame(new Game(this));
+        myPlayerHealth = new PlayerHealth(myGame.getMyPlayer());
         mySound = new SoundManager();
         myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
         // BACKGROUND
@@ -100,6 +102,7 @@ public class GamePanel extends JPanel implements Runnable{
 
             repaint();
             myGame.getMyPlayer().getBackpack().displayCurrInventory(); //for testing
+            System.out.println(myGame.getMyPlayer().getHealth());
         } catch (Exception e) {
             showDialog(new SaveLoadPanel("NoSavedFile"));
             System.out.println("Error occurred while loading the game state: " + e.getMessage());
@@ -186,6 +189,8 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
         myGame.getMyPlayerManager().draw(g2);
+        myPlayerHealth.draw(g2);
+
 
         g2.dispose();
     }

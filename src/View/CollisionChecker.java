@@ -178,7 +178,14 @@ public class CollisionChecker {
             myGp.getObjManager(theIndex).setTouched(true);
             myGp.getObjManager(theIndex).setDoor(door);
         }
-        if (!myGp.getObjManager(theIndex).isLocked()) {
+        if (!myGp.getObjManager(theIndex).isLocked() && thePlayer.getPlayer().hasSpaceStone()) {
+            DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to use the Space Stone to skip this door?", myGp);
+            if (d.getMyUserAnswer()) {
+                thePlayer.getPlayer().useStone(new SpaceStone());
+                myGp.deleteObjManager(theIndex);
+            }
+        }
+         else if (!myGp.getObjManager(theIndex).isLocked()) {
             DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to attempt this door?", myGp);
             if (d.getMyUserAnswer()) {
                 myPopUp = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
