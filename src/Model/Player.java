@@ -17,12 +17,17 @@ public class Player implements Serializable {
 
     private boolean mySpaceStone;
     private boolean mySoulStone;
+    private transient GameSettings myGs;
+    private int myHealth;
 
     /**
      * Player constructor.
      */
     public Player() {
+        myGs = new GameSettings();
         myBackpack = new Backpack();
+        myHealth = 3;
+
         myScreenX = GameSettings.SCREEN_WIDTH/2 - (GameSettings.TILE_SIZE/2);
         myScreenY = GameSettings.SCREEN_HEIGHT/2 - (GameSettings.TILE_SIZE/2);
         myWorldX = GameSettings.TILE_SIZE * 38;
@@ -145,6 +150,11 @@ public class Player implements Serializable {
         if (theStone.getStoneName().equals("Space Stone")) setSpaceStone(true);
         myBackpack.addToBackpack(theStone);
     }
+    public void decreaseHealth() {
+        if (myHealth > 0) {
+            myHealth--;
+        }
+    }
 
     /**
      * Uses the specified stone then deletes it from backpack;
@@ -206,5 +216,8 @@ public class Player implements Serializable {
 
     public Backpack getBackpack() {
         return myBackpack;
+    }
+    public int getHealth() {
+        return myHealth;
     }
 }
