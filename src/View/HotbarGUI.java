@@ -103,6 +103,7 @@ public class HotbarGUI extends JPanel {
 
 
         if (stone != null) {
+
             if (stone.getStoneName().equals("Reality Stone")) {
                 if(theGP.getCC().getMyPopUp().getMyDialog().isVisible()) {
                     DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer("Would you like to use this item?", theGP);
@@ -166,26 +167,22 @@ public class HotbarGUI extends JPanel {
                         "Information Pane", JOptionPane.INFORMATION_MESSAGE);
                 dialog.dispose();
             }
-//            else if (stone.getStoneName().equals("Space Stone")) {
-//                if(!theGP.getCC().getMyPopUp().getMyDialog().isVisible()) {
-//                    DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer("Would you like to use this item?", theGP);
-//                    if (yesNoDialog.getMyUserAnswer()) {
-//                        thePlayer.useStone(stone);
-//                    }
-//                }
-//                else {
-//                    // Show a colorful JOptionPane with a message and OK button
-//                    JOptionPane.showMessageDialog(dialog, "You cann't use this Stone when answering trivia",
-//                            "Information Pane", JOptionPane.INFORMATION_MESSAGE);
-//                    dialog.dispose();
-//                }
-//            }
             else if (stone.getStoneName().equals("Space Stone")) {
-                DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer("Would you like to use this item?", theGP);
-                if (yesNoDialog.getMyUserAnswer()) {
-                    thePlayer.useStone(stone);
+                if(theGP.getCC().getMyPopUp().getMyDialog().isVisible()) {
+                    DialogForYesNoAnswer yesNoDialog = new DialogForYesNoAnswer("Would you like to use this item?", theGP);
+                    if (yesNoDialog.getMyUserAnswer()) {
+                        // thePlayer.useStone(stone);
+                        // Flipping the question when this stone is used.
+                    }
+                }
+                else {
+                    // Show a colorful JOptionPane with a message and OK button
+                    JOptionPane.showMessageDialog(dialog, "You can only use this Stone when answering trivia",
+                            "Information Pane", JOptionPane.INFORMATION_MESSAGE);
+                    dialog.dispose();
                 }
             }
+
         }
         // Reset the UIManager properties
         UIManager.put("OptionPane.background", null);
