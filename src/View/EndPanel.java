@@ -1,6 +1,7 @@
 package View;
 
 import Model.GameSettings;
+import Model.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,12 +16,16 @@ public class EndPanel extends JPanel{
     private JTextArea myText;
     private StringBuilder mySB;
     private int myIndex;
+    private Player myPlayer;
+    private GamePanel myGp;
 
 
     /**
      * The end screen that shows when player reaches the exit door.
      */
-    public EndPanel() {
+    public EndPanel(Player thePlayer, GamePanel theGp) {
+        myGp = theGp;
+        myPlayer = thePlayer;
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
         setBackground(Color.BLACK);
         setLayout(null);
@@ -34,14 +39,19 @@ public class EndPanel extends JPanel{
         myText.setWrapStyleWord(true);
         myText.setEditable(false);
         add(myText);
-
-        String text = "Wow... you made it!\n\n" +
-                "Congratulations on your magical journey through the Disney Trivia Maze.\n " +
-                "Your knowledge and love for Disney have truly shone through.\n" +
-                "\nNow, go forth and continue creating your own enchanting adventures, \n" +
-                "just like the characters who inspired us all. \n" +
-                "\nMay the magic never fade!" +
-                "\n\n\n\n\n\n\n         Developed by: Amanda Nguyen, Rainie Chi, Karan Sangha";
+        String text = "";
+        if (myPlayer.getHealth() == 0) {
+            text = "Game over!" +
+                    "\nYou've lost all your health points...";
+        } else {
+            text = "Wow... you made it!\n\n" +
+                    "Congratulations on your magical journey through the Disney Trivia Maze.\n " +
+                    "Your knowledge and love for Disney have truly shone through.\n" +
+                    "\nNow, go forth and continue creating your own enchanting adventures, \n" +
+                    "just like the characters who inspired us all. \n" +
+                    "\nMay the magic never fade!" +
+                    "\n\n\n\n\n\n\n         Developed by: Amanda Nguyen, Rainie Chi, Karan Sangha";
+        }
         mySB = new StringBuilder(text);
 
         myIndex = 0;
@@ -57,12 +67,18 @@ public class EndPanel extends JPanel{
                     myText.setText(mySB.substring(0, myIndex + 1));
                     myIndex++;
                 } else {
+                    DialogForYesNoAnswer dialog = new DialogForYesNoAnswer("Go back to main screen?", myGp);
+                    if (dialog.getMyUserAnswer()) {
+                        GameFrame frame = new GameFrame();
+                        frame.switchToWelcomePanel();
+                    }
                     myTimer.stop();
                 }
             }
         });
 
         myTimer.start();
+
     }
 
     public void paintComponent(final Graphics g) {

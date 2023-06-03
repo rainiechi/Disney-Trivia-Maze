@@ -70,9 +70,14 @@ public class GameFrame extends JFrame {
         theGamePanel.startGameThread(); // Start the game thread
         showDialog(new InstructionPanel()); //show instructions
     }
+    public void switchToWelcomePanel() {
+        myWelcomePanel = new WelcomePanel();
+        setContentPane(myWelcomePanel);
+        revalidate();
+    }
 
     public void switchToEndPanel() {
-        setContentPane(new EndPanel());
+        setContentPane(new EndPanel(myGamePanel.getMyGame().getMyPlayer(), myGamePanel));
         myMenuBar.removeAll();
 
         revalidate();

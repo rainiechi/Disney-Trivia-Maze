@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable{
     public GamePanel() {
         myTileM = new TileManager(this);
         setMyGame(new Game(this));
-        myPlayerHealth = new PlayerHealth(myGame.getMyPlayer());
+        myPlayerHealth = new PlayerHealth(myGame.getMyPlayer(), this);
         mySound = new SoundManager();
         myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
         // BACKGROUND
