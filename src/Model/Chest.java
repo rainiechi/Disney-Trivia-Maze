@@ -7,7 +7,6 @@ import java.util.Random;
 
 public class Chest {
     private Stone myStone; //the stone in the chest
-    private boolean myEmptyChest; //if the chest is currently empty
     private int myRandomNumber;
     private Random myRand;
     private boolean myLocked;
@@ -18,7 +17,6 @@ public class Chest {
      */
     public Chest(final Stone theStone) {
         myStone = theStone;
-        myEmptyChest = false;
         myLocked = false;
     }
 
@@ -27,7 +25,6 @@ public class Chest {
      */
     public Chest(StoneManager theStoneM) {
         myStone = null;
-        myEmptyChest = true;
         myRand = new Random();
         myRandomNumber = myRand.nextInt(16);
         myLocked = false;
@@ -39,7 +36,7 @@ public class Chest {
      * @param theStone the Stone to be added
      */
     public void addToChest(Stone theStone) {
-        myStone = new SoulStone(); //fix
+        myStone = theStone; //fix
     }
     public void randomProbability(StoneManager theStoneM) {
         Stone result = null;
@@ -89,7 +86,6 @@ public class Chest {
      */
     public void clearChest() {
         myStone = null;
-        myEmptyChest = true;
     }
     public void setMyRandomNumber(int theNum) {
         myRandomNumber = theNum;

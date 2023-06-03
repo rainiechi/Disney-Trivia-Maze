@@ -17,16 +17,12 @@ public class Player implements Serializable {
 
     private boolean mySpaceStone;
     private boolean mySoulStone;
-    private transient GameSettings myGs;
 
     /**
      * Player constructor.
      */
     public Player() {
-        myGs = new GameSettings();
         myBackpack = new Backpack();
-
-
         myScreenX = GameSettings.SCREEN_WIDTH/2 - (GameSettings.TILE_SIZE/2);
         myScreenY = GameSettings.SCREEN_HEIGHT/2 - (GameSettings.TILE_SIZE/2);
         myWorldX = GameSettings.TILE_SIZE * 38;
