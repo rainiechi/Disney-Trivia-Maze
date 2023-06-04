@@ -11,7 +11,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class GamePanel extends JPanel implements Runnable{
-    private final static Maze MAZE = new Maze();
     private final transient TileManager myTileM;
     private final transient AssetSetter myAssetSetter;
     private transient Thread myGameThread;
@@ -20,14 +19,16 @@ public class GamePanel extends JPanel implements Runnable{
     private final HotbarGUI myHotBar;
     private JLayeredPane myLayeredPane;
     private PlayerHealth myPlayerHealth;
+    private boolean myGameOver;
 
 
     public GamePanel() {
         myTileM = new TileManager(this);
         setMyGame(new Game(this));
-        myPlayerHealth = new PlayerHealth(myGame.getMyPlayer());
+        myPlayerHealth = new PlayerHealth(myGame.getMyPlayer(), this);
         mySound = new SoundManager();
         myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
+        myGameOver = false;
         // BACKGROUND
         this.setPreferredSize(new Dimension(GameSettings.SCREEN_WIDTH, GameSettings.SCREEN_HEIGHT));
         this.setBackground(Color.BLACK);
@@ -164,9 +165,11 @@ public class GamePanel extends JPanel implements Runnable{
         mySound.loop();
 
     }
-    public void stopMusic() {
+    public void stopMusic(final int theIndex) {
+        mySound.setFile(theIndex);
         mySound.stop();
     }
+
     public void playSE(final int i) {
         mySound.setFile(i);
         mySound.play();
@@ -287,5 +290,10 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
     }
-
+    public void setGameOver(boolean theGame) {
+        myGameOver = theGame;
+    }
+    public boolean isGameOver() {
+        return myGameOver;
+    }
 }

@@ -35,7 +35,7 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         myGamePanel = new GamePanel();
-        //myGamePanel.playMusic(0);
+        myGamePanel.playMusic(0);
     }
 
     public void saveGame() {
@@ -70,9 +70,13 @@ public class GameFrame extends JFrame {
         theGamePanel.startGameThread(); // Start the game thread
         showDialog(new InstructionPanel()); //show instructions
     }
+    public void switchToWelcomePanel() {
+        setContentPane(myWelcomePanel);
+        revalidate();
+    }
 
     public void switchToEndPanel() {
-        setContentPane(new EndPanel());
+        setContentPane(new EndPanel(myGamePanel.getMyGame().getMyPlayer(), myGamePanel));
         myMenuBar.removeAll();
 
         revalidate();

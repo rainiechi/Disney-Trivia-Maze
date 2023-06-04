@@ -4,6 +4,7 @@ import Model.GameSettings;
 import Model.Player;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -15,7 +16,9 @@ public class PlayerHealth implements Serializable  {
     private transient BufferedImage myImage;
     private Font myArial30;
     private Player myPlayer;
-    public PlayerHealth (Player thePlayer) {
+    private GamePanel myGp;
+    public PlayerHealth (Player thePlayer, GamePanel theGamePanel) {
+        myGp = theGamePanel;
         myArial30 = new Font("Arial", Font.BOLD, 30);
         myPlayer = thePlayer;
         try {
@@ -32,8 +35,6 @@ public class PlayerHealth implements Serializable  {
 
             g2.drawImage(myImage, GameSettings.TILE_SIZE / 2, GameSettings.TILE_SIZE / 2, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE, null);
             g2.drawString("X " + myPlayer.getHealth(), 100, 65);
-        } else {
-            // losing scenario
         }
     }
     private void writeObject(ObjectOutputStream out) throws IOException {
