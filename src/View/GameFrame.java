@@ -35,7 +35,7 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         myGamePanel = new GamePanel();
-        //myGamePanel.playMusic(0);
+        myGamePanel.playMusic(0);
     }
 
     public void saveGame() {
@@ -71,7 +71,6 @@ public class GameFrame extends JFrame {
         showDialog(new InstructionPanel()); //show instructions
     }
     public void switchToWelcomePanel() {
-        myWelcomePanel = new WelcomePanel();
         setContentPane(myWelcomePanel);
         revalidate();
     }

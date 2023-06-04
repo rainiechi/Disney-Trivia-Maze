@@ -168,10 +168,6 @@ public class CollisionChecker {
         }
     }
 
-    public PopUp getMyPopUp() {
-        return myPopUp;
-    }
-
     public void doorMethod(final int theIndex, final PlayerManager thePlayer) {
         if (!myGp.getObjManager(theIndex).isTouched()) {
             Door door = new Door(myQuestionRecord);
@@ -183,9 +179,14 @@ public class CollisionChecker {
             if (d.getMyUserAnswer()) {
                 thePlayer.getPlayer().useStone(new SpaceStone());
                 myGp.deleteObjManager(theIndex);
+                if (thePlayer.getDirection().equals("left")) {
+                    myGp.deleteObjManager(theIndex - 1);
+                } else if (thePlayer.getDirection().equals("right")) {
+                    myGp.deleteObjManager(theIndex + 1);
+                }
             }
         }
-         else if (!myGp.getObjManager(theIndex).isLocked()) {
+         if (myGp.getObjManager(theIndex) != null && !myGp.getObjManager(theIndex).isLocked()) {
             DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to attempt this door?", myGp);
             if (d.getMyUserAnswer()) {
                 myPopUp = new PopUp(myGp.getObjManager(theIndex).getDoor(), myGp);
@@ -207,13 +208,14 @@ public class CollisionChecker {
                     myGp.getObjManager(theIndex).setLocked(true);
                 }
             }
-        } else if (thePlayer.getPlayer().hasSoulStone() && myGp.getObjManager(theIndex).getDoor().getAttempt()) {
+        } else if (myGp.getObjManager(theIndex) != null && thePlayer.getPlayer().hasSoulStone() && myGp.getObjManager(theIndex).getDoor().getAttempt()) {
             DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to use the Soul Stone to attempt this door again?", myGp);
             if (d.getMyUserAnswer()) {
                 thePlayer.getPlayer().useStone(new SoulStone());
                 myGp.getObjManager(theIndex).setLocked(false);
             }
         }
+        checkExitDoors(thePlayer);
     }
     public void chestMethods(final int theIndex, final Player thePlayer) {
         if (!myGp.getObjManager(theIndex).isTouched()) {
@@ -232,7 +234,19 @@ public class CollisionChecker {
                 }
             }
         }
-
+    }
+    public void checkExitDoors(final PlayerManager thePlayer) {
+        if (myGp.getObjManager(8) != null && myGp.getObjManager(8).isLocked()
+                && (myGp.getObjManager(11) != null && myGp.getObjManager(11).isLocked()
+                || myGp.getObjManager(24) != null && myGp.getObjManager(24).isLocked())
+                && !thePlayer.getPlayer().hasSoulStone()) {
+            myGp.setGameOver(true);
+            GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(myGp);
+            frame.switchToEndPanel();
+        }
+    }
+    public PopUp getMyPopUp() {
+        return myPopUp;
     }
 
 }

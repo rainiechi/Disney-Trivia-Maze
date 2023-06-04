@@ -1,10 +1,10 @@
 package View;
 
 import Model.GameSettings;
-import Model.Maze;
+
 
 import java.io.Serializable;
-import java.util.Random;
+
 
 public class AssetSetter {
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
@@ -21,7 +21,7 @@ public class AssetSetter {
         setWhiteDoors();
         setChests();
         setSideDoors();
-        randomExitLocation();
+        ExitLocation();
     }
 
     /**
@@ -31,15 +31,20 @@ public class AssetSetter {
         // Starts at (8,14) on the map
         int x = 8;
         int y = 14;
-        for (int i = 0; i <= 20; i++) {
+        for (int i = 0; i <= 19; i++) {
             myObjManager[i] = new ObjectManager("Door", x * TILE_SIZE, y * TILE_SIZE, true);
             y += 13;
             // Starts at a new column on the map.
-            if (i == 3 || i == 7 || i == 11 || i == 15 || i == 19) {
+            if (i == 3 || i == 7 || i == 10 || i == 14 || i == 18) {
                 y = 14;
                 x += 15;
+            } if (i == 8) {
+                y = 40;
             }
         }
+    }
+    public void ExitLocation() {
+        myObjManager[20] = new ObjectManager("Exit", 38 * TILE_SIZE, 1 * TILE_SIZE, true);
     }
     public void setSideDoors() {
         // Starts at (12,2) on the map
@@ -82,7 +87,4 @@ public class AssetSetter {
         myObjManager[60] = new ObjectManager("Chest", 54 * TILE_SIZE, 42 * TILE_SIZE, true);
     }
 
-    public void randomExitLocation() {
-            myObjManager[61] = new ObjectManager("Exit", 38 * TILE_SIZE, 1 * TILE_SIZE, true);
-    }
 }

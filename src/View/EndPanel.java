@@ -43,6 +43,10 @@ public class EndPanel extends JPanel{
         if (myPlayer.getHealth() == 0) {
             text = "Game over!" +
                     "\nYou've lost all your health points...";
+        }
+        else if (myPlayer.getHealth() > 0 && myGp.isGameOver()) {
+            text = "Game over!" +
+                    "\nAll doors to the exit has been locked...";
         } else {
             text = "Wow... you made it!\n\n" +
                     "Congratulations on your magical journey through the Disney Trivia Maze.\n " +
@@ -69,7 +73,7 @@ public class EndPanel extends JPanel{
                 } else {
                     DialogForYesNoAnswer dialog = new DialogForYesNoAnswer("Go back to main screen?", myGp);
                     if (dialog.getMyUserAnswer()) {
-                        GameFrame frame = new GameFrame();
+                        GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(myGp);
                         frame.switchToWelcomePanel();
                     }
                     myTimer.stop();
