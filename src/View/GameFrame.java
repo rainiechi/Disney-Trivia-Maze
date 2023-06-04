@@ -35,17 +35,8 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         myGamePanel = new GamePanel();
-        myGamePanel.playMusic(0);
+        //myGamePanel.playMusic(0);
     }
-
-    public void saveGame() {
-        myGamePanel.saveGame();
-    }
-
-    public void loadGame() {
-        myGamePanel.loadGame();
-    }
-
 
     /**
      * Sets the icon for the game to pixar ball.
@@ -78,7 +69,6 @@ public class GameFrame extends JFrame {
     public void switchToEndPanel() {
         setContentPane(new EndPanel(myGamePanel.getMyGame().getMyPlayer(), myGamePanel));
         myMenuBar.removeAll();
-
         revalidate();
     }
 
@@ -136,8 +126,8 @@ public class GameFrame extends JFrame {
         myExitItem.addActionListener(theEvent -> showDialog(new ExitPanel()));
         myAboutItem.addActionListener(theEvent -> showDialog(new AboutPanel()));
         myInstructionItem.addActionListener(theEvent -> showDialog(new InstructionPanel()));
-        mySaveItem.addActionListener(e -> saveGame());
-        myLoadItem.addActionListener(e -> loadGame());
+        mySaveItem.addActionListener(e -> myGamePanel.saveGame());
+        myLoadItem.addActionListener(e -> myGamePanel.loadGame());
     }
 
     /**

@@ -162,6 +162,7 @@ public class CollisionChecker {
                 case "Exit":
                     GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(myGp);
                     frame.switchToEndPanel();
+                    myGp.deleteSavedGame();
                     break;
             }
             theKeyH.setAllKeys();
@@ -243,6 +244,7 @@ public class CollisionChecker {
             myGp.setGameOver(true);
             GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(myGp);
             frame.switchToEndPanel();
+            myGp.deleteSavedGame();
         }
     }
     public PopUp getMyPopUp() {

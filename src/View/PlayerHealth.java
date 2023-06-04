@@ -12,13 +12,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-public class PlayerHealth implements Serializable  {
+public class PlayerHealth {
     private transient BufferedImage myImage;
     private Font myArial30;
     private Player myPlayer;
-    private GamePanel myGp;
-    public PlayerHealth (Player thePlayer, GamePanel theGamePanel) {
-        myGp = theGamePanel;
+
+    public PlayerHealth (Player thePlayer) {
         myArial30 = new Font("Arial", Font.BOLD, 30);
         myPlayer = thePlayer;
         try {

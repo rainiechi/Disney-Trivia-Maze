@@ -5,10 +5,7 @@ import Model.Maze;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 
 public class GamePanel extends JPanel implements Runnable{
     private final transient TileManager myTileM;
@@ -18,14 +15,13 @@ public class GamePanel extends JPanel implements Runnable{
     private transient final SoundManager mySound;
     private final HotbarGUI myHotBar;
     private JLayeredPane myLayeredPane;
-    private PlayerHealth myPlayerHealth;
+    private transient PlayerHealth myPlayerHealth;
     private boolean myGameOver;
 
 
     public GamePanel() {
         myTileM = new TileManager(this);
         setMyGame(new Game(this));
-        myPlayerHealth = new PlayerHealth(myGame.getMyPlayer(), this);
         mySound = new SoundManager();
         myAssetSetter = new AssetSetter(myGame.getMyObjManagers());
         myGameOver = false;
@@ -54,24 +50,38 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
 
+    /**
+     * Sets the game (either a saved game or new game).
+     * @param theGame the game to be set
+     */
     public void setMyGame(final Game theGame) {
         System.out.println("1");
         myGame = theGame;
         addKeyListener(myGame.getMyKeyHandler());
+        myPlayerHealth = new PlayerHealth(myGame.getMyPlayer());
         this.setFocusable(true);
     }
 
+    /**
+     * Starts the game thread.
+     */
     public void startGameThread() {
         myGameThread = new Thread(this);
         myGameThread.start();
     }
 
+    /**
+     * Returns the layered panel with the hotbar.
+     * @return layeredpane
+     */
     public JLayeredPane getMyLayeredPane() {
         return myLayeredPane;
     }
 
 
-
+    /**
+     * Saves the current game.
+     */
     public void saveGame() {
         try {
             FileOutputStream fileOut = new FileOutputStream("game_state.ser");
@@ -86,7 +96,11 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
-    public void loadGame() {
+    /**
+     * Loads a saved game.
+     * @return whether there was a saved game file.
+     */
+    public boolean loadGame() {
         try {
             FileInputStream fileIn = new FileInputStream("game_state.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
@@ -104,9 +118,31 @@ public class GamePanel extends JPanel implements Runnable{
             repaint();
             myGame.getMyPlayer().getBackpack().displayCurrInventory(); //for testing
             System.out.println(myGame.getMyPlayer().getHealth());
+            return true;
         } catch (Exception e) {
             showDialog(new SaveLoadPanel("NoSavedFile"));
             System.out.println("Error occurred while loading the game state: " + e.getMessage());
+            return false;
+        }
+    }
+
+    /**
+     * Deletes the current saved game file.
+     */
+    public void deleteSavedGame() {
+        try {
+            File savedFile = new File("game_state.ser");
+            if (savedFile.exists()) {
+                if (savedFile.delete()) {
+                    System.out.println("Saved game file deleted successfully.");
+                } else {
+                    System.out.println("Failed to delete the saved game file.");
+                }
+            } else {
+                System.out.println("No saved game file exists.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error occurred while deleting the saved game file: " + e.getMessage());
         }
     }
 
@@ -151,29 +187,14 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
 
-
+    /**
+     * Returns the current Game.
+     * @return current Game
+     */
     public Game getMyGame() {
         return myGame;
     }
 
-
-
-
-    public void playMusic(final int theIndex) {
-        mySound.setFile(theIndex);
-        mySound.play();
-        mySound.loop();
-
-    }
-    public void stopMusic(final int theIndex) {
-        mySound.setFile(theIndex);
-        mySound.stop();
-    }
-
-    public void playSE(final int i) {
-        mySound.setFile(i);
-        mySound.play();
-    }
 
     public void paintComponent(Graphics g) {
 
@@ -197,6 +218,7 @@ public class GamePanel extends JPanel implements Runnable{
 
         g2.dispose();
     }
+
     public PlayerManager getPlayerManager() {
         return myGame.getMyPlayerManager();
     }

@@ -80,9 +80,9 @@ public class WelcomePanel extends JPanel {
         myLoadGameButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(WelcomePanel.this);
-                frame.loadGame();
-                frame.switchToGamePanel(frame.getMyGamePanel());
-
+                if (frame.getMyGamePanel().loadGame()) {
+                    frame.switchToGamePanel(frame.getMyGamePanel());
+                }
             }
         });
     }

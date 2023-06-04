@@ -64,6 +64,7 @@ public class EndPanel extends JPanel{
     }
 
     public void startTimer() {
+        JPanel thisP = this;
         myTimer = new Timer(25, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,7 +74,7 @@ public class EndPanel extends JPanel{
                 } else {
                     DialogForYesNoAnswer dialog = new DialogForYesNoAnswer("Go back to main screen?", myGp);
                     if (dialog.getMyUserAnswer()) {
-                        GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(myGp);
+                        GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(thisP);
                         frame.switchToWelcomePanel();
                     }
                     myTimer.stop();
@@ -84,7 +85,6 @@ public class EndPanel extends JPanel{
         myTimer.start();
 
     }
-
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
         g.setColor(Color.BLACK);
