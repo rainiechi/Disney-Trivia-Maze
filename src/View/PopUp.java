@@ -215,6 +215,7 @@ public class PopUp implements ActionListener {
                 myDialog.dispose();
                 GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(myGP);
                 frame.switchToEndPanel();
+                myGP.deleteSavedGame();
             }
         }
         //myDoor.setMyUnlock(true);
