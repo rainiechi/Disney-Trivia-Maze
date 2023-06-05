@@ -36,6 +36,11 @@ public class Player implements Serializable {
         mySpaceStone = false;
         mySoulStone = false;
         myTimeLimit = 15;
+        addToBackpack(new TimeStone());
+        addToBackpack(new PowerStone());
+        addToBackpack(new MindStone());
+        addToBackpack(new SpaceStone());
+        addToBackpack(new RealityStone());
     }
 
 
