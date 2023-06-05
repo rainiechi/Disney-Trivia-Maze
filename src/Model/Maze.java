@@ -109,17 +109,7 @@ public class Maze {
     public int getMyMapTileNum(int col, int row) {
         return myMapTileNum[col][row];
     }
-    public void setMyMapTileNum(int col, int row, int theNum) {
-        myMapTileNum[col][row] = theNum;
-    }
 
-    /**
-     * Getter method for 2D array of tiles.
-     * @return 2D of map tiles
-     */
-    public int[][] getMaze() {
-        return myMapTileNum;
-    }
 
     /**
      * Getter method for Tile
