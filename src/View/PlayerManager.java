@@ -69,15 +69,15 @@ public class PlayerManager implements Serializable {
      */
     public void setPlayerImage() {
         try {
-            myUp1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up1.png"));
-            myUp2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up2.png"));
-            myDown1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_left.png"));
-            myDown2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_right.png"));
-            myLeft1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_1.xcf.png"));
-            myLeft2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_2.xcf.png"));
-            myRight1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_right_1.xcf.png"));
-            myRight2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_right_2.xcf.png"));
-            myHead = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/sprite_headshot.png"));
+            myUp1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/mike_up1.png"));
+            myUp2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/mike_up2.png"));
+            myDown1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/mike_down1.png"));
+            myDown2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/mike_down2.png"));
+            myLeft1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/mike_left.png"));
+            myLeft2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/mike_left2.png"));
+            myRight1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/mike_right1.png"));
+            myRight2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/mike_right2.png"));
+            myHead = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/mike_stand.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

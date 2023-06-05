@@ -84,7 +84,7 @@ public class AssetSetter {
         myObjManager[57] = new ObjectManager("Chest", 68 * TILE_SIZE, 2 * TILE_SIZE, true);
         myObjManager[58] = new ObjectManager("Chest", 23 * TILE_SIZE, 55 * TILE_SIZE, true);
         myObjManager[59] = new ObjectManager("Chest", 68 * TILE_SIZE, 29 * TILE_SIZE, true);
-        myObjManager[60] = new ObjectManager("Chest", 54 * TILE_SIZE, 42 * TILE_SIZE, true);
+        myObjManager[60] = new ObjectManager("Chest", 53 * TILE_SIZE, 42 * TILE_SIZE, true);
     }
 
 }
