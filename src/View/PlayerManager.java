@@ -71,8 +71,8 @@ public class PlayerManager implements Serializable {
         try {
             myUp1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up1.png"));
             myUp2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up2.png"));
-            myDown1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_left.png"));
-            myDown2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_right.png"));
+            myDown1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/mike_down1.png"));
+            myDown2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/mike_down2.png"));
             myLeft1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_1.xcf.png"));
             myLeft2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_2.xcf.png"));
             myRight1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_right_1.xcf.png"));
