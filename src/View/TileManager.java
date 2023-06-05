@@ -4,7 +4,6 @@ import Model.GameSettings;
 import Model.Maze;
 
 import java.awt.*;
-import java.io.Serializable;
 
 
 public class TileManager {
@@ -13,8 +12,7 @@ public class TileManager {
     private static final int MAX_WORLD_ROW = GameSettings.MAX_WORLD_ROW;
     private final static Maze MAZE = new Maze();
     /** Field for GamePanel */
-    private GamePanel myGp;
-    /** Field for Maze */
+    private final GamePanel myGp;
 
     /**
      * Constructor initializes the fields.

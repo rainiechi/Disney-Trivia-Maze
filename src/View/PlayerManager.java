@@ -1,6 +1,5 @@
 package View;
 
-import Model.Chest;
 import Model.GameSettings;
 import Model.Player;
 
@@ -8,9 +7,8 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class PlayerManager implements Serializable {
     private transient BufferedImage myUp1, myUp2, myDown1, myDown2, myLeft1, myLeft2, myRight1, myRight2, myHead;
@@ -18,8 +16,8 @@ public class PlayerManager implements Serializable {
 
     private int mySpriteCounter;
     private int mySpriteNum;
-    private GamePanel myGp;
-    private Player myPlayer;
+    private final GamePanel myGp;
+    private final Player myPlayer;
     private int myX;
     private int myY;
     private int myWorldX;
@@ -69,15 +67,15 @@ public class PlayerManager implements Serializable {
      */
     public void setPlayerImage() {
         try {
-            myUp1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up1.png"));
-            myUp2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up2.png"));
-            myDown1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_left.png"));
-            myDown2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_right.png"));
-            myLeft1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_1.xcf.png"));
-            myLeft2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_2.xcf.png"));
-            myRight1 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_right_1.xcf.png"));
-            myRight2 = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_right_2.xcf.png"));
-            myHead = ImageIO.read(getClass().getResourceAsStream("/res/playerAssets/sprite_headshot.png"));
+            myUp1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up1.png")));
+            myUp2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_up2.png")));
+            myDown1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_left.png")));
+            myDown2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_down_right.png")));
+            myLeft1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_1.xcf.png")));
+            myLeft2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_left_2.xcf.png")));
+            myRight1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_right_1.xcf.png")));
+            myRight2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/playerAssets/girl_sprite_right_2.xcf.png")));
+            myHead = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/res/playerAssets/sprite_headshot.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -107,11 +105,11 @@ public class PlayerManager implements Serializable {
             myGp.getCC().pickUpObject(objIndex, myKeyH, this);
 
             if (!myCollision) {
-                switch(myDirection) {
-                    case "up": myWorldY -= myPlayer.getPlayerSpeed(); break;
-                    case "down": myWorldY += myPlayer.getPlayerSpeed(); break;
-                    case "left": myWorldX -= myPlayer.getPlayerSpeed(); break;
-                    case "right": myWorldX += myPlayer.getPlayerSpeed(); break;
+                switch (myDirection) {
+                    case "up" -> myWorldY -= myPlayer.getPlayerSpeed();
+                    case "down" -> myWorldY += myPlayer.getPlayerSpeed();
+                    case "left" -> myWorldX -= myPlayer.getPlayerSpeed();
+                    case "right" -> myWorldX += myPlayer.getPlayerSpeed();
                 }
             }
             mySpriteCounter++;
@@ -133,39 +131,39 @@ public class PlayerManager implements Serializable {
     public void draw(final Graphics2D theG2) {
         BufferedImage image = null;
 
-        switch(myDirection) {
-            case "up":
+        switch (myDirection) {
+            case "up" -> {
                 if (mySpriteNum == 1) {
                     image = myUp1;
                 }
                 if (mySpriteNum == 2) {
                     image = myUp2;
                 }
-                break;
-            case "down":
+            }
+            case "down" -> {
                 if (mySpriteNum == 1) {
                     image = myDown1;
                 }
                 if (mySpriteNum == 2) {
                     image = myDown2;
                 }
-                break;
-            case "left":
+            }
+            case "left" -> {
                 if (mySpriteNum == 1) {
                     image = myLeft1;
                 }
                 if (mySpriteNum == 2) {
                     image = myLeft2;
                 }
-                break;
-            case "right":
+            }
+            case "right" -> {
                 if (mySpriteNum == 1) {
                     image = myRight1;
                 }
                 if (mySpriteNum == 2) {
                     image = myRight2;
                 }
-                break;
+            }
         }
         theG2.drawImage(image, myX, myY, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE, null);
 
