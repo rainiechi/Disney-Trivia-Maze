@@ -9,18 +9,17 @@ import java.io.Serializable;
 
 public class Door implements Serializable {
     private transient BufferedImage myImage;
-    private transient DBRetriever myRetriever;
-    private Question myQuestion;
+    private final Question myQuestion;
     private boolean myUnlocked;
     private boolean myAttempted;
     private String myPlayerAnswer;
-    private QuestionRecord myRecord;
+    private final QuestionRecord myRecord;
 
 
     public Door (final QuestionRecord theRecord) {
 
         myRecord = theRecord;
-        myRetriever = new DBRetriever();
+        DBRetriever myRetriever = new DBRetriever();
         myQuestion = getUnusedQuestion(myRetriever);
         myUnlocked = false;
         myAttempted = false;
@@ -64,7 +63,7 @@ public class Door implements Serializable {
     }
     public void checkPlayerAnswer() {
         String myAnswer = myQuestion.getMyAnswer();
-        if (myAnswer.toLowerCase().equals(myPlayerAnswer.toLowerCase())) {
+        if (myAnswer.equalsIgnoreCase(myPlayerAnswer)) {
             myUnlocked = true;
         }
         myAttempted = true;
@@ -96,27 +95,5 @@ public class Door implements Serializable {
         return myQuestion;
     }
 
-
-
-//    public String getQuestion() {
-//        return myQuestion.getMyQuestion();
-//    }
-//
-//    public String getAnswer() {
-//        return myQuestion.getMyAnswer();
-//    }
-//
-//    public String getOption1() {
-//        return myQuestion.getMyOption1();
-//    }
-//    public String getMyOption2() {
-//        return myQuestion.getMyOption2();
-//    }
-//    public String getMyOption3() {
-//        return myQuestion.getMyOption3();
-//    }
-//    public String getMyOption4() {
-//        return myQuestion.getMyOption4();
-//    }
 
 }
