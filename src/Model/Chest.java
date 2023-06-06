@@ -35,7 +35,10 @@ public class Chest {
      * Adds the specified stone to the chest
      * @param theStone the Stone to be added
      */
-    public void addToChest(Stone theStone) {
+    public void addToChest(final Stone theStone) {
+        if (theStone == null) {
+            throw new IllegalArgumentException("Stone cannot be null");
+        }
         myStone = theStone; //fix
     }
     public void randomProbability(StoneManager theStoneM) {
