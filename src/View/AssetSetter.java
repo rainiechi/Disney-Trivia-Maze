@@ -17,7 +17,7 @@ public class AssetSetter {
      * @param theObjManager Array of ObjectManager
      */
     public AssetSetter(final ObjectManager[] theObjManager) {
-        myObjManager = theObjManager;
+        this.myObjManager = theObjManager;
         setWhiteDoors();
         setChests();
         setSideDoors();

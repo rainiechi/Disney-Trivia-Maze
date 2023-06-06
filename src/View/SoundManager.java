@@ -7,7 +7,7 @@ import java.io.File;
 
 public class SoundManager {
     private Clip myClip;
-    private File[] mySoundURL;
+    private final File[] mySoundURL;
 
     public SoundManager() {
         mySoundURL = new File[3];
