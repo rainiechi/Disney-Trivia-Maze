@@ -5,12 +5,18 @@ import SQLite.DBRetriever;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * QuestionRecord class keeps track of questions that have been used.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class QuestionRecord implements Serializable {
     /**
      * The list of used question.
      */
     private List<Integer> myQuestionRecord;
+    /** Total number of questions */
     private int myTotalQuestions;
 
     /**

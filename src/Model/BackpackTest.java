@@ -3,9 +3,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
+/**
+ * BackpackTest tests methods in Backpack class.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class BackpackTest {
-    /** Create instance of Player class to use in the tests */
+    /** Create instance of Backpack class to use in the tests */
     private Backpack myBackpack;
+    /** Create instance of Player class to use in the tests */
     private Player myPlayer;
 
     @BeforeEach
@@ -13,11 +20,18 @@ public class BackpackTest {
         myPlayer = new Player();
         myBackpack = new Backpack();
     }
+
+    /**
+     * Tests addToBackpack method
+     */
     @Test
     void testAddToBackpack() {
         myBackpack.addToBackpack(new MindStone());
         assertEquals(1, myBackpack.getCurrItems());
     }
+    /**
+     * Tests addToBackpack method when all slots are filled
+     */
     @Test
     void testAddToBackpackFull() {
         myBackpack.addToBackpack(new MindStone());
@@ -28,7 +42,9 @@ public class BackpackTest {
         myBackpack.addToBackpack(new RealityStone());
         assertEquals(6, myBackpack.getCurrItems());
     }
-
+    /**
+     * Tests addToBackpack method when you add more than 6 stones
+     */
     @Test
     void testAddToBackpackPastMax() {
         myBackpack.addToBackpack(new MindStone());
@@ -47,6 +63,9 @@ public class BackpackTest {
         assertTrue(thrown.getMessage().equals("Game error, there should be no more than 6 stones in game"));
     }
 
+    /**
+     * Tests getStone method
+     */
     @Test
     void testGetStone() {
         myBackpack.addToBackpack(new MindStone());
@@ -57,6 +76,9 @@ public class BackpackTest {
         assertEquals("Power Stone", myBackpack.getStone(2).getStoneName());
     }
 
+    /**
+     * Tests getStone method if there is nothing in backpack
+     */
     @Test
     void testGetStoneNull() {
         NullPointerException thrown = assertThrows(
@@ -68,6 +90,9 @@ public class BackpackTest {
         assertTrue(thrown.getMessage().equals("No stone at this index"));
     }
 
+    /**
+     * Test deleteStone method from backpack
+     */
     @Test
     void testDeleteStone() {
         myBackpack.addToBackpack(new MindStone());
@@ -82,6 +107,9 @@ public class BackpackTest {
         assertTrue(thrown.getMessage().equals("No stone at this index"));
     }
 
+    /**
+     * Test findStone method from Backpack
+     */
     @Test
     void testFindStone() {
         myBackpack.addToBackpack(new MindStone());
@@ -93,10 +121,17 @@ public class BackpackTest {
         assertEquals(2, myBackpack.findStone(new PowerStone()));
     }
 
+    /**
+     * Tests findStone method if the specified stone isn't inside.
+     */
     @Test
     void testFindStoneNull() {
         assertEquals(-1, myBackpack.findStone(new PowerStone()));
     }
+
+    /**
+     * Tests getCurrItems method which is the current number of items in backpack.
+     */
     @Test
     void getCurrItems() {
         myBackpack.addToBackpack(new MindStone());

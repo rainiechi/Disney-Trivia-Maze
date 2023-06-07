@@ -199,14 +199,10 @@ public class PopUp implements ActionListener {
      * @param thePlayerAnswers It is the answer that the res.player selected.
      */
     private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers){
-
-
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
-            //System.out.println("Unlocking the door from popup"); //for testing
             myDoor.setMyUnlock(true);
             showResultDialog("Correct");
         } else {
-            //System.out.println("locking the door from popup");
             myDoor.setAttempted(true);
             myGP.getGame().getMyPlayer().decreaseHealth();
             if (myGP.getGame().getMyPlayer().getHealth() > 0) {
@@ -218,7 +214,6 @@ public class PopUp implements ActionListener {
                 myGP.deleteSavedGame();
             }
         }
-        //myDoor.setMyUnlock(true);
     }
 
     public void disableWrongAnswerButton(int theNumberOfButtons){

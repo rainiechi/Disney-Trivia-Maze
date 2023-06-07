@@ -2,11 +2,8 @@ package View;
 
 import Model.GameSettings;
 
-
-import java.io.Serializable;
-
-
 public class AssetSetter {
+    /** Tile size */
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
 
     /** private array of ObjectManager field */
@@ -32,26 +29,39 @@ public class AssetSetter {
         int x = 8;
         int y = 14;
         for (int i = 0; i <= 19; i++) {
+            // sets doors by going down rows.
             myObjManager[i] = new ObjectManager("Door", x * TILE_SIZE, y * TILE_SIZE, true);
             y += 13;
             // Starts at a new column on the map.
             if (i == 3 || i == 7 || i == 10 || i == 14 || i == 18) {
                 y = 14;
                 x += 15;
-            } if (i == 8) {
+            } if (i == 8) { // this if statement is specifically skipping a row.
                 y = 40;
             }
         }
     }
+
+    /**
+     * Sets exit door location on the map.
+     */
     public void ExitLocation() {
+        // location of exit door is (38,1) on world map.
         myObjManager[20] = new ObjectManager("Exit", 38 * TILE_SIZE, 1 * TILE_SIZE, true);
     }
+
+    /**
+     * Sets side door locations on the map.
+     */
     public void setSideDoors() {
         // Starts at (12,2) on the map
         int x = 12;
         int y = 3;
         int count = 0;
         for (int i = 21; i <= 52; i++) {
+            // sets side doors by moving column to column.
+            // if statements are used to move to the next row
+            // or skip a column.
             myObjManager[i] = new ObjectManager("SideDoor", x * TILE_SIZE, y * TILE_SIZE, true);
             if (count == 2) {
                 x += 8;

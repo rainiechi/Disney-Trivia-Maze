@@ -3,25 +3,38 @@ package Model;
 
 import java.io.Serializable;
 
+/**
+ * Player class contains the state of a player and methods.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class Player implements Serializable {
-
+    /** Backpack object */
     private Backpack myBackpack;
+    /** X position on screen */
     private int myScreenX;
+    /** Y position on screen */
     private int myScreenY;
-
+    /** X position on world map */
     private int myWorldX;
+    /** Y position on world map */
     private int myWorldY;
+    /** Player speed */
     private int myPlayerSpeed;
-
+    /** Time limit */
     private int myTimeLimit;
-
+    /** Boolean for space stone */
     private boolean mySpaceStone;
+    /** Boolean for Soul stone */
     private boolean mySoulStone;
+    /** Game settings */
     private transient GameSettings myGs;
+    /** Health of the player */
     private int myHealth;
 
     /**
-     * Player constructor.
+     * Player constructor initializes fields.
      */
     public Player() {
         myGs = new GameSettings();
@@ -36,11 +49,62 @@ public class Player implements Serializable {
         mySpaceStone = false;
         mySoulStone = false;
         myTimeLimit = 15;
-        addToBackpack(new TimeStone());
-        addToBackpack(new PowerStone());
-        addToBackpack(new MindStone());
-        addToBackpack(new SpaceStone());
-        addToBackpack(new RealityStone());
+    }
+
+    /**
+     * Adds to player's backpack
+     * @param theStone the stone to be added
+     */
+    public void addToBackpack(Stone theStone) {
+        if (theStone.getStoneName().equals("Soul Stone")) setSoulStone(true);
+        if (theStone.getStoneName().equals("Space Stone")) setSpaceStone(true);
+        myBackpack.addToBackpack(theStone);
+    }
+    public void decreaseHealth() {
+        if (myHealth > 0) {
+            myHealth--;
+        }
+    }
+
+    /**
+     * Uses the specified stone then deletes it from backpack;
+     * @param theStone theStone to be used.
+     */
+    public void useStone(final Stone theStone) {
+        int stoneIndex = myBackpack.findStone(theStone);
+
+        //System.out.println("The stone is a Mind stone "+theStone.getStoneName());
+        if (stoneIndex < 0) {
+            throw new IllegalArgumentException("Player does not have this stone.");
+        } else {
+            Stone stone = myBackpack.getStone(stoneIndex);
+
+            stone.useAbility(this);
+            if (stone.getUses() == 0) {
+                myBackpack.deleteStone(stoneIndex);
+            }
+            if (stone.getStoneName().equals("Soul Stone")) setSoulStone(false);
+            if (stone.getStoneName().equals("Space Stone")) setSpaceStone(false);
+        }
+    }
+    /**
+     * Takes the stone that is in the chest.
+     * @param theChest the chest to take from
+     */
+    public void takeStone(final Chest theChest) {
+        if (theChest.getMyStone() == null) {
+            throw new NullPointerException("Chest is empty");
+        } else {
+            addToBackpack(theChest.getMyStone());
+            theChest.clearChest();
+        }
+    }
+
+    /**
+     * Display player's backpack.
+     */
+    public void displayBackpack() {
+        myBackpack.displayCurrInventory();
     }
 
 
@@ -99,12 +163,11 @@ public class Player implements Serializable {
     }
 
 
-    // Will be used to later on to allow res.player to bypass door without trivia.
     /**
      * Checks if player has a space stone.
      * @return true if player has a space stone, otherwise false.
      */
-    public boolean hasSpaceStone() { return mySpaceStone;}
+    public boolean isSpaceStone() { return mySpaceStone;}
 
     /**
      * Sets space stone to true or false.
@@ -114,13 +177,12 @@ public class Player implements Serializable {
         mySpaceStone = check;
     }
 
-    // Will be used later to allow res.player to reset door. Field and method may be moved to DOOR class
-    // once created.
+
     /**
      * Checks if player has a soul stone.
      * @return true if player has a soul stone, otherwise false.
      */
-    public boolean hasSoulStone() { return mySoulStone;}
+    public boolean isSoulStone() { return mySoulStone;}
 
     /**
      * Sets space stone to true or false.
@@ -147,50 +209,6 @@ public class Player implements Serializable {
     }
 
     /**
-     * Adds to player's backpack
-     * @param theStone the stone to be added
-     */
-    public void addToBackpack(Stone theStone) {
-        if (theStone.getStoneName().equals("Soul Stone")) setSoulStone(true);
-        if (theStone.getStoneName().equals("Space Stone")) setSpaceStone(true);
-        myBackpack.addToBackpack(theStone);
-    }
-    public void decreaseHealth() {
-        if (myHealth > 0) {
-            myHealth--;
-        }
-    }
-
-    /**
-     * Uses the specified stone then deletes it from backpack;
-     * @param theStone theStone to be used.
-     */
-    public void useStone(final Stone theStone) {
-        int stoneIndex = myBackpack.findStone(theStone);
-
-        //System.out.println("The stone is a Mind stone "+theStone.getStoneName());
-        if (stoneIndex < 0) {
-            throw new IllegalArgumentException("Player does not have this stone.");
-        } else {
-            Stone stone = myBackpack.getStone(stoneIndex);
-
-            stone.useAbility(this);
-            if (stone.getUses() == 0) {
-                myBackpack.deleteStone(stoneIndex);
-            }
-            if (stone.getStoneName().equals("Soul Stone")) setSoulStone(false);
-            if (stone.getStoneName().equals("Space Stone")) setSpaceStone(false);
-        }
-    }
-
-    /**
-     * Display player's backpack.
-     */
-    public void displayBackpack() {
-        myBackpack.displayCurrInventory();
-    }
-
-    /**
      * Returns number of Stones that is in player's backpack.
      * @return number of Stones that is in player's backpack
      */
@@ -198,30 +216,34 @@ public class Player implements Serializable {
         return myBackpack.getCurrItems();
     }
 
-    /**
-     * Takes the stone that is in the chest.
-     * @param theChest the chest to take from
-     */
-    public void takeStone(final Chest theChest) {
-        if (theChest.getMyStone() == null) {
-            throw new NullPointerException("Chest is empty");
-        } else {
-            addToBackpack(theChest.getMyStone());
-            theChest.clearChest();
-        }
-    }
 
+    /**
+     * Getter method for Y position on world map.
+     * @return Y position on world map
+     */
     public int getMyWorldY() {
         return myWorldY;
     }
-
+    /**
+     * Getter method for X position on world map.
+     * @return X position on world map
+     */
     public int getMyWorldX() {
         return myWorldX;
     }
 
+    /**
+     * Getter method for backpack.
+     * @return player's backpack.
+     */
     public Backpack getBackpack() {
         return myBackpack;
     }
+
+    /**
+     * Getter method for health.
+     * @return player's health.
+     */
     public int getHealth() {
         return myHealth;
     }

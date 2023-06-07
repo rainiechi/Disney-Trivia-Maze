@@ -175,7 +175,7 @@ public class CollisionChecker {
             myGp.getObjManager(theIndex).setTouched(true);
             myGp.getObjManager(theIndex).setDoor(door);
         }
-        if (!myGp.getObjManager(theIndex).isLocked() && thePlayer.getPlayer().hasSpaceStone()) {
+        if (!myGp.getObjManager(theIndex).isLocked() && thePlayer.getPlayer().isSpaceStone()) {
             DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to use the Space Stone to skip this door?", myGp);
             if (d.getMyUserAnswer()) {
                 thePlayer.getPlayer().useStone(new SpaceStone());
@@ -198,7 +198,7 @@ public class CollisionChecker {
                 System.out.println(myQuestionRecord.getQuestionRecord()); //just for testing, making ssure Record is working
                 //System.out.println("Door unlock in collsion "+myGp.getObjManager(theIndex).getDoor().getMyUnlock());
 
-                if (myGp.getObjManager(theIndex).getDoor().getMyUnlock()) {
+                if (myGp.getObjManager(theIndex).getDoor().isUnlocked()) {
                     myGp.deleteObjManager(theIndex);
                     if (thePlayer.getDirection().equals("left")) {
                         myGp.deleteObjManager(theIndex - 1);
@@ -209,7 +209,7 @@ public class CollisionChecker {
                     myGp.getObjManager(theIndex).setLocked(true);
                 }
             }
-        } else if (myGp.getObjManager(theIndex) != null && thePlayer.getPlayer().hasSoulStone() && myGp.getObjManager(theIndex).getDoor().getAttempt()) {
+        } else if (myGp.getObjManager(theIndex) != null && thePlayer.getPlayer().isSoulStone() && myGp.getObjManager(theIndex).getDoor().isAttempted()) {
             DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to use the Soul Stone to attempt this door again?", myGp);
             if (d.getMyUserAnswer()) {
                 thePlayer.getPlayer().useStone(new SoulStone());
@@ -240,7 +240,7 @@ public class CollisionChecker {
         if (myGp.getObjManager(8) != null && myGp.getObjManager(8).isLocked()
                 && (myGp.getObjManager(11) != null && myGp.getObjManager(11).isLocked()
                 || myGp.getObjManager(24) != null && myGp.getObjManager(24).isLocked())
-                && !thePlayer.getPlayer().hasSoulStone()) {
+                && !thePlayer.getPlayer().isSoulStone()) {
             myGp.setGameOver(true);
             GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(myGp);
             frame.switchToEndPanel();

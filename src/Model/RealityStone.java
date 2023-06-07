@@ -4,8 +4,16 @@ package Model;
 
 import javax.imageio.ImageIO;
 import java.io.IOException;
-
+/**
+ * Reality stone inherits from Stone class.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class RealityStone extends Stone{
+    /**
+     *  Constructor initializes fields and sets image.
+     */
     public RealityStone() {
         super("Reality Stone", "Revealed answer to trivia question!", 1);
         try {
@@ -15,11 +23,17 @@ public class RealityStone extends Stone{
         }
     }
 
-
+    /**
+     * Method to call stone ability.
+     * @param thePlayer player object
+     */
     public void useAbility(Player thePlayer) {
         decreaseUses();
     }
-
+    /**
+     * Description of ability.
+     * @return String description
+     */
     public String getDescription() {
         String s = "Reveals the answer in a trivia. Can only be used once.";
         return s;

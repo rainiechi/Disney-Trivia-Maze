@@ -2,11 +2,19 @@ package Model;
 
 import java.io.Serializable;
 
+/**
+ * Backpack class represents the player's inventory.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class Backpack implements Serializable {
-    private static final int MAX_ITEMS = 6; //at most can have 6 stones
+    /** Max items in backpack */
+    private static final int MAX_ITEMS = 6;
+    /** Array of Stone objects */
     private Stone[] myStorage;
-    private int currItems; //current # of stones
-
+    /** Current number of items in backpack */
+    private int currItems;
     /**
      * Backpack constructor
      */

@@ -6,17 +6,32 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.Serializable;
+/**
+ * Door class represents the door object in game.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 
 public class Door implements Serializable {
+    /** Image of the door object */
     private transient BufferedImage myImage;
+    /** DBRetriever object */
     private transient DBRetriever myRetriever;
+    /** Question object */
     private Question myQuestion;
+    /** Boolean if door is unlocked */
     private boolean myUnlocked;
+    /** Boolean if door has been attempted */
     private boolean myAttempted;
-    private String myPlayerAnswer;
+
+    /** QuestionRecord object */
     private QuestionRecord myRecord;
 
-
+    /**
+     * Constructor initializes fields.
+     * @param theRecord QuestionRecord object
+     */
     public Door (final QuestionRecord theRecord) {
 
         myRecord = theRecord;
@@ -24,7 +39,7 @@ public class Door implements Serializable {
         myQuestion = getUnusedQuestion(myRetriever);
         myUnlocked = false;
         myAttempted = false;
-        myPlayerAnswer = null;
+        // sets door image
         try{
             myImage = (ImageIO.read(getClass().getResourceAsStream("/res/tiles/wall_door.png")));
         } catch (IOException e) {
@@ -32,6 +47,11 @@ public class Door implements Serializable {
         }
     }
 
+    /**
+     * Method gets an unused question from the database.
+     * @param theRetriever Database retriever
+     * @return unused question
+     */
     public Question getUnusedQuestion(final DBRetriever theRetriever) {
         if (theRetriever == null) {
             throw new IllegalArgumentException("DBRetriever must not be null");
@@ -50,73 +70,53 @@ public class Door implements Serializable {
         return question;
     }
 
-    public void displayQuestion() {
-        // Testing purposes. Will be done in GUI implementation once we have SQLite database.
-        System.out.println(myQuestion.getMyQuestion());
-    }
-    public void lockedDoor(final Player thePlayer) {
-        if (thePlayer.hasSoulStone() && myAttempted) {
-            System.out.println("Would you like to use the Soul Stone to attempt this door again?");
-            // In GUI, if res.player chooses yes button, it will call the useAbility() method for Soul Stone.
-        } else if (!thePlayer.hasSoulStone() && myAttempted) {
-            System.out.println("Door has been attempted.");
-        }
-    }
-    public void checkPlayerAnswer() {
-        String myAnswer = myQuestion.getMyAnswer();
-        if (myAnswer.toLowerCase().equals(myPlayerAnswer.toLowerCase())) {
-            myUnlocked = true;
-        }
-        myAttempted = true;
-    }
-
-    public boolean getMyUnlock() {
+    /**
+     * Getter method for unlock
+     * @return true if door has been unlocked, false otherwise.
+     */
+    public boolean isUnlocked() {
         return myUnlocked;
     }
+
+    /**
+     * Setter method for unlock.
+     * @param lock boolean
+     */
     public void setMyUnlock(final boolean lock) {
         myUnlocked= lock;
     }
-    public boolean getAttempt() {
+
+    /**
+     * Getter method for attempt.
+     * @return True if door has been attempted, false otherwise.
+     */
+    public boolean isAttempted() {
         return myAttempted;
     }
+
+    /**
+     * Setter method for attempt.
+     * @param attempt boolean
+     */
     public void setAttempted(final boolean attempt) {
         myAttempted = attempt;
     }
-    public String getPlayerMyAnswer() {
-        return myPlayerAnswer;
-    }
-    public void setPlayerMyAnswer(final String answer) {
-        myPlayerAnswer = answer;
-    }
+
+
+    /**
+     * Getter method for image of door.
+     * @return BufferedImage of door
+     */
     public BufferedImage getImage() {
         return myImage;
     }
 
+    /**
+     * Getter method for QuestionObject attached to Door.
+     * @return QuestionObject attached.
+     */
     public Question getQuestionObject() {
         return myQuestion;
     }
-
-
-
-//    public String getQuestion() {
-//        return myQuestion.getMyQuestion();
-//    }
-//
-//    public String getAnswer() {
-//        return myQuestion.getMyAnswer();
-//    }
-//
-//    public String getOption1() {
-//        return myQuestion.getMyOption1();
-//    }
-//    public String getMyOption2() {
-//        return myQuestion.getMyOption2();
-//    }
-//    public String getMyOption3() {
-//        return myQuestion.getMyOption3();
-//    }
-//    public String getMyOption4() {
-//        return myQuestion.getMyOption4();
-//    }
 
 }

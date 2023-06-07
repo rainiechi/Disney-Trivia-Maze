@@ -1,8 +1,17 @@
 package Model;
 
-import java.sql.Time;
-
+/**
+ * Stone factory class creates stone objects.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class StoneFactory {
+    /**
+     * Creates a new stone object based on the name/type.
+     * @param theType type of stone.
+     * @return Stone object created from the name/type.
+     */
     public Stone createStone(final String theType) {
         Stone stone = null;
         if (theType.equalsIgnoreCase("Time")) {

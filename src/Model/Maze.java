@@ -3,10 +3,20 @@ package Model;
 import javax.imageio.ImageIO;
 import java.io.*;
 
+/**
+ * Maze class represents the maze of game.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class Maze {
+    /** Array ot Tile objects */
     private Tile[] myTile;
+    /** 2D array of tile numbers */
     private int [][]  myMapTileNum;
+    /** Max column number */
     private int myMaxWorldColumn;
+    /** Max row number */
     private int myMaxWorldRow;
 
     /**
@@ -27,15 +37,17 @@ public class Maze {
      */
     private void loadMap(final String theFile) {
         try {
+            // reads text file
             InputStream is = getClass().getResourceAsStream(theFile);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
             int row = 0;
-
+            // starts at first column, and moves to the next column
             while (col < myMaxWorldColumn && row < myMaxWorldRow) {
                 String line = br.readLine();
-
+                // fills in the 2D array of numbers by starting at one row
+                // and moving columns until it hits the max column.
                 while (col < myMaxWorldColumn) {
                     String numbers[] = line.split(" ");
 
@@ -44,6 +56,8 @@ public class Maze {
                     col++;
 
                 }
+                // if current column reached max column, it resets column back
+                // to the start and moves down the next row.
                 if (col == myMaxWorldColumn) {
                     col = 0;
                     row++;
@@ -56,7 +70,9 @@ public class Maze {
     }
 
     /**
-     * Creates Tile arrays and sets each index to the image.
+     * Creates Tile arrays and sets each index to the image. Each tile
+     * number/index represents an image which will be used to draw
+     * the game map.
      */
     public void getTileImage() {
         for (int i = 0; i < 16; i++) {
@@ -95,7 +111,6 @@ public class Maze {
             myTile[15].setCollision(true);
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

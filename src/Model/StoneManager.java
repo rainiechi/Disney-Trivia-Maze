@@ -4,11 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * StoneManager class keeps track of stones that have been used.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class StoneManager implements Serializable {
-
+    /** The list of stones */
     private List<Stone> myStoneRecord;
 
+    /**
+     * Constructor initializes fields.
+     */
     public StoneManager() {
         myStoneRecord = new ArrayList<>(6);
         initializeStone();
@@ -25,12 +33,12 @@ public class StoneManager implements Serializable {
         Stone realityStone = stoneFactory.createStone("reality");
         Stone spaceStone = stoneFactory.createStone("space");
         Stone mindStone = stoneFactory.createStone("mind");
-        //myStoneRecord.add(powerStone);
-        //myStoneRecord.add(mindStone);
-        //myStoneRecord.add(realityStone);
+        myStoneRecord.add(powerStone);
+        myStoneRecord.add(mindStone);
+        myStoneRecord.add(realityStone);
         myStoneRecord.add(soulStone);
-        //myStoneRecord.add(spaceStone);
-        //myStoneRecord.add(timeStone);
+        myStoneRecord.add(spaceStone);
+        myStoneRecord.add(timeStone);
     }
 
     /**
