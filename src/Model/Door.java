@@ -33,6 +33,9 @@ public class Door implements Serializable {
      * @param theRecord QuestionRecord object
      */
     public Door (final QuestionRecord theRecord) {
+        if (theRecord == null) {
+            throw new IllegalArgumentException("Question record cannot be null");
+        }
 
         myRecord = theRecord;
         myRetriever = new DBRetriever();

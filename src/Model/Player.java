@@ -53,7 +53,10 @@ public class Player implements Serializable {
      * Adds to player's backpack
      * @param theStone the stone to be added
      */
-    public void addToBackpack(Stone theStone) {
+    public void addToBackpack(final Stone theStone) {
+        if (theStone == null) {
+            throw new IllegalArgumentException("Stone cannot be null");
+        }
         if (theStone.getStoneName().equals("Soul Stone")) setSoulStone(true);
         if (theStone.getStoneName().equals("Space Stone")) setSpaceStone(true);
         myBackpack.addToBackpack(theStone);
@@ -69,6 +72,9 @@ public class Player implements Serializable {
      * @param theStone theStone to be used.
      */
     public void useStone(final Stone theStone) {
+        if (theStone == null) {
+            throw new IllegalArgumentException("Stone cannot be null");
+        }
         int stoneIndex = myBackpack.findStone(theStone);
 
         //System.out.println("The stone is a Mind stone "+theStone.getStoneName());
@@ -90,6 +96,9 @@ public class Player implements Serializable {
      * @param theChest the chest to take from
      */
     public void takeStone(final Chest theChest) {
+        if (theChest == null) {
+            throw new IllegalArgumentException("Chest cannot be null");
+        }
         if (theChest.getMyStone() == null) {
             throw new NullPointerException("Chest is empty");
         } else {
@@ -157,6 +166,9 @@ public class Player implements Serializable {
      * @param theSpeed speed to set.
      */
     public void setPlayerSpeed(final int theSpeed) {
+        if (theSpeed < 0) {
+            throw new IllegalArgumentException("the speed must be greater than 0");
+        }
         myPlayerSpeed = theSpeed;
     }
 
@@ -169,10 +181,10 @@ public class Player implements Serializable {
 
     /**
      * Sets space stone to true or false.
-     * @param check boolean to be passed in.
+     * @param theHasSpaceStone boolean to be passed in.
      */
-    public void setSpaceStone(boolean check) {
-        mySpaceStone = check;
+    public void setSpaceStone(final boolean theHasSpaceStone) {
+        mySpaceStone = theHasSpaceStone;
     }
 
 
@@ -184,10 +196,10 @@ public class Player implements Serializable {
 
     /**
      * Sets space stone to true or false.
-     * @param check boolean to be passed in.
+     * @param theHasSoulStone boolean to be passed in.
      */
-    public void setSoulStone(boolean check) {
-        mySoulStone = check;
+    public void setSoulStone(boolean theHasSoulStone) {
+        mySoulStone = theHasSoulStone;
     }
 
     /**
@@ -200,10 +212,13 @@ public class Player implements Serializable {
 
     /**
      * Sets the player's time limit.
-     * @param time time limit to be set
+     * @param theTime time limit to be set
      */
-    public void setTimeLimit(final int time) {
-        myTimeLimit = time;
+    public void setTimeLimit(final int theTime) {
+        if (theTime < 0) {
+            throw new IllegalArgumentException("time limit must be positive");
+        }
+        myTimeLimit = theTime;
     }
 
     /**

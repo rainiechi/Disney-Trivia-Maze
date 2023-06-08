@@ -25,6 +25,9 @@ public class Chest {
      * @param theStone the stone in the chest
      */
     public Chest(final Stone theStone) {
+        if (theStone == null) {
+            throw new IllegalArgumentException("Stone cannot be null");
+        }
         myStone = theStone;
         myLocked = false;
     }
@@ -32,7 +35,10 @@ public class Chest {
     /**
      * Constructor for empty chest.
      */
-    public Chest(StoneManager theStoneM) {
+    public Chest(final StoneManager theStoneM) {
+        if (theStoneM == null) {
+            throw new IllegalArgumentException("Stone Manager cannot be null");
+        }
         myStone = null;
         myRand = new Random();
         myRandomNumber = myRand.nextInt(122);
@@ -44,10 +50,13 @@ public class Chest {
      * Adds the specified stone to the chest
      * @param theStone the Stone to be added
      */
-    public void addToChest(Stone theStone) {
+    public void addToChest(final Stone theStone) {
         myStone = theStone;
     }
-    public void randomProbability(StoneManager theStoneM) {
+    public void randomProbability(final StoneManager theStoneM) {
+        if (theStoneM == null) {
+            throw new IllegalArgumentException("Stone Manager cannot be null");
+        }
         Stone result = null;
         // 40% Chance probability of chest containing stones
         if (myRandomNumber % 3 == 0) {
@@ -101,7 +110,7 @@ public class Chest {
      * Setter method sets the randomized number.
      * @param theNum number to set
      */
-    public void setMyRandomNumber(int theNum) {
+    public void setMyRandomNumber(final int theNum) {
         myRandomNumber = theNum;
     }
 
@@ -117,7 +126,7 @@ public class Chest {
      * Setter method sets the chest lock.
      * @param theLock boolean to set.
      */
-    public void setLocked(boolean theLock) {
+    public void setLocked(final boolean theLock) {
         myLocked = theLock;
     }
 

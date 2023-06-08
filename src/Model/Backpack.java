@@ -28,6 +28,9 @@ public class Backpack implements Serializable {
      * @param theStone the stone to be added
      */
     public void addToBackpack(final Stone theStone) {
+        if (theStone == null) {
+            throw new IllegalArgumentException("Stone cannot be null");
+        }
         if (myCurrItems == MAX_ITEMS) {
             throw new IllegalArgumentException("Game error, there should be no more than 6 stones in game"); //for debug purposes
         }
@@ -47,8 +50,8 @@ public class Backpack implements Serializable {
      * @return the stone at the index
      */
     public Stone getStone(final int theIndex) {
-        if (myStorage[theIndex] == null) {
-            return null;
+        if (theIndex > 5 || theIndex < 0) {
+            throw new IllegalArgumentException("Index must be 0~5");
         }
         return myStorage[theIndex];
     }
@@ -58,6 +61,9 @@ public class Backpack implements Serializable {
      * @param theIndex the specified index to delete
      */
     public void deleteStone(final int theIndex) {
+        if (theIndex > 5 || theIndex < 0) {
+            throw new IllegalArgumentException("Index must be 0~5");
+        }
         myStorage[theIndex] = null;
         myCurrItems--;
     }
@@ -68,6 +74,9 @@ public class Backpack implements Serializable {
      * @return the stone's index, returns -1 if stone not found
      */
     public int findStone(final Stone theStone) {
+        if (theStone == null) {
+            throw new IllegalArgumentException("Stone cannot be null");
+        }
         String stoneType = theStone.getStoneName();
         for (int i = 0; i < MAX_ITEMS; i++) {
             if (myStorage[i] != null && stoneType.equals(myStorage[i].getStoneName())) {

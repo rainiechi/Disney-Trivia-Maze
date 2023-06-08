@@ -27,7 +27,10 @@ public class PowerStone extends Stone {
      * Method to call stone ability.
      * @param thePlayer player object
      */
-    public void useAbility(Player thePlayer) {
+    public void useAbility(final Player thePlayer) {
+        if (thePlayer == null) {
+            throw new IllegalArgumentException("Player cannot be null");
+        }
         thePlayer.setPlayerSpeed(5);
         decreaseUses();
     }
