@@ -2,11 +2,8 @@ package View;
 
 import Model.GameSettings;
 
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
+import java.awt.*;
 
 public class WelcomePanel extends JPanel {
 
@@ -19,8 +16,8 @@ public class WelcomePanel extends JPanel {
 
     private JButton myNewGameButton;
     private JButton myLoadGameButton;
-    private Image myBackground;
-    private Image myLogoIcon;
+    private final Image myBackground;
+    private final Image myLogoIcon;
 
 
     /**
@@ -70,19 +67,15 @@ public class WelcomePanel extends JPanel {
      * Adds listeners to the 2 buttons on the welcome screen.
      */
     public void addButtonListener() {
-        myNewGameButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(WelcomePanel.this);
-                frame.switchToGamePanel(new GamePanel());
-            }
+        myNewGameButton.addActionListener(e -> {
+            GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(WelcomePanel.this);
+            frame.switchToGamePanel(new GamePanel());
         });
 
-        myLoadGameButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(WelcomePanel.this);
-                if (frame.getMyGamePanel().loadGame()) {
-                    frame.switchToGamePanel(frame.getMyGamePanel());
-                }
+        myLoadGameButton.addActionListener(e -> {
+            GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(WelcomePanel.this);
+            if (frame.getMyGamePanel().loadGame()) {
+                frame.switchToGamePanel(frame.getMyGamePanel());
             }
         });
     }

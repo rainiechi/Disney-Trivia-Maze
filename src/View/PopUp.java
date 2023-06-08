@@ -1,12 +1,13 @@
 package View;
+
 import Model.Door;
 import Model.Question;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
-import java.io.Serializable;
 import java.util.Random;
 
 public class PopUp implements ActionListener {
@@ -14,12 +15,12 @@ public class PopUp implements ActionListener {
     private final static Color BLUE = new Color(210, 246, 250);
     private final static Color DARK_BLUE = new Color(123, 195, 203);
 
-    private GamePanel myGP;
+    private final GamePanel myGP;
 
     /**
      *
      */
-    private JDialog myDialog;
+    private final JDialog myDialog;
     /**
      * The Question Panel contains the question
      */
@@ -52,7 +53,7 @@ public class PopUp implements ActionListener {
      * It is the correct answer to the question.
      */
     private String myCorrectAnswer;
-    private Door myDoor;
+    private final Door myDoor;
 
     private Timer myTimer;
     private final int myCountdown;
@@ -62,7 +63,7 @@ public class PopUp implements ActionListener {
             throw new IllegalArgumentException("Door and GamePanel cannot be null");
         }
         this.myGP = theGP;
-        myCountdown = myGP.getMyGame().getTime();; // Countdown duration in seconds
+        myCountdown = myGP.getMyGame().getTime();// Countdown duration in seconds
         this.myDoor = theDoor;
         myDialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(theGP), false);
         myQuestionPanel = new JPanel();
@@ -187,13 +188,6 @@ public class PopUp implements ActionListener {
     }
 
     /**
-     * Display the GUI in the screen.
-     * @param theQuestionDisplay It is used to decide whether to display the frame or not.
-     */
-    private void displayQuestion ( final boolean theQuestionDisplay){
-        myDialog.setVisible(theQuestionDisplay);
-    }
-    /**
      * This method take in two parameters and check whether the user has selected the right answer.
      * @param theCorrectAnswer It is the correct answer to the question.
      * @param thePlayerAnswers It is the answer that the res.player selected.
@@ -225,32 +219,31 @@ public class PopUp implements ActionListener {
             while(counter<theNumberOfButtons){
                 randomNumber = random.nextInt(4) + 1;
                 switch (randomNumber) {
-                    case 1:
-                        if(!myOption1.getText().equals(myCorrectAnswer)  && myOption1.isEnabled()){
+                    case 1 -> {
+                        if (!myOption1.getText().equals(myCorrectAnswer) && myOption1.isEnabled()) {
                             myOption1.setEnabled(false);
                             counter++;
                         }
-                        break;
-                    case 2:
-                        if(!myOption2.getText().equals(myCorrectAnswer)  && myOption2.isEnabled()){
+                    }
+                    case 2 -> {
+                        if (!myOption2.getText().equals(myCorrectAnswer) && myOption2.isEnabled()) {
                             myOption2.setEnabled(false);
                             counter++;
                         }
-                        break;
-                    case 3:
-                        if(!myOption3.getText().equals(myCorrectAnswer)  && myOption3.isEnabled() ){
+                    }
+                    case 3 -> {
+                        if (!myOption3.getText().equals(myCorrectAnswer) && myOption3.isEnabled()) {
                             myOption3.setEnabled(false);
                             counter++;
                         }
-                        break;
-                    case 4:
-                        if(!myOption4.getText().equals(myCorrectAnswer)  && myOption4.isEnabled()){
+                    }
+                    case 4 -> {
+                        if (!myOption4.getText().equals(myCorrectAnswer) && myOption4.isEnabled()) {
                             myOption4.setEnabled(false);
                             counter++;
                         }
-                        break;
-                    default:
-                        System.out.println("Invalid case");
+                    }
+                    default -> System.out.println("Invalid case");
                 }
             }
         } else {
@@ -307,7 +300,7 @@ public class PopUp implements ActionListener {
     /**
      * Helper class to create the result popup once player answers
      */
-    class ResultPanel extends JPanel {
+    static class ResultPanel extends JPanel {
         private static final int BORDER = 15;
         private static final Color LIGHT_PINK = new Color(255, 182, 193);
         private static final Color DARK_PINK = new Color(162, 72, 87);
