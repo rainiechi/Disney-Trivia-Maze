@@ -3,21 +3,42 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Represents the game frame of Disney Trivia Maze.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class GameFrame extends JFrame {
+    /** Title of game */
     private static final String GAME_TITLE = "Disney Trivia Maze";
+    /** Border surrounding */
     private static final int BORDER = 15;
+    /** RGB for pink */
     private static final Color PINK = new Color(245,218,223);
+    /** RGB for brown */
     private static final Color BROWN = new Color(164,116,73);
+    /** RGB for dark brown */
     private static final Color DARK_BROWN = new Color(78,53,36);
+    /** RGB for beige */
     private static final Color BEIGE = new Color(242, 235, 228);
+    /** Menu bar of game */
     private JMenuBar myMenuBar;
+    /** Save item in game */
     private JMenuItem mySaveItem;
+    /** Load item in game */
     private JMenuItem myLoadItem;
+    /** Exit item in game */
     private JMenuItem myExitItem;
+    /** About item in game */
     private JMenuItem myAboutItem;
+    /** Instruction item in game */
     private JMenuItem myInstructionItem;
+    /** Game panel */
     private GamePanel myGamePanel;
+    /** Button to resume game */
     private JButton resumeButton;
+    /** Welcome panel */
     private WelcomePanel myWelcomePanel;
 
 
@@ -61,17 +82,28 @@ public class GameFrame extends JFrame {
         theGamePanel.startGameThread(); // Start the game thread
         showDialog(new InstructionPanel()); //show instructions
     }
+
+    /**
+     * Switches back to the welcome screen.
+     */
     public void switchToWelcomePanel() {
         setContentPane(myWelcomePanel);
         revalidate();
     }
 
+    /**
+     * Switches to the end panel for the winning or losing scenario.
+     */
     public void switchToEndPanel() {
         setContentPane(new EndPanel(myGamePanel.getMyGame().getMyPlayer(), myGamePanel));
         myMenuBar.removeAll();
         revalidate();
     }
 
+    /**
+     * Getter method for GamePanel.
+     * @return game panel instance
+     */
     public GamePanel getMyGamePanel() {
         return myGamePanel;
     }

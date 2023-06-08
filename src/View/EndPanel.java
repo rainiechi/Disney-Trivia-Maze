@@ -107,7 +107,7 @@ public class EndPanel extends JPanel{
 
     /**
      * Paints end panel to be black
-     * @param theG Graphics
+     * @param theG Graphics component
      */
     public void paintComponent(final Graphics theG) {
         super.paintComponent(theG);

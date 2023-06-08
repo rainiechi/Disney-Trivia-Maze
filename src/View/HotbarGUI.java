@@ -11,20 +11,20 @@ import java.io.IOException;
 /**
  * The HotbarGUI class represents the graphical user interface for the player's hotbar.
  * It displays the player's available stones and allows interaction with them.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
  */
 public class HotbarGUI extends JPanel {
     /**
-
     The size of the hotbar.
     */
     private static final int HOTBAR_SIZE = 6;
     /**
-
      An array of buttons representing the slots in the hotbar.
      */
     private final JButton[] slots;
     /**
-
      The index of the currently selected slot.
      */
     private int selectedSlotIndex;
