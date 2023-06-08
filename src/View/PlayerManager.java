@@ -54,9 +54,14 @@ public class PlayerManager implements Serializable {
      * Player's world y coordinate.
      */
     private int myWorldY;
-    private Rectangle mySolidArea; //need javadoc
-    private int mySolidAreaDefaultX; //need javadoc
-    private int mySolidAreaDefaultY; //need javadoc
+    /**
+     * Solid area to determine collision
+     */
+    private Rectangle mySolidArea;
+    /** Default x coordinate of solid area */
+    private int mySolidAreaDefaultX;
+    /** Default y coordinate of solid area */
+    private int mySolidAreaDefaultY;
     /**
      * If the character collided.
      */
