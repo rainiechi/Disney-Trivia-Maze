@@ -7,16 +7,42 @@ import java.awt.*;
 
 public class WelcomePanel extends JPanel {
 
+    /**
+     The width of the screen.
+     */
     private static final int SCREEN_WIDTH = GameSettings.SCREEN_WIDTH;
+    /**
+     The height of the screen.
+     */
     private static final int SCREEN_HEIGHT = GameSettings.SCREEN_HEIGHT;
+    /**
 
+     The color blue.
+     */
     private static final Color BLUE = new Color(101,139,189);
+    /**
+     The color blue.
+     */
     private static final Color YELLOW = new Color(249,239,125);
+    /**
+     The font used for buttons.
+     */
     private static final Font fontForButtons = new Font("Bahnschrift", Font.BOLD, 16);
-
+    /**
+     The button for starting a new game.
+     */
     private JButton myNewGameButton;
+    /**
+     The button for loading a game.
+     */
     private JButton myLoadGameButton;
+    /**
+     The background image.
+     */
     private final Image myBackground;
+    /**
+     The logo icon image.
+     */
     private final Image myLogoIcon;
 
 
@@ -80,8 +106,12 @@ public class WelcomePanel extends JPanel {
         });
     }
 
+    /**
 
-    public void paintComponent(Graphics g) {
+     Overrides the paintComponent method to customize the appearance of the component.
+     @param g The Graphics object used for painting.
+     */
+    public void paintComponent(final Graphics g) {
         super.paintComponent(g);
         g.drawImage(myBackground, 0, 0, getWidth(), getHeight(), this);
         g.setColor(Color.BLACK);

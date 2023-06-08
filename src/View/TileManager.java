@@ -23,8 +23,10 @@ public class TileManager {
      * @param theGp GamePanel object passed in
      */
     public TileManager(final GamePanel theGp) {
+        if (theGp == null) {
+            throw new IllegalArgumentException("Game Panel cannot be null");
+        }
         myGp = theGp;
-
     }
 
     /**
