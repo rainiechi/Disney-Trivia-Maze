@@ -16,7 +16,7 @@ public class TileManager {
     /** Maze object */
     private final static Maze MAZE = new Maze();
     /** Field for GamePanel */
-    private GamePanel myGp;
+    private final GamePanel myGp;
 
     /**
      * Constructor initializes the fields.
