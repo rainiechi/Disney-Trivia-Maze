@@ -2,12 +2,19 @@ package View;
 
 import Model.GameSettings;
 
+/**
+ * AssetSetter class sets object positions in game using the X and Y coordinates
+ * of the world map.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class AssetSetter {
     /** Tile size */
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
 
     /** private array of ObjectManager field */
-    private ObjectManager[] myObjManager;
+    private final ObjectManager[] myObjManager;
 
     /**
      * Constructor initializes fields.
