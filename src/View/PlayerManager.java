@@ -1,5 +1,6 @@
 package View;
 
+import Model.Chest;
 import Model.GameSettings;
 import Model.Player;
 
@@ -7,28 +8,63 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class PlayerManager implements Serializable {
+    /**
+     * Images for sprite.
+     */
     private transient BufferedImage myUp1, myUp2, myDown1, myDown2, myLeft1, myLeft2, myRight1, myRight2, myHead;
+    /**
+     * Player's direction.
+     */
     private String myDirection;
 
+    /**
+     * Sprite counter to help coordinate sprite images.
+     */
     private int mySpriteCounter;
+    /**
+     * Sprite number to help coordinate sprite images.
+     */
     private int mySpriteNum;
+    /**
+     * The hosting game panel.
+     */
     private GamePanel myGp;
+    /**
+     * The player.
+     */
     private Player myPlayer;
+    /**
+     * Player's x coordinate.
+     */
     private int myX;
+    /**
+     * Player's y coordinate.
+     */
     private int myY;
+    /**
+     * Player's world x coordinate.
+     */
     private int myWorldX;
+    /**
+     * Player's world y coordinate.
+     */
     private int myWorldY;
-    /** Solid area used to determine collision */
-    private Rectangle mySolidArea;
-    /** Default X coordinate of solid area */
-    private int mySolidAreaDefaultX;
-    /** Default Y coordinate of solid area */
-    private int mySolidAreaDefaultY;
+    private Rectangle mySolidArea; //need javadoc
+    private int mySolidAreaDefaultX; //need javadoc
+    private int mySolidAreaDefaultY; //need javadoc
+    /**
+     * If the character collided.
+     */
     private boolean myCollision;
 
+    /**
+     * The keyhandler for the player.
+     */
     private KeyHandler myKeyH;
 
     /**
@@ -38,6 +74,9 @@ public class PlayerManager implements Serializable {
      * @param thePlayer Player passed in
      */
     public PlayerManager(final GamePanel theGp, final KeyHandler theKeyH, final Player thePlayer) {
+        if (theGp == null || theKeyH == null || thePlayer == null) {
+            throw new IllegalArgumentException("Please enter non-null parameters");
+        }
         myPlayer = thePlayer;
         myGp = theGp;
         myKeyH = theKeyH;
@@ -224,6 +263,13 @@ public class PlayerManager implements Serializable {
     public void setCollision(final boolean theCollision) {
         myCollision = theCollision;
     }
+    /**
+     * Getter method for collision.
+     * @return myCollision
+     */
+    public boolean isCollision() {
+        return myCollision;
+    }
 
     /**
      * Getter method for solid area.
@@ -237,14 +283,14 @@ public class PlayerManager implements Serializable {
      * Setter method for mySolidArea.x.
      * @param theArea area to be set.
      */
-    public void setSolidAreaX(int theArea) {
+    public void setSolidAreaX(final int theArea) {
         mySolidArea.x = theArea;
     }
     /**
      * Setter method for mySolidArea.y.
      * @param theArea area to be set.
      */
-    public void setSolidAreaY(int theArea) {
+    public void setSolidAreaY(final int theArea) {
         mySolidArea.y = theArea;
     }
 
@@ -274,8 +320,8 @@ public class PlayerManager implements Serializable {
     }
 
     /**
-     * Getter method for player.
-     * @return the player.
+     * Getter for player object.
+     * @return myPlayer.
      */
     public Player getPlayer() {
         return myPlayer;

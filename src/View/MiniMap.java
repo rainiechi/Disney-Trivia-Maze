@@ -43,6 +43,9 @@ public class MiniMap implements Serializable {
      * @param theGp GamePanel passed to constructor
      */
     public MiniMap(GamePanel theGp) {
+        if (theGp == null) {
+            throw new IllegalArgumentException("Please enter non-null GamePanel");
+        }
         myGp = theGp;
         createWorld();
     }
@@ -100,7 +103,7 @@ public class MiniMap implements Serializable {
      * Setter method for myMapEnabled.
      * @param theEnabled boolean to be set.
      */
-    public void setMapEnabled(boolean theEnabled) {
+    public void setMapEnabled(final boolean theEnabled) {
         myMapEnabled = theEnabled;
     }
 

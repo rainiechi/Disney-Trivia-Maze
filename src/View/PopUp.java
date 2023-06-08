@@ -11,14 +11,26 @@ import java.awt.geom.RoundRectangle2D;
 import java.util.Random;
 
 public class PopUp implements ActionListener {
+    /**
+     * Light blue color.
+     */
     private final static Color LIGHT_BLUE = new Color(228, 246, 248);
+    /**
+     * Blue color.
+     */
     private final static Color BLUE = new Color(210, 246, 250);
+    /**
+     * Dark blue color.
+     */
     private final static Color DARK_BLUE = new Color(123, 195, 203);
 
+    /**
+     * The containing game panel.
+     */
     private final GamePanel myGP;
 
     /**
-     *
+     * The dialog that contains the popup.
      */
     private final JDialog myDialog;
     /**
@@ -53,12 +65,28 @@ public class PopUp implements ActionListener {
      * It is the correct answer to the question.
      */
     private String myCorrectAnswer;
+    /**
+     * The door object passed in to the popup.
+     */
     private final Door myDoor;
-
+    /**
+     * Timer for the popup.
+     */
     private Timer myTimer;
+    /**
+     * Time limit for the popup.
+     */
     private final int myCountdown;
+    /**
+     * Label that shows the remaining time.
+     */
     private JLabel myTimerLabel;
-    public PopUp(final Door theDoor, final GamePanel theGP){
+    /**
+     Constructs a PopUp object with the specified Door and GamePanel.
+     @param theDoor The Door object associated with the PopUp.
+     @param theGP The GamePanel object associated with the PopUp.
+    */
+     public PopUp(final Door theDoor, final GamePanel theGP){
         if (theDoor == null || theGP == null) {
             throw new IllegalArgumentException("Door and GamePanel cannot be null");
         }
@@ -80,6 +108,11 @@ public class PopUp implements ActionListener {
         initializeUI();
     }
 
+
+    /**
+     The timerGUISetup method sets up the graphical user interface (GUI) for the timer label.
+     It configures the font, alignment, size, background color, and foreground color of the label.
+     */
     public void timerGUISetup() {
         myTimerLabel = new JLabel();
         myTimerLabel.setFont(new Font("Berlin Sans FB", Font.PLAIN, 17));
@@ -90,6 +123,12 @@ public class PopUp implements ActionListener {
         myTimerLabel.setBackground(LIGHT_BLUE);
         myTimerLabel.setForeground(DARK_BLUE);
     }
+
+    /**
+     The startTimer method starts the countdown timer.
+     It creates a Timer object with a 1-second delay and an ActionListener to perform actions at each interval.
+     The timer updates the countdown label and performs actions when the time is up.
+     */
     public void startTimer() {
         // Create the timer with a 1-second delay
         myTimer = new Timer(1000, new ActionListener() {
@@ -118,7 +157,10 @@ public class PopUp implements ActionListener {
      * Loads the Question object to the popup.
      * @param theQuestion the Question to be loaded
      */
-    private void loadQuestion ( final Question theQuestion){
+    private void loadQuestion (final Question theQuestion){
+        if (theQuestion == null) {
+            throw new IllegalArgumentException("Question cannot be null");
+        }
         myQuestionArea.setText(theQuestion.getMyQuestion());
         myOption1.setText(theQuestion.getMyOption1());
         myOption2.setText(theQuestion.getMyOption2());
@@ -183,6 +225,10 @@ public class PopUp implements ActionListener {
         myDialog.setVisible(true);
     }
 
+    /**
+     * Getter for the popup dialog.
+     * @return myDialog.
+     */
     public JDialog getMyDialog() {
         return myDialog;
     }
@@ -193,6 +239,9 @@ public class PopUp implements ActionListener {
      * @param thePlayerAnswers It is the answer that the res.player selected.
      */
     private void checkAnswer(final String theCorrectAnswer, final String thePlayerAnswers){
+        if (theCorrectAnswer == null || thePlayerAnswers == null) {
+            throw new IllegalArgumentException("Please enter non-null parameters");
+        }
         if (theCorrectAnswer.equals(thePlayerAnswers)) {
             myDoor.setMyUnlock(true);
             showResultDialog("Correct");
@@ -210,7 +259,13 @@ public class PopUp implements ActionListener {
         }
     }
 
-    public void disableWrongAnswerButton(int theNumberOfButtons){
+    /**
+     * Disables a specified number of wrong answer buttons.
+     */
+     public void disableWrongAnswerButton(final int theNumberOfButtons){
+         if (theNumberOfButtons > 3 || theNumberOfButtons < 1) {
+             throw new IllegalArgumentException("Please enter number 1-3");
+         }
         System.out.println("theNumberOfButtons "+theNumberOfButtons);
         if (theNumberOfButtons >= 0 &&  theNumberOfButtons <= 3   ) {
             int counter=0;
@@ -260,7 +315,7 @@ public class PopUp implements ActionListener {
      * @param e the event to be processed
      */
     @Override
-    public void actionPerformed ( final ActionEvent e){
+    public void actionPerformed (final ActionEvent e){
         String playerAnswer;
         if (e.getSource() == myOption1) {
             myTimer.stop();
@@ -310,6 +365,12 @@ public class PopUp implements ActionListener {
         private static final Color GREEN = new Color(95, 133, 117);
         private static final Color DARK_GREEN = new Color(53, 94, 59);
         private static final Color PASTEL_GREEN = new Color(193, 225, 193);
+
+        /**
+         Constructs a ResultPanel with the specified result string.
+         @param theString The result string ("Correct", "Incorrect", or "TimesOut").
+         @throws IllegalArgumentException if theString is not a valid input.
+         */
 
         public ResultPanel(final String theString) {
             JButton continueButton = new JButton("CONTINUE");

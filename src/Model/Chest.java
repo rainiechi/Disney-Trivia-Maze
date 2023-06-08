@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class Chest {
     /** The stone in chest */
-    private Stone myStone; //the stone in the chest
+    private Stone myStone;
     /** Random number */
     private int myRandomNumber;
     /** Random object */

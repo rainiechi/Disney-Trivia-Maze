@@ -14,6 +14,9 @@ import java.io.Serializable;
 
 public class ObjectManager implements Serializable {
 
+    /**
+     * Tile size of the game.
+     */
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
     /**
      * Private BufferedImage field for image
@@ -166,14 +169,6 @@ public class ObjectManager implements Serializable {
     }
 
     /**
-     * Setter method for solid area.
-     * @param theArea rectangle object to be set.
-     */
-    public void setSolidArea(final Rectangle theArea) {
-        mySolidArea = theArea;
-    }
-
-    /**
      * Getter method for solid area.
      * @return mySolidArea rectangle object
      */
@@ -193,16 +188,8 @@ public class ObjectManager implements Serializable {
      * Setter method for mySolidArea.x
      * @param theArea int area to be set.
      */
-    public void setSolidAreaX(int theArea) {
+    public void setSolidAreaX(final int theArea) {
         mySolidArea.x = theArea;
-    }
-
-    /**
-     * Getter method for mySolidArea.x
-     * @return mySolidArea.x
-     */
-    public int getSolidAreaX() {
-        return mySolidArea.x;
     }
 
     /**
@@ -214,21 +201,19 @@ public class ObjectManager implements Serializable {
     }
 
     /**
-     * Getter method for mySolidArea.y
-     * @return mySolidArea.y
+     * Getter for solid area default value for y.
+     * @return mySolidAreaDefaultY
      */
-    public int getSolidAreaY() {
-        return mySolidArea.y;
-    }
     public int getMySolidAreaDefaultY() {
         return mySolidAreaDefaultY;
     }
-    public void setMySolidAreaDefaultY(int theArea) { mySolidAreaDefaultY = theArea; }
+
+    /**
+     * Getter for solid area default value for x.
+     * @return mySolidAreaDefaultX
+     */
     public int getMySolidAreaDefaultX() {
         return mySolidAreaDefaultX;
-    }
-    public void setSolidAreaDefaultX(final int theArea) {
-        mySolidAreaDefaultX = theArea;
     }
 
     /**
@@ -238,9 +223,19 @@ public class ObjectManager implements Serializable {
     public void setMyImage(final BufferedImage theImage) {
         myImage = theImage;
     }
+
+    /**
+     * Returns whether the object is touched
+     * @return myTouchedObj
+     */
     public boolean isTouched() {
         return myTouchedObj;
     }
+
+    /**
+     * Sets if the object is touched.
+     * @param theBoolean if the object is touched
+     */
     public void setTouched(final boolean theBoolean) {
         myTouchedObj = theBoolean;
     }
@@ -262,7 +257,14 @@ public class ObjectManager implements Serializable {
 
 
     //these two methods are used to manually serialize myImage since BufferedImage has to be transient
-    private void writeObject(ObjectOutputStream out) throws IOException {
+
+
+    /**
+     Custom serialization method for the object. Writes the object's state to the output stream.
+     @param out The output stream to write the object to.
+     @throws IOException If an I/O error occurs while writing the object.
+     */
+    private void writeObject(final ObjectOutputStream out) throws IOException {
         out.defaultWriteObject();
 
         // Serialize the image data
@@ -271,7 +273,13 @@ public class ObjectManager implements Serializable {
         }
     }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    /**
+     Custom deserialization method for the object. Reads the object's state from the input stream.
+     @param in The input stream to read the object from.
+     @throws IOException If an I/O error occurs while reading the object.
+     @throws ClassNotFoundException If the class of the object being deserialized cannot be found.
+     */
+    private void readObject(final ObjectInputStream in) throws IOException, ClassNotFoundException {
         in.defaultReadObject();
 
         // Deserialize the image data
