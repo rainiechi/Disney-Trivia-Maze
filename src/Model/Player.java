@@ -28,8 +28,7 @@ public class Player implements Serializable {
     private boolean mySpaceStone;
     /** Boolean for Soul stone */
     private boolean mySoulStone;
-    /** Game settings */
-    private transient GameSettings myGs;
+
     /** Health of the player */
     private int myHealth;
 
@@ -37,7 +36,6 @@ public class Player implements Serializable {
      * Player constructor initializes fields.
      */
     public Player() {
-        myGs = new GameSettings();
         myBackpack = new Backpack();
         myHealth = 3;
 
@@ -213,7 +211,7 @@ public class Player implements Serializable {
      * @return number of Stones that is in player's backpack
      */
     public int getCurrItem() {
-        return myBackpack.getCurrItems();
+        return myBackpack.getMyCurrItems();
     }
 
 

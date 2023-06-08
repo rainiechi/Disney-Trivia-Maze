@@ -62,6 +62,7 @@ public class Chest {
      * @return name of the stone inside.
      */
     public String chestToString() {
+        // used for testing purposes
         if (myStone != null) {
             return myStone.getStoneName();
         } else {

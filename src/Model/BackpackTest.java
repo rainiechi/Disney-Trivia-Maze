@@ -27,7 +27,7 @@ public class BackpackTest {
     @Test
     void testAddToBackpack() {
         myBackpack.addToBackpack(new MindStone());
-        assertEquals(1, myBackpack.getCurrItems());
+        assertEquals(1, myBackpack.getMyCurrItems());
     }
     /**
      * Tests addToBackpack method when all slots are filled
@@ -40,7 +40,7 @@ public class BackpackTest {
         myBackpack.addToBackpack(new TimeStone());
         myBackpack.addToBackpack(new SpaceStone());
         myBackpack.addToBackpack(new RealityStone());
-        assertEquals(6, myBackpack.getCurrItems());
+        assertEquals(6, myBackpack.getMyCurrItems());
     }
     /**
      * Tests addToBackpack method when you add more than 6 stones
@@ -140,6 +140,6 @@ public class BackpackTest {
         myBackpack.addToBackpack(new TimeStone());
         myBackpack.addToBackpack(new SpaceStone());
         myBackpack.addToBackpack(new RealityStone());
-        assertEquals(6, myBackpack.getCurrItems());
+        assertEquals(6, myBackpack.getMyCurrItems());
     }
 }

@@ -10,7 +10,7 @@ public class SoundManager {
     private File[] mySoundURL;
 
     public SoundManager() {
-        mySoundURL = new File[3];
+        mySoundURL = new File[1];
         mySoundURL[0] = new File ("src/res/Sound/The Little Mermaid Under the Sea.wav");
     }
 

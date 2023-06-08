@@ -15,7 +15,7 @@ public class PowerStone extends Stone {
      *  Constructor initializes fields and sets image.
      */
     public PowerStone() {
-        super("Power Stone", "Speed has increased by +2!", 1);
+        super("Power Stone", 1);
         try {
             setImage(ImageIO.read(getClass().getResourceAsStream("/res/stones/powerStone.png")));
         } catch (IOException e) {

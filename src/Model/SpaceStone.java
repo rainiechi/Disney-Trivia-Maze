@@ -15,7 +15,7 @@ public class SpaceStone extends Stone{
      *  Constructor initializes fields and sets image.
      */
     public SpaceStone() {
-        super("Space Stone", "You can now pass through one door without trivia!", 1);
+        super("Space Stone",  1);
         try {
             setImage(ImageIO.read(getClass().getResourceAsStream("/res/stones/spaceStone.png")));
         } catch (IOException e) {

@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 public class TimeStone extends Stone{
     public TimeStone() {
-        super("Time Stone", "Timer has increased by 5!", 1);
+        super("Time Stone", 1);
         try {
             setImage(ImageIO.read(getClass().getResourceAsStream("/res/stones/timeStone.png")));
         } catch (IOException e) {

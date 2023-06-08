@@ -14,7 +14,7 @@ public class SoulStone extends Stone{
      *  Constructor initializes fields and sets image.
      */
     public SoulStone() {
-        super("Soul Stone", "Walk up to the door you would like to attempt again.", 1);
+        super("Soul Stone", 1);
         try {
             setImage(ImageIO.read(getClass().getResourceAsStream("/res/stones/soulStone.png")));
         } catch (IOException e) {

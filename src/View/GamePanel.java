@@ -186,6 +186,11 @@ public class GamePanel extends JPanel implements Runnable{
         myGame.getMyPlayerManager().update();
     }
 
+    public void playMusic(final int theIndex) {
+        mySound.setFile(theIndex);
+        mySound.play();
+        mySound.loop();
+    }
 
     /**
      * Returns the current Game.

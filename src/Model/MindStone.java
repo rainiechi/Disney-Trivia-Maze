@@ -14,7 +14,7 @@ public class MindStone extends Stone{
      *  Constructor initializes fields and sets image.
      */
     public MindStone() {
-        super("Mind Stone", "Eliminated 1 incorrect option.", 5);
+        super("Mind Stone", 5);
         try {
             setImage(ImageIO.read(getClass().getResourceAsStream("/res/stones/mindStone.png")));
         } catch (IOException e) {

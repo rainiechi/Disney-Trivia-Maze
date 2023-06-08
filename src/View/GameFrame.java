@@ -35,7 +35,7 @@ public class GameFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         myGamePanel = new GamePanel();
-        //myGamePanel.playMusic(0);
+        myGamePanel.playMusic(0);
     }
 
     /**

@@ -19,20 +19,17 @@ public abstract class Stone implements Serializable {
     private transient BufferedImage myImage;
     /** Name of the stone object */
     private String myStoneName;
-    /** Ability of the stone object */
-    private String myAbility;
+
     /** Number of uses of stone object */
     private int myUses;
 
     /**
      * Constructor initializes the fields.
      * @param theStoneName name of the stone
-     * @param theAbility ability of the stone object
      * @param theUses number of uses of stone
      */
-    protected Stone(final String theStoneName, final String theAbility, final int theUses) {
+    protected Stone(final String theStoneName, final int theUses) {
         myStoneName = theStoneName;
-        myAbility = theAbility;
         myUses = theUses;
         myImage = null;
     }
@@ -68,7 +65,7 @@ public abstract class Stone implements Serializable {
     }
     /**
      * Methods are used to manually deserialize myImage since BufferedImage has to be transient.
-     * @param in ObjectOutputStream
+     * @param in ObjectInputStream
      * @throws IOException exception if null
      */
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
@@ -129,12 +126,5 @@ public abstract class Stone implements Serializable {
         return myStoneName;
     }
 
-    /**
-     * Getter method for ability.
-     * @return ability of stone.
-     */
-    public String getmyAbility() {
-        return myAbility;
-    }
 
 }

@@ -29,14 +29,6 @@ public class QuestionRecord implements Serializable {
     }
 
     /**
-     * Returns the list of used questions.
-     * @return list of used questions
-     */
-    public List getQuestionRecord() {
-        return myQuestionRecord;
-    }
-
-    /**
      * Adds the question ID to the list of used questions.
      * @param theID the ID of the question to be added
      */
@@ -59,6 +51,13 @@ public class QuestionRecord implements Serializable {
             throw new RuntimeException("All questions have been used");
         }
         return !(myQuestionRecord.contains(theID));
+    }
+    /**
+     * Returns the list of used questions.
+     * @return list of used questions
+     */
+    public List getQuestionRecord() {
+        return myQuestionRecord;
     }
 
 }

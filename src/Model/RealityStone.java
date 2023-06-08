@@ -15,7 +15,7 @@ public class RealityStone extends Stone{
      *  Constructor initializes fields and sets image.
      */
     public RealityStone() {
-        super("Reality Stone", "Revealed answer to trivia question!", 1);
+        super("Reality Stone", 1);
         try {
             setImage(ImageIO.read(getClass().getResourceAsStream("/res/stones/realityStone.png")));
         } catch (IOException e) {
