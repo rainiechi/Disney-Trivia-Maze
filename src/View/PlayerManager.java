@@ -1,6 +1,5 @@
 package View;
 
-import Model.Chest;
 import Model.GameSettings;
 import Model.Player;
 
@@ -8,8 +7,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class PlayerManager implements Serializable {
@@ -24,8 +21,11 @@ public class PlayerManager implements Serializable {
     private int myY;
     private int myWorldX;
     private int myWorldY;
+    /** Solid area used to determine collision */
     private Rectangle mySolidArea;
+    /** Default X coordinate of solid area */
     private int mySolidAreaDefaultX;
+    /** Default Y coordinate of solid area */
     private int mySolidAreaDefaultY;
     private boolean myCollision;
 
@@ -224,13 +224,6 @@ public class PlayerManager implements Serializable {
     public void setCollision(final boolean theCollision) {
         myCollision = theCollision;
     }
-    /**
-     * Getter method for collision.
-     * @return myCollision
-     */
-    public boolean isCollision() {
-        return myCollision;
-    }
 
     /**
      * Getter method for solid area.
@@ -280,10 +273,10 @@ public class PlayerManager implements Serializable {
         return myHead;
     }
 
-
-    public void setMyKeyH(final KeyHandler theKeyH) {
-        myKeyH = theKeyH;
-    }
+    /**
+     * Getter method for player.
+     * @return the player.
+     */
     public Player getPlayer() {
         return myPlayer;
     }
