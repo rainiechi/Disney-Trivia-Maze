@@ -225,7 +225,7 @@ public class CollisionChecker {
      * @param theIndex index of array of ObjectManager
      * @param thePlayer player
      */
-    public void doorMethod(final int theIndex, final PlayerManager thePlayer) {
+    private void doorMethod(final int theIndex, final PlayerManager thePlayer) {
         // If player has not touched/collide with object it will create
         // a new door instance.
         if (!myGp.getObjManager(theIndex).isTouched()) {
@@ -309,7 +309,7 @@ public class CollisionChecker {
      * @param theIndex index of the array of ObjectManager
      * @param thePlayer player
      */
-    public void chestMethods(final int theIndex, final Player thePlayer) {
+    private void chestMethods(final int theIndex, final Player thePlayer) {
         if (!myGp.getObjManager(theIndex).isTouched()) {
             Chest chest = new Chest(myGp.getGame().getMyStoneManager());
             myGp.getObjManager(theIndex).setTouched(true);
@@ -333,7 +333,7 @@ public class CollisionChecker {
      * If the doors to exit are locked, it is game over.
      * @param thePlayer player
      */
-    public void checkExitDoors(final PlayerManager thePlayer) {
+    private void checkExitDoors(final PlayerManager thePlayer) {
         // Specific coorindates of doors surrounding exit room
         if (myGp.getObjManager(8) != null && myGp.getObjManager(8).isLocked()
                 && (myGp.getObjManager(11) != null && myGp.getObjManager(11).isLocked()

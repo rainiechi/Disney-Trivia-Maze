@@ -59,7 +59,7 @@ public class DialogForYesNoAnswer {
      * Add buttons to the dialog.
      * @return JPanel with question and yes or no buttons.
      */
-    public JPanel addToDialog() {
+    private JPanel addToDialog() {
 
         JPanel labelPanel = new JPanel();
         labelPanel.setOpaque(false);
