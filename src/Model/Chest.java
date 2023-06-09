@@ -1,8 +1,5 @@
 package Model;
 
-import java.awt.image.BufferedImage;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Random;
 /**
  * Chest class represents chest object in game.
@@ -41,7 +38,7 @@ public class Chest {
         }
         myStone = null;
         myRand = new Random();
-        myRandomNumber = myRand.nextInt(122);
+        myRandomNumber = myRand.nextInt(10);
         myLocked = false;
         randomProbability(theStoneM);
     }
@@ -59,7 +56,7 @@ public class Chest {
         }
         Stone result = null;
         // 40% Chance probability of chest containing stones
-        if (myRandomNumber % 3 == 0) {
+        if (myRandomNumber < 5) {
             // Chooses random stone from arraylist
             result = theStoneM.generateStone();
         }

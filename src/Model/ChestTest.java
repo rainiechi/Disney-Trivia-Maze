@@ -92,7 +92,7 @@ public class ChestTest {
     void testRandomProbability() {
         StoneManager sm = new StoneManager();
         Chest chest = new Chest(sm);
-        chest.setMyRandomNumber(121);
+        chest.setMyRandomNumber(6);
         chest.randomProbability(sm);
         assertTrue(chest.isEmptyChest());
     }
