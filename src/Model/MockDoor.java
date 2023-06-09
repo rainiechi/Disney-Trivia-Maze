@@ -44,6 +44,9 @@ public class MockDoor {
      * @param thePlayer player
      */
     public void lockedDoor(final Player thePlayer) {
+        if (thePlayer == null) {
+            throw new IllegalArgumentException("Player cannot be null");
+        }
         if (thePlayer.isSoulStone() && myAttempted) {
             System.out.println("Would you like to use the Soul Stone to attempt this door again?");
             // In GUI, if res.player chooses yes button, it will call the useAbility() method for Soul Stone.

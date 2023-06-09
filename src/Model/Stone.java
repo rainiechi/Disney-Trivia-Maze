@@ -29,6 +29,9 @@ public abstract class Stone implements Serializable {
      * @param theUses number of uses of stone
      */
     protected Stone(final String theStoneName, final int theUses) {
+        if (theUses < 1) {
+            throw new IllegalArgumentException("Stone uses must be >= 1");
+        }
         myStoneName = theStoneName;
         myUses = theUses;
         myImage = null;
@@ -38,7 +41,7 @@ public abstract class Stone implements Serializable {
      * Abstract method for using the stone ability.
      * @param thePlayer player
      */
-    public abstract void useAbility(Player thePlayer);
+    public abstract void useAbility(final Player thePlayer);
 
     /**
      * Method decreases the uses of stone once it has been used.
@@ -107,7 +110,7 @@ public abstract class Stone implements Serializable {
      * Setter method for image.
      * @param theImage BufferedImage of stone
      */
-    public void setImage(BufferedImage theImage) {
+    public void setImage(final BufferedImage theImage) {
         myImage = theImage;
     }
 

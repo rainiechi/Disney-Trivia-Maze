@@ -26,8 +26,10 @@ public class SpaceStone extends Stone{
      * Method to call stone ability.
      * @param thePlayer player object
      */
-    public void useAbility(Player thePlayer) {
-        thePlayer.setSpaceStone(true);
+    public void useAbility(final Player thePlayer) {
+        if (thePlayer == null) {
+            throw new IllegalArgumentException("Player cannot be null");
+        }
         decreaseUses();
     }
 

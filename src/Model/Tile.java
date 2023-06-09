@@ -33,7 +33,7 @@ public class Tile implements Serializable {
      * Setter method for tile image.
      * @param read BufferedImage of tile
      */
-    public void setImage(BufferedImage read) {
+    public void setImage(final BufferedImage read) {
         myTileImage = read;
     }
 
@@ -41,7 +41,7 @@ public class Tile implements Serializable {
      * Setter method for collision.
      * @param collision boolean
      */
-    public void setCollision(boolean collision) {
+    public void setCollision(final boolean collision) {
         myCollision = collision;
     }
 

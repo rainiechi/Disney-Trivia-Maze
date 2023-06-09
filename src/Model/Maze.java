@@ -121,7 +121,7 @@ public class Maze {
      * @param row number of rows
      * @return integer value in column and row passed in.
      */
-    public int getMyMapTileNum(int col, int row) {
+    public int getMyMapTileNum(final int col, final int row) {
         return myMapTileNum[col][row];
     }
 
@@ -131,7 +131,7 @@ public class Maze {
      * @param num index of Tile
      * @return Tile
      */
-    public Tile getTile(int num) {
+    public Tile getTile(final int num) {
         return myTile[num];
     }
 }
