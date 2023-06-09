@@ -23,19 +23,19 @@ public class HotbarGUI extends JPanel {
     /**
      An array of buttons representing the slots in the hotbar.
      */
-    private final JButton[] slots;
+    private final JButton[] mySlots;
     /**
      The index of the currently selected slot.
      */
-    private int selectedSlotIndex;
+    private int mySelectedSlotIndex;
 
     /**
      * Constructs a HotbarGUI object.
      * Initializes the hotbar slots and sets the layout to FlowLayout.
      */
     public HotbarGUI() {
-        slots = new JButton[HOTBAR_SIZE];
-        selectedSlotIndex = 0;
+        mySlots = new JButton[HOTBAR_SIZE];
+        mySelectedSlotIndex = 0;
         setLayout(new FlowLayout()); // Set layout to FlowLayout
     }
 
@@ -61,7 +61,7 @@ public class HotbarGUI extends JPanel {
                 slotButton.setToolTipText(thePlayer.getBackpack().getStone(i).getDescription());
             }
 
-            slots[i] = slotButton;
+            mySlots[i] = slotButton;
             add(slotButton);
 
             final int index = i;
@@ -73,13 +73,13 @@ public class HotbarGUI extends JPanel {
                     if (SwingUtilities.isLeftMouseButton(e)) {
                         if (e.getClickCount() == 2) {
                             try {
-                                selectedSlotIndex = index;
+                                mySelectedSlotIndex = index;
                                 askToUseStone(thePlayer, theGP);
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
                         } else {
-                            selectedSlotIndex = index;
+                            mySelectedSlotIndex = index;
                             theGP.requestFocusInWindow();
                             // Time threshold for a double click in milliseconds
                             int DOUBLE_CLICK_DELAY = 300;
@@ -106,7 +106,7 @@ public class HotbarGUI extends JPanel {
      * @throws IOException if an I/O error occurs.
      */
     private void askToUseStone(final Player thePlayer, final GamePanel theGP) throws IOException {
-        Stone stone = thePlayer.getBackpack().getStone(selectedSlotIndex);
+        Stone stone = thePlayer.getBackpack().getStone(mySelectedSlotIndex);
         Color Royal_blue = new Color(83, 157, 255);
         Color peach = new Color(238, 164, 127);
 
