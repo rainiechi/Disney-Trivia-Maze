@@ -1,6 +1,5 @@
 package View;
 
-import Model.Chest;
 import Model.GameSettings;
 import Model.Player;
 
@@ -8,8 +7,6 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 public class PlayerManager implements Serializable {
@@ -104,7 +101,7 @@ public class PlayerManager implements Serializable {
         myWorldY = myPlayer.getMyWorldY();
         myX = myPlayer.getScreenX();
         myY = myPlayer.getScreenY();
-
+        // starting direction shown in game
         myDirection = "down";
     }
 
@@ -267,13 +264,6 @@ public class PlayerManager implements Serializable {
      */
     public void setCollision(final boolean theCollision) {
         myCollision = theCollision;
-    }
-    /**
-     * Getter method for collision.
-     * @return myCollision
-     */
-    public boolean isCollision() {
-        return myCollision;
     }
 
     /**
