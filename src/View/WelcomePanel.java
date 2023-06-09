@@ -51,10 +51,12 @@ public class WelcomePanel extends JPanel {
      */
     public WelcomePanel() {
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
-        ImageIcon backgroundIcon = new ImageIcon("src/res/welcomeScreen/toy_story_background.png");
+        ImageIcon backgroundIcon = new ImageIcon(WelcomePanel.class.getResource("/res/welcomeScreen/toy_story_background.png"));
         myBackground = backgroundIcon.getImage();
-        ImageIcon logo = new ImageIcon("src/res/welcomeScreen/logo.png");
+
+        ImageIcon logo = new ImageIcon(WelcomePanel.class.getResource("/res/welcomeScreen/logo.png"));
         myLogoIcon = logo.getImage();
+
         setLayout(null);
         setupButtons();
 
