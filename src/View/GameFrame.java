@@ -24,15 +24,18 @@ public class GameFrame extends JFrame {
     private static final Color BEIGE = new Color(242, 235, 228);
     /** Menu bar of game */
     private JMenuBar myMenuBar;
-    /** Save item in game */
+    /** Save menu item in game */
     private JMenuItem mySaveItem;
-    /** Load item in game */
+    /** Load menu item in game */
     private JMenuItem myLoadItem;
-    /** Exit item in game */
+    /** Exit menu item in game */
     private JMenuItem myExitItem;
-    /** About item in game */
+    /** About menu item in game */
     private JMenuItem myAboutItem;
-    /** Instruction item in game */
+    /** Hint menu item in game */
+    private JMenuItem myHintItem;
+
+    /** Instruction menu item in game */
     private JMenuItem myInstructionItem;
     /** Game panel */
     private GamePanel myGamePanel;
@@ -137,6 +140,7 @@ public class GameFrame extends JFrame {
         myLoadItem = new JMenuItem("Load");
         myExitItem = new JMenuItem("Exit");
         myAboutItem = new JMenuItem("About");
+        myHintItem = new JMenuItem("Hint");
         myInstructionItem = new JMenuItem("Instruction");
 
         myMenuBar.add(myGameMenu);
@@ -146,6 +150,7 @@ public class GameFrame extends JFrame {
         myGameMenu.add(myLoadItem);
         myGameMenu.add(myExitItem);
         myHelpMenu.add(myAboutItem);
+        myHelpMenu.add(myHintItem);
         myHelpMenu.add(myInstructionItem);
         setJMenuBar(myMenuBar);
         menuBarListener();
@@ -157,6 +162,7 @@ public class GameFrame extends JFrame {
     public void menuBarListener() {
         myExitItem.addActionListener(theEvent -> showDialog(new ExitPanel()));
         myAboutItem.addActionListener(theEvent -> showDialog(new AboutPanel()));
+        myHintItem.addActionListener(theEvent -> showDialog(new HintPanel()));
         myInstructionItem.addActionListener(theEvent -> showDialog(new InstructionPanel()));
         mySaveItem.addActionListener(e -> myGamePanel.saveGame());
         myLoadItem.addActionListener(e -> myGamePanel.loadGame());
@@ -239,6 +245,40 @@ public class GameFrame extends JFrame {
             add(aboutPanel1);
             add(aboutPanel2);
             add(aboutPanel3);
+            add(resumeButton);
+        }
+
+    }
+    /**
+     * HintPanel class that creates the Hint panel.
+     */
+    class HintPanel extends JPanel {
+        public HintPanel() {
+            setBackground(PINK);
+            JLabel hintLabel1 = new JLabel("HINT:");
+            hintLabel1.setForeground(DARK_BROWN);
+            JLabel hintLabel2 = new JLabel("The exit door is straight up from entrance.");
+            hintLabel2.setForeground(BROWN);
+            JLabel hintLabel3 = new JLabel("The first row, third room on mini map :)");
+            hintLabel3.setForeground(BROWN);
+
+            JPanel hintPanel1 = new JPanel();
+            hintPanel1.setOpaque(false);
+            hintPanel1.add(hintLabel1);
+
+            JPanel hintPanel2 = new JPanel();
+            hintPanel2.setOpaque(false);
+            hintPanel2.add(hintLabel2);
+
+            JPanel hintPanel3 = new JPanel();
+            hintPanel3.setOpaque(false);
+            hintPanel3.add(hintLabel3);
+
+            setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER, BORDER,BORDER));
+            setLayout(new GridLayout(4, 1, 10, 10));
+            add(hintPanel1);
+            add(hintPanel2);
+            add(hintPanel3);
             add(resumeButton);
         }
 

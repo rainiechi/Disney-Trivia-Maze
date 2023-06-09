@@ -22,10 +22,14 @@ public class AssetSetter {
      */
     public AssetSetter(final ObjectManager[] theObjManager) {
         this.myObjManager = theObjManager;
-        setWhiteDoors();
-        setChests();
-        setSideDoors();
-        ExitLocation();
+        try {
+            setWhiteDoors();
+            setChests();
+            setSideDoors();
+            ExitLocation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

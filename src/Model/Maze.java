@@ -122,6 +122,9 @@ public class Maze {
      * @return integer value in column and row passed in.
      */
     public int getMyMapTileNum(final int col, final int row) {
+        if (myMapTileNum[col][row] < 0) {
+            throw new IllegalArgumentException("Tile number cannot be negative");
+        }
         return myMapTileNum[col][row];
     }
 
@@ -132,6 +135,9 @@ public class Maze {
      * @return Tile
      */
     public Tile getTile(final int num) {
+        if (myTile[num] == null) {
+            throw new IllegalArgumentException("Tile cannot be null");
+        }
         return myTile[num];
     }
 }
