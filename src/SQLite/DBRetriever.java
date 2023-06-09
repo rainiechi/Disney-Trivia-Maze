@@ -3,7 +3,10 @@ package SQLite;
 import Model.Question;
 import org.sqlite.SQLiteDataSource;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * DBRetriever accesses the SQL database and retrieves questions.
@@ -67,8 +70,8 @@ public class DBRetriever {
         try ( Connection conn = myDs.getConnection();
               Statement stmt = conn.createStatement(); ) {
             ResultSet rs = stmt.executeQuery(query);
-                query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
-                rs = stmt.executeQuery(query);
+            query = "SELECT * FROM questions ORDER BY RANDOM() LIMIT 1";
+            rs = stmt.executeQuery(query);
 
 
             question = new Question(rs.getString( "QUESTION" ),
