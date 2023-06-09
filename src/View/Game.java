@@ -1,10 +1,8 @@
 package View;
 
-import Model.Backpack;
 import Model.Player;
 import Model.QuestionRecord;
 import Model.StoneManager;
-import View.*;
 
 import java.io.Serializable;
 
@@ -55,6 +53,9 @@ public class Game implements Serializable {
      * @param theGamePanel game panel
      */
     public void setMyCollisionChecker(GamePanel theGamePanel) {
+        if (theGamePanel == null) {
+            throw new IllegalArgumentException("GamePanel cannot be null");
+        }
         myCollisionChecker = new CollisionChecker(theGamePanel, myQuestionRecord);
     }
 

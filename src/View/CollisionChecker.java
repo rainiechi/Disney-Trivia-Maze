@@ -27,6 +27,8 @@ public class CollisionChecker {
     private PopUp myPopUp;
     /** Counter for a cheat */
     private int myCheatCount;
+    /** Chest pop up for chest */
+    private ChestPopUp myChestPopUp;
 
     /**
      * Constructor initializes the fields.
@@ -315,7 +317,7 @@ public class CollisionChecker {
             myGp.getObjManager(theIndex).setTouched(true);
             myGp.getObjManager(theIndex).setChest(chest);
         } if (!myGp.getObjManager(theIndex).isLocked()) {
-            ChestPopUp pop = new ChestPopUp(myGp.getObjManager(theIndex).getChest(), myGp, thePlayer);
+            myChestPopUp = new ChestPopUp(myGp.getObjManager(theIndex).getChest(), myGp, thePlayer);
             if (myGp.getObjManager(theIndex).getChest().isLocked()) {
                 myGp.getObjManager(theIndex).setLocked(true);
                 // Once locked, image of chest is updated to be an open chest rather than a closed chest
@@ -334,7 +336,7 @@ public class CollisionChecker {
      * @param thePlayer player
      */
     private void checkExitDoors(final PlayerManager thePlayer) {
-        // Specific coorindates of doors surrounding exit room
+        // Specific coordinates of doors surrounding exit room
         if (myGp.getObjManager(8) != null && myGp.getObjManager(8).isLocked()
                 && (myGp.getObjManager(11) != null && myGp.getObjManager(11).isLocked()
                 || myGp.getObjManager(24) != null && myGp.getObjManager(24).isLocked())
