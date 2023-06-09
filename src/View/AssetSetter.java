@@ -35,7 +35,7 @@ public class AssetSetter {
     /**
      * Method sets the coordinates of front facing white doors on the map.
      */
-    public void setWhiteDoors() {
+    private void setWhiteDoors() {
         // Starts at (8,14) on the map
         int x = 8;
         int y = 14;
@@ -56,7 +56,7 @@ public class AssetSetter {
     /**
      * Sets exit door location on the map.
      */
-    public void ExitLocation() {
+    private void ExitLocation() {
         // location of exit door is (38,1) on world map.
         myObjManager[20] = new ObjectManager("Exit", 38 * TILE_SIZE, 1 * TILE_SIZE, true);
     }
@@ -64,7 +64,7 @@ public class AssetSetter {
     /**
      * Sets side door locations on the map.
      */
-    public void setSideDoors() {
+    private void setSideDoors() {
         // Starts at (12,2) on the map
         int x = 12;
         int y = 3;
@@ -97,7 +97,7 @@ public class AssetSetter {
     /**
      * Method sets the coordinates of chests on the map.
      */
-    public void setChests() {
+    private void setChests() {
         myObjManager[53] = new ObjectManager("Chest", 8 * TILE_SIZE, 2 * TILE_SIZE, true);
         myObjManager[54] = new ObjectManager("Chest", 53 * TILE_SIZE, 16 * TILE_SIZE, true);
         myObjManager[55] = new ObjectManager("Chest", 23 * TILE_SIZE, 16 * TILE_SIZE, true);

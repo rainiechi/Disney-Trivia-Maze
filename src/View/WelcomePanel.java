@@ -27,7 +27,7 @@ public class WelcomePanel extends JPanel {
     /**
      The font used for buttons.
      */
-    private static final Font fontForButtons = new Font("Bahnschrift", Font.BOLD, 16);
+    private static final Font FONT_FOR_BUTTONS = new Font("Bahnschrift", Font.BOLD, 16);
     /**
      The button for starting a new game.
      */
@@ -64,12 +64,12 @@ public class WelcomePanel extends JPanel {
     /**
      * Sets up the two buttons on the welcome screen.
      */
-    public void setupButtons() {
+    private void setupButtons() {
         myNewGameButton = new JButton("NEW GAME");
         myLoadGameButton = new JButton("LOAD GAME");
 
-        myNewGameButton.setFont(fontForButtons);
-        myLoadGameButton.setFont(fontForButtons);
+        myNewGameButton.setFont(FONT_FOR_BUTTONS);
+        myLoadGameButton.setFont(FONT_FOR_BUTTONS);
 
         myNewGameButton.setBackground(YELLOW);
         myLoadGameButton.setBackground(YELLOW);

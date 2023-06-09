@@ -22,7 +22,7 @@ public class PlayerHealth {
     /**
      * The font used for health.
      */
-    private Font myArial30;
+    private static final Font ARIAL_30 = new Font("Arial", Font.BOLD, 30);;
     /**
      * The player object associated with the health bar.
      */
@@ -37,7 +37,6 @@ public class PlayerHealth {
         if (thePlayer == null) {
             throw new IllegalArgumentException("Please enter non-null player");
         }
-        myArial30 = new Font("Arial", Font.BOLD, 30);
         myPlayer = thePlayer;
         try {
             myImage = (ImageIO.read(getClass().getResourceAsStream("/res/Miscellaneous_images/heart pixel art 32x32.png")));
@@ -52,7 +51,7 @@ public class PlayerHealth {
      */
     public void draw(final Graphics2D g2) {
         if (myPlayer.getHealth() > 0) {
-            g2.setFont(myArial30);
+            g2.setFont(ARIAL_30);
             g2.setColor(Color.white);
 
             g2.drawImage(myImage, GameSettings.TILE_SIZE / 2, GameSettings.TILE_SIZE / 2, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE, null);
