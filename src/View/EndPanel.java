@@ -82,7 +82,7 @@ public class EndPanel extends JPanel{
      * Used to print out the letters one by one with a delay for the end panel
      * message.
      */
-    public void startTimer() {
+    private void startTimer() {
         JPanel thisP = this;
         myTimer = new Timer(25, new ActionListener() {
             @Override

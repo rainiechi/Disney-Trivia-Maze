@@ -42,7 +42,7 @@ public class GameFrame extends JFrame {
     /** Game panel */
     private GamePanel myGamePanel;
     /** Button to resume game */
-    private JButton resumeButton;
+    private JButton myResumeButton;
     /** Welcome panel */
     private WelcomePanel myWelcomePanel;
 
@@ -117,14 +117,14 @@ public class GameFrame extends JFrame {
     /**
      * Sets up the resume button that will be used in multiple windows.
      */
-    public void resumeButtonSetUp() {
-        resumeButton = new JButton("RESUME");
-        resumeButton.setBackground(BEIGE);
-        resumeButton.setForeground(DARK_BROWN);
-        resumeButton.setBorder(BorderFactory.createLineBorder(DARK_BROWN, 1));
-        resumeButton.setSize(new Dimension(60,18));
+    private void resumeButtonSetUp() {
+        myResumeButton = new JButton("RESUME");
+        myResumeButton.setBackground(BEIGE);
+        myResumeButton.setForeground(DARK_BROWN);
+        myResumeButton.setBorder(BorderFactory.createLineBorder(DARK_BROWN, 1));
+        myResumeButton.setSize(new Dimension(60,18));
         //disposes the window and resumes game
-        resumeButton.addActionListener(theEvent -> {
+        myResumeButton.addActionListener(theEvent -> {
             Component comp = (Component) theEvent.getSource();
             Window win = SwingUtilities.getWindowAncestor(comp);
             win.dispose();
@@ -163,7 +163,7 @@ public class GameFrame extends JFrame {
     /**
      * Adds listeners to Menu items.
      */
-    public void menuBarListener() {
+    private void menuBarListener() {
         myExitItem.addActionListener(theEvent -> showDialog(new ExitPanel()));
         myAboutItem.addActionListener(theEvent -> showDialog(new AboutPanel()));
         myHintItem.addActionListener(theEvent -> showDialog(new HintPanel()));
@@ -216,7 +216,7 @@ public class GameFrame extends JFrame {
             exitButton.setBorder(BorderFactory.createLineBorder(DARK_BROWN, 1));
             exitButton.addActionListener(theEvent -> dispose());
             add(exitButton);
-            add(resumeButton);
+            add(myResumeButton);
         }
     }
 
@@ -250,7 +250,7 @@ public class GameFrame extends JFrame {
             add(aboutPanel1);
             add(aboutPanel2);
             add(aboutPanel3);
-            add(resumeButton);
+            add(myResumeButton);
         }
 
     }
@@ -284,7 +284,7 @@ public class GameFrame extends JFrame {
             add(hintPanel1);
             add(hintPanel2);
             add(hintPanel3);
-            add(resumeButton);
+            add(myResumeButton);
         }
     }
     /**
@@ -318,7 +318,7 @@ public class GameFrame extends JFrame {
             add(cheatPanel1);
             add(cheatPanel2);
             add(cheatPanel3);
-            add(resumeButton);
+            add(myResumeButton);
         }
 
     }
@@ -375,7 +375,7 @@ public class GameFrame extends JFrame {
             add(insPanel4);
             add(insPanel5);
             add(insPanel6);
-            add(resumeButton);
+            add(myResumeButton);
         }
     }
 
