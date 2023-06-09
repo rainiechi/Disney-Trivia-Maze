@@ -38,7 +38,7 @@ public class EndPanel extends JPanel{
     /**
      * The end screen that shows when player reaches the exit door.
      */
-    public EndPanel(Player thePlayer, GamePanel theGp) {
+    public EndPanel(final Player thePlayer, final GamePanel theGp) {
         myGp = theGp;
         myPlayer = thePlayer;
         setPreferredSize(new Dimension(SCREEN_WIDTH, SCREEN_HEIGHT));
