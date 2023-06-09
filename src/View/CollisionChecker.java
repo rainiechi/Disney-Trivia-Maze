@@ -15,11 +15,18 @@ import java.io.IOException;
  * @version 6/5/23
  */
 public class CollisionChecker {
+    /** Tile size in game */
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
+    /** Maze object */
     private final static Maze MAZE = new Maze();
+    /** Game panel object */
     private GamePanel myGp;
+    /** QuestionRecord object */
     private QuestionRecord myQuestionRecord;
+    /** Pop up for trivia dialog */
     private PopUp myPopUp;
+    /** Counter for a cheat */
+    private int myCheatCount;
 
     /**
      * Constructor initializes the fields.
@@ -29,6 +36,7 @@ public class CollisionChecker {
     public CollisionChecker(final GamePanel theGp, final QuestionRecord theQuestionRecord) {
         myGp = theGp;
         myQuestionRecord = theQuestionRecord;
+        myCheatCount = 0;
     }
 
     /**
@@ -244,6 +252,15 @@ public class CollisionChecker {
         // If the object is not null and object is not locked
         // Player is asked if they would like to attempt the door
         // If yes, trivia questions will pop up.
+        if (myCheatCount > 2 && myGp.getGame().getMyMiniMap().isMapEnabled()) {
+            myGp.deleteObjManager(theIndex);
+            if (thePlayer.getDirection().equals("left")) {
+                myGp.deleteObjManager(theIndex - 1);
+            } else if (thePlayer.getDirection().equals("right")) {
+                myGp.deleteObjManager(theIndex + 1);
+            }
+            myCheatCount = 0;
+        }
          if (myGp.getObjManager(theIndex) != null && !myGp.getObjManager(theIndex).isLocked()) {
             DialogForYesNoAnswer d = new DialogForYesNoAnswer("Would you like to attempt this door?", myGp);
 
@@ -267,6 +284,8 @@ public class CollisionChecker {
                     // can be made on the door.
                     myGp.getObjManager(theIndex).setLocked(true);
                 }
+            } else {
+                myCheatCount++;
             }
         } else if (myGp.getObjManager(theIndex) != null && thePlayer.getPlayer().isSoulStone() && myGp.getObjManager(theIndex).getDoor().isAttempted()) {
              // If player has a soul stone, they can use the ability to attempt the door again.

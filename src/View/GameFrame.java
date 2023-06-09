@@ -34,6 +34,8 @@ public class GameFrame extends JFrame {
     private JMenuItem myAboutItem;
     /** Hint menu item in game */
     private JMenuItem myHintItem;
+    /** Cheat menu item in game */
+    private JMenuItem myCheatItem;
 
     /** Instruction menu item in game */
     private JMenuItem myInstructionItem;
@@ -141,6 +143,7 @@ public class GameFrame extends JFrame {
         myExitItem = new JMenuItem("Exit");
         myAboutItem = new JMenuItem("About");
         myHintItem = new JMenuItem("Hint");
+        myCheatItem = new JMenuItem("Cheat");
         myInstructionItem = new JMenuItem("Instruction");
 
         myMenuBar.add(myGameMenu);
@@ -151,6 +154,7 @@ public class GameFrame extends JFrame {
         myGameMenu.add(myExitItem);
         myHelpMenu.add(myAboutItem);
         myHelpMenu.add(myHintItem);
+        myHelpMenu.add(myCheatItem);
         myHelpMenu.add(myInstructionItem);
         setJMenuBar(myMenuBar);
         menuBarListener();
@@ -163,6 +167,7 @@ public class GameFrame extends JFrame {
         myExitItem.addActionListener(theEvent -> showDialog(new ExitPanel()));
         myAboutItem.addActionListener(theEvent -> showDialog(new AboutPanel()));
         myHintItem.addActionListener(theEvent -> showDialog(new HintPanel()));
+        myCheatItem.addActionListener(theEvent -> showDialog(new CheatPanel()));
         myInstructionItem.addActionListener(theEvent -> showDialog(new InstructionPanel()));
         mySaveItem.addActionListener(e -> myGamePanel.saveGame());
         myLoadItem.addActionListener(e -> myGamePanel.loadGame());
@@ -279,6 +284,40 @@ public class GameFrame extends JFrame {
             add(hintPanel1);
             add(hintPanel2);
             add(hintPanel3);
+            add(resumeButton);
+        }
+    }
+    /**
+     * CheatPanel class that creates the Cheat panel.
+     */
+    class CheatPanel extends JPanel {
+        public CheatPanel() {
+            setBackground(PINK);
+            JLabel cheatLabel1 = new JLabel("CHEAT:");
+            cheatLabel1.setForeground(DARK_BROWN);
+            JLabel cheatLabel2 = new JLabel("To pass a specific door without trivia:");
+            cheatLabel2.setForeground(BROWN);
+            JLabel cheatLabel3 = new JLabel("Enable mini map (M) and choose NO once it asks" +
+                    "\n if you would like to attempt the door at least 3 times");
+            cheatLabel3.setForeground(BROWN);
+
+            JPanel cheatPanel1 = new JPanel();
+            cheatPanel1.setOpaque(false);
+            cheatPanel1.add(cheatLabel1);
+
+            JPanel cheatPanel2 = new JPanel();
+            cheatPanel2.setOpaque(false);
+            cheatPanel2.add(cheatLabel2);
+
+            JPanel cheatPanel3 = new JPanel();
+            cheatPanel3.setOpaque(false);
+            cheatPanel3.add(cheatLabel3);
+
+            setBorder(BorderFactory.createEmptyBorder(BORDER, BORDER, BORDER,BORDER));
+            setLayout(new GridLayout(4, 1, 10, 10));
+            add(cheatPanel1);
+            add(cheatPanel2);
+            add(cheatPanel3);
             add(resumeButton);
         }
 
