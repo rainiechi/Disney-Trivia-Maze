@@ -216,7 +216,7 @@ public class GamePanel extends JPanel implements Runnable {
      * Draws the world map of tiles, player, and objects in game.
      * @param theG Graphics component
      */
-    public void paintComponent(Graphics theG) {
+    public void paintComponent(final Graphics theG) {
 
         super.paintComponent(theG);
 
