@@ -56,4 +56,12 @@ public class StoneManager implements Serializable {
         return result;
     }
 
+    /**
+     * Getter for myStoneRecord.
+     * @return myStoneRecord.
+     */
+    public List getMyStoneRecord() {
+        return myStoneRecord;
+    }
+
 }

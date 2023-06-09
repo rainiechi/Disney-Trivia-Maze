@@ -78,7 +78,7 @@ public class MiniMap implements Serializable {
      * Method draws the maze and player scaled down so it is a mini map.
      * @param theG2 graphics2D object
      */
-    public void drawMiniMapScreen(Graphics2D theG2) {
+    public void draw(Graphics2D theG2) {
         if (myMapEnabled) {
             // Draw Map
             int width = 200;

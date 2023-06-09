@@ -50,11 +50,6 @@ public class SoundManager {
     public void loop() {
         myClip.loop(Clip.LOOP_CONTINUOUSLY);
     }
-    /**
-     Stops the audio clip.
-     */
-    public void stop() {
-        myClip.stop();
-    }
+
 }
 

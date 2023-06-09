@@ -72,7 +72,7 @@ public class ObjectManager implements Serializable {
     /**
      * Method identifies object by name and sets image based on name of object.
      */
-    public void switchObject() {
+    private void switchObject() {
         if (myName != null) {
             try{
                 switch (myName) {
