@@ -112,7 +112,7 @@ public class CollisionChecker {
     public int checkObject(final PlayerManager thePlayer, final boolean theCollision) {
         int index = 999;
 
-        for(int i = 0;  i < myGp.getObj().length; i++) {
+        for(int i = 0; i < myGp.getObjManagers().length; i++) {
             if (myGp.getObjManager(i) != null) {
                 // Get entity's solid area position
                 thePlayer.getSolidArea().x = thePlayer.getMyWorldX() + thePlayer.getSolidArea().x;

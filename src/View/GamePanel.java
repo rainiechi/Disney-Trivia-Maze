@@ -70,7 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
      * Sets the game (either a saved game or new game).
      * @param theGame the game to be set
      */
-    public void setMyGame(final Game theGame) {
+    private void setMyGame(final Game theGame) {
         System.out.println("1");
         myGame = theGame;
         addKeyListener(myGame.getMyKeyHandler());
@@ -266,7 +266,7 @@ public class GamePanel extends JPanel implements Runnable {
      * Getter method for ObjectManager contained in Game.
      * @return the ObjectManager
      */
-    public ObjectManager[] getObj() {
+    public ObjectManager[] getObjManagers() {
         return myGame.getMyObjManagers();
     }
 
