@@ -4,11 +4,20 @@ import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * Chest class represents chest object in game.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class Chest {
-    private Stone myStone; //the stone in the chest
+    /** The stone in chest */
+    private Stone myStone;
+    /** Random number */
     private int myRandomNumber;
+    /** Random object */
     private Random myRand;
+    /** Boolean for locked chest */
     private boolean myLocked;
 
     /**
@@ -26,7 +35,7 @@ public class Chest {
     public Chest(StoneManager theStoneM) {
         myStone = null;
         myRand = new Random();
-        myRandomNumber = myRand.nextInt(16);
+        myRandomNumber = myRand.nextInt(122);
         myLocked = false;
         randomProbability(theStoneM);
     }
@@ -35,19 +44,15 @@ public class Chest {
      * Adds the specified stone to the chest
      * @param theStone the Stone to be added
      */
-    public void addToChest(final Stone theStone) {
-        if (theStone == null) {
-            throw new IllegalArgumentException("Stone cannot be null");
-        }
-        myStone = theStone; //fix
+    public void addToChest(Stone theStone) {
+        myStone = theStone;
     }
     public void randomProbability(StoneManager theStoneM) {
         Stone result = null;
         // 40% Chance probability of chest containing stones
-        if (myRandomNumber >= 0) {
+        if (myRandomNumber % 3 == 0) {
             // Chooses random stone from arraylist
             result = theStoneM.generateStone();
-            //result = myStone;
         }
         addToChest(result);
     }
@@ -57,6 +62,7 @@ public class Chest {
      * @return name of the stone inside.
      */
     public String chestToString() {
+        // used for testing purposes
         if (myStone != null) {
             return myStone.getStoneName();
         } else {
@@ -90,13 +96,27 @@ public class Chest {
     public void clearChest() {
         myStone = null;
     }
+
+    /**
+     * Setter method sets the randomized number.
+     * @param theNum number to set
+     */
     public void setMyRandomNumber(int theNum) {
         myRandomNumber = theNum;
     }
 
+    /**
+     * Checks if the chest is locked.
+     * @return true if locked, otherwise false.
+     */
     public boolean isLocked() {
         return myLocked;
     }
+
+    /**
+     * Setter method sets the chest lock.
+     * @param theLock boolean to set.
+     */
     public void setLocked(boolean theLock) {
         myLocked = theLock;
     }

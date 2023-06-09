@@ -4,11 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * StoneManager class keeps track of stones that have been used.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class StoneManager implements Serializable {
-
+    /** The list of stones */
     private List<Stone> myStoneRecord;
 
+    /**
+     * Constructor initializes fields.
+     */
     public StoneManager() {
         myStoneRecord = new ArrayList<>(6);
         initializeStone();

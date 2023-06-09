@@ -7,21 +7,34 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
+/**
+ * Class represents the mini map in game and contains the methods
+ * to draw the mini map.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class MiniMap implements Serializable {
+    /** Tile size */
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
+    /** Maximum columns in world map */
     private static final int MAX_WORLD_COL = GameSettings.MAX_WORLD_COLUMN;
+    /** Maximum rows in world map */
     private static final int MAX_WORLD_ROW = GameSettings.MAX_WORLD_ROW;
+    /** Width of screen */
     private static final int SCREEN_WIDTH = GameSettings.SCREEN_WIDTH;
+    /** Width of world map */
     private static final int WORLD_MAP_WIDTH = TILE_SIZE * MAX_WORLD_COL;
+    /** Height of world map */
     private static final int WORLD_MAP_HEIGHT = TILE_SIZE * MAX_WORLD_ROW;
+    /** Maze object */
     private final static Maze MAZE = new Maze();
+    /** Image of maze map */
     private static BufferedImage MAZE_MAP = new BufferedImage(WORLD_MAP_WIDTH, WORLD_MAP_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
     /** private GamePanel object field */
     private GamePanel myGp;
 
-    /** Private field for image */
-    //private transient BufferedImage myMazeMap;
     /** Private boolean field if map is enabled */
     private boolean myMapEnabled;
 
@@ -30,6 +43,9 @@ public class MiniMap implements Serializable {
      * @param theGp GamePanel passed to constructor
      */
     public MiniMap(GamePanel theGp) {
+        if (theGp == null) {
+            throw new IllegalArgumentException("Please enter non-null GamePanel");
+        }
         myGp = theGp;
         createWorld();
     }
@@ -87,7 +103,7 @@ public class MiniMap implements Serializable {
      * Setter method for myMapEnabled.
      * @param theEnabled boolean to be set.
      */
-    public void setMapEnabled(boolean theEnabled) {
+    public void setMapEnabled(final boolean theEnabled) {
         myMapEnabled = theEnabled;
     }
 

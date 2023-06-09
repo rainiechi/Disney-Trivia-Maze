@@ -5,12 +5,18 @@ import SQLite.DBRetriever;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * QuestionRecord class keeps track of questions that have been used.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class QuestionRecord implements Serializable {
     /**
      * The list of used question.
      */
     private List<Integer> myQuestionRecord;
+    /** Total number of questions */
     private int myTotalQuestions;
 
     /**
@@ -20,14 +26,6 @@ public class QuestionRecord implements Serializable {
         DBRetriever db = new DBRetriever();
         myQuestionRecord = new ArrayList<Integer>();
         myTotalQuestions = db.getEntryCount();
-    }
-
-    /**
-     * Returns the list of used questions.
-     * @return list of used questions
-     */
-    public List getQuestionRecord() {
-        return myQuestionRecord;
     }
 
     /**
@@ -53,6 +51,13 @@ public class QuestionRecord implements Serializable {
             throw new RuntimeException("All questions have been used");
         }
         return !(myQuestionRecord.contains(theID));
+    }
+    /**
+     * Returns the list of used questions.
+     * @return list of used questions
+     */
+    public List getQuestionRecord() {
+        return myQuestionRecord;
     }
 
 }

@@ -2,17 +2,25 @@ package Model;
 
 import java.io.Serializable;
 
+/**
+ * Backpack class represents the player's inventory.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
 public class Backpack implements Serializable {
-    private static final int MAX_ITEMS = 6; //at most can have 6 stones
+    /** Max items in backpack */
+    private static final int MAX_ITEMS = 6;
+    /** Array of Stone objects */
     private Stone[] myStorage;
-    private int currItems; //current # of stones
-
+    /** Current number of items in backpack */
+    private int myCurrItems;
     /**
      * Backpack constructor
      */
     public Backpack() {
         myStorage = new Stone[MAX_ITEMS]; //at most stores all 6 stones
-        currItems = 0;
+        myCurrItems = 0;
     }
 
     /**
@@ -20,13 +28,13 @@ public class Backpack implements Serializable {
      * @param theStone the stone to be added
      */
     public void addToBackpack(final Stone theStone) {
-        if (currItems == MAX_ITEMS) {
+        if (myCurrItems == MAX_ITEMS) {
             throw new IllegalArgumentException("Game error, there should be no more than 6 stones in game"); //for debug purposes
         }
         for (int i = 0; i < MAX_ITEMS; i++) { //adds to first empty slot
             if (myStorage[i] == null) {
                 myStorage[i] = theStone;
-                currItems++;
+                myCurrItems++;
                 break;
             }
         }
@@ -51,7 +59,7 @@ public class Backpack implements Serializable {
      */
     public void deleteStone(final int theIndex) {
         myStorage[theIndex] = null;
-        currItems--;
+        myCurrItems--;
     }
 
     /**
@@ -73,6 +81,7 @@ public class Backpack implements Serializable {
      * Prints out current content of backpack.
      */
     public void displayCurrInventory() {
+        // Used for debugging
         System.out.println("Current inventory:");
         for (int i = 0; i < MAX_ITEMS; i++) {
             if (myStorage[i] != null) {
@@ -85,8 +94,8 @@ public class Backpack implements Serializable {
      * Returns current number of stones in backpack.
      * @return current number of stones in backpack
      */
-    public int getCurrItems() {
-        return currItems;
+    public int getMyCurrItems() {
+        return myCurrItems;
     }
 
 }

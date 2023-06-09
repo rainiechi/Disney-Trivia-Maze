@@ -1,24 +1,40 @@
 package View;
 
 import Model.GameSettings;
-import Model.Maze;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 
-public class GamePanel extends JPanel implements Runnable{
+/**
+ * GamePanel contains the necessary components needed for the game to run.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
+public class GamePanel extends JPanel implements Runnable {
+    /** TileManager object */
     private final transient TileManager myTileM;
+    /** AssetSetter object */
     private final transient AssetSetter myAssetSetter;
+    /** Game thread to run */
     private transient Thread myGameThread;
+    /** Game object */
     private Game myGame;
+    /** SoundManager object */
     private transient final SoundManager mySound;
+    /** Hot bar object to represent backpack */
     private final HotbarGUI myHotBar;
+    /** Layered pane */
     private JLayeredPane myLayeredPane;
+    /** PlayerHealth represents the player's current health */
     private transient PlayerHealth myPlayerHealth;
+    /** Boolean if game is over */
     private boolean myGameOver;
 
-
+    /**
+     * Constructor to initialize necessary fields.
+     */
     public GamePanel() {
         myTileM = new TileManager(this);
         setMyGame(new Game(this));
@@ -146,6 +162,10 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
+    /**
+     * Runs the application at 60 FPS while drawing and updating the player
+     * position on screen.
+     */
     @Override
     public void run() {
         double drawInterval = (double) 1000000000 / GameSettings.FPS; // 0.0166 seconds
@@ -182,10 +202,22 @@ public class GamePanel extends JPanel implements Runnable{
         }
     }
 
+    /**
+     * Updates the player's position.
+     */
     public void update() {
         myGame.getMyPlayerManager().update();
     }
 
+    /**
+     * Plays music for the game.
+     * @param theIndex index of the audio in SoundManager.
+     */
+    public void playMusic(final int theIndex) {
+        mySound.setFile(theIndex);
+        mySound.play();
+        mySound.loop();
+    }
 
     /**
      * Returns the current Game.
@@ -195,12 +227,15 @@ public class GamePanel extends JPanel implements Runnable{
         return myGame;
     }
 
+    /**
+     * Draws the world map of tiles, player, and objects in game.
+     * @param theG Graphics component
+     */
+    public void paintComponent(Graphics theG) {
 
-    public void paintComponent(Graphics g) {
+        super.paintComponent(theG);
 
-        super.paintComponent(g);
-
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) theG;
 
         // Tile
         myTileM.draw(g2);
@@ -219,28 +254,59 @@ public class GamePanel extends JPanel implements Runnable{
         g2.dispose();
     }
 
+    /**
+     * Getter method for PlayerManager.
+     * @return the player manager
+     */
     public PlayerManager getPlayerManager() {
         return myGame.getMyPlayerManager();
     }
 
+    /**
+     * Getter method for ObjectManager contained in Game.
+     * @return the ObjectManager
+     */
     public ObjectManager[] getObj() {
         return myGame.getMyObjManagers();
     }
 
+    /**
+     * Getter method for the object at index in the array of ObjectManager.
+     * @param theIndex index of object
+     * @return object at index
+     */
     public ObjectManager getObjManager(final int theIndex) {
         return myGame.getObjManager(theIndex);
     }
 
+    /**
+     * Deletes the object at index in the array of ObjectManager.
+     * @param theIndex object at index to be deleted.
+     */
     public void deleteObjManager(final int theIndex) {
         myGame.deleteObjManager(theIndex);
     }
 
+    /**
+     * Getter method for CollisionChecker.
+     * @return CollisionChecker object.
+     */
     public CollisionChecker getCC() {
         return myGame.getMyCollisionChecker();
     }
+
+    /**
+     * Getter method for game object.
+     * @return game object
+     */
     public Game getGame() {
         return myGame;
     }
+
+    /**
+     * Getter method for HotBar object.
+     * @return HotBar object.
+     */
     public HotbarGUI getHotBar() {
         return myHotBar;
     }
@@ -312,9 +378,19 @@ public class GamePanel extends JPanel implements Runnable{
         }
 
     }
+
+    /**
+     * Setter method for myGameOver.
+     * @param theGame boolean to set.
+     */
     public void setGameOver(boolean theGame) {
         myGameOver = theGame;
     }
+
+    /**
+     * Getter method for myGameOver.
+     * @return true if game over, false otherwise.
+     */
     public boolean isGameOver() {
         return myGameOver;
     }

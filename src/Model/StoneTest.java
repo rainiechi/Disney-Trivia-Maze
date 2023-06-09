@@ -3,14 +3,28 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-public class StoneTest {
 
+/**
+ * StoneTests tests methods in Stone class.
+ *
+ * @author Amanda Nguyen, Rainie Chi, Karan Sangha
+ * @version 6/5/23
+ */
+public class StoneTest {
+    /** Player object to test */
     private Player myPlayer;
+
+    /**
+     * Method initializes fields to test.
+     */
     @BeforeEach
     void setUp() {
         myPlayer = new Player();
     }
 
+    /**
+     * Method tests time stone was used and functions properly.
+     */
     @Test
     void testTimeStone() {
         TimeStone timeStone = new TimeStone();
@@ -19,7 +33,9 @@ public class StoneTest {
         myPlayer.useStone(timeStone);
         assertEquals(20, myPlayer.getTimeLimit());
     }
-
+    /**
+     * Method tests power stone was used and functions properly.
+     */
     @Test
     void testPowerStone() {
         PowerStone powerStone = new PowerStone();

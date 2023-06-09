@@ -4,12 +4,16 @@ import Model.GameSettings;
 import Model.Maze;
 
 import java.awt.*;
-
+import java.io.Serializable;
 
 public class TileManager {
+    /** Tile size */
     private static final int TILE_SIZE = GameSettings.TILE_SIZE;
+    /** Max world columns */
     private static final int MAX_WORLD_COL = GameSettings.MAX_WORLD_COLUMN;
+    /** Max world rows */
     private static final int MAX_WORLD_ROW = GameSettings.MAX_WORLD_ROW;
+    /** Maze object */
     private final static Maze MAZE = new Maze();
     /** Field for GamePanel */
     private final GamePanel myGp;
@@ -19,8 +23,10 @@ public class TileManager {
      * @param theGp GamePanel object passed in
      */
     public TileManager(final GamePanel theGp) {
+        if (theGp == null) {
+            throw new IllegalArgumentException("Game Panel cannot be null");
+        }
         myGp = theGp;
-
     }
 
     /**
