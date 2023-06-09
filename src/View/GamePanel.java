@@ -47,13 +47,13 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.setFocusable(true); // Enable keyboard focus on
 
-        //myBackPack = new Backpack();
+
         myHotBar = new HotbarGUI();
         myLayeredPane = new JLayeredPane();
 
         myLayeredPane = new JLayeredPane();
         myLayeredPane.setLayout(new BorderLayout());
-        //JPanel hotbarPanel = myHotBar.updateGUI();
+
 
         myHotBar.setBounds(280, 550, 300, 50);
         myHotBar.updateGUI(getMyGame().getMyPlayer(),this);
@@ -86,13 +86,6 @@ public class GamePanel extends JPanel implements Runnable {
         myGameThread.start();
     }
 
-    /**
-     * Returns the layered panel with the hotbar.
-     * @return layeredpane
-     */
-    public JLayeredPane getMyLayeredPane() {
-        return myLayeredPane;
-    }
 
 
     /**
@@ -220,14 +213,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
-     * Returns the current Game.
-     * @return current Game
-     */
-    public Game getMyGame() {
-        return myGame;
-    }
-
-    /**
      * Draws the world map of tiles, player, and objects in game.
      * @param theG Graphics component
      */
@@ -255,6 +240,20 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     /**
+     * Creates and show JDialog
+     * @param thePanel the panel to be contained by the JDialog
+     */
+    private void showDialog(final JPanel thePanel) {
+        GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(GamePanel.this);
+        JDialog dialog = new JDialog(frame, "hi", true);
+        dialog.getContentPane().add(thePanel);
+        dialog.setUndecorated(true);
+        dialog.pack();
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+    }
+
+    /**
      * Getter method for PlayerManager.
      * @return the player manager
      */
@@ -268,6 +267,14 @@ public class GamePanel extends JPanel implements Runnable {
      */
     public ObjectManager[] getObj() {
         return myGame.getMyObjManagers();
+    }
+
+    /**
+     * Returns the current Game.
+     * @return current Game
+     */
+    public Game getMyGame() {
+        return myGame;
     }
 
     /**
@@ -313,19 +320,28 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     /**
-     * Creates and show JDialog
-     * @param thePanel the panel to be contained by the JDialog
+     * Setter method for myGameOver.
+     * @param theGame boolean to set.
      */
-    private void showDialog(final JPanel thePanel) {
-        GameFrame frame = (GameFrame) SwingUtilities.getWindowAncestor(GamePanel.this);
-        JDialog dialog = new JDialog(frame, "hi", true);
-        dialog.getContentPane().add(thePanel);
-        dialog.setUndecorated(true);
-        dialog.pack();
-        dialog.setLocationRelativeTo(this);
-        dialog.setVisible(true);
+    public void setGameOver(boolean theGame) {
+        myGameOver = theGame;
     }
 
+    /**
+     * Getter method for myGameOver.
+     * @return true if game over, false otherwise.
+     */
+    public boolean isGameOver() {
+        return myGameOver;
+    }
+
+    /**
+     * Returns the layered panel with the hotbar.
+     * @return layeredpane
+     */
+    public JLayeredPane getMyLayeredPane() {
+        return myLayeredPane;
+    }
 
     /**
      * The popup screen for game saved and game loaded.
@@ -376,22 +392,6 @@ public class GamePanel extends JPanel implements Runnable {
             });
 
         }
-
     }
 
-    /**
-     * Setter method for myGameOver.
-     * @param theGame boolean to set.
-     */
-    public void setGameOver(boolean theGame) {
-        myGameOver = theGame;
-    }
-
-    /**
-     * Getter method for myGameOver.
-     * @return true if game over, false otherwise.
-     */
-    public boolean isGameOver() {
-        return myGameOver;
-    }
 }

@@ -128,16 +128,16 @@ public class PlayerManager implements Serializable {
      * Method updates the image of sprite character when a key is pressed.
      */
     public void update() {
-        if (myKeyH.isDownPressed() || myKeyH.isLeftPressed() ||
-                myKeyH.isRightPressed() || myKeyH.isUpPressed()) {
+        if (myKeyH.isMyDownPressed() || myKeyH.isMyLeftPressed() ||
+                myKeyH.isMyRightPressed() || myKeyH.isMyUpPressed()) {
 
-            if (myKeyH.isUpPressed()) {
+            if (myKeyH.isMyUpPressed()) {
                 myDirection = "up";
-            } else if (myKeyH.isDownPressed()) {
+            } else if (myKeyH.isMyDownPressed()) {
                 myDirection = "down";
-            } else if (myKeyH.isLeftPressed()) {
+            } else if (myKeyH.isMyLeftPressed()) {
                 myDirection = "left";
-            } else if (myKeyH.isRightPressed()) {
+            } else if (myKeyH.isMyRightPressed()) {
                 myDirection = "right";
             }
 

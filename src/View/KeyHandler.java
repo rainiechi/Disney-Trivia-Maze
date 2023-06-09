@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class KeyHandler implements KeyListener, Serializable {
     /** Booleans for up, down, left, and right keys */
-    private boolean upPressed, downPressed, rightPressed, leftPressed;
+    private boolean myUpPressed, myDownPressed, myRightPressed, myLeftPressed;
     /** Mini map object */
     private MiniMap myMiniMap;
 
@@ -41,16 +41,16 @@ public class KeyHandler implements KeyListener, Serializable {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_W) {
-            setUpPressed(true);
+            setMyUpPressed(true);
         }
         if (code == KeyEvent.VK_S) {
-            setDownPressed(true);
+            setMyDownPressed(true);
         }
         if (code == KeyEvent.VK_A) {
-            setLeftPressed(true);
+            setMyLeftPressed(true);
         }
         if (code == KeyEvent.VK_D) {
-            setRightPressed(true);
+            setMyRightPressed(true);
         }
         if (code == KeyEvent.VK_M) {
             if (myMiniMap.isMapEnabled()) {
@@ -69,16 +69,16 @@ public class KeyHandler implements KeyListener, Serializable {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_W) {
-            setUpPressed(false);
+            setMyUpPressed(false);
         }
         if (code == KeyEvent.VK_S) {
-            setDownPressed(false);
+            setMyDownPressed(false);
         }
         if (code == KeyEvent.VK_A) {
-            setLeftPressed(false);
+            setMyLeftPressed(false);
         }
         if (code == KeyEvent.VK_D) {
-            setRightPressed(false);
+            setMyRightPressed(false);
         }
     }
 
@@ -86,68 +86,68 @@ public class KeyHandler implements KeyListener, Serializable {
      * Release all keys.
      */
     public void setAllKeys() {
-        upPressed = false;
-        downPressed = false;
-        rightPressed = false;
-        leftPressed = false;
+        myUpPressed = false;
+        myDownPressed = false;
+        myRightPressed = false;
+        myLeftPressed = false;
     }
 
     /**
      * Getter method for up key.
      * @return true if pressed, false otherwise.
      */
-    public boolean isUpPressed() {
-        return upPressed;
+    public boolean isMyUpPressed() {
+        return myUpPressed;
     }
 
     /**
      * Setter method for up key.
-     * @param upPressed boolean passed in.
+     * @param myUpPressed boolean passed in.
      */
-    public void setUpPressed(boolean upPressed) {
-        this.upPressed = upPressed;
+    public void setMyUpPressed(boolean myUpPressed) {
+        this.myUpPressed = myUpPressed;
     }
     /**
      * Getter method for down key.
      * @return true if pressed, false otherwise.
      */
-    public boolean isDownPressed() {
-        return downPressed;
+    public boolean isMyDownPressed() {
+        return myDownPressed;
     }
     /**
      * Setter method for down key.
-     * @param downPressed boolean passed in.
+     * @param myDownPressed boolean passed in.
      */
-    public void setDownPressed(boolean downPressed) {
-        this.downPressed = downPressed;
+    public void setMyDownPressed(boolean myDownPressed) {
+        this.myDownPressed = myDownPressed;
     }
     /**
      * Getter method for right key.
      * @return true if pressed, false otherwise.
      */
-    public boolean isRightPressed() {
-        return rightPressed;
+    public boolean isMyRightPressed() {
+        return myRightPressed;
     }
     /**
      * Setter method for right key.
-     * @param rightPressed boolean passed in.
+     * @param myRightPressed boolean passed in.
      */
-    public void setRightPressed(boolean rightPressed) {
-        this.rightPressed = rightPressed;
+    public void setMyRightPressed(boolean myRightPressed) {
+        this.myRightPressed = myRightPressed;
     }
     /**
      * Getter method for left key.
      * @return true if pressed, false otherwise.
      */
-    public boolean isLeftPressed() {
-        return leftPressed;
+    public boolean isMyLeftPressed() {
+        return myLeftPressed;
     }
     /**
      * Setter method for left key.
-     * @param leftPressed boolean passed in.
+     * @param myLeftPressed boolean passed in.
      */
-    public void setLeftPressed(boolean leftPressed) {
-        this.leftPressed = leftPressed;
+    public void setMyLeftPressed(boolean myLeftPressed) {
+        this.myLeftPressed = myLeftPressed;
     }
 
 }
