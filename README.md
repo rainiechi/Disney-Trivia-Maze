@@ -8,12 +8,12 @@ In this delightful maze adventure, you'll embark on a journey through the enchan
 2. Along the way, you'll encounter trivia questions related to Disney, Marvel, Pixar, and Star Wars. Answer them correctly to unlock doors and move forward.
 3. Be careful! Your health points are limited, and if you run out or all doors to the exit are locked, it's Game Over.
 4. Collect Infinity Stones to gain special abilities:
-  + Time stone: Increases the trivia timer permanently by 5 seconds. (Uses: 1)
-  + Power stone: Boosts your speed by 2. Watch out for those quick moves! (Uses: 1)
-  + Soul stone: Resets a locked door. Don't let anything stand in your way! (Uses: 1)
-  + Mind stone: Eliminates one incorrect answer during trivia. Make wise choices! (Uses: 5)
-  + Space stone: Allows you to bypass a door without going through trivia. Skip ahead! (Uses: 1)
-  + Reality stone: Reveals the answer to a trivia question. Get a helping hand! (Uses: 1)
+    + Time stone: Increases the trivia timer permanently by 5 seconds. (Uses: 1)
+    + Power stone: Boosts your speed by 2. Watch out for those quick moves! (Uses: 1)
+    + Soul stone: Resets a locked door. Don't let anything stand in your way! (Uses: 1)
+    + Mind stone: Eliminates one incorrect answer during trivia. Make wise choices! (Uses: 5)
+    + Space stone: Allows you to bypass a door without going through trivia. Skip ahead! (Uses: 1)
+    + Reality stone: Reveals the answer to a trivia question. Get a helping hand! (Uses: 1)
   
   
 --- Installation ---
