@@ -1,4 +1,5 @@
 Disney Trivia Maze
+
 Welcome to the Disney Trivia Maze! 🏰🎉
 
 In this delightful maze adventure, you'll embark on a journey through the enchanting worlds of Disney, Marvel, Pixar, and Star Wars. Test your knowledge and explore iconic characters, magical places, and epic stories as you make your way to Boo's door to claim victory!
